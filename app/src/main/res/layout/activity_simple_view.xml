@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_simple_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.apps.szpansky.concat.open_all.OpenAllCatalogsActivity">
+
+
+    <ListView
+        android:id="@+id/list_view_simple_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/default_padding"
+        android:layout_marginRight="@dimen/default_padding"
+        android:clickable="true"
+        android:clipToPadding="false"
+        android:drawSelectorOnTop="true"
+        android:focusable="false"
+        android:layoutAnimation="@anim/my_layout_animation"
+        android:paddingTop="@dimen/toolBar_height"
+        android:scrollbarStyle="outsideInset" />
+
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:clickable="true"
+        android:verticalScrollbarPosition="left"
+        app:fabSize="normal"
+        app:srcCompat="@mipmap/ic_add_white_24dp" />
+
+
+</RelativeLayout>

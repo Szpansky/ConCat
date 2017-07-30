@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">ConCat</string>
+    <string name="ExportDB">Save Database</string>
+    <string name="ImportDB">Load Database</string>
+    <string name="account">Account</string>
+    <string name="add_catalog_notify">Catalog was added</string>
+    <string name="add_client_notify">Client was added</string>
+    <string name="add_item_notify">Item was added</string>
+    <string name="add_or_edit">Add  / Edit</string>
+    <string name="address">Address</string>
+    <string name="agree">Yes</string>
+    <string name="amount">Amount</string>
+    <string name="backup_error">Can\'t find Database</string>
+    <string name="basic">Basic</string>
+    <string name="browsing">Browsing</string>
+    <string name="catalog">Catalog</string>
+    <string name="catalog_nr">Catalog Number</string>
+    <string name="catalogs">Catalogs</string>
+    <string name="client">Client</string>
+    <string name="clients">Clients</string>
+    <string name="close">Close</string>
+    <string name="code">Code</string>
+    <string name="coming_soon">Activity available soon</string>
+    <string name="colon">:</string>
+    <string name="created">Created:</string>
+    <string name="data">Data</string>
+    <string name="date">Date</string>
+    <string name="delete_notify">Are you sure you want to delete ?</string>
+    <string name="deleting_data_base">Deleting Database</string>
+    <string name="deleting_data_base_info">Type \"5723\" to delete Database</string>
+    <string name="disagree">No</string>
+    <string name="discounts">Discounts</string>
+    <string name="edit_catalog_notify">Catalog was edited</string>
+    <string name="edit_client_notify">Client was edited</string>
+    <string name="edit_item_notify">Item was edited</string>
+    <string name="email">Email</string>
+    <string name="end">End</string>
+    <string name="ending_catalog">Catalog is ending</string>
+    <string name="ending_catalog_info">Notifycation about that the catalog is ending</string>
+    <string name="error">Error</string>
+    <string name="error_notify">Ops… something get wrong</string>
+    <string name="export_db">Export</string>
+    <string name="file_does_not_exists">File doesn\'t exists</string>
+    <string name="general">General</string>
+    <string name="help_opinion">Help and Opinion</string>
+    <string name="import_db">Import</string>
+    <string name="import_export_folder">Import / Export (Selection)</string>
+    <string name="import_export">Import / Export</string>
+    <string name="import_export_DB_information">Import will overwrite current database.\nExport will create file in home directory:\n\"/ConCat/Exported/\"\n(Use it when you want reinstall your app)</string>
+    <string name="import_export_DB_title">Import / Export Database</string>
+    <string name="import_export_hint">IMPORTANT! (Every file you want to import must be moved to home directory: \"ConCat\". More information in the Help tab)</string>
+    <string name="import_export_table_info">Import will add new content. If they exist, they will be updated.\nExport will create file in home directory:\n\"/ConCat/Exported/\"\n and you can share ito</string>
+    <string name="information">Information\'s</string>
+    <string name="item">Item</string>
+    <string name="item_title">Item Name</string>
+    <string name="items">Items</string>
+    <string name="log_in">Log In</string>
+    <string name="logged_as">Logged as</string>
+    <string name="login">Login</string>
+    <string name="look">Look</string>
+    <string name="name">Name</string>
+    <string name="new_catalog">New Catalog</string>
+    <string name="new_client">New Client</string>
+    <string name="new_client_notifications">Notifications about new clients</string>
+    <string name="new_item">New Item</string>
+    <string name="new_order">New Order</string>
+    <string name="new_order_notifications">Notifications about new orders</string>
+    <string name="news">Hello</string>
+    <string name="news_sub">Nice weather</string>
+    <string name="not_paid">Not paid</string>
+    <string name="notifications">Notifications</string>
+    <string name="open">Open</string>
+    <string name="ordered">Ordered</string>
+    <string name="orders">Orders</string>
+    <string name="paid">Paid</string>
+    <string name="password">Password</string>
+    <string name="person">Person</string>
+    <string name="persons">People</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="pick_discounts">Choose Discounts</string>
+    <string name="pick_item">Choose Item</string>
+    <string name="pick_person">Choose Person</string>
+    <string name="pref_category_data">Data settings</string>
+    <string name="pref_def_data_base_exist">It will delete all data !</string>
+    <string name="pref_def_logged_as">Your name</string>
+    <string name="price">Price</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Name/Code/Date/Status</string>
+    <string name="search_toast">Without \" Please ;)</string>
+    <string name="settings">Settings</string>
+    <string name="show_tools">Show tools</string>
+    <string name="start">Begin</string>
+    <string name="status">Status</string>
+    <string name="string_new">New</string>
+    <string name="successfully_notify">Success !</string>
+    <string name="surname">Surname</string>
+    <string name="thank_you">Thanks a lot</string>
+    <string name="total">Total</string>
+    <string name="try_again_later">Try again later</string>
+    <string name="updated">Updated:</string>
+    <string name="utilities">Tools</string>
+    <string name="wait_notify">Wait, I\'m working ;)</string>
+
+
+    <!-- -      <string name="ads_Interstitial_main_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>         Tests ids 1        <!- -->
+    <!-- -      <string name="ads_banner_main_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>               Tests ids 2        <!- -->
+    <!-- -      <string name="ads_reward_main_id" translatable="false">ca-app-pub-3940256099942544/5224354917</string>               Tests ids 3        <!- -->
+
+
+    <!-- -      <string name="ads_Interstitial_main_id" translatable="false">ca-app-pub-9635712631261774/7744024240</string>          My ids 1     <!- -->
+    <!-- -      <string name="ads_banner_main_id" translatable="false">ca-app-pub-9635712631261774/7604423447</string>              My ids 2     <!- -->
+    <!-- -      <string name="ads_reward_main_id" translatable="false">ca-app-pub-9635712631261774/2174583266</string>              My ids 3     <!- -->
+    <!-- -  <string name="ads_banner_add_catalog" translatable="false">ca-app-pub-9635712631261774/3467617080</string>              My ids 4     <!- -->
+     <!-- - <string name="ads_banner_add_item" translatable="false">ca-app-pub-9635712631261774/6264993205</string>                 My ids 5     <!- -->
+    <!-- -  <string name="ads_banner_add_person" translatable="false">ca-app-pub-9635712631261774/5000190606</string>               My ids 6     <!- -->
+
+
+     <string name="ads_reward_main_id" translatable="false">ca-app-pub-3940256099942544/5224354917</string>
+     <string name="ads_Interstitial_main_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+
+     <string name="ads_banner_main_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+     <string name="ads_banner_add_catalog" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+     <string name="ads_banner_add_item" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+     <string name="ads_banner_add_person" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+
+    <string name="count_of_order">Ordered</string>
+     <string name="pcs">" pcs"</string>
+     <string name="money_shortcut">" usd"</string>
+     <string name="clients_amount">Clients Amount</string>
+     <string name="daily_reward">Daily Reward</string>
+     <string name="calendar">Calendar</string>
+     <string name="catalog_on_line">Catalog On-Line</string>
+     <string name="start_date">Starting Date</string>
+     <string name="end_date">Ending Date</string>
+     <string name="help_and_opinion_title_1">Rate this app</string>
+     <string name="help_and_opinion_title_2">I don\'t see exported data …</string>
+     <string name="help_and_opinion_title_3">Where are the exported files ?</string>
+     <string name="help_and_opinion_title_4">I exported files but can\'t import …</string>
+     <string name="help_and_opinion_text_1">I\'d like to know what do you think about my app. If you have any suggestions or issues, please send me an email and I\'will try my best to help you!</string>
+     <string name="help_and_opinion_text_2">If you are using PC and USB cable, try to disconnect the cable and plug it in again, otherwise try to restart phone.</string>
+     <string name="help_and_opinion_text_3">If you got SD-card, the files are located in \"/ConCat\" folder on that SD, otherwise you need to use some File Browser and then go to folder named \"Internal storage\"</string>
+     <string name="help_and_opinion_text_4">If you want to import the file, you to need move exported files from \"/ConCat/Exported\" folder directly to \"/ConCat\" folder. Thanks to that you don\'t have to worry about overwriting files. ;)</string>
+     <string name="send_mail_to_developer">-> Send Mail to Developer</string>
+     <string name="help_and_opinion_title_5">How can I contact with the developer ?</string>
+     <string name="help_and_opinion_text_5">If you\'re having issues, have any suggestions or something else you can contact with me at concatapp@gmail.com</string>
+     <string name="rate_on_play_store">-> Rate on Play Store</string>
+     <string name="points">Points</string>
+     <string name="points_amount">Points amount</string>
+     <string name="help_and_opinion_title_6">Weird exported txt files</string>
+     <string name="help_and_opinion_text_6">Don\'t use standard notepad to open the file and use Word or notepad++ instead</string>
+     <string name="help_and_opinion_title_7">Can I use Excel with exported txt files ?</string>
+     <string name="help_and_opinion_text_7">Yes, you can use it. In Excel just open it as text file. Use UTF-8 as text encoding, leave checked default separators and then mark all column as text. I don\'t recommend use Excel for it.</string>
+     <string name="help_and_opinion_title_8">How now create txt from Excel ?</string>
+     <string name="help_and_opinion_text_8">Just choose \"save as\" option, select text file with separators. And that\'s all</string>
+     <string name="failed_to_load_ad">Try again tomorrow or check your internet connection</string>
+     <string name="contacts">Contacts</string>
+
+     <string name="db_status_payed">Paid</string>
+     <string name="db_status_not_payed">Not Paid</string>
+     <string name="db_status_ready">Delivered</string>
+     <string name="current_catalog">Current Catalog</string>
+     <string name="count_of_catalogs">Count of Catalogs</string>
+     <string name="count_of_clients">Count of Clients</string>
+     <string name="back">Back</string>
+     <string name="catalogs_amount">Catalogs Amounts</string>
+     <string name="help_and_opinion_title_9">How I can donate to the developer?</string>
+     <string name="help_and_opinion_text_9">If you would like to send donation to the developer, you can do this by visiting web site:</string>
+     <string name="visit_website">-> Open Website</string>
+
+ </resources>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/accountItems"
+        android:title="@string/account">
+        <menu>
+            <item
+                android:id="@+id/menuLogin"
+                android:icon="@mipmap/ic_person_black_24dp"
+                android:title="@string/login" />
+            <item
+                android:id="@+id/menuMyAccount"
+                android:icon="@mipmap/ic_info_black_24dp"
+                android:title="@string/information" />
+        </menu>
+    </item>
+
+
+    <item
+        android:id="@+id/mainItems"
+        android:title="@string/basic">
+        <menu>
+            <item
+                android:id="@+id/menuWorks"
+                android:checkable="true"
+                android:icon="@mipmap/ic_library_books_black_24dp"
+                android:title="@string/catalogs" />
+            <item
+                android:id="@+id/menuClients"
+                android:checkable="true"
+                android:icon="@mipmap/ic_account_box_black_24dp"
+                android:title="@string/contacts" />
+            <item
+                android:id="@+id/menuItems"
+                android:checkable="true"
+                android:icon="@mipmap/ic_toys_black_24dp"
+                android:title="@string/items" />
+            <item
+                android:id="@+id/showTools"
+                android:icon="@mipmap/ic_keyboard_arrow_down_black_24dp"
+                android:title="@string/show_tools" />
+
+        </menu>
+    </item>
+
+
+    <item
+        android:id="@+id/subItems"
+        android:title="@string/utilities"
+        android:visible="false">
+        <menu>
+            <item
+                android:id="@+id/menuExportImport"
+                android:icon="@mipmap/ic_import_export_black_24dp"
+                android:title="@string/import_export" />
+            <item
+                android:id="@+id/menuSetting"
+                android:icon="@mipmap/ic_settings_black_24dp"
+                android:title="@string/settings" />
+            <item
+                android:id="@+id/menuHelpOpinion"
+                android:icon="@mipmap/ic_help_black_24dp"
+                android:title="@string/help_opinion" />
+        </menu>
+    </item>
+
+
+</menu>

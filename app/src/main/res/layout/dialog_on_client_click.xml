@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/default_padding">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="casual"
+        android:text="Informacje o Zamówieniu"
+        android:textSize="@dimen/default_text_size"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="casual"
+        android:padding="@dimen/default_text_margin"
+        android:text="Zmień Status"
+        android:textSize="@dimen/default_sub_text_size"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radioButtonOrderNotPaid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/default_padding"
+            android:text="@string/db_status_not_payed" />
+
+        <RadioButton
+            android:id="@+id/radioButtonOrderPaid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/default_padding"
+            android:text="@string/db_status_payed" />
+
+        <RadioButton
+            android:id="@+id/radioButtonOrderReady"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/default_padding"
+            android:text="@string/db_status_ready" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/buttonOrderSave"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_padding"
+        android:fontFamily="casual"
+        android:text="Zapisz"
+        android:textSize="@dimen/default_sub_text_size"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonOrderDelete"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
+        android:fontFamily="casual"
+        android:text="Usuń"
+        android:textSize="@dimen/default_sub_text_size"
+        android:textStyle="bold" />
+
+</LinearLayout>

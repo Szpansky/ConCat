@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_items"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context="com.apps.szpansky.concat.add_edit.AddEditItemsActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_height="0px"
+                android:focusable="true"
+                android:focusableInTouchMode="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="casual"
+                android:padding="@dimen/default_padding"
+                android:text="@string/new_item"
+                android:textAllCaps="true"
+                android:textSize="@dimen/default_text_size"
+                android:textStyle="bold|italic" />
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/add_edit_itemName"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/default_edit_text_height"
+                    android:layout_weight="1"
+                    android:hint="@string/item_title"
+                    android:inputType="textCapSentences"
+                    android:maxLength="150"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textStyle="bold" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/add_edit_itemNr"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/default_edit_text_height"
+                    android:layout_weight="1"
+                    android:hint="@string/code"
+                    android:inputType="number"
+                    android:maxLength="5"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textStyle="bold" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/add_edit_itemPrice"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/default_edit_text_height"
+                    android:layout_weight="1"
+                    android:hint="@string/price"
+                    android:inputType="numberDecimal"
+                    android:maxLength="8"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textStyle="bold" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/pick_discounts"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textStyle="bold" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <CheckBox
+                    android:id="@+id/check_5"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:text="5%"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/check_10"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/check_5"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:text="10%"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/check_15"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/check_10"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:text="15%"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/check_20"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:text="20%"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/check_25"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/check_20"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:text="25%"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/check_30"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/check_25"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:text="30%"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/check_35"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:text="35%"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/check_40"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/check_35"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:text="40%"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textStyle="bold" />
+
+                <CheckBox
+                    android:id="@+id/check_100"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/check_40"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:text="100%"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textStyle="bold" />
+
+                <com.google.android.gms.ads.AdView
+                    android:id="@+id/adViewItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_below="@+id/check_100"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/default_margin"
+                    app:adSize="BANNER"
+                    app:adUnitId="@string/ads_banner_add_item" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_edit_item_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:clickable="true"
+        app:fabSize="normal"
+        app:srcCompat="@mipmap/ic_add_white_24dp" />
+
+</RelativeLayout>

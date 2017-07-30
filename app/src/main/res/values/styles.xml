@@ -1,0 +1,29 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/defaultBackground</item>
+    </style>
+
+
+    <style name="BrowsingTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimaryForBrowsing</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkForBrowsing</item>
+        <item name="colorAccent">@color/colorAccentForBrowsing</item>
+        <item name="android:colorBackground">@color/browsingBackground</item>
+    </style>
+
+
+    <style name="PickTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimaryForPick</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkForPick</item>
+        <item name="colorAccent">@color/colorAccentForPick</item>
+        <item name="android:colorBackground">@color/pickingBackground</item>
+    </style>
+
+
+</resources>

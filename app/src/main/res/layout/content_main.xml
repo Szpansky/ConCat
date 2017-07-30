@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include2"
+        layout="@layout/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/include2"
+        android:layout_centerHorizontal="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/openCatalogs"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_margin="@dimen/default_padding"
+                android:layout_weight="1"
+                android:fontFamily="casual"
+                android:text="@string/browsing"
+                android:textSize="@dimen/default_text_size"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/startAd"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_margin="@dimen/default_padding"
+                android:layout_weight="1"
+                android:fontFamily="casual"
+                android:text="@string/daily_reward"
+                android:textSize="@dimen/default_text_size"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/openCalendar"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_margin="@dimen/default_padding"
+                android:layout_weight="1"
+                android:fontFamily="casual"
+                android:text="@string/calendar"
+                android:textSize="@dimen/default_text_size"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/openURLCatalog"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_margin="@dimen/default_padding"
+                android:layout_weight="1"
+                android:fontFamily="casual"
+                android:text="@string/catalog_on_line"
+                android:textSize="@dimen/default_text_size"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:clickable="true"
+        app:elevation="9dp"
+        app:fabSize="normal"
+        app:srcCompat="@mipmap/ic_add_white_24dp" />
+
+<!--
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:adSize="BANNER"
+        app:adUnitId="@string/ads_banner_main_id" />-->
+
+    <GridLayout
+        android:id="@+id/subFloatingMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@android:drawable/zoom_plate"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/textNewCatalog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_gravity="end|center"
+            android:layout_marginBottom="@dimen/floating_button_margin"
+            android:layout_row="0"
+            android:background="@android:drawable/editbox_background"
+            android:padding="@dimen/default_text_margin"
+            android:text="@string/catalog" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAddCatalog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/floating_button_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:layout_row="0"
+            android:adjustViewBounds="false"
+            android:baselineAlignBottom="false"
+            android:clickable="false"
+            app:fabSize="mini"
+            app:srcCompat="@mipmap/ic_library_books_white_24dp" />
+
+        <TextView
+            android:id="@+id/textNewPerson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_gravity="end|center"
+            android:layout_marginBottom="@dimen/floating_button_margin"
+            android:layout_row="1"
+            android:background="@android:drawable/editbox_background"
+            android:padding="@dimen/default_text_margin"
+            android:text="@string/person" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAddPerson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/floating_button_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:layout_row="1"
+            android:clickable="false"
+            app:fabSize="mini"
+            app:srcCompat="@mipmap/ic_account_box_white_24dp" />
+
+        <TextView
+            android:id="@+id/textNewItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_gravity="end|center"
+            android:layout_marginBottom="@dimen/floating_button_margin"
+            android:layout_row="2"
+            android:background="@android:drawable/editbox_background"
+            android:padding="@dimen/default_text_margin"
+            android:text="@string/item" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAddItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/floating_button_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:layout_row="2"
+            android:clickable="false"
+            app:fabSize="mini"
+            app:srcCompat="@mipmap/ic_toys_white_24dp" />
+
+        <TextView
+            android:id="@+id/textNew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_gravity="center_horizontal|center"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:layout_row="4"
+            android:background="@android:drawable/editbox_background"
+            android:padding="@dimen/default_text_margin"
+            android:text="@string/string_new" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabMainDeactivate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:clickable="false"
+            android:visibility="invisible"
+            app:elevation="9dp"
+            app:fabSize="normal"
+            app:srcCompat="@mipmap/ic_add_white_24dp" />
+
+    </GridLayout>
+
+
+</RelativeLayout>

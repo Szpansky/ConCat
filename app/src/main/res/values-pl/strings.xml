@@ -1,0 +1,157 @@
+<resources>
+    <string name="open">Otwórz</string>
+    <string name="close">Zamknij</string>
+    <string name="disagree">Nie</string>
+    <string name="agree">Tak</string>
+    <string name="news">Witaj</string>
+    <string name="news_sub">Piękna pogoda</string>
+
+    <string name="add_catalog_notify">Dodano Katalog</string>
+    <string name="add_client_notify">Dodano Klienta</string>
+    <string name="add_item_notify">Dodano Przedmiot</string>
+    <string name="edit_client_notify">Edytowano Klienta</string>
+    <string name="edit_catalog_notify">Edytowano Katalog</string>
+    <string name="edit_item_notify">Edytowano Przedmiot</string>
+    <string name="item_title">Nazwa Przedmiotu</string>
+    <string name="catalog_nr">Numer Katalogu</string>
+    <string name="items">Przedmioty</string>
+    <string name="clients">Klienci</string>
+    <string name="catalogs">Katalogi</string>
+    <string name="catalog">Katalog</string>
+    <string name="person">Osoba</string>
+    <string name="item">Przedmiot</string>
+    <string name="pick_person">Wybierz Osobę</string>
+    <string name="pick_item">Wybierz Przedmiot</string>
+    <string name="not_paid">Nie Zapłacono</string>
+    <string name="paid">Zapłacono</string>
+
+    <string name="name">Imię</string>
+    <string name="surname">Nazwisko</string>
+    <string name="address">Adres</string>
+    <string name="phone_number">Numer Telefonu</string>
+
+    <string name="colon">:</string>
+    <string name="code">Kod</string>
+    <string name="amount">Ilość</string>
+    <string name="total">Suma</string>
+    <string name="discounts">Zniżki</string>
+    <string name="price">Cena</string>
+    <string name="status">Status</string>
+    <string name="ordered">Zamówiono</string>
+
+    <string name="start">Początek</string>
+    <string name="end">Koniec</string>
+    <string name="date">Data</string>
+
+    <string name="string_new">Nowy</string>
+    <string name="ExportDB">Zapisz Bazę Danych</string>
+    <string name="ImportDB">Wczytaj Bazę Danych</string>
+
+    <string name="account">Konto</string>
+    <string name="basic">Podstawowe</string>
+    <string name="utilities">Narzędzia</string>
+    <string name="search">Szukaj</string>
+    <string name="browsing">Przeglądanie</string>
+    <string name="add_or_edit">Dodaj / Edytuj</string>
+    <string name="login">Zaloguj</string>
+    <string name="information">Informacje</string>
+    <string name="settings">Ustawienia</string>
+    <string name="help_opinion">Pomoc i opinia</string>
+
+    <string name="error">Błąd</string>
+    <string name="search_toast">Bez \" Proszę ;)</string>
+    <string name="coming_soon">Aktywność dostępna wkrótce</string>
+    <string name="error_notify">Ups… coś poszło nie tak :( </string>
+    <string name="delete_notify">Na pewno chcesz usunąć?</string>
+    <string name="successfully_notify">Sukces !</string>
+    <string name="wait_notify">Czekaj, właśnie pracuje :) </string>
+    <string name="backup_error">Nie Znaleziono Bazy</string>
+    <string name="search_hint">Nazwa/Kod/Data/Status</string>
+    <string name="import_export_DB_information">Importowanie bazy zastąpi istniejące dane.\nEksport utworzy plik w katalogu głównym:\n\"/ConCat/Exported/\"\n(Używaj gdy np. chcesz przeinstalować aplikacje)</string>
+    <string name="import_export_DB_title">Import / Eksport\nBazy Danych</string>
+    <string name="import_export">Import / Eksport</string>
+    <string name="export_db">Eksport</string>
+    <string name="import_db">Import</string>
+    <string name="email">Email</string>
+    <string name="password">Hasło</string>
+    <string name="log_in">Log In</string>
+    <string name="client">Klient</string>
+    <string name="new_client">Nowy Klient</string>
+    <string name="new_catalog">Nowy Katalog</string>
+    <string name="new_item">Nowy Przedmiot</string>
+
+    <string name="import_export_folder">Import / Eksport (Zaznaczenia)</string>
+    <string name="import_export_table_info">Importowanie doda brakujące wartości.\nJeżeli istnieją zaktualizuje je.\nEksport utworzy plik w katalogu głównym:\n\"/ConCat/Exported/\"\ni pozwala sie nim dzielić.</string>
+    <string name="import_export_hint">WAŻNE! (Wszystkie pliki przeznaczone do importowania, umieść w głównym katalogu: \"/ConCat/\".\nWięcej informacji w zkładce pomocy</string>
+    <string name="file_does_not_exists">Plik nie istnieje</string>
+    <string name="updated">Zaktualizowano:</string>
+    <string name="created">\nUtworzono:</string>
+    <string name="persons">Osoby</string>
+    <string name="orders">Zamowienia</string>
+    <string name="try_again_later">Spróbuj za chwilę</string>
+    <string name="pick_discounts">Wybierz Zniżki</string>
+    <string name="pref_def_logged_as">Twoja Nazwa</string>
+    <string name="pref_def_data_base_exist">To usunie wszystkie dane !</string>
+    <string name="deleting_data_base_info">Wpisz \"5723\" by usunąć całą Bazę Danych</string>
+
+    <string name="thank_you">Wielkie Dzięki :) </string>
+    <string name="show_tools">Pokaż narzędzia</string>
+    <string name="pref_category_data">Ustawienia danych</string>
+    <string name="new_order">Nowe zamówienie</string>
+    <string name="ending_catalog">Kończący się katalog</string>
+    <string name="general">Ogólne</string>
+    <string name="logged_as">Zalogowany jako</string>
+    <string name="look">Wygląd</string>
+    <string name="notifications">Powiadomienia</string>
+    <string name="ending_catalog_info">Powiadomienia o kończącym się katalogu</string>
+    <string name="new_client_notifications">Powiadomienia o nowych klientach</string>
+    <string name="new_order_notifications">Powiadomienia o nowych zamówieniach</string>
+    <string name="data">Dane</string>
+    <string name="deleting_data_base">Usuwanie Bazy Danych</string>
+    <string name="count_of_order">Zamówionych</string>
+    <string name="pcs">" szt"</string>
+    <string name="money_shortcut">" zł"</string>
+    <string name="clients_amount">Ilość Klientów</string>
+    <string name="daily_reward">Codzienna nagroda</string>
+    <string name="calendar">Kalendarz</string>
+    <string name="catalog_on_line">Katalog On-Line</string>
+    <string name="end_date">Data Końca</string>
+    <string name="start_date">Data Początku</string>
+    <string name="help_and_opinion_title_1">Oceń aplikację</string>
+    <string name="help_and_opinion_title_3">Gdzie są wyeksportowane pliki ?</string>
+    <string name="help_and_opinion_title_2">Nie widzę wyeksportowanych plików …</string>
+    <string name="help_and_opinion_title_4">Wyeksportowałem pliki ale teraz nie mogę imporotwać …</string>
+    <string name="help_and_opinion_text_1">Chciałbym wiedzieć co myślisz o mojej aplikacji. Jeżeli masz jakieś sugestie lub chcesz mnie poinformować o problemach, proszę wyślij do mnie wiadomość i zrobię wszystko co w mojej mocy by Ci pomóc!</string>
+    <string name="help_and_opinion_text_2">Jeżeli używasz komputera i kabla USB do przeglądania plików na telefonie, spróbuj rozłączyć i połączyć kabel ponownie. W innym wypadku restart urządzenia powinien pomóc.</string>
+    <string name="help_and_opinion_text_3">Jeżeli masz kartę pamięci SD, to właśnie tam są pliki w katalogu \"/ConCat\", w przeciwnym wypadku użyj aplikacji do przeglądania plików i znajdź główny folder pamięci, gdzie będzie fodler \"/ConCat\"</string>
+    <string name="help_and_opinion_text_4">Jeżeli chcesz importować pliki, musisz przenieść eksportowane pliki z folderu \"/ConCat/Exported\" do folderu wcześniej \"/ConCat\". To dlatego byś nie nadpisał sobie ważnych danych ;)</string>
+    <string name="help_and_opinion_text_5">Jeżeli masz jakiś problem, sugestie bądź chcesz po prostu napisać, możesz to zrobić wysyłając wiadomość na concatapp@gmail.com</string>
+    <string name="help_and_opinion_title_5">W jaki sposób mogę skontaktować się z twórcą ?</string>
+    <string name="rate_on_play_store">-> Oceń aplikacje w Play Store</string>
+    <string name="send_mail_to_developer">-> Wyślij E-Mail do Twórcy</string>
+    <string name="points">Punkty</string>
+    <string name="points_amount">Ilość punktów</string>
+    <string name="help_and_opinion_text_6">Do otwierania plików wyeksportowanych nie używaj zwykłego notatnika, zamast tego użyj Worda lub Notepad++</string>
+    <string name="help_and_opinion_title_6">Dziwny wyeksportowany plik po otwarciu …</string>
+    <string name="help_and_opinion_text_7">Tak, oczywiście. Jeżeli chcesz użyć Excel-a wystarczy otworzyć plik jako txt. Wybrać pochodzenie dokumentu \"UTF-8\", użyć domyślnie zaznaczonych separatorów oraz zaznaczyć wszystkie kolumny jako tekstowe. Nie polecam używać Excela do tego.</string>
+    <string name="help_and_opinion_text_8">Wystarczy wybrać \"zapisz jako\" oraz zaznaczyć tekst rozdzielony znakami tabulacji. I to wszystko.</string>
+    <string name="help_and_opinion_title_7">Moge użyć Excel-a wraz z wyeksportowanymi tekstowymi plikami ?</string>
+    <string name="help_and_opinion_title_8">Jak teraz wrócić z Excela do tekstowego pliku ?</string>
+    <string name="failed_to_load_ad">Spróbuj ponownie jutro lub sprawdź połączenie z internetem</string>
+    <string name="contacts">Kontakty</string>
+
+
+    <string name="db_status_payed">Zapłacono</string>
+    <string name="db_status_not_payed">Nie Zapłacono</string>
+    <string name="db_status_ready">Dostarczone</string>
+    <string name="current_catalog">Obecny Katalog</string>
+    <string name="back">Powrót</string>
+    <string name="count_of_catalogs">Liczba Katalogów</string>
+    <string name="count_of_clients">Liczba Klientów</string>
+    <string name="catalogs_amount">Ilość Katalogów</string>
+    <string name="help_and_opinion_text_9">Jeżeli chcesz wysłać twórcy darowiznę, użyj tego linka:</string>
+    <string name="help_and_opinion_title_9">Jak mogę wspomóc twórcę ?</string>
+    <string name="visit_website">-> Otwórz Stronę</string>
+
+
+</resources>

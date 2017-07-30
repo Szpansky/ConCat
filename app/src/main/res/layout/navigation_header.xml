@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_header"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_header_height">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cropToPadding="true"
+        android:src="@drawable/header_image"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageView5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="@dimen/default_text_margin"
+        android:layout_marginStart="@dimen/default_text_margin"
+        android:fontFamily="casual"
+        android:text="@string/news"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/default_text_size" />
+
+    <TextView
+        android:id="@+id/navi_rewardAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/text1"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="@dimen/default_text_margin"
+        android:layout_marginRight="@dimen/default_text_margin"
+        android:fontFamily="casual"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/default_sub_text_size" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/navi_rewardAmount"
+        android:layout_alignBottom="@+id/navi_rewardAmount"
+        android:layout_toLeftOf="@+id/navi_rewardAmount"
+        android:layout_toStartOf="@+id/navi_rewardAmount"
+        android:fontFamily="casual"
+        android:text="@string/colon"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/default_sub_text_size" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_toLeftOf="@+id/textView2"
+        android:layout_toStartOf="@+id/textView2"
+        android:fontFamily="casual"
+        android:text="@string/points"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/default_sub_text_size" />
+
+    <TextView
+        android:id="@+id/navi_loggedAs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView5"
+        android:layout_toEndOf="@+id/imageView5"
+        android:layout_toRightOf="@+id/imageView5"
+        android:fontFamily="casual"
+        android:padding="10dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/default_text_size" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="@dimen/default_text_margin"
+        android:layout_marginLeft="@dimen/default_text_margin"
+        android:layout_marginStart="@dimen/default_text_margin"
+        app:srcCompat="@android:drawable/gallery_thumb" />
+
+</RelativeLayout>
