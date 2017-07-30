@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">ConCat</string>
-    <string name="ExportDB">Save Database</string>
     <string name="ImportDB">Load Database</string>
     <string name="account">Account</string>
     <string name="add_catalog_notify">Catalog was added</string>
@@ -167,5 +166,6 @@
      <string name="help_and_opinion_title_9">How I can donate to the developer?</string>
      <string name="help_and_opinion_text_9">If you would like to send donation to the developer, you can do this by visiting web site:</string>
      <string name="visit_website">-> Open Website</string>
+    <string name="ExportDB">Save Database</string>
 
- </resources>
+</resources>
