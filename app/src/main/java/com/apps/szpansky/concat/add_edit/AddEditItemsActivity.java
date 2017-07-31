@@ -41,6 +41,7 @@ public class AddEditItemsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_items);
+        setAds();
 
         myDB = new Database(this);
         bundle = getIntent().getExtras();
@@ -79,8 +80,6 @@ public class AddEditItemsActivity extends AppCompatActivity {
             nr.setFocusable(false);
         }
         onAddClick();
-
-        setAds();
     }
 
 
@@ -138,7 +137,7 @@ public class AddEditItemsActivity extends AppCompatActivity {
                 number,
                 name.getText().toString(),
                 price.getText().toString(),
-                discount.toString());
+                discount);
         if (isInserted) {
             Toast.makeText(AddEditItemsActivity.this, R.string.add_item_notify, Toast.LENGTH_SHORT).show();
         } else {

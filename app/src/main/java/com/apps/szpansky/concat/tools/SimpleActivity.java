@@ -25,6 +25,7 @@ import com.apps.szpansky.concat.R;
 
 public abstract class SimpleActivity extends AppCompatActivity {
 
+    private boolean  flag = true;
     protected Database myDB;
     protected Bundle toNextActivityBundle = new Bundle();
     protected SimpleCursorAdapter myCursorAdapter;
@@ -162,14 +163,20 @@ public abstract class SimpleActivity extends AppCompatActivity {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 if (previousItem != firstVisibleItem) {
-                    if (previousItem < firstVisibleItem) {
-                        addButton.hide();
-                        toolbar.animate().translationY(-toolbar.getBottom()).setInterpolator(new AccelerateInterpolator()).start();
-                        toolbar.setActivated(false);
+                    if (previousItem < firstVisibleItem ) {
+                        if(flag) {
+                            addButton.hide();
+                            toolbar.animate().translationY(-toolbar.getBottom()).setInterpolator(new AccelerateInterpolator()).start();
+                            toolbar.setActivated(false);
+                            flag = false;
+                        }
                     } else {
-                        addButton.show();
-                        toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).start();
-                        toolbar.setActivated(true);
+                        if(!flag) {
+                            addButton.show();
+                            toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).start();
+                            toolbar.setActivated(true);
+                            flag = true;
+                        }
                     }
                     previousItem = firstVisibleItem;
                 }

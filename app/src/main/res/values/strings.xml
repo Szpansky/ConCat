@@ -36,7 +36,7 @@
     <string name="email">Email</string>
     <string name="end">End</string>
     <string name="ending_catalog">Catalog is ending</string>
-    <string name="ending_catalog_info">Notifycation about that the catalog is ending</string>
+    <string name="ending_catalog_info">Notification about that the catalog is ending</string>
     <string name="error">Error</string>
     <string name="error_notify">Ops… something get wrong</string>
     <string name="export_db">Export</string>
@@ -115,13 +115,12 @@
     <!-- -  <string name="ads_banner_add_person" translatable="false">ca-app-pub-9635712631261774/5000190606</string>               My ids 6     <!- -->
 
 
-     <string name="ads_reward_main_id" translatable="false">ca-app-pub-3940256099942544/5224354917</string>
-     <string name="ads_Interstitial_main_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
-
-     <string name="ads_banner_main_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
-     <string name="ads_banner_add_catalog" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
-     <string name="ads_banner_add_item" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
-     <string name="ads_banner_add_person" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ads_Interstitial_main_id" translatable="false">ca-app-pub-9635712631261774/7744024240</string>
+    <string name="ads_banner_main_id" translatable="false">ca-app-pub-9635712631261774/7604423447</string>
+    <string name="ads_reward_main_id" translatable="false">ca-app-pub-9635712631261774/2174583266</string>
+    <string name="ads_banner_add_catalog" translatable="false">ca-app-pub-9635712631261774/3467617080</string>
+    <string name="ads_banner_add_item" translatable="false">ca-app-pub-9635712631261774/6264993205</string>
+    <string name="ads_banner_add_person" translatable="false">ca-app-pub-9635712631261774/5000190606</string>
 
     <string name="count_of_order">Ordered</string>
      <string name="pcs">" pcs"</string>
@@ -167,5 +166,7 @@
      <string name="help_and_opinion_text_9">If you would like to send donation to the developer, you can do this by visiting web site:</string>
      <string name="visit_website">-> Open Website</string>
     <string name="ExportDB">Save Database</string>
+    <string name="help_and_opinion_title_10">There isn\'t any folder named ConCat …</string>
+    <string name="help_and_opinion_text_10">Just export the selected item or entire database once, and the folder will be created itself.</string>
 
 </resources>

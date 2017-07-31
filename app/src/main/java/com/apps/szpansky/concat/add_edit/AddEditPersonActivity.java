@@ -33,6 +33,7 @@ public class AddEditPersonActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_person);
+        setAds();
 
         myDB = new Database(this);
         bundle = getIntent().getExtras();
@@ -57,8 +58,6 @@ public class AddEditPersonActivity extends AppCompatActivity {
             phone.setText(getPersonInfo(4));
         }
         onAddClick();
-
-        setAds();
     }
 
 

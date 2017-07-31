@@ -53,6 +53,7 @@ public class AddEditCatalogActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_catalog);
+        setAds();
 
         myDB = new Database(this);
         bundle = getIntent().getExtras();
@@ -79,8 +80,6 @@ public class AddEditCatalogActivity extends AppCompatActivity {
         showDialogOnDateClick();
 
         onAddClick();
-
-        setAds();
     }
 
 

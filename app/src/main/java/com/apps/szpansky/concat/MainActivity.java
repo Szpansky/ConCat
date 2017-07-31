@@ -41,6 +41,7 @@ import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.FileManagement;
 import com.apps.szpansky.concat.tools.NetworkFunctions;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     private NavigationView navigationView;
     private GridLayout subFloatingMenu;
 
-    //private AdView mAdView;
+    private AdView mAdView;
     private RewardedVideoAd mAd;
 
 
@@ -107,20 +108,18 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
     private void getPreferences() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String test = sharedPreferences.getString("pref_edit_text_loggedAs", getResources().getString(R.string.pref_def_logged_as));
-        rewardAmount = Integer.parseInt(sharedPreferences.getString("pref_edit_text_rewardAmount", "0"));
         View v = navigationView.getHeaderView(0);
         TextView loggedAs = (TextView) v.findViewById(R.id.navi_loggedAs);
         TextView rewardPoints = (TextView) v.findViewById(R.id.navi_rewardAmount);
-        loggedAs.setText(test);
-        rewardPoints.setText(rewardAmount.toString());
+        loggedAs.setText(sharedPreferences.getString("pref_edit_text_loggedAs", getResources().getString(R.string.pref_def_logged_as)));
+        rewardPoints.setText(sharedPreferences.getString("pref_edit_text_rewardAmount", "0"));
     }
 
 
     private void setAds() {
-       // mAdView = (AdView) findViewById(R.id.adView);
-       // AdRequest adRequest = new AdRequest.Builder().build();
-       // mAdView.loadAd(adRequest);
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         mAd = MobileAds.getRewardedVideoAdInstance(this);
         mAd.setRewardedVideoAdListener(this);
     }
@@ -202,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case (R.id.menuLogin):
-                        drawerLayout.closeDrawer(Gravity.START, false);
+                        //drawerLayout.closeDrawer(Gravity.START, false);
                         dialogLoginBuilder();
                         break;
                     case (R.id.menuMyAccount):
@@ -443,7 +442,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
             @Override
             public void onClick(View v) {
                 final ProgressBar progressBar = (ProgressBar) dialogView.findViewById(R.id.pb);
-                progressBar.setVisibility(dialogView.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
                 Thread importTXT = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -451,7 +450,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                progressBar.setVisibility(dialogView.GONE);
+                                progressBar.setVisibility(View.GONE);
                             }
                         });
                     }
