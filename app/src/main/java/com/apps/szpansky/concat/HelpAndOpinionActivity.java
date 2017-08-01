@@ -64,7 +64,7 @@ public class HelpAndOpinionActivity extends AppCompatActivity {
         marketRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String url = "https://play.google.com/";
+                final String url = "https://play.google.com/store/apps/details?id=com.apps.szpansky.concat";
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             }
