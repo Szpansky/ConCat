@@ -9,6 +9,12 @@
     android:orientation="vertical"
     tools:context="com.apps.szpansky.concat.add_edit.AddEditPersonActivity">
 
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -19,13 +25,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:focusable="true"
-                android:focusableInTouchMode="true" />
 
             <TextView
                 android:id="@+id/textView19"
@@ -151,6 +150,20 @@
         android:clickable="true"
         app:fabSize="normal"
         app:srcCompat="@mipmap/ic_add_white_24dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/openContacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:clickable="true"
+        app:fabSize="normal"
+        app:srcCompat="@mipmap/ic_account_box_white_24dp" />
 
 
 </RelativeLayout>
