@@ -33,7 +33,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/default_margin"
                 android:layout_weight="1"
-                android:fontFamily="casual"
+                android:fontFamily="sans-serif"
                 android:padding="@dimen/default_padding"
                 android:text="@string/new_client"
                 android:textAllCaps="true"

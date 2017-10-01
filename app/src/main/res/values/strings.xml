@@ -168,5 +168,6 @@
     <string name="ExportDB">Save Database</string>
     <string name="help_and_opinion_title_10">There isn\'t any folder named ConCat …</string>
     <string name="help_and_opinion_text_10">Just export the selected item or entire database once, and the folder will be created itself.</string>
+    <string name="orders_details">Orders details</string>
 
 </resources>

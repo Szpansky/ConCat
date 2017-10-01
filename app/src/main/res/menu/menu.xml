@@ -13,7 +13,7 @@
             <item
                 android:id="@+id/menuMyAccount"
                 android:icon="@mipmap/ic_info_black_24dp"
-                android:title="@string/information" />
+                android:title="@string/orders_details" />
         </menu>
     </item>
 

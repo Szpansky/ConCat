@@ -17,23 +17,12 @@
         android:layout_marginTop="5sp"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="casual"
-            android:text="@string/catalog_nr"
-            android:textSize="@dimen/default_text_size" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/colon"
-            android:textSize="@dimen/default_text_size" />
 
         <TextView
             android:id="@+id/item_catalogNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
             android:text="@string/error"
             android:textSize="@dimen/default_text_size"
             android:textStyle="italic" />
@@ -53,13 +42,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:text="@string/start"
             android:textSize="@dimen/default_sub_text_size" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
             android:text="@string/colon"
             android:textSize="@dimen/default_sub_text_size" />
 
@@ -67,7 +57,7 @@
             android:id="@+id/item_catalogDateStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="cursive"
+            android:fontFamily="sans-serif"
             android:text="@string/error"
             android:textSize="@dimen/default_sub_text_size"
             android:textStyle="bold" />
@@ -87,7 +77,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:text="@string/end"
             android:textSize="@dimen/default_sub_text_size" />
 
@@ -101,7 +91,7 @@
             android:id="@+id/item_catalogDateEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="cursive"
+            android:fontFamily="sans-serif"
             android:text="@string/error"
             android:textSize="@dimen/default_sub_text_size"
             android:textStyle="bold" />
@@ -120,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:text="@string/clients_amount"
             android:textSize="@dimen/default_sub_text_size" />
 
@@ -128,6 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="sans-serif"
             android:text="@string/colon"
             android:textSize="@dimen/default_sub_text_size" />
 
@@ -136,6 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="sans-serif"
             android:text="@string/error"
             android:textSize="@dimen/default_sub_text_size"
             android:textStyle="italic" />

@@ -3,7 +3,6 @@ package com.apps.szpansky.concat;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
@@ -16,7 +15,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     private String tableName = Database.TABLE_ITEMS;    //default exported/imported content
     private String fileName = "Items.txt";
 
-    private Button openCatalogs, startAds, openURLCatalog, openCalendar;
+    private Button openCatalogs, startAds;
     private FloatingActionButton fabMain, fabNewCatalog, fabNewPerson, fabNewItem;
 
     private Animation fabClose, fabOpen, fabRotate, fabRotateBack;
@@ -94,8 +92,6 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         onFabMenuItemClick();
         onDailyRewardClick();
         getPreferences();
-        onOpenCatalogOnlineClick();
-        onOpenCalendarClick();
     }
 
 
@@ -131,29 +127,6 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
             public void onClick(View v) {
                 Intent Intent_Open_Catalogs = new Intent(MainActivity.this, CatalogsActivity.class);
                 MainActivity.this.startActivity(Intent_Open_Catalogs);
-            }
-        });
-    }
-
-    private void onOpenCalendarClick() {
-        openCalendar = (Button) findViewById(R.id.openCalendar);
-        openCalendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar snackbarInfo = Snackbar.make(findViewById(R.id.drawerLayout), R.string.coming_soon, Snackbar.LENGTH_SHORT);
-                snackbarInfo.show();
-            }
-        });
-    }
-
-    private void onOpenCatalogOnlineClick() {
-        final String url = "https://www.avon.pl/ekatalog/katalog-11";
-        openURLCatalog = (Button) findViewById(R.id.openURLCatalog);
-        openURLCatalog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(intent);
             }
         });
     }

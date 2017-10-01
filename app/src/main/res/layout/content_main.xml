@@ -30,8 +30,8 @@
                 android:layout_height="70dp"
                 android:layout_margin="@dimen/default_padding"
                 android:layout_weight="1"
-                android:fontFamily="casual"
-                android:text="@string/browsing"
+                android:fontFamily="sans-serif"
+                android:text="@string/orders"
                 android:textSize="@dimen/default_text_size"
                 android:textStyle="bold" />
 
@@ -42,32 +42,8 @@
                 android:layout_height="70dp"
                 android:layout_margin="@dimen/default_padding"
                 android:layout_weight="1"
-                android:fontFamily="casual"
+                android:fontFamily="sans-serif"
                 android:text="@string/daily_reward"
-                android:textSize="@dimen/default_text_size"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/openCalendar"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_margin="@dimen/default_padding"
-                android:layout_weight="1"
-                android:fontFamily="casual"
-                android:text="@string/calendar"
-                android:textSize="@dimen/default_text_size"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/openURLCatalog"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_margin="@dimen/default_padding"
-                android:layout_weight="1"
-                android:fontFamily="casual"
-                android:text="@string/catalog_on_line"
                 android:textSize="@dimen/default_text_size"
                 android:textStyle="bold" />
 

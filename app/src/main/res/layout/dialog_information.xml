@@ -225,7 +225,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_margin"
-        android:fontFamily="casual"
+        android:fontFamily="sans-serif"
         android:text="@string/back" />
 
 

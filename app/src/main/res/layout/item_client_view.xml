@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:gravity="start"
             android:text="@string/error"
             android:textSize="@dimen/default_text_size"
@@ -29,14 +29,14 @@
             android:id="@+id/item_clientSurname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_padding"
+            android:layout_gravity="start"
             android:layout_marginLeft="@dimen/default_padding"
+            android:layout_marginStart="@dimen/default_padding"
             android:layout_weight="1"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
+            android:gravity="start"
             android:text="@string/error"
             android:textAlignment="viewStart"
-            android:gravity="start"
-            android:layout_gravity="start"
             android:textSize="@dimen/default_text_size"
             android:textStyle="bold" />
 
@@ -63,7 +63,7 @@
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="casual"
+                android:fontFamily="sans-serif"
                 android:text="@string/date"
                 android:textSize="@dimen/default_sub_text_size" />
 
@@ -71,6 +71,7 @@
                 android:id="@+id/textView33"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
                 android:text="@string/colon"
                 android:textSize="@dimen/default_sub_text_size" />
 
@@ -78,7 +79,7 @@
                 android:id="@+id/item_clientDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="cursive"
+                android:fontFamily="sans-serif"
                 android:text="@string/error"
                 android:textSize="@dimen/default_sub_text_size"
                 android:textStyle="bold" />
@@ -96,7 +97,7 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="casual"
+                android:fontFamily="sans-serif"
                 android:text="@string/amount"
                 android:textSize="@dimen/default_sub_text_size" />
 
@@ -156,7 +157,7 @@
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="casual"
+                android:fontFamily="sans-serif"
                 android:text="@string/total"
                 android:textSize="@dimen/default_sub_text_size" />
 
@@ -179,7 +180,7 @@
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="casual"
+                android:fontFamily="sans-serif"
                 android:text="@string/money_shortcut"
                 android:textAllCaps="false"
                 android:textSize="@dimen/default_sub_text_size" />

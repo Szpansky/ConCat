@@ -14,7 +14,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="5sp"
-        android:fontFamily="casual"
+        android:fontFamily="sans-serif"
         android:text="@string/error"
         android:textAlignment="center"
         android:textSize="@dimen/default_sub_text_size"
@@ -34,7 +34,7 @@
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:text="@string/price"
             android:textSize="@dimen/default_sub_text_size" />
 
@@ -49,6 +49,7 @@
             android:id="@+id/item_itemPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
             android:text="@string/error"
             android:textSize="@dimen/default_text_size"
             android:textStyle="italic" />
@@ -57,7 +58,7 @@
             android:id="@+id/textView17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:text="@string/money_shortcut"
             android:textAllCaps="false"
             android:textSize="@dimen/default_sub_text_size" />
@@ -76,7 +77,7 @@
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:text="@string/code"
             android:textSize="@dimen/default_sub_text_size" />
 
@@ -103,7 +104,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/item_itemName"
-        android:fontFamily="cursive"
+        android:fontFamily="sans-serif"
         android:text="@string/error"
         android:textSize="@dimen/default_sub_text_size"
         android:textStyle="bold" />
