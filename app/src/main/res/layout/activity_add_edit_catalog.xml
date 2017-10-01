@@ -54,7 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/default_edit_text_height"
                     android:hint="@string/catalog_nr"
-                    android:maxLength="7"
+                    android:maxLength="30"
                     android:textAlignment="center"
                     android:textColor="@android:color/holo_blue_dark"
                     android:textStyle="bold" />

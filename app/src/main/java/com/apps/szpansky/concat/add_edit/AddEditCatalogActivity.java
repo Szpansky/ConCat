@@ -59,6 +59,8 @@ public class AddEditCatalogActivity extends AppCompatActivity {
         bundle = getIntent().getExtras();
 
         catalogNumber = (EditText) findViewById(R.id.add_edit_catalogNumber);
+        String catalogNumberDefText = getResources().getString(R.string.catalog_nr)+":";
+        catalogNumber.setText(catalogNumberDefText);
         catalogDateStart = (EditText) findViewById(R.id.add_edit_catalogDateStart);
         catalogDateEnd = (EditText) findViewById(R.id.add_edit_catalogDateEnd);
 

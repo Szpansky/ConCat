@@ -39,7 +39,7 @@ import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.FileManagement;
 import com.apps.szpansky.concat.tools.NetworkFunctions;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+//import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     private NavigationView navigationView;
     private GridLayout subFloatingMenu;
 
-    private AdView mAdView;
+    //private AdView mAdView;
     private RewardedVideoAd mAd;
 
 
@@ -113,9 +113,9 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
 
     private void setAds() {
-        mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        //mAdView = (AdView) findViewById(R.id.adView);
+        //AdRequest adRequest = new AdRequest.Builder().build();
+        //mAdView.loadAd(adRequest);
         mAd = MobileAds.getRewardedVideoAdInstance(this);
         mAd.setRewardedVideoAdListener(this);
     }

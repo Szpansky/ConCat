@@ -69,7 +69,7 @@
                     android:layout_weight="1"
                     android:hint="@string/code"
                     android:inputType="number"
-                    android:maxLength="5"
+                    android:maxLength="10"
                     android:textAlignment="center"
                     android:textColor="@android:color/holo_blue_dark"
                     android:textStyle="bold" />

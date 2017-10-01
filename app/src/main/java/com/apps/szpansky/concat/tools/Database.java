@@ -69,7 +69,7 @@ public class Database extends SQLiteOpenHelper {
 
         db.execSQL("create table " + TABLE_CATALOGS + " (" +
                 CATALOG_ID + " INTEGER PRIMARY KEY NOT NULL," +
-                CATALOG_NUMBER + " VARCHAR(10) UNIQUE," +
+                CATALOG_NUMBER + " VARCHAR(30) UNIQUE," +
                 CATALOG_DATE_START + " DATE DEFAULT CURRENT_DATE," +
                 CATALOG_DATE_ENDS + " DATE DEFAULT CURRENT_DATE)");
 
@@ -83,7 +83,7 @@ public class Database extends SQLiteOpenHelper {
 
         db.execSQL("create table " + TABLE_ITEMS + " (" +
                 ITEM_ID + " INTEGER PRIMARY KEY NOT NULL," +
-                ITEM_NUMBER + " VARCHAR(6) UNIQUE," +
+                ITEM_NUMBER + " VARCHAR(11) UNIQUE," +
                 ITEM_NAME + " VARCHAR(150)," +
                 ITEM_PRICE + " DECIMAL NOT NULL," +
                 ITEM_DISCOUNT + " VARCHAR(15)," +
