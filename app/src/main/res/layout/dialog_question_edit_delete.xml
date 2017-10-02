@@ -10,7 +10,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="@dimen/default_margin"
         android:layout_marginTop="@dimen/default_margin"
-        android:text="@string/delete_notify"
+        android:text="@string/dialog_question_delete_edit"
         android:textSize="@dimen/default_text_size" />
 
     <LinearLayout
@@ -20,22 +20,22 @@
         android:weightSum="2">
 
         <Button
-            android:id="@+id/dialog_button_yes"
+            android:id="@+id/dialog_button_delete"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif"
-            android:text="@string/agree" />
+            android:text="@string/delete" />
 
         <Button
-            android:id="@+id/dialog_button_no"
+            android:id="@+id/dialog_button_edit"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif"
-            android:text="@string/disagree" />
+            android:text="@string/edit" />
 
     </LinearLayout>
 

@@ -39,12 +39,6 @@
             android:theme="@style/PickTheme"
             tools:targetApi="jelly_bean" />
         <activity
-            android:name="com.apps.szpansky.concat.open_all.OpenAllCatalogsActivity"
-            android:label="@string/catalogs"
-            android:launchMode="singleTop"
-            android:parentActivityName="com.apps.szpansky.concat.MainActivity"
-            tools:targetApi="jelly_bean" />
-        <activity
             android:name="com.apps.szpansky.concat.open_all.OpenAllPersonsActivity"
             android:label="@string/contacts"
             android:launchMode="singleTop"
@@ -60,23 +54,20 @@
             android:name="com.apps.szpansky.concat.add_edit.AddEditCatalogActivity"
             android:label="@string/add_or_edit"
             android:launchMode="singleTop"
-            android:parentActivityName="com.apps.szpansky.concat.open_all.OpenAllCatalogsActivity"
             tools:targetApi="jelly_bean" />
         <activity
             android:name="com.apps.szpansky.concat.add_edit.AddEditPersonActivity"
             android:label="@string/add_or_edit"
             android:launchMode="singleTop"
-            android:parentActivityName="com.apps.szpansky.concat.open_all.OpenAllPersonsActivity"
             tools:targetApi="jelly_bean" />
         <activity
             android:name="com.apps.szpansky.concat.add_edit.AddEditItemsActivity"
             android:label="@string/add_or_edit"
             android:launchMode="singleTop"
-            android:parentActivityName="com.apps.szpansky.concat.open_all.OpenAllItemsActivity"
             tools:targetApi="jelly_bean" />
         <activity
             android:name="com.apps.szpansky.concat.main_browsing.CatalogsActivity"
-            android:label="@string/catalogs"
+            android:label="@string/orders"
             android:launchMode="singleTop"
             android:parentActivityName="com.apps.szpansky.concat.MainActivity"
             android:theme="@style/BrowsingTheme"

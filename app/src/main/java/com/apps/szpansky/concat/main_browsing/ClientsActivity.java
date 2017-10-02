@@ -4,8 +4,11 @@ package com.apps.szpansky.concat.main_browsing;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.RadioGroup;
 
 import com.apps.szpansky.concat.for_pick.PickPerson;
 import com.apps.szpansky.concat.R;
@@ -28,11 +31,8 @@ public class ClientsActivity extends SimpleActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Cursor c = myDB.getRows(Database.TABLE_CATALOGS,Database.CATALOG_ID, Client.clickedCatalogId );
-        String title = c.getString(1);
-        this.setTitle(title);
-
-
+        setTitle();
+        addButton.setImageDrawable(getResources().getDrawable(R.mipmap.ic_playlist_add_white_24dp));
 
         listViewItemClick();
     }
@@ -47,6 +47,55 @@ public class ClientsActivity extends SimpleActivity {
                 startActivityForResult(intent, BACK_CODE);
             }
         });
+    }
+
+    private void setTitle(){
+        Cursor c = myDB.getRows(Database.TABLE_CATALOGS,Database.CATALOG_ID, Client.clickedCatalogId );
+        String title = c.getString(1);
+        this.setTitle(title);
+    }
+
+
+    private void dialogOnClientClick(final int thisId){
+        final AlertDialog builder = new AlertDialog.Builder(this).create();
+        final View dialogView = getLayoutInflater().inflate(R.layout.dialog_on_client_click, null);
+        Button saveCatalog = (Button) dialogView.findViewById(R.id.buttonOrderSave);
+        Button deleteCatalog = (Button) dialogView.findViewById(R.id.buttonOrderDelete);
+
+        deleteCatalog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupForDelete(thisId);
+                builder.dismiss();
+            }
+        });
+
+        saveCatalog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String status;
+                RadioGroup radioGroup = (RadioGroup) dialogView.findViewById(R.id.radioGroupOrder);
+                switch (radioGroup.getCheckedRadioButtonId()) {
+                    case (R.id.radioButtonOrderNotPaid):
+                        status = getString(R.string.db_status_not_payed);
+                        break;
+                    case (R.id.radioButtonOrderPaid):
+                        status = getString(R.string.db_status_payed);
+                        break;
+                    case (R.id.radioButtonOrderReady):
+                        status = getString(R.string.db_status_ready);
+                        break;
+                    default:
+                        status = getString(R.string.db_status_not_payed);
+                        break;
+                }
+                myDB.updateRowClient(thisId, status);
+                refreshListView();
+                builder.dismiss();
+            }
+        });
+        builder.setView(dialogView);
+        builder.show();
     }
 
 

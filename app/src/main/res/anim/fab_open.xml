@@ -16,7 +16,7 @@
 
     <translate
         android:duration="300"
-        android:fromXDelta="200"
+        android:fromXDelta="100"
         android:fromYDelta="200" />
 
 

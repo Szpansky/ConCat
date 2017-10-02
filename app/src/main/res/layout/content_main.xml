@@ -47,17 +47,75 @@
                 android:textSize="@dimen/default_text_size"
                 android:textStyle="bold" />
 
+            <LinearLayout
+                android:id="@+id/main_layout_info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/default_padding"
+                android:layout_weight="1"
+                android:background="@android:drawable/editbox_background"
+                android:orientation="vertical"
+                android:padding="@dimen/default_padding">
+
+                <TextView
+                    android:id="@+id/main_order_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/error"
+                    android:textSize="@dimen/default_text_size" />
+
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/ends_in"
+                    android:textSize="@dimen/default_sub_text_size" />
+
+                <TextView
+                    android:id="@+id/main_order_days_left"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/error"
+                    android:textSize="@dimen/default_text_size" />
+
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/total"
+                    android:textSize="@dimen/default_sub_text_size" />
+
+                <TextView
+                    android:id="@+id/main_order_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/error"
+                    android:textSize="@dimen/default_text_size" />
+
+                <TextView
+                    android:id="@+id/textView35"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/not_paid"
+                    android:textSize="@dimen/default_sub_text_size" />
+
+                <TextView
+                    android:id="@+id/main_order_client_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/error"
+                    android:textSize="@dimen/default_text_size" />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
-
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        app:adSize="BANNER"
-        app:adUnitId="@string/ads_banner_main_id" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabMain"
@@ -82,7 +140,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:background="@android:drawable/zoom_plate"
         android:orientation="horizontal"
         android:visibility="gone">
 

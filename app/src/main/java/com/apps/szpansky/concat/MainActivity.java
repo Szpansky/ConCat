@@ -34,16 +34,19 @@ import com.apps.szpansky.concat.add_edit.AddEditPersonActivity;
 import com.apps.szpansky.concat.main_browsing.CatalogsActivity;
 import com.apps.szpansky.concat.open_all.OpenAllItemsActivity;
 import com.apps.szpansky.concat.open_all.OpenAllPersonsActivity;
-import com.apps.szpansky.concat.open_all.OpenAllCatalogsActivity;
 import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.FileManagement;
 import com.apps.szpansky.concat.tools.NetworkFunctions;
+import com.apps.szpansky.concat.tools.SimpleFunctions;
 import com.google.android.gms.ads.AdRequest;
-//import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity implements RewardedVideoAdListener {
@@ -54,6 +57,11 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     private final static boolean EXPORT = true;
     private final static boolean IMPORT = false;
     private static boolean FLOATING_MENU = false;
+    //private String mainCurrentCatalogNr;
+    //private String mainCurrentCatalogPrice;
+
+    Cursor c;
+    Database myDB = new Database(this);
 
     private String tableName = Database.TABLE_ITEMS;    //default exported/imported content
     private String fileName = "Items.txt";
@@ -62,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     private FloatingActionButton fabMain, fabNewCatalog, fabNewPerson, fabNewItem;
 
     private Animation fabClose, fabOpen, fabRotate, fabRotateBack;
+    private TextView mainCatalogNr, mainCatalogPrice, mainCatalogDaysLeft, mainCatalogNotPayed;
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
@@ -85,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         fabRotate = AnimationUtils.loadAnimation(this, R.anim.fab_rotate);
         fabRotateBack = AnimationUtils.loadAnimation(this, R.anim.fab_rotate_back);
 
+        setMainInfo();
         setDrawer();
         onNavigationItemClick();
         onStartClick();
@@ -179,11 +189,6 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
                         break;
                     case (R.id.menuMyAccount):
                         dialogInformationBuilder();
-                        break;
-                    case (R.id.menuWorks):
-                        //drawerLayout.closeDrawer(Gravity.START, false);
-                        Intent Intent_Open_Works = new Intent(MainActivity.this, OpenAllCatalogsActivity.class);
-                        startActivity(Intent_Open_Works);
                         break;
                     case (R.id.menuClients):
                         //drawerLayout.closeDrawer(Gravity.START, false);
@@ -322,6 +327,80 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     }
 
 
+    private void setMainInfo() {
+        mainCatalogDaysLeft = (TextView) findViewById(R.id.main_order_days_left);
+        mainCatalogNotPayed = (TextView) findViewById(R.id.main_order_client_count);
+        mainCatalogNr = (TextView) findViewById(R.id.main_order_number);
+        mainCatalogPrice = (TextView) findViewById(R.id.main_order_price);
+        View view = findViewById(R.id.main_layout_info);
+
+        c = myDB.getCurrentCatalogInfo();
+        if (c.isNull(0) || c.isNull(4) || c.isNull(7) || c.isNull(9)) {
+            view.setVisibility(View.GONE);
+        } else {
+            view.setVisibility(View.VISIBLE);
+            mainCatalogNr.setText(c.getString(0));
+            String notPayed = c.getString(4);
+            notPayed = (notPayed.equals("1")) ? notPayed + " " + getResources().getString(R.string.order) : notPayed + " " + getResources().getString(R.string.orders);
+            mainCatalogNotPayed.setText(notPayed);
+            String price = c.getString(7) + getResources().getString(R.string.money_shortcut);
+            mainCatalogPrice.setText(price);
+            String daysLeft;
+            String endDate = c.getString(9);
+            if (endDate.equals("")) {
+                daysLeft = getResources().getString(R.string.error);
+            } else {
+                daysLeft = getTimeLeft(endDate);
+            }
+            mainCatalogDaysLeft.setText(daysLeft);
+        }
+        c.close();
+    }
+
+
+    private String getTimeLeft(String date) { // dateFormat = "yyyy-MM-dd"
+        String[] DateSplit = date.split("-");
+        int month = Integer.parseInt(DateSplit[1]) - 1, // if month is november  then subtract by 1
+                year = Integer.parseInt(DateSplit[0]), day = Integer
+                .parseInt(DateSplit[2]);
+        Calendar now = Calendar.getInstance();
+
+        int dy = day - Calendar.getInstance().get(Calendar.DATE),
+                mnth = month - Calendar.getInstance().get(Calendar.MONTH),
+                daysinmnth = 32 - dy;
+
+        Calendar end = Calendar.getInstance();
+
+        end.set(year, month, day);
+
+        if (mnth != 0) {
+            if (dy != 0) {
+                if (dy < 0) {
+                    dy = (dy + daysinmnth) % daysinmnth;
+                    mnth--;
+                }
+                if (mnth < 0) {
+                    mnth = (mnth + 12) % 12;
+                }
+            }
+        }
+
+        String dytext = (dy == 1) ? getResources().getString(R.string.day) : getResources().getString(R.string.days),
+                mnthtext = (mnth == 1) ? getResources().getString(R.string.month) : getResources().getString(R.string.months);
+
+        if (now.after(end)) {
+            return getResources().getString(R.string.end);
+        } else {
+            String months = "", days = "";
+            months = (mnth > 0) ? mnth + " " + mnthtext : "";
+            if (mnth <= 0) {
+                days = (dy > 0) ? dy + " " + dytext : "";
+            }
+            return months + days;
+        }
+    }
+
+
     private void dialogInformationBuilder() {
         final AlertDialog builder = new AlertDialog.Builder(this).create();
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_information, null);
@@ -334,13 +413,12 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
             }
         });
 
-        Database myDB = new Database(this);
         Cursor c = myDB.getCurrentCatalogInfo();
-
 
         TextView currentCatalogNumber = (TextView) dialogView.findViewById(R.id.current_catalogs_number);
         TextView currentCatalogClientsAmount = (TextView) dialogView.findViewById(R.id.current_clients_amount);
         TextView currentCatalogItemOrderedAmount = (TextView) dialogView.findViewById(R.id.current_ordered_item_amount);
+        TextView currentCatalogPcs = (TextView) dialogView.findViewById(R.id.current_pcs_ordered);
         TextView currentCatalogNotPayed = (TextView) dialogView.findViewById(R.id.current_not_payed_amount);
         TextView currentCatalogPayed = (TextView) dialogView.findViewById(R.id.current_payed_amount);
         TextView currentCatalogReady = (TextView) dialogView.findViewById(R.id.current_ready_amount);
@@ -348,10 +426,11 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         currentCatalogNumber.setText(c.getString(0));
         currentCatalogClientsAmount.setText(c.getString(1));
         currentCatalogItemOrderedAmount.setText(c.getString(2));
-        currentCatalogNotPayed.setText(c.getString(3));
-        currentCatalogPayed.setText(c.getString(4));
-        currentCatalogReady.setText(c.getString(5));
-        currentCatalogTotal.setText(c.getString(6));
+        currentCatalogPcs.setText(c.getString(3));
+        currentCatalogNotPayed.setText(c.getString(4));
+        currentCatalogPayed.setText(c.getString(5));
+        currentCatalogReady.setText(c.getString(6));
+        currentCatalogTotal.setText(c.getString(7));
 
         c = myDB.getCurrentInfo();
 
@@ -369,7 +448,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         allTotal.setText(c.getString(0));
 
         c.close();
-        myDB.close();
+
         builder.setView(dialogView);
         builder.show();
     }

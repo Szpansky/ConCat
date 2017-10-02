@@ -88,7 +88,7 @@
     <string name="updated">Zaktualizowano:</string>
     <string name="created">\nUtworzono:</string>
     <string name="persons">Osoby</string>
-    <string name="orders">Zamowienia</string>
+    <string name="orders">Zamówienia</string>
     <string name="try_again_later">Spróbuj za chwilę</string>
     <string name="pick_discounts">Wybierz Zniżki</string>
     <string name="pref_def_logged_as">Twoja Nazwa</string>
@@ -156,6 +156,21 @@
     <string name="help_and_opinion_title_10">Nie widzę folderu ConCat …</string>
     <string name="help_and_opinion_text_10">Wystarczy że choć raz eksportujesz zaznaczony element bądź całą bazę danych a folder sam zostanie utworzony</string>
     <string name="orders_details">Szczegóły zamówień</string>
+    <string name="current_order">Aktualne Zamówienie</string>
+    <string name="number_of_orders">Ilość zamówień</string>
+    <string name="delete">Usuń</string>
+    <string name="dialog_question_delete_edit">Chcesz usunąć czy edytować ?</string>
+    <string name="edit">Edytuj</string>
+    <string name="order_number">Numer Zamówienia</string>
+    <string name="pick_count_of_items">Wprowadź liczbę przedmiotów</string>
+    <string name="enter_item_count">Podaj liczbę przedmiotów</string>
+    <string name="day">Dzień</string>
+    <string name="days">Dni</string>
+    <string name="month">Miesiąc</string>
+    <string name="months">Miesięcy</string>
+    <string name="order">Zamówienie</string>
+    <string name="ends_in">Kończy się za</string>
+    <string name="pieces">Sztuk</string>
 
 
 </resources>

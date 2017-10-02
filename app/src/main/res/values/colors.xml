@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00e5ff</color>
+    <color name="colorPrimary">#ff00e5ff</color>
     <color name="colorPrimaryDark">#8800b2cc</color>
-    <color name="colorPrimaryLight">#6effff</color>
-    <color name="colorAccent">#ff4081</color>
+    <color name="colorPrimaryLight">#ff6effff</color>
+    <color name="colorAccent">#ffff4081</color>
 
-    <color name="colorPrimaryForPick">#ffee32</color>
-    <color name="colorPrimaryDarkForPick">#c8bc00</color>
-    <color name="colorPrimaryLightForPick">#ffff6c</color>
-    <color name="colorAccentForPick">#FF4081</color>
+    <color name="colorPrimaryForPick">#ffffee32</color>
+    <color name="colorPrimaryDarkForPick">#ffc8bc00</color>
+    <color name="colorPrimaryLightForPick">#ffffff6c</color>
+    <color name="colorAccentForPick">#ffFF4081</color>
 
-    <color name="colorPrimaryForBrowsing">#00e676</color>
-    <color name="colorPrimaryDarkForBrowsing">#00b248</color>
-    <color name="colorPrimaryLightForBrowsing">#66ffa6</color>
-    <color name="colorAccentForBrowsing">#FF4081</color>
+    <color name="colorPrimaryForBrowsing">#ff00e676</color>
+    <color name="colorPrimaryDarkForBrowsing">#ff00b248</color>
+    <color name="colorPrimaryLightForBrowsing">#ff66ffa6</color>
+    <color name="colorAccentForBrowsing">#ffFF4081</color>
 
-    <color name="lightBackground">#eeeeee</color>
-    <color name="background">#cccccc</color>
-    <color name="darkBackground">#777777</color>
+    <color name="lightBackground">#ffeeeeee</color>
+    <color name="background">#ffcccccc</color>
+    <color name="darkBackground">#ff777777</color>
 
-    <color name="defaultBackground">#B5F1F1</color>
-    <color name="pickingBackground">#FFFE9E</color>
-    <color name="browsingBackground">#D8FF93</color>
+    <color name="defaultBackground">#ffB5F1F1</color>
+    <color name="pickingBackground">#ffFFFE9E</color>
+    <color name="browsingBackground">#ffD8FF93</color>
 
 </resources>

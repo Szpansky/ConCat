@@ -1,10 +1,15 @@
 package com.apps.szpansky.concat.for_pick;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.add_edit.AddEditItemsActivity;
 import com.apps.szpansky.concat.simple_data.Item;
 import com.apps.szpansky.concat.tools.SimpleActivity;
@@ -12,6 +17,8 @@ import com.apps.szpansky.concat.tools.SimpleActivity;
 
 public class PickItem extends SimpleActivity {
 
+    Integer count = 1;
+    private boolean flag = true;
 
     public PickItem() {
         super(new Item());
@@ -21,6 +28,8 @@ public class PickItem extends SimpleActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        addButton.setImageDrawable(getResources().getDrawable(R.mipmap.ic_fiber_new_white_24dp));
 
         listViewItemClick();
     }
@@ -38,15 +47,76 @@ public class PickItem extends SimpleActivity {
     }
 
 
+    private void dialogItemCount(final int id) {
+        final AlertDialog builder = new AlertDialog.Builder(this).create();
+        View view = getLayoutInflater().inflate(R.layout.dialog_item_count, null);
+
+        Button plusMark = (Button) view.findViewById(R.id.plus_mark);
+        Button minusMark = (Button) view.findViewById(R.id.minus_mark);
+        Button okButton = (Button) view.findViewById(R.id.button_ok);
+        final TextView textCount = (TextView) view.findViewById(R.id.number_of_items);
+
+        plusMark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String itemCount = textCount.getText().toString();
+
+                if (itemCount.equals("")) count = 0;
+                else count = Integer.parseInt(itemCount) + 1;
+
+                textCount.setText(count.toString());
+            }
+        });
+
+        minusMark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String itemCount = textCount.getText().toString();
+
+                if (itemCount.equals("") || count < 1) count = 0;
+                else count = Integer.parseInt(itemCount) - 1;
+
+                textCount.setText(count.toString());
+            }
+        });
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder.dismiss();
+            }
+        });
+
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                String itemCount = textCount.getText().toString();
+
+                if (itemCount.equals("")) count = 0;
+                else count = Integer.parseInt(itemCount);
+
+                Intent intent = new Intent();
+                intent.putExtra("itemId", id);
+                intent.putExtra("itemCount", count);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+
+        builder.setCancelable(false);
+        builder.setView(view);
+        builder.show();
+    }
+
+
     private void listViewItemClick() {
-        final boolean[] flag = new boolean[1];
-        flag[0] = true;
+
+        flag = true;
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                flag[0] = false;
-
+                flag = false;
                 return false;
             }
         });
@@ -54,14 +124,10 @@ public class PickItem extends SimpleActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (flag[0]) {
-
-                    Intent intent = new Intent();
-                    intent.putExtra("itemId", (int) id);
-                    setResult(RESULT_OK, intent);
-                    finish();
+                if (flag) {
+                    dialogItemCount((int) id);
                 }
-                flag[0] = true;
+                flag = true;
             }
         });
     }

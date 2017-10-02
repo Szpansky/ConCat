@@ -23,11 +23,6 @@
         android:title="@string/basic">
         <menu>
             <item
-                android:id="@+id/menuWorks"
-                android:checkable="true"
-                android:icon="@mipmap/ic_library_books_black_24dp"
-                android:title="@string/catalogs" />
-            <item
                 android:id="@+id/menuClients"
                 android:checkable="true"
                 android:icon="@mipmap/ic_account_box_black_24dp"

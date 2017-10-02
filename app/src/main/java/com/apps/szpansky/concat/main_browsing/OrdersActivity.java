@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 
+
+import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.for_pick.PickItem;
 import com.apps.szpansky.concat.simple_data.Order;
 import com.apps.szpansky.concat.tools.Database;
@@ -15,6 +17,7 @@ import com.apps.szpansky.concat.tools.SimpleActivity;
 public class OrdersActivity extends SimpleActivity {
 
     private final int BACK_CODE = 1;
+    private boolean flag = true;
 
     public OrdersActivity() {
         super(new Order());
@@ -25,12 +28,8 @@ public class OrdersActivity extends SimpleActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Cursor c = myDB.getRows(Database.TABLE_CLIENTS, Database.CLIENT_ID, Order.clickedClientId);
-        int cursorId = c.getInt(2);
-        c = myDB.getRows(Database.TABLE_PERSONS, Database.PERSON_ID, cursorId);
-        String title = c.getString(1) + " " + c.getString(2);
-        this.setTitle(title);
-
+        setTitle();
+        addButton.setImageDrawable(getResources().getDrawable(R.mipmap.ic_playlist_add_white_24dp));
 
         listViewItemClick();
     }
@@ -48,15 +47,22 @@ public class OrdersActivity extends SimpleActivity {
     }
 
 
+    private void setTitle(){
+        Cursor c = myDB.getRows(Database.TABLE_CLIENTS, Database.CLIENT_ID, Order.clickedClientId);
+        int cursorId = c.getInt(2);
+        c = myDB.getRows(Database.TABLE_PERSONS, Database.PERSON_ID, cursorId);
+        String title = c.getString(1) + " " + c.getString(2);
+        this.setTitle(title);
+    }
+
+
     private void listViewItemClick() {
-        final boolean[] flag = new boolean[1];
-        flag[0] = true;
+        flag = true;
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                flag[0] = false;
-
+                flag = false;
                 popupForDelete((int) id);
                 return false;
             }
@@ -65,10 +71,10 @@ public class OrdersActivity extends SimpleActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (flag[0]) {
+                if (flag) {
 
                 }
-                flag[0] = true;
+                flag = true;
             }
         });
     }
@@ -80,13 +86,12 @@ public class OrdersActivity extends SimpleActivity {
             if (resultCode == RESULT_OK) {
 
                 Integer itemId = data.getIntExtra("itemId", 0);
+                int itemCount = data.getIntExtra("itemCount", 1);
                 Integer clientId = Order.clickedClientId;
 
-                int count = 1;
-
-                boolean isInserted = myDB.updateRowOrder(clientId, itemId, count);
+                boolean isInserted = myDB.updateRowOrder(clientId, itemId, itemCount);
                 if (!isInserted)
-                    myDB.insertDataToOrders(clientId.toString(), itemId.toString(), count);
+                    myDB.insertDataToOrders(clientId.toString(), itemId.toString(), itemCount);
 
                 refreshListView();
             }

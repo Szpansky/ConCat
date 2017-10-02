@@ -169,5 +169,20 @@
     <string name="help_and_opinion_title_10">There isn\'t any folder named ConCat …</string>
     <string name="help_and_opinion_text_10">Just export the selected item or entire database once, and the folder will be created itself.</string>
     <string name="orders_details">Orders details</string>
+    <string name="current_order">Current Order</string>
+    <string name="number_of_orders">Number of orders</string>
+    <string name="dialog_question_delete_edit">You want to delete or edit ?</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="order_number">Order Number</string>
+    <string name="pick_count_of_items">Pick count of items</string>
+    <string name="enter_item_count">Enter item count</string>
+    <string name="day">Day</string>
+    <string name="days">Days</string>
+    <string name="month">Month</string>
+    <string name="months">Months</string>
+    <string name="order">Order</string>
+    <string name="ends_in">Ends in</string>
+    <string name="pieces">Pieces</string>
 
 </resources>

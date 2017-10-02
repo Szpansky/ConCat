@@ -352,12 +352,14 @@ public class Database extends SQLiteOpenHelper {
                         "SELECT " +
                         "c." + CATALOG_NUMBER + ", " +
                         "count(distinct k." + CLIENT_ID + "), " +
+                        "count(o." + ORDER_ID + "), " +
                         "sum(o." + ORDER_AMOUNT + "), " +
                         "count(case k." + CLIENT_STATUS + " when '" + context.getString(R.string.db_status_not_payed)+ "' then 1 else null end ), " +
                         "count(case k." + CLIENT_STATUS + " when '" + context.getString(R.string.db_status_payed) + "' then 1 else null end ), " +
                         "count(case k." + CLIENT_STATUS + " when '" + context.getString(R.string.db_status_ready) + "' then 1 else null end ), " +
                         "sum(o." + ORDER_TOTAL + "), " +
-                        "c." + CATALOG_DATE_START + " " +
+                        "c." + CATALOG_DATE_START + ", " +
+                        "c." + CATALOG_DATE_ENDS + " " +
                         "FROM " + TABLE_CATALOGS + " as c " +
                         "join " + TABLE_CLIENTS + " as k " +
                         "join " + TABLE_ORDERS + " as o " +
@@ -469,6 +471,7 @@ public class Database extends SQLiteOpenHelper {
             return false;
     }
 
+
     public boolean updateRowClient(int id, String status) {
         SQLiteDatabase db = this.getWritableDatabase();
         String where = CLIENT_ID + " = " + id;
@@ -577,6 +580,7 @@ public class Database extends SQLiteOpenHelper {
         return c;
     }
 
+
     public boolean updateContentValuesToTable(String tableName, ContentValues newValues, String where) {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
@@ -606,6 +610,7 @@ public class Database extends SQLiteOpenHelper {
             return false;
         }
     }
+
 
     public Cursor getRows(String TABLE_NAME, String WHERE) {
         SQLiteDatabase db = this.getReadableDatabase();

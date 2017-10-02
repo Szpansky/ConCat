@@ -254,6 +254,6 @@
         android:layout_marginRight="@dimen/default_margin"
         android:clickable="true"
         app:fabSize="normal"
-        app:srcCompat="@mipmap/ic_add_white_24dp" />
+        app:srcCompat="@mipmap/ic_done_white_24dp" />
 
 </RelativeLayout>

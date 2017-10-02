@@ -17,7 +17,6 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RadioGroup;
 import android.widget.SimpleCursorAdapter;
 
 import com.apps.szpansky.concat.R;
@@ -25,7 +24,7 @@ import com.apps.szpansky.concat.R;
 
 public abstract class SimpleActivity extends AppCompatActivity {
 
-    private boolean  flag = true;
+    private boolean flag = true;
     protected Database myDB;
     protected Bundle toNextActivityBundle = new Bundle();
     protected SimpleCursorAdapter myCursorAdapter;
@@ -142,7 +141,7 @@ public abstract class SimpleActivity extends AppCompatActivity {
         buttonNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            builder.dismiss();
+                builder.dismiss();
             }
         });
 
@@ -163,15 +162,15 @@ public abstract class SimpleActivity extends AppCompatActivity {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 if (previousItem != firstVisibleItem) {
-                    if (previousItem < firstVisibleItem ) {
-                        if(flag) {
+                    if (previousItem < firstVisibleItem) {
+                        if (flag) {
                             addButton.hide();
                             toolbar.animate().translationY(-toolbar.getBottom()).setInterpolator(new AccelerateInterpolator()).start();
                             toolbar.setActivated(false);
                             flag = false;
                         }
                     } else {
-                        if(!flag) {
+                        if (!flag) {
                             addButton.show();
                             toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).start();
                             toolbar.setActivated(true);
@@ -185,48 +184,6 @@ public abstract class SimpleActivity extends AppCompatActivity {
         onScrollListener.onScroll(listView, listView.getFirstVisiblePosition(), listView.getLastVisiblePosition(), listView.getCount());
     }
 
-
-    protected void dialogOnClientClick(final int thisId){
-        final AlertDialog builder = new AlertDialog.Builder(this).create();
-        final View dialogView = getLayoutInflater().inflate(R.layout.dialog_on_client_click, null);
-        Button saveCatalog = (Button) dialogView.findViewById(R.id.buttonOrderSave);
-        Button deleteCatalog = (Button) dialogView.findViewById(R.id.buttonOrderDelete);
-
-        deleteCatalog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupForDelete(thisId);
-                builder.dismiss();
-            }
-        });
-
-        saveCatalog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String status;
-                RadioGroup radioGroup = (RadioGroup) dialogView.findViewById(R.id.radioGroupOrder);
-                switch (radioGroup.getCheckedRadioButtonId()) {
-                    case (R.id.radioButtonOrderNotPaid):
-                        status = getString(R.string.db_status_not_payed);
-                        break;
-                    case (R.id.radioButtonOrderPaid):
-                        status = getString(R.string.db_status_payed);
-                        break;
-                    case (R.id.radioButtonOrderReady):
-                        status = getString(R.string.db_status_ready);
-                        break;
-                    default:
-                        status = getString(R.string.db_status_not_payed);
-                        break;
-                }
-                myDB.updateRowClient(thisId, status);
-                refreshListView();
-                builder.dismiss();
-            }
-        });
-        builder.setView(dialogView);
-        builder.show();
-    }
 }
 
 
