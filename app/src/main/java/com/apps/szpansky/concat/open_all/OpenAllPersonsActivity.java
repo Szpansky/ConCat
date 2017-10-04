@@ -71,4 +71,9 @@ public class OpenAllPersonsActivity extends SimpleActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        onNavigateUp();
+    }
 }

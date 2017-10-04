@@ -34,6 +34,12 @@ public class CatalogsActivity extends SimpleActivity {
 
 
     @Override
+    public void onBackPressed() {
+    onNavigateUp();
+    }
+
+
+    @Override
     protected void onAddButtonClick() {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override

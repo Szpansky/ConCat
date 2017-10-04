@@ -184,5 +184,13 @@
     <string name="order">Order</string>
     <string name="ends_in">Ends in</string>
     <string name="pieces">Pieces</string>
+    <string name="main_color">Main Color</string>
+    <string name="main_color_scheme">Main color Scheme</string>
+    <string name="browsing_color">Browsing color</string>
+    <string name="browsing_color_scheme">Browsing color scheme</string>
+    <string name="pick_color">Pick color</string>
+    <string name="pick_color_scheme">Pick color scheme</string>
+    <string name="click_to_see">Click to see</string>
+    <string name="app_version">App version</string>
 
 </resources>

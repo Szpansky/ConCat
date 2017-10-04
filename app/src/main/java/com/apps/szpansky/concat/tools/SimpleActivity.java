@@ -112,6 +112,7 @@ public abstract class SimpleActivity extends AppCompatActivity {
 
 
     protected void refreshListView() {
+        int prevPosition = listView.getFirstVisiblePosition();
         myCursorAdapter = new SimpleCursorAdapter(getBaseContext(),
                 data.getItemLayoutResourceId(),
                 data.setCursor(myDB),
@@ -120,6 +121,8 @@ public abstract class SimpleActivity extends AppCompatActivity {
                 0);
         listView.setAdapter(myCursorAdapter);
         listView.setOnScrollListener(onScrollListener);
+        if (prevPosition!=0) listView.setSelection(prevPosition+1);
+        listView.clearFocus();
     }
 
 

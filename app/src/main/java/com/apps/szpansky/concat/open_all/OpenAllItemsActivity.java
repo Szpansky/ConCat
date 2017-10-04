@@ -69,4 +69,10 @@ public class OpenAllItemsActivity extends SimpleActivity {
             }
         });
     }
+
+
+    @Override
+    public void onBackPressed() {
+        onNavigateUp();
+    }
 }

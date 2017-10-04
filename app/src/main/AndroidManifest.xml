@@ -16,8 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.apps.szpansky.concat.MainActivity"
-            android:label="ConCat">
+            android:name=".MainActivity"
+            android:label="ConCat"
+            android:theme="@style/DefaultTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,72 +26,76 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.apps.szpansky.concat.for_pick.PickPerson"
+            android:name=".for_pick.PickPerson"
             android:label="@string/pick_person"
             android:launchMode="singleTop"
-            android:parentActivityName="com.apps.szpansky.concat.main_browsing.ClientsActivity"
+            android:parentActivityName=".main_browsing.ClientsActivity"
             android:theme="@style/PickTheme"
             tools:targetApi="jelly_bean" />
         <activity
-            android:name="com.apps.szpansky.concat.for_pick.PickItem"
+            android:name=".for_pick.PickItem"
             android:label="@string/pick_item"
             android:launchMode="singleTop"
-            android:parentActivityName="com.apps.szpansky.concat.main_browsing.OrdersActivity"
+            android:parentActivityName=".main_browsing.OrdersActivity"
             android:theme="@style/PickTheme"
             tools:targetApi="jelly_bean" />
         <activity
-            android:name="com.apps.szpansky.concat.open_all.OpenAllPersonsActivity"
+            android:name=".open_all.OpenAllPersonsActivity"
             android:label="@string/contacts"
             android:launchMode="singleTop"
-            android:parentActivityName="com.apps.szpansky.concat.MainActivity"
+            android:parentActivityName=".MainActivity"
             tools:targetApi="jelly_bean" />
         <activity
-            android:name="com.apps.szpansky.concat.open_all.OpenAllItemsActivity"
+            android:name=".open_all.OpenAllItemsActivity"
             android:label="@string/items"
             android:launchMode="singleTop"
-            android:parentActivityName="com.apps.szpansky.concat.MainActivity"
+            android:parentActivityName=".MainActivity"
             tools:targetApi="jelly_bean" />
         <activity
-            android:name="com.apps.szpansky.concat.add_edit.AddEditCatalogActivity"
+            android:name=".add_edit.AddEditCatalogActivity"
             android:label="@string/add_or_edit"
             android:launchMode="singleTop"
             tools:targetApi="jelly_bean" />
         <activity
-            android:name="com.apps.szpansky.concat.add_edit.AddEditPersonActivity"
+            android:name=".add_edit.AddEditPersonActivity"
             android:label="@string/add_or_edit"
             android:launchMode="singleTop"
             tools:targetApi="jelly_bean" />
         <activity
-            android:name="com.apps.szpansky.concat.add_edit.AddEditItemsActivity"
+            android:name=".add_edit.AddEditItemsActivity"
             android:label="@string/add_or_edit"
             android:launchMode="singleTop"
             tools:targetApi="jelly_bean" />
         <activity
-            android:name="com.apps.szpansky.concat.main_browsing.CatalogsActivity"
+            android:name=".main_browsing.CatalogsActivity"
             android:label="@string/orders"
             android:launchMode="singleTop"
-            android:parentActivityName="com.apps.szpansky.concat.MainActivity"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/BrowsingTheme"
             tools:targetApi="jelly_bean" />
         <activity
-            android:name="com.apps.szpansky.concat.main_browsing.ClientsActivity"
+            android:name=".main_browsing.ClientsActivity"
             android:label="@string/browsing"
             android:launchMode="singleTop"
-            android:parentActivityName="com.apps.szpansky.concat.main_browsing.CatalogsActivity"
+            android:parentActivityName=".main_browsing.CatalogsActivity"
             android:theme="@style/BrowsingTheme"
             tools:targetApi="jelly_bean" />
         <activity
-            android:name="com.apps.szpansky.concat.main_browsing.OrdersActivity"
+            android:name=".main_browsing.OrdersActivity"
             android:label="@string/browsing"
             android:launchMode="singleTop"
-            android:parentActivityName="com.apps.szpansky.concat.main_browsing.ClientsActivity"
+            android:parentActivityName=".main_browsing.ClientsActivity"
             android:theme="@style/BrowsingTheme"
             tools:targetApi="jelly_bean" />
-        <activity android:name="com.apps.szpansky.concat.SettingsActivity" />
         <activity
-            android:name="com.apps.szpansky.concat.HelpAndOpinionActivity"
+            android:name=".SettingsActivity"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/DefaultTheme"
+            />
+        <activity
+            android:name=".HelpAndOpinionActivity"
             android:label="@string/help_opinion"
-            android:parentActivityName="com.apps.szpansky.concat.main_browsing.ClientsActivity"
+            android:parentActivityName=".MainActivity"
             tools:targetApi="jelly_bean" />
     </application>
 

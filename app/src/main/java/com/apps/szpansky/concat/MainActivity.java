@@ -44,9 +44,7 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import org.w3c.dom.Text;
 
 
 public class MainActivity extends AppCompatActivity implements RewardedVideoAdListener {
@@ -54,33 +52,20 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     public static boolean LOGGED = false;
     public static Integer rewardAmount;
 
-    private final static boolean EXPORT = true;
-    private final static boolean IMPORT = false;
     private static boolean FLOATING_MENU = false;
-    //private String mainCurrentCatalogNr;
-    //private String mainCurrentCatalogPrice;
 
-    Cursor c;
-    Database myDB = new Database(this);
+    private Database myDB = new Database(this);
 
-    private String tableName = Database.TABLE_ITEMS;    //default exported/imported content
-    private String fileName = "Items.txt";
-
-    private Button openCatalogs, startAds;
     private FloatingActionButton fabMain, fabNewCatalog, fabNewPerson, fabNewItem;
 
-    private Animation fabClose, fabOpen, fabRotate, fabRotateBack;
-    private TextView mainCatalogNr, mainCatalogPrice, mainCatalogDaysLeft, mainCatalogNotPayed;
-
-    private Toolbar toolbar;
-    private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private NavigationView navigationView;
     private GridLayout subFloatingMenu;
+    View navViewHeader;
 
     //private AdView mAdView;
     private RewardedVideoAd mAd;
-
+    AlertDialog builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,11 +73,6 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         setContentView(R.layout.activity_main);
 
         setAds();
-
-        fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open);
-        fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close);
-        fabRotate = AnimationUtils.loadAnimation(this, R.anim.fab_rotate);
-        fabRotateBack = AnimationUtils.loadAnimation(this, R.anim.fab_rotate_back);
 
         setMainInfo();
         setDrawer();
@@ -105,19 +85,11 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     }
 
 
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        getPreferences();
-    }
-
-
     private void getPreferences() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        View v = navigationView.getHeaderView(0);
-        TextView loggedAs = (TextView) v.findViewById(R.id.navi_loggedAs);
-        TextView rewardPoints = (TextView) v.findViewById(R.id.navi_rewardAmount);
+        TextView loggedAs = (TextView) navViewHeader.findViewById(R.id.navi_loggedAs);
         loggedAs.setText(sharedPreferences.getString("pref_edit_text_loggedAs", getResources().getString(R.string.pref_def_logged_as)));
+        TextView rewardPoints = (TextView) navViewHeader.findViewById(R.id.navi_rewardAmount);
         rewardPoints.setText(sharedPreferences.getString("pref_edit_text_rewardAmount", "0"));
     }
 
@@ -132,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
 
     private void onStartClick() {
-        openCatalogs = (Button) findViewById(R.id.openCatalogs);
+        Button openCatalogs = (Button) findViewById(R.id.openCatalogs);
         openCatalogs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent Intent_Open_Catalogs = new Intent(MainActivity.this, CatalogsActivity.class);
@@ -143,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
 
     private void onDailyRewardClick() {
-        startAds = (Button) findViewById(R.id.startAd);
+        Button startAds = (Button) findViewById(R.id.startAd);
         startAds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,37 +138,36 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
     private void setDrawer() {
         navigationView = (NavigationView) findViewById(R.id.navView);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
         toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+        navViewHeader = navigationView.getHeaderView(0);
     }
 
 
     private void onNavigationItemClick() {
+        final Dialogs dialogs = new Dialogs();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case (R.id.menuLogin):
-                        //drawerLayout.closeDrawer(Gravity.START, false);
-                        dialogLoginBuilder();
+                        dialogs.dialogLoginBuilder(builder = new AlertDialog.Builder(MainActivity.this).create());
                         break;
                     case (R.id.menuMyAccount):
-                        dialogInformationBuilder();
+                        dialogs.dialogInformationBuilder(builder = new AlertDialog.Builder(MainActivity.this).create());
                         break;
                     case (R.id.menuClients):
-                        //drawerLayout.closeDrawer(Gravity.START, false);
                         Intent Intent_Open_Persons = new Intent(MainActivity.this, OpenAllPersonsActivity.class);
                         startActivity(Intent_Open_Persons);
                         break;
                     case (R.id.menuItems):
-                        //drawerLayout.closeDrawer(Gravity.START, false);
                         Intent Intent_Open_Items = new Intent(MainActivity.this, OpenAllItemsActivity.class);
                         startActivity(Intent_Open_Items);
                         break;
@@ -211,14 +182,11 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
                         }
                         break;
                     case (R.id.menuExportImport):
-                        dialogExportImportBuilder();
+                        dialogs.dialogExportImportBuilder(builder = new AlertDialog.Builder(MainActivity.this).create());
                         break;
                     case (R.id.menuSetting):
-                        Snackbar snackbarInfo = Snackbar.make(findViewById(R.id.drawerLayout), R.string.coming_soon, Snackbar.LENGTH_SHORT);
-                        snackbarInfo.show();
-
-                        //Intent Intent_Open_Settings = new Intent(MainActivity.this, SettingsActivity.class);
-                        //startActivity(Intent_Open_Settings);
+                        Intent Intent_Open_Settings = new Intent(MainActivity.this, SettingsActivity.class);
+                        startActivity(Intent_Open_Settings);
                         break;
                     case (R.id.menuHelpOpinion):
                         Intent Intent_Open_HelpAndOpinion = new Intent(MainActivity.this, HelpAndOpinionActivity.class);
@@ -234,6 +202,12 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     private void onFloatingButtonClick() {
         fabMain = (FloatingActionButton) findViewById(R.id.fabMain);
         subFloatingMenu = (GridLayout) findViewById(R.id.subFloatingMenu);
+
+        final Animation fabClose, fabOpen, fabRotate, fabRotateBack;
+        fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open);
+        fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close);
+        fabRotate = AnimationUtils.loadAnimation(this, R.anim.fab_rotate);
+        fabRotateBack = AnimationUtils.loadAnimation(this, R.anim.fab_rotate_back);
 
         fabMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -296,45 +270,16 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     }
 
 
-    private void dialogLoginBuilder() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final View dialogView = getLayoutInflater().inflate(R.layout.dialog_login, null);
-        final EditText emailEditText = (EditText) dialogView.findViewById(R.id.dialog_login_email);
-        final EditText passwordEditText = (EditText) dialogView.findViewById(R.id.dialog_login_password);
-        Button loginButton = (Button) dialogView.findViewById(R.id.dialog_login_loginBtn);
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = emailEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
-
-                LOGGED = NetworkFunctions.logIn(email, password);
-
-                if (LOGGED) {
-                    Snackbar snackbar = Snackbar.make(dialogView, R.string.coming_soon, Snackbar.LENGTH_SHORT);
-                    snackbar.show();
-                } else {
-                    Snackbar snackbar = Snackbar.make(dialogView, R.string.coming_soon, Snackbar.LENGTH_SHORT);
-                    snackbar.show();
-                }
-
-            }
-        });
-        builder.setView(dialogView);
-        builder.create();
-        builder.show();
-    }
-
-
     private void setMainInfo() {
-        mainCatalogDaysLeft = (TextView) findViewById(R.id.main_order_days_left);
-        mainCatalogNotPayed = (TextView) findViewById(R.id.main_order_client_count);
-        mainCatalogNr = (TextView) findViewById(R.id.main_order_number);
-        mainCatalogPrice = (TextView) findViewById(R.id.main_order_price);
+        TextView mainCatalogNr = (TextView) findViewById(R.id.main_order_number);
+        TextView mainCatalogMonthsLeft = (TextView) findViewById(R.id.main_order_months_left);
+        TextView mainCatalogDaysLeft = (TextView) findViewById(R.id.main_order_days_left);
+        TextView mainCatalogPrice = (TextView) findViewById(R.id.main_order_price);
+        TextView mainCatalogNotPayed = (TextView) findViewById(R.id.main_order_client_count);
         View view = findViewById(R.id.main_layout_info);
 
-        c = myDB.getCurrentCatalogInfo();
+        Cursor c = myDB.getCurrentCatalogInfo();
+
         if (c.isNull(0) || c.isNull(4) || c.isNull(7) || c.isNull(9)) {
             view.setVisibility(View.GONE);
         } else {
@@ -346,204 +291,30 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
             String price = c.getString(7) + getResources().getString(R.string.money_shortcut);
             mainCatalogPrice.setText(price);
             String daysLeft;
+            String monthsLeft;
+
             String endDate = c.getString(9);
             if (endDate.equals("")) {
                 daysLeft = getResources().getString(R.string.error);
+                monthsLeft = getResources().getString(R.string.error);
+
             } else {
-                daysLeft = getTimeLeft(endDate);
+                String[] date;
+                date = SimpleFunctions.getTimeLeft(endDate).split(" ");
+                if (!date[0].isEmpty()) {
+                    daysLeft = date[1];
+                    daysLeft = (daysLeft.equals("1")) ? daysLeft + " " + getResources().getString(R.string.day) : daysLeft + " " + getResources().getString(R.string.days);
+                    mainCatalogDaysLeft.setText(daysLeft);
+                }
+                if (!date[0].isEmpty()) {
+                    monthsLeft = date[0];
+                    monthsLeft = (monthsLeft.equals("1") || monthsLeft.equals("0")) ? monthsLeft + " " + getResources().getString(R.string.month) : monthsLeft + " " + getResources().getString(R.string.months);
+                    mainCatalogMonthsLeft.setText(monthsLeft);
+                }
             }
-            mainCatalogDaysLeft.setText(daysLeft);
         }
         c.close();
-    }
-
-
-    private String getTimeLeft(String date) { // dateFormat = "yyyy-MM-dd"
-        String[] DateSplit = date.split("-");
-        int month = Integer.parseInt(DateSplit[1]) - 1, // if month is november  then subtract by 1
-                year = Integer.parseInt(DateSplit[0]), day = Integer
-                .parseInt(DateSplit[2]);
-        Calendar now = Calendar.getInstance();
-
-        int dy = day - Calendar.getInstance().get(Calendar.DATE),
-                mnth = month - Calendar.getInstance().get(Calendar.MONTH),
-                daysinmnth = 32 - dy;
-
-        Calendar end = Calendar.getInstance();
-
-        end.set(year, month, day);
-
-        if (mnth != 0) {
-            if (dy != 0) {
-                if (dy < 0) {
-                    dy = (dy + daysinmnth) % daysinmnth;
-                    mnth--;
-                }
-                if (mnth < 0) {
-                    mnth = (mnth + 12) % 12;
-                }
-            }
-        }
-
-        String dytext = (dy == 1) ? getResources().getString(R.string.day) : getResources().getString(R.string.days),
-                mnthtext = (mnth == 1) ? getResources().getString(R.string.month) : getResources().getString(R.string.months);
-
-        if (now.after(end)) {
-            return getResources().getString(R.string.end);
-        } else {
-            String months = "", days = "";
-            months = (mnth > 0) ? mnth + " " + mnthtext : "";
-            if (mnth <= 0) {
-                days = (dy > 0) ? dy + " " + dytext : "";
-            }
-            return months + days;
-        }
-    }
-
-
-    private void dialogInformationBuilder() {
-        final AlertDialog builder = new AlertDialog.Builder(this).create();
-        View dialogView = getLayoutInflater().inflate(R.layout.dialog_information, null);
-
-        Button backButton = (Button) dialogView.findViewById(R.id.dialog_info_backBtn);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                builder.dismiss();
-            }
-        });
-
-        Cursor c = myDB.getCurrentCatalogInfo();
-
-        TextView currentCatalogNumber = (TextView) dialogView.findViewById(R.id.current_catalogs_number);
-        TextView currentCatalogClientsAmount = (TextView) dialogView.findViewById(R.id.current_clients_amount);
-        TextView currentCatalogItemOrderedAmount = (TextView) dialogView.findViewById(R.id.current_ordered_item_amount);
-        TextView currentCatalogPcs = (TextView) dialogView.findViewById(R.id.current_pcs_ordered);
-        TextView currentCatalogNotPayed = (TextView) dialogView.findViewById(R.id.current_not_payed_amount);
-        TextView currentCatalogPayed = (TextView) dialogView.findViewById(R.id.current_payed_amount);
-        TextView currentCatalogReady = (TextView) dialogView.findViewById(R.id.current_ready_amount);
-        TextView currentCatalogTotal = (TextView) dialogView.findViewById(R.id.current_total);
-        currentCatalogNumber.setText(c.getString(0));
-        currentCatalogClientsAmount.setText(c.getString(1));
-        currentCatalogItemOrderedAmount.setText(c.getString(2));
-        currentCatalogPcs.setText(c.getString(3));
-        currentCatalogNotPayed.setText(c.getString(4));
-        currentCatalogPayed.setText(c.getString(5));
-        currentCatalogReady.setText(c.getString(6));
-        currentCatalogTotal.setText(c.getString(7));
-
-        c = myDB.getCurrentInfo();
-
-        TextView allCatalogsAmount = (TextView) dialogView.findViewById(R.id.all_catalogs_amount);
-        TextView allClientsAmount = (TextView) dialogView.findViewById(R.id.all_clients_amount);
-        TextView allItemOrderedAmount = (TextView) dialogView.findViewById(R.id.all_items_amount);
-        TextView allTotal = (TextView) dialogView.findViewById(R.id.all_total);
-
-        allCatalogsAmount.setText(c.getString(0));
-        c.moveToNext();
-        allClientsAmount.setText(c.getString(0));
-        c.moveToNext();
-        allItemOrderedAmount.setText(c.getString(0));
-        c.moveToNext();
-        allTotal.setText(c.getString(0));
-
-        c.close();
-
-        builder.setView(dialogView);
-        builder.show();
-    }
-
-
-    private void dialogExportImportBuilder() {
-        final AlertDialog builder = new AlertDialog.Builder(this).create();
-        final View dialogView = getLayoutInflater().inflate(R.layout.dialog_export_import, null);
-
-        Button importDBButton = (Button) dialogView.findViewById(R.id.dialog_ie_button_db_import);
-        Button exportDBButton = (Button) dialogView.findViewById(R.id.dialog_ie_button_db_export);
-        final RadioGroup radioGroup = (RadioGroup) dialogView.findViewById(R.id.dialog_ie_radio_group);
-        Button importTableButton = (Button) dialogView.findViewById(R.id.dialog_ie_button_folder_import);
-        Button exportTableButton = (Button) dialogView.findViewById(R.id.dialog_ie_button_folder_export);
-
-        importDBButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        FileManagement.importExportDB(findViewById(R.id.drawerLayout), IMPORT, getPackageName());
-                        builder.dismiss();
-                    }
-                }).start();
-            }
-        });
-
-        exportDBButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        FileManagement.importExportDB(findViewById(R.id.drawerLayout), EXPORT, getPackageName());
-                        builder.dismiss();
-                    }
-                }).start();
-            }
-        });
-
-        importTableButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final ProgressBar progressBar = (ProgressBar) dialogView.findViewById(R.id.pb);
-                progressBar.setVisibility(View.VISIBLE);
-                Thread importTXT = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        FileManagement.importTXT(dialogView.findViewById(R.id.dialog_import_export), getBaseContext(), fileName, tableName);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                progressBar.setVisibility(View.GONE);
-                            }
-                        });
-                    }
-                });
-                importTXT.start();
-            }
-        });
-
-        exportTableButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        FileManagement.generateTXT(dialogView.findViewById(R.id.dialog_import_export), getBaseContext(), fileName, tableName);
-                    }
-                }).start();
-            }
-        });
-
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                switch (checkedId) {
-                    case (R.id.dialog_ie_radio_items):
-                        fileName = "Items.txt";
-                        tableName = Database.TABLE_ITEMS;
-                        break;
-                    case (R.id.dialog_ie_radio_persons):
-                        fileName = "Persons.txt";
-                        tableName = Database.TABLE_PERSONS;
-                        break;
-                    case (R.id.dialog_ie_radio_catalogs):
-                        fileName = "Catalogs.txt";
-                        tableName = Database.TABLE_CATALOGS;
-                        break;
-                }
-            }
-        });
-        builder.setView(dialogView);
-        builder.show();
+        myDB.close();
     }
 
 
@@ -569,26 +340,23 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     public void onRewardedVideoAdClosed() {
         Snackbar snackbarInfo = Snackbar.make(findViewById(R.id.drawerLayout), R.string.end, Snackbar.LENGTH_SHORT);
         snackbarInfo.show();
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        rewardAmount = Integer.parseInt(sharedPreferences.getString("pref_edit_text_rewardAmount", "0"));
-        rewardAmount++;
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putString("pref_edit_text_rewardAmount", rewardAmount.toString());
-        editor.apply();
-
+        addPoints(1);
+        getPreferences();
     }
 
 
     @Override
     public void onRewarded(RewardItem rewardItem) {
         Toast.makeText(this, "Added points: " + rewardItem.getAmount(), Toast.LENGTH_SHORT).show();
+        addPoints(rewardItem.getAmount());
+        getPreferences();
+    }
 
+
+    private void addPoints(int amount) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         rewardAmount = Integer.parseInt(sharedPreferences.getString("pref_edit_text_rewardAmount", "0"));
-        rewardAmount = rewardAmount + rewardItem.getAmount();
+        rewardAmount = rewardAmount + amount;
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -607,6 +375,238 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     public void onRewardedVideoAdFailedToLoad(int i) {
         Snackbar snackbarInfo = Snackbar.make(findViewById(R.id.drawerLayout), R.string.failed_to_load_ad, Snackbar.LENGTH_SHORT);
         snackbarInfo.show();
+    }
+
+
+    private class Dialogs {
+        private String tableName = Database.TABLE_ITEMS;    //default exported/imported content
+        private String fileName = "Items.txt";
+
+        private void showProgressBar(boolean active, ProgressBar progressBar, View dialogLayout, AlertDialog builder) {
+            if (active) {
+                progressBar.setVisibility(View.VISIBLE);
+                dialogLayout.setVisibility(View.GONE);
+                builder.setCancelable(false);
+            } else {
+                progressBar.setVisibility(View.GONE);
+                dialogLayout.setVisibility(View.VISIBLE);
+                builder.setCancelable(true);
+            }
+        }
+
+
+        public void dialogExportImportBuilder(final AlertDialog builder) {
+            final View dialogView = getLayoutInflater().inflate(R.layout.dialog_export_import, null);
+            final View dialogLayout = dialogView.findViewById(R.id.dialog_import_export);
+            final ProgressBar progressBar = (ProgressBar) dialogView.findViewById(R.id.dialog_import_export_pb);
+            final String appName = getBaseContext().getResources().getString(R.string.app_name);
+            Button importDBButton = (Button) dialogView.findViewById(R.id.dialog_ie_button_db_import);
+            Button exportDBButton = (Button) dialogView.findViewById(R.id.dialog_ie_button_db_export);
+            final RadioGroup radioGroup = (RadioGroup) dialogView.findViewById(R.id.dialog_ie_radio_group);
+            Button importTableButton = (Button) dialogView.findViewById(R.id.dialog_ie_button_folder_import);
+            Button exportTableButton = (Button) dialogView.findViewById(R.id.dialog_ie_button_folder_export);
+            final boolean EXPORT = true;
+            final boolean IMPORT = false;
+
+            importDBButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showProgressBar(true, progressBar, dialogLayout, builder);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            if (FileManagement.importExportDB(IMPORT, getPackageName(), appName)) {
+                                Snackbar snackbar = Snackbar.make(dialogView, R.string.successfully_notify, Snackbar.LENGTH_SHORT);
+                                snackbar.show();
+                            } else {
+                                Snackbar snackbar = Snackbar.make(dialogView, R.string.backup_error, Snackbar.LENGTH_SHORT);
+                                snackbar.show();
+                            }
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    showProgressBar(false, progressBar, dialogLayout, builder);
+                                }
+                            });
+                        }
+                    }).start();
+                }
+            });
+
+            exportDBButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showProgressBar(true, progressBar, dialogLayout, builder);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (FileManagement.importExportDB(EXPORT, getPackageName(), appName)) {
+                                Snackbar snackbar = Snackbar.make(dialogView, R.string.successfully_notify, Snackbar.LENGTH_SHORT);
+                                snackbar.show();
+                            } else {
+                                Snackbar snackbar = Snackbar.make(dialogView, R.string.error_notify, Snackbar.LENGTH_SHORT);
+                                snackbar.show();
+                            }
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    showProgressBar(false, progressBar, dialogLayout, builder);
+                                }
+                            });
+                        }
+                    }).start();
+                }
+            });
+
+            importTableButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showProgressBar(true, progressBar, dialogLayout, builder);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (FileManagement.importTXT(fileName, tableName, appName, myDB)) {
+                                Snackbar snackbarInfo = Snackbar.make(dialogView, getResources().getString(R.string.updated) + FileManagement.getUpdated() + getResources().getString(R.string.created) + FileManagement.getCreated(), Snackbar.LENGTH_SHORT);
+                                snackbarInfo.show();
+                            } else {
+                                Snackbar snackbarInfo = Snackbar.make(dialogView, R.string.file_does_not_exists, Snackbar.LENGTH_SHORT);
+                                snackbarInfo.show();
+                            }
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    showProgressBar(false, progressBar, dialogLayout, builder);
+                                }
+                            });
+                        }
+                    }).start();
+                }
+            });
+
+            exportTableButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showProgressBar(true, progressBar, dialogLayout, builder);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (FileManagement.generateTXT(fileName, tableName, appName, myDB)) {
+                                Snackbar snackbar = Snackbar.make(dialogView, R.string.successfully_notify, Snackbar.LENGTH_SHORT);
+                                snackbar.show();
+                            } else {
+                                Snackbar snackbar = Snackbar.make(dialogView, R.string.error_notify, Snackbar.LENGTH_SHORT);
+                                snackbar.show();
+                            }
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    showProgressBar(false, progressBar, dialogLayout, builder);
+                                }
+                            });
+                        }
+                    }).start();
+                }
+            });
+
+            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                    switch (checkedId) {
+                        case (R.id.dialog_ie_radio_items):
+                            fileName = "Items.txt";
+                            tableName = Database.TABLE_ITEMS;
+                            break;
+                        case (R.id.dialog_ie_radio_persons):
+                            fileName = "Persons.txt";
+                            tableName = Database.TABLE_PERSONS;
+                            break;
+                        case (R.id.dialog_ie_radio_catalogs):
+                            fileName = "Catalogs.txt";
+                            tableName = Database.TABLE_CATALOGS;
+                            break;
+                    }
+                }
+            });
+            builder.setView(dialogView);
+            builder.show();
+        }
+
+
+        private void dialogInformationBuilder(final AlertDialog builder) {
+            View dialogView = getLayoutInflater().inflate(R.layout.dialog_information, null);
+            final int textViewForFirstTableCount = 8;
+
+
+            TextView[] textViews = new TextView[12];
+            textViews[0] = (TextView) dialogView.findViewById(R.id.current_catalogs_number);
+            textViews[1] = (TextView) dialogView.findViewById(R.id.current_clients_amount);
+            textViews[2] = (TextView) dialogView.findViewById(R.id.current_ordered_item_amount);
+            textViews[3] = (TextView) dialogView.findViewById(R.id.current_pcs_ordered);
+            textViews[4] = (TextView) dialogView.findViewById(R.id.current_not_payed_amount);
+            textViews[5] = (TextView) dialogView.findViewById(R.id.current_payed_amount);
+            textViews[6] = (TextView) dialogView.findViewById(R.id.current_ready_amount);
+            textViews[7] = (TextView) dialogView.findViewById(R.id.current_total);
+
+            textViews[8] = (TextView) dialogView.findViewById(R.id.all_catalogs_amount);
+            textViews[9] = (TextView) dialogView.findViewById(R.id.all_clients_amount);
+            textViews[10] = (TextView) dialogView.findViewById(R.id.all_items_amount);
+            textViews[11] = (TextView) dialogView.findViewById(R.id.all_total);
+
+            Button backButton = (Button) dialogView.findViewById(R.id.dialog_info_backBtn);
+            backButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    builder.dismiss();
+                }
+            });
+
+            Cursor c = myDB.getCurrentCatalogInfo();
+
+            for (int i = 0; i < textViewForFirstTableCount; i++) {
+                textViews[i].setText(c.getString(i));
+            }
+
+            c = myDB.getCurrentInfo();
+
+            for (int i = textViewForFirstTableCount; i < textViews.length; i++) {
+                textViews[i].setText(c.getString(0));
+                if (!c.isLast()) c.moveToNext();
+            }
+
+            c.close();
+            myDB.close();
+            builder.setView(dialogView);
+            builder.show();
+        }
+
+
+        private void dialogLoginBuilder(AlertDialog builder) {
+            final View dialogView = getLayoutInflater().inflate(R.layout.dialog_login, null);
+            final EditText emailEditText = (EditText) dialogView.findViewById(R.id.dialog_login_email);
+            final EditText passwordEditText = (EditText) dialogView.findViewById(R.id.dialog_login_password);
+            Button loginButton = (Button) dialogView.findViewById(R.id.dialog_login_loginBtn);
+
+            loginButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String email = emailEditText.getText().toString();
+                    String password = passwordEditText.getText().toString();
+
+                    LOGGED = NetworkFunctions.logIn(email, password);
+
+                    if (LOGGED) {
+                        Snackbar snackbar = Snackbar.make(dialogView, R.string.coming_soon, Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                    } else {
+                        Snackbar snackbar = Snackbar.make(dialogView, R.string.coming_soon, Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+                    }
+                }
+            });
+            builder.setView(dialogView);
+            builder.show();
+        }
     }
 }
 

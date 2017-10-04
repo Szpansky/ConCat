@@ -1,13 +1,8 @@
 package com.apps.szpansky.concat.tools;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.os.Environment;
-import android.support.design.widget.Snackbar;
-import android.view.View;
-
-import com.apps.szpansky.concat.R;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,16 +16,29 @@ import java.nio.channels.FileChannel;
 
 public final class FileManagement {
 
+    private static Integer created = 0;
+    private static Integer updated = 0;
 
-    public static void generateTXT(View view, Context context, String fileName, String tableName) {
-        Database myDb = new Database(context);
+
+    public static Integer getCreated() {
+        return created;
+    }
+
+
+    public static Integer getUpdated() {
+        return updated;
+    }
+
+
+    public static boolean generateTXT(String fileName, String tableName, String appName, Database myDb) {
+
         Cursor cursor = myDb.getTable(tableName);
         int columnCount = cursor.getColumnCount();
         int count = cursor.getCount();
         String toCopyLine = "";
 
         try {
-            File root = new File(Environment.getExternalStorageDirectory(), view.getResources().getString(R.string.app_name) + "/Exported");
+            File root = new File(Environment.getExternalStorageDirectory(), appName + "/Exported");
             if (!root.exists()) {
                 root.mkdirs();
             }
@@ -54,22 +62,18 @@ public final class FileManagement {
             writer.flush();
             writer.close();
 
-            Snackbar snackbar = Snackbar.make(view, R.string.successfully_notify, Snackbar.LENGTH_SHORT);
-            snackbar.show();
-
+            myDb.close();
+            return true;
         } catch (IOException e) {
-            Snackbar snackbar = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
-            snackbar.show();
+            myDb.close();
+            return false;
         }
-        myDb.close();
     }
 
 
-    public static void importTXT(View view, Context context, String fileName, String tableName) {
-        Integer updated = 0, created = 0;
+    public static boolean importTXT(String fileName, String tableName,String appName, Database myDB) {
         String where_query;
 
-        Database myDB = new Database(context);
         Cursor cursor = myDB.getTable(tableName);
         int columnCount = cursor.getColumnCount();
         String[] columnsName = new String[columnCount];
@@ -79,12 +83,11 @@ public final class FileManagement {
         }
 
         try {
-            File root = new File(Environment.getExternalStorageDirectory(), view.getResources().getString(R.string.app_name));
+            File root = new File(Environment.getExternalStorageDirectory(), appName);
             File file = new File(root, fileName);
             if ((!root.exists()) || (!file.exists())) {
-                Snackbar snackbarInfo1 = Snackbar.make(view, R.string.file_does_not_exists, Snackbar.LENGTH_SHORT);
-                snackbarInfo1.show();
-                return;
+                myDB.close();
+                return false;
             }
             ContentValues newValues = new ContentValues();
 
@@ -110,14 +113,11 @@ public final class FileManagement {
                     boolean isInserted = myDB.insertContentValuesToTable(tableName, newValues);
                     if (isInserted) {
                         created++;
-                    } else {
-                        Snackbar snackbarInfo = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
-                        snackbarInfo.show();
                     }
 
                 } else {
-                    if (columnsName[columnCount - 1].contains("UPDATE_DATE")) {
-                        where_query = columnsName[0] + " = " + copiedCells[0] + " AND UPDATE_DATE" + " <  '" + copiedCells[columnCount - 1] + "'";
+                    if (columnsName[columnCount - 1].contains(myDB.ITEM_UPDATE_DATE)) {
+                        where_query = columnsName[0] + " = " + copiedCells[0] + " AND "+myDB.ITEM_UPDATE_DATE+" <  '" + copiedCells[columnCount - 1] + "'";
                         cursor.close();
                         cursor = myDB.getRows(tableName, where_query);
                     }
@@ -129,24 +129,22 @@ public final class FileManagement {
                         boolean isUpdated = myDB.updateContentValuesToTable(tableName, newValues, where_query);
                         if (isUpdated) {
                             updated++;
-                        } else {
-                            Snackbar snackbarInfo = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
-                            snackbarInfo.show();
                         }
                     }
                 }
             }
-            Snackbar snackbarInfo = Snackbar.make(view, context.getResources().getString(R.string.updated) + updated + context.getResources().getString(R.string.created) + created, Snackbar.LENGTH_SHORT);
-            snackbarInfo.show();
             cursor.close();
+            myDB.close();
+            return true;
         } catch (IOException e) {
-            Snackbar snackbarInfo = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
-            snackbarInfo.show();
+            cursor.close();
+            myDB.close();
+            return false;
         }
     }
 
 
-    public static void importExportDB(View view, boolean export, String packageName) {
+    public static boolean importExportDB(boolean export, String packageName, String appName) {
         try {
             File sd = Environment.getExternalStorageDirectory();
             File data = Environment.getDataDirectory();
@@ -158,13 +156,12 @@ public final class FileManagement {
                         + "//databases//" + Database.DATABASE_NAME;
 
                 if(export){
-                    backupDBPath = "/" + view.getResources().getString(R.string.app_name) + "/Exported/" + Database.DATABASE_NAME;
-                    appFolderPathOnSD = sd.getPath() + "/" + view.getResources().getString(R.string.app_name) + "/Exported/";
+                    backupDBPath = "/" + appName + "/Exported/" + Database.DATABASE_NAME;
+                    appFolderPathOnSD = sd.getPath() + "/" + appName + "/Exported/";
                 }else {
-                    backupDBPath = "/" + view.getResources().getString(R.string.app_name) + "/" + Database.DATABASE_NAME;
-                    appFolderPathOnSD = sd.getPath() + "/" + view.getResources().getString(R.string.app_name);
+                    backupDBPath = "/" + appName + "/" + Database.DATABASE_NAME;
+                    appFolderPathOnSD = sd.getPath() + "/" + appName;
                 }
-
 
                 File currentDB;
                 File backupDB;
@@ -187,13 +184,10 @@ public final class FileManagement {
                 dst.transferFrom(src, 0, src.size());
                 src.close();
                 dst.close();
-
-                Snackbar snackbar = Snackbar.make(view, R.string.successfully_notify, Snackbar.LENGTH_SHORT);
-                snackbar.show();
             }
+            return true;
         } catch (Exception e) {
-            Snackbar snackbar = Snackbar.make(view, R.string.backup_error, Snackbar.LENGTH_SHORT);
-            snackbar.show();
+            return false;
         }
     }
 }

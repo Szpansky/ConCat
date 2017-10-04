@@ -167,10 +167,18 @@
     <string name="day">Dzień</string>
     <string name="days">Dni</string>
     <string name="month">Miesiąc</string>
-    <string name="months">Miesięcy</string>
+    <string name="months">Miesiące</string>
     <string name="order">Zamówienie</string>
     <string name="ends_in">Kończy się za</string>
     <string name="pieces">Sztuk</string>
+    <string name="browsing_color">Kolor przeglądania</string>
+    <string name="browsing_color_scheme">Schemat kolorów przeglądania</string>
+    <string name="main_color">Główny kolor</string>
+    <string name="main_color_scheme">Schemat dla głównych kolorów</string>
+    <string name="pick_color">Kolor dla wyboru</string>
+    <string name="pick_color_scheme">Schemat kolorów dla wyboru</string>
+    <string name="app_version">Wersja aplikacji</string>
+    <string name="click_to_see">Kliknij by zobaczyć</string>
 
 
 </resources>

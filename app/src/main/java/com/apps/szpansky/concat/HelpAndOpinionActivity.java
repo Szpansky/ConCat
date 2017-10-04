@@ -79,4 +79,8 @@ public class HelpAndOpinionActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        onNavigateUp();
+    }
 }

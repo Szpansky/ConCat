@@ -75,6 +75,7 @@
                     android:focusable="false"
                     android:hint="@string/start_date"
                     android:inputType="date"
+                    android:maxLength="10"
                     android:textAlignment="center"
                     android:textColor="@android:color/holo_blue_dark"
                     android:textStyle="bold" />
@@ -96,6 +97,7 @@
                     android:focusable="false"
                     android:hint="@string/end_date"
                     android:inputType="date"
+                    android:maxLength="10"
                     android:textAlignment="center"
                     android:textColor="@android:color/holo_blue_dark"
                     android:textStyle="bold" />

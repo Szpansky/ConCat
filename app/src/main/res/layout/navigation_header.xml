@@ -79,7 +79,7 @@
         android:padding="10dp"
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="@dimen/default_text_size" />
+        android:textSize="10dp" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -91,6 +91,7 @@
         android:layout_marginBottom="@dimen/default_text_margin"
         android:layout_marginLeft="@dimen/default_text_margin"
         android:layout_marginStart="@dimen/default_text_margin"
-        app:srcCompat="@android:drawable/gallery_thumb" />
+        android:background="@android:drawable/gallery_thumb"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_dark_disabled" />
 
 </RelativeLayout>

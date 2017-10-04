@@ -52,10 +52,12 @@
                 android:title="@string/import_export" />
             <item
                 android:id="@+id/menuSetting"
+                android:checkable="true"
                 android:icon="@mipmap/ic_settings_black_24dp"
                 android:title="@string/settings" />
             <item
                 android:id="@+id/menuHelpOpinion"
+                android:checkable="true"
                 android:icon="@mipmap/ic_help_black_24dp"
                 android:title="@string/help_opinion" />
         </menu>
