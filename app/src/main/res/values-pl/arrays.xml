@@ -2,9 +2,16 @@
 <resources>
 
     <string-array name="colors">
+        <item>Domyślne dla Główne</item>
+        <item>Domyślne dla Kontakty/ Przedmioty</item>
+        <item>Domyślne dla Przeglądanie</item>
+        <item>Domyślne dla Wybieranie</item>
         <item>Niebieski</item>
         <item>Zielony</item>
-        <item>Żółty</item>
+        <item>Czerwony</item>
+        <item>Fioletowy</item>
+        <item>Różowy</item>
+        <item>Szary</item>
     </string-array>
 
 

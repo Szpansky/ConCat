@@ -44,8 +44,6 @@ import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
-import org.w3c.dom.Text;
-
 
 public class MainActivity extends AppCompatActivity implements RewardedVideoAdListener {
 
@@ -53,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     public static Integer rewardAmount;
 
     private static boolean FLOATING_MENU = false;
+    private static String styleKey = "list_preference_main_colors";
 
     private Database myDB = new Database(this);
 
@@ -69,7 +68,14 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String[] colorsKey = getBaseContext().getResources().getStringArray(R.array.colors_key);
+
+        setTheme(SimpleFunctions.setStyle(styleKey,sharedPreferences,colorsKey));
+
         setContentView(R.layout.activity_main);
 
         setAds();
@@ -81,11 +87,11 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         onFloatingButtonClick();
         onFabMenuItemClick();
         onDailyRewardClick();
-        getPreferences();
+        updateUserInfo();
     }
 
 
-    private void getPreferences() {
+    private void updateUserInfo() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         TextView loggedAs = (TextView) navViewHeader.findViewById(R.id.navi_loggedAs);
         loggedAs.setText(sharedPreferences.getString("pref_edit_text_loggedAs", getResources().getString(R.string.pref_def_logged_as)));
@@ -145,7 +151,6 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
-        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
         navViewHeader = navigationView.getHeaderView(0);
     }
 
@@ -341,7 +346,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         Snackbar snackbarInfo = Snackbar.make(findViewById(R.id.drawerLayout), R.string.end, Snackbar.LENGTH_SHORT);
         snackbarInfo.show();
         addPoints(1);
-        getPreferences();
+        updateUserInfo();
     }
 
 
@@ -349,7 +354,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     public void onRewarded(RewardItem rewardItem) {
         Toast.makeText(this, "Added points: " + rewardItem.getAmount(), Toast.LENGTH_SHORT).show();
         addPoints(rewardItem.getAmount());
-        getPreferences();
+        updateUserInfo();
     }
 
 

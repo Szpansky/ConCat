@@ -184,13 +184,23 @@
     <string name="order">Order</string>
     <string name="ends_in">Ends in</string>
     <string name="pieces">Pieces</string>
+
     <string name="main_color">Main Color</string>
-    <string name="main_color_scheme">Main color Scheme</string>
+    <string name="main_color_scheme">Main colors scheme</string>
     <string name="browsing_color">Browsing color</string>
     <string name="browsing_color_scheme">Browsing color scheme</string>
     <string name="pick_color">Pick color</string>
     <string name="pick_color_scheme">Pick color scheme</string>
+    <string name="open_all_colors" >Contacts/Items colors</string>
+    <string name="open_all_color_scheme">Contacts/Items scheme</string>
+
     <string name="click_to_see">Click to see</string>
     <string name="app_version">App version</string>
+
+    <string name="blue">Blue</string>
+    <string name="green">Green</string>
+    <string name="yellow">Yellow</string>
+
+    <string name="main">Main</string>
 
 </resources>

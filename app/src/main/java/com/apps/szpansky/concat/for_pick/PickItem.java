@@ -21,7 +21,7 @@ public class PickItem extends SimpleActivity {
     private boolean flag = true;
 
     public PickItem() {
-        super(new Item());
+        super(new Item(),"list_preference_picking_colors");
     }
 
 

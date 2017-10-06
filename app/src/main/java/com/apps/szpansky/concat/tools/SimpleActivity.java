@@ -1,9 +1,13 @@
 package com.apps.szpansky.concat.tools;
 
 
+import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -33,12 +37,19 @@ public abstract class SimpleActivity extends AppCompatActivity {
     private AbsListView.OnScrollListener onScrollListener;
     protected Toolbar toolbar;
     private Data data;
+    private String styleKey;
 
     protected abstract void onAddButtonClick();
 
 
-    protected SimpleActivity(Data data) {
+    /*protected SimpleActivity(Data data) {
         this.data = data;
+    }*/
+
+
+    protected SimpleActivity(Data data, String styleKey) {
+        this.data = data;
+        this.styleKey = styleKey;
     }
 
 
@@ -50,6 +61,11 @@ public abstract class SimpleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String[] colorsKey = getBaseContext().getResources().getStringArray(R.array.colors_key);
+
+        setTheme(SimpleFunctions.setStyle(styleKey,sharedPreferences,colorsKey));
         setContentView(R.layout.activity_simple_view);
 
         addButton = (FloatingActionButton) findViewById(R.id.add);
@@ -122,7 +138,8 @@ public abstract class SimpleActivity extends AppCompatActivity {
         listView.setAdapter(myCursorAdapter);
         listView.setOnScrollListener(onScrollListener);
         if (prevPosition!=0) listView.setSelection(prevPosition+1);
-        listView.clearFocus();
+        listView.requestFocus();
+        //listView.clearFocus();
     }
 
 
@@ -150,7 +167,6 @@ public abstract class SimpleActivity extends AppCompatActivity {
 
         builder.setView(view);
         builder.show();
-        listView.clearFocus();
     }
 
 

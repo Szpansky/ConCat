@@ -23,7 +23,7 @@ public class ClientsActivity extends SimpleActivity {
     private final int BACK_CODE = 1;
 
     public ClientsActivity() {
-        super(new Client());
+        super(new Client(),"list_preference_browsing_colors");
     }
 
 

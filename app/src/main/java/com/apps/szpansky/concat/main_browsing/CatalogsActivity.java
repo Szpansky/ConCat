@@ -2,10 +2,13 @@ package com.apps.szpansky.concat.main_browsing;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.add_edit.AddEditCatalogActivity;
@@ -13,13 +16,17 @@ import com.apps.szpansky.concat.simple_data.Catalog;
 import com.apps.szpansky.concat.simple_data.Client;
 import com.apps.szpansky.concat.tools.SimpleActivity;
 
+import java.util.prefs.PreferenceChangeEvent;
+import java.util.prefs.PreferenceChangeListener;
+
 
 public class CatalogsActivity extends SimpleActivity {
 
     private boolean flag = true;
 
     public CatalogsActivity() {
-        super(new Catalog());
+
+        super(new Catalog(),"list_preference_browsing_colors");
     }
 
 
@@ -30,6 +37,7 @@ public class CatalogsActivity extends SimpleActivity {
         addButton.setImageDrawable(getResources().getDrawable(R.mipmap.ic_fiber_new_white_24dp));
 
         listViewItemClick();
+
     }
 
 

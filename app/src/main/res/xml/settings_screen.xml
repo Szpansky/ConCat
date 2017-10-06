@@ -33,27 +33,40 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/look">
+    <PreferenceCategory android:title="@string/look" >
 
         <ListPreference
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:defaultValue="@string/DefaultTheme"
             android:entries="@array/colors"
-            android:entryValues="@array/colors"
+            android:entryValues="@array/colors_key"
             android:key="list_preference_main_colors"
-            android:summary="@string/coming_soon"
+            android:summary="@string/main_color_scheme"
             android:title="@string/main_color" />
 
         <ListPreference
+            android:defaultValue="@string/DefaultOpenAllTheme"
             android:entries="@array/colors"
-            android:entryValues="@array/colors"
+            android:entryValues="@array/colors_key"
+            android:key="list_preference_open_all_colors"
+            android:summary="@string/open_all_color_scheme"
+            android:title="@string/open_all_colors" />
+
+        <ListPreference
+            android:defaultValue="@string/DefaultBrowsingTheme"
+            android:entries="@array/colors"
+            android:entryValues="@array/colors_key"
             android:key="list_preference_browsing_colors"
-            android:summary="@string/coming_soon"
+            android:summary="@string/browsing_color_scheme"
             android:title="@string/browsing_color" />
 
         <ListPreference
+            android:defaultValue="@string/DefaultPickTheme"
             android:entries="@array/colors"
-            android:entryValues="@array/colors"
+            android:entryValues="@array/colors_key"
             android:key="list_preference_picking_colors"
-            android:summary="@string/coming_soon"
+            android:summary="@string/pick_color_scheme"
             android:title="@string/pick_color" />
 
     </PreferenceCategory>

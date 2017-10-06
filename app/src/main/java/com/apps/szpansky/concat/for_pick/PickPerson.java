@@ -15,7 +15,7 @@ public class PickPerson extends SimpleActivity {
 
 
     public PickPerson() {
-        super(new Person());
+        super(new Person(),"list_preference_picking_colors");
     }
 
 

@@ -10,7 +10,7 @@
     <dimen name="default_padding">10dp</dimen>
     <dimen name="default_edit_text_height">50dp</dimen>
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
-    <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="nav_header_height">157dp</dimen>
     <dimen name="toolBar_height">80dp</dimen>
 
     <item name="visible" type="id"/>

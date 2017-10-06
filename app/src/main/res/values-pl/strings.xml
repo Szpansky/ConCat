@@ -171,14 +171,23 @@
     <string name="order">Zamówienie</string>
     <string name="ends_in">Kończy się za</string>
     <string name="pieces">Sztuk</string>
-    <string name="browsing_color">Kolor przeglądania</string>
-    <string name="browsing_color_scheme">Schemat kolorów przeglądania</string>
+
     <string name="main_color">Główny kolor</string>
-    <string name="main_color_scheme">Schemat dla głównych kolorów</string>
-    <string name="pick_color">Kolor dla wyboru</string>
-    <string name="pick_color_scheme">Schemat kolorów dla wyboru</string>
+    <string name="main_color_scheme">Schemat kolorów głównych</string>
+    <string name="browsing_color">Przeglądanie</string>
+    <string name="browsing_color_scheme">Schemat kolorów dla okien przeglądania</string>
+    <string name="pick_color">Wybieranie</string>
+    <string name="pick_color_scheme">Schemat kolorów dla okien wyboru</string>
+    <string name="open_all_colors">Kotakty/Przedmioty</string>
+    <string name="open_all_color_scheme">Schemat kolorów okien gdzie wyświetlane są wszystkie przedmioty/kontakty</string>
+
     <string name="app_version">Wersja aplikacji</string>
     <string name="click_to_see">Kliknij by zobaczyć</string>
+    <string name="green">Zielony</string>
+    <string name="yellow">Żółty</string>
+    <string name="blue">Niebieski</string>
+
+    <string name="main">Główny</string>
 
 
 </resources>

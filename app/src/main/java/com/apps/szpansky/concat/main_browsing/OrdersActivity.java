@@ -20,7 +20,7 @@ public class OrdersActivity extends SimpleActivity {
     private boolean flag = true;
 
     public OrdersActivity() {
-        super(new Order());
+        super(new Order(),"list_preference_browsing_colors");
     }
 
 

@@ -1,6 +1,11 @@
 package com.apps.szpansky.concat.tools;
 
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
+import com.apps.szpansky.concat.R;
+
 import java.util.Calendar;
 
 public final class SimpleFunctions {
@@ -54,7 +59,40 @@ public final class SimpleFunctions {
         }
     }
 
+    public static int setStyle(String styleKey, SharedPreferences sharedPreferences, String[] colorsKey){
 
+        if(sharedPreferences.getString(styleKey,"0").equals(colorsKey[0])){
+            return  (R.style.DefaultTheme);
+        }else
+        if(sharedPreferences.getString(styleKey,"0").equals(colorsKey[1])){
+            return  (R.style.OpenAllTheme);
+        }else
+        if(sharedPreferences.getString(styleKey,"0").equals(colorsKey[2])){
+            return  (R.style.BrowsingTheme);
+        }else
+        if(sharedPreferences.getString(styleKey,"0").equals(colorsKey[3])){
+            return  (R.style.PickTheme);
+        }else
+        if(sharedPreferences.getString(styleKey,"0").equals(colorsKey[4])){
+            return  (R.style.BlueTheme);
+        }else
+        if(sharedPreferences.getString(styleKey,"0").equals(colorsKey[5])){
+            return  (R.style.GreenTheme);
+        }else
+        if(sharedPreferences.getString(styleKey,"0").equals(colorsKey[6])){
+            return  (R.style.RedTheme);
+        }else
+        if(sharedPreferences.getString(styleKey,"0").equals(colorsKey[7])){
+            return  (R.style.PurpleTheme);
+        }else
+        if(sharedPreferences.getString(styleKey,"0").equals(colorsKey[8])){
+            return  (R.style.PinkTheme);
+        }else
+        if(sharedPreferences.getString(styleKey,"0").equals(colorsKey[9])){
+            return  (R.style.GrayTheme);
+        }else
+            return (R.style.DefaultTheme);
+    }
 
 
     }

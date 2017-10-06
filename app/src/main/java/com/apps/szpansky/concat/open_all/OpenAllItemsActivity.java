@@ -14,7 +14,7 @@ public class OpenAllItemsActivity extends SimpleActivity {
 
 
     public OpenAllItemsActivity() {
-        super(new Item());
+        super(new Item(),"list_preference_open_all_colors");
     }
 
 

@@ -16,13 +16,11 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="@dimen/default_padding"
         android:layout_marginRight="@dimen/default_padding"
-        android:clickable="true"
         android:clipToPadding="false"
         android:drawSelectorOnTop="true"
-        android:focusable="false"
-        android:layoutAnimation="@anim/my_layout_animation"
         android:paddingTop="@dimen/toolBar_height"
-        android:scrollbarStyle="outsideInset" />
+        android:scrollbarStyle="outsideInset"
+        android:choiceMode="singleChoice"/>
 
 
     <include
