@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.apps.szpansky.concat.simple_data.Person;
+import com.apps.szpansky.concat.tools.Data;
 import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.R;
 import com.google.android.gms.ads.AdRequest;
@@ -34,6 +36,8 @@ public class AddEditPersonActivity extends AppCompatActivity {
 
     private Database myDB;
     private Bundle bundle;
+    private Data data;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +106,8 @@ public class AddEditPersonActivity extends AppCompatActivity {
             Toast.makeText(AddEditPersonActivity.this, R.string.error_notify, Toast.LENGTH_LONG).show();
         }
         finish();
+
+
     }
 
 

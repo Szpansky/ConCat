@@ -1,12 +1,14 @@
 package com.apps.szpansky.concat.simple_data;
 
 import android.database.Cursor;
+import android.database.SQLException;
 
 import com.apps.szpansky.concat.R;
+import com.apps.szpansky.concat.tools.Data;
 import com.apps.szpansky.concat.tools.Database;
 
 
-public class Person extends Client {
+public class Person extends Data {
 
     public static int clickedPersonId;
 
@@ -19,7 +21,7 @@ public class Person extends Client {
 
 
     @Override
-    public Cursor setCursor(Database myDB) {
+    public Cursor getCursor() {
 
         return myDB.getPersons(this.filter);
     }
@@ -50,16 +52,50 @@ public class Person extends Client {
 
 
     @Override
-    public void deleteData(int personId, Database myDB) {
-
+    public boolean deleteData(int personId) {
         int clientId;
+        boolean flag = true;
+            do {
+                clientId = myDB.getInt(Database.TABLE_CLIENTS, Database.CLIENT_ID, Database.CLIENT_PERSON_ID, personId);
+                if (clientId != -1) {
+                    if (!myDB.delete(Database.TABLE_ORDERS, Database.ORDER_CLIENT_ID, clientId)) flag = false;
+                    if (!myDB.delete(Database.TABLE_CLIENTS, Database.CLIENT_ID, clientId)) flag = false;
+                }
+            } while (clientId != -1);
+            if (!myDB.delete(Database.TABLE_PERSONS, Database.PERSON_ID, personId)) flag = false;
+        return flag;
+    }
 
-        do {
-            clientId = myDB.getInt(Database.TABLE_CLIENTS, Database.CLIENT_ID, Database.CLIENT_PERSON_ID, personId);
-            if (clientId != -1) super.deleteData(clientId, myDB);
-        } while (clientId != -1);
+    @Override
+    public boolean updateData(String[] value, String[] keys) {
+        String where = Database.PERSON_ID + " = " + clickedItemId;
+        boolean isUpdated = myDB.updateData(value,keys,Database.TABLE_PERSONS,where);
+        if (isUpdated) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-        myDB.delete(Database.TABLE_PERSONS, Database.PERSON_ID, personId);
+    @Override
+    public boolean insertData(String[] value) {
+        String[] keys = new String[]{
+                Database.PERSON_NAME,
+                Database.PERSON_SURNAME,
+                Database.PERSON_ADDRESS,
+                Database.PERSON_PHONE};
 
+        boolean isInserted = myDB.insertData(value, keys, Database.TABLE_PERSONS);
+        if (isInserted) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    @Override
+    public String getTitle() {
+        return "";
     }
 }

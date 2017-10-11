@@ -118,6 +118,38 @@ public class Database extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public boolean insertData(String[] values, String[] keys, String table){
+        ContentValues contentValues = new ContentValues();
+        for(int i=0; i<values.length;i++){
+            contentValues.put(keys[i],values[i]);
+        }
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.insert(table, null, contentValues);
+        if (result == -1)
+            return false;
+        else
+            return true;
+    }
+
+
+
+    public boolean updateData(String[] values,String[] keys, String table,String where) {
+
+        ContentValues newValues = new ContentValues();
+
+        for(int i=0; i<values.length;i++){
+            newValues.put(keys[i],values[i]);
+        }
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.update(table, newValues, where, null);
+        if (result == 1)
+            return true;
+        else
+            return false;
+    }
+
+
 
     public boolean insertDataToCatalogs(String number, String dateStart, String dateEnd) {
         ContentValues contentValues = new ContentValues();
@@ -190,7 +222,7 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public boolean insertDataToOrders(String personId, String itemId, int amount) {
+    public boolean insertDataToOrders(String personId, String itemId, String amountSTR) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor c = db.rawQuery(
@@ -201,6 +233,7 @@ public class Database extends SQLiteOpenHelper {
 
         c.moveToFirst();
         double price = c.getDouble(0);
+        int amount = Integer.parseInt(amountSTR);
         double total = price * amount;
 
         ContentValues contentValues = new ContentValues();
@@ -485,7 +518,7 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public boolean updateRowOrder(int clientId, int itemId, int count) {
+    public boolean updateRowOrder(int clientId, int itemId, String countSTR) {
         SQLiteDatabase db = this.getReadableDatabase();
         String where = ORDER_CLIENT_ID + " = " + clientId + " AND " + ORDER_ITEM_ID + " = " + itemId;
 
@@ -503,6 +536,8 @@ public class Database extends SQLiteOpenHelper {
         if (c.getCount() == 0) return false;
         c.moveToFirst();
         double amount = c.getDouble(0);
+
+        int count = Integer.parseInt(countSTR);
 
         amount = amount + count;
         double total = price * amount;

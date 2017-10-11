@@ -12,6 +12,7 @@ public class Order extends Data {
     public static int clickedClientId;
 
 
+
     @Override
     public int getItemLayoutResourceId() {
         return (R.layout.item_order_view);
@@ -19,7 +20,7 @@ public class Order extends Data {
 
 
     @Override
-    public Cursor setCursor(Database myDB) {
+    public Cursor getCursor() {
         return myDB.getOrders(clickedClientId, this.filter);
     }
 
@@ -49,8 +50,33 @@ public class Order extends Data {
 
 
     @Override
-    public void deleteData(int orderId, Database myDB) {
-
-        myDB.delete(Database.TABLE_ORDERS, Database.ORDER_ID, orderId);
+    public boolean deleteData(int orderId) {
+        return myDB.delete(Database.TABLE_ORDERS, Database.ORDER_ID, orderId);
     }
+
+
+    @Override
+    public boolean insertData(String[] value) {
+        return myDB.insertDataToOrders(value[0],value[1],value[2]);
+    }
+
+
+    @Override
+    public boolean updateData(String[] value, String[] keys){
+        return myDB.updateRowOrder(clickedClientId,clickedItemId,value[0]);
+    }
+
+
+
+
+    @Override
+    public String getTitle() {
+        Cursor c = myDB.getRows(Database.TABLE_CLIENTS, Database.CLIENT_ID, Order.clickedClientId);
+        int cursorId = c.getInt(2);
+        c = myDB.getRows(Database.TABLE_PERSONS, Database.PERSON_ID, cursorId);
+        String title = c.getString(1) + " " + c.getString(2);
+    return  title;
+    }
+
+
 }

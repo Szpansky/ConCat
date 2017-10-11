@@ -3,10 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:drawable/editbox_background_normal"
+    android:descendantFocusability="blocksDescendants"
     android:paddingBottom="@dimen/default_margin"
     android:paddingLeft="@dimen/default_padding"
     android:paddingRight="@dimen/default_padding">
 
+    <Button
+        android:id="@+id/listItem_delete_button"
+        style="@style/Widget.AppCompat.Button.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="1"
+        android:background="@android:drawable/ic_menu_delete"
+        android:backgroundTint="@color/redPrimary_dark" />
 
     <TextView
         android:id="@+id/item_orderItemName"

@@ -52,11 +52,6 @@
             android:theme="@style/OpenAllTheme"
             tools:targetApi="jelly_bean" />
         <activity
-            android:name=".add_edit.AddEditCatalogActivity"
-            android:label="@string/add_or_edit"
-            android:launchMode="singleTop"
-            tools:targetApi="jelly_bean" />
-        <activity
             android:name=".add_edit.AddEditPersonActivity"
             android:label="@string/add_or_edit"
             android:launchMode="singleTop"

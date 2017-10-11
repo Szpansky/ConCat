@@ -9,11 +9,17 @@ import android.database.Cursor;
 
 public interface DataInterface {
 
-    void deleteData(int id, Database myDB);
+    boolean deleteData(int id);
+
+    boolean insertData(String[] value);
+
+    boolean updateData(String[] value, String[] keys);
+
+    String getTitle();
 
     int getItemLayoutResourceId();
 
-    Cursor setCursor(Database myDB);
+    Cursor getCursor();
 
     String[] getFromFieldsNames();
 

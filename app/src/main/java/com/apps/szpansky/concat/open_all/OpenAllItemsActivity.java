@@ -48,7 +48,7 @@ public class OpenAllItemsActivity extends SimpleActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 flag[0] = false;
-                popupForDelete((int) id);
+                //popupForDelete((int) id);
                 return false;
             }
         });

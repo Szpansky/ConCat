@@ -48,11 +48,7 @@ public class OrdersActivity extends SimpleActivity {
 
 
     private void setTitle(){
-        Cursor c = myDB.getRows(Database.TABLE_CLIENTS, Database.CLIENT_ID, Order.clickedClientId);
-        int cursorId = c.getInt(2);
-        c = myDB.getRows(Database.TABLE_PERSONS, Database.PERSON_ID, cursorId);
-        String title = c.getString(1) + " " + c.getString(2);
-        this.setTitle(title);
+        this.setTitle(data.getTitle());
     }
 
 
@@ -63,7 +59,7 @@ public class OrdersActivity extends SimpleActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 flag = false;
-                popupForDelete((int) id);
+                //popupForDelete((int) id);
                 return false;
             }
         });
@@ -80,19 +76,21 @@ public class OrdersActivity extends SimpleActivity {
     }
 
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public void onActivityResult(int requestCode, int resultCode, Intent intentData) {
+        super.onActivityResult(requestCode, resultCode, intentData);
         if (requestCode == BACK_CODE) {
             if (resultCode == RESULT_OK) {
 
-                Integer itemId = data.getIntExtra("itemId", 0);
-                int itemCount = data.getIntExtra("itemCount", 1);
+                Integer itemId = intentData.getIntExtra("itemId", 0);
+                Integer itemCount = intentData.getIntExtra("itemCount", 1);
                 Integer clientId = Order.clickedClientId;
 
-                boolean isInserted = myDB.updateRowOrder(clientId, itemId, itemCount);
-                if (!isInserted)
-                    myDB.insertDataToOrders(clientId.toString(), itemId.toString(), itemCount);
+                String[] value = new String[]{itemId.toString(),itemCount.toString(),clientId.toString()};
+                String[] count = new String[]{itemCount.toString()};
 
+                boolean isInserted = data.insertData(value);
+                if (!isInserted)
+                    //data.updateData(itemId,value,new String[]{""});           //TODO updating in dialog
                 refreshListView();
             }
         }

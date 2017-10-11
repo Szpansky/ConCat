@@ -16,6 +16,8 @@ import com.apps.szpansky.concat.simple_data.Client;
 import com.apps.szpansky.concat.simple_data.Order;
 import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleActivity;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 
 public class ClientsActivity extends SimpleActivity {
@@ -50,13 +52,14 @@ public class ClientsActivity extends SimpleActivity {
     }
 
     private void setTitle(){
-        Cursor c = myDB.getRows(Database.TABLE_CATALOGS,Database.CATALOG_ID, Client.clickedCatalogId );
-        String title = c.getString(1);
-        this.setTitle(title);
+        //Cursor c = myDB.getRows(Database.TABLE_CATALOGS,Database.CATALOG_ID, Client.clickedCatalogId );
+       // String title = c.getString(1);
+
+        this.setTitle(data.getTitle());
     }
 
 
-    private void dialogOnClientClick(final int thisId){
+    private void dialogOnClientClick(){
         final AlertDialog builder = new AlertDialog.Builder(this).create();
         final View dialogView = getLayoutInflater().inflate(R.layout.dialog_on_client_click, null);
         Button saveCatalog = (Button) dialogView.findViewById(R.id.buttonOrderSave);
@@ -65,7 +68,7 @@ public class ClientsActivity extends SimpleActivity {
         deleteCatalog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupForDelete(thisId);
+                //popupForDelete(thisId);
                 builder.dismiss();
             }
         });
@@ -89,7 +92,10 @@ public class ClientsActivity extends SimpleActivity {
                         status = getString(R.string.db_status_not_payed);
                         break;
                 }
-                myDB.updateRowClient(thisId, status);
+                String[] where = new String[]{Database.CLIENT_STATUS};
+                String[] what = new String[]{status};
+                data.updateData(what,where);
+
                 refreshListView();
                 builder.dismiss();
             }
@@ -107,9 +113,9 @@ public class ClientsActivity extends SimpleActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 flag[0] = false;
-                final long thisId = id;
+                data.setClickedItemId( (int) id);
 
-                dialogOnClientClick((int) thisId);
+                dialogOnClientClick();
 
                 return false;
             }
@@ -119,7 +125,7 @@ public class ClientsActivity extends SimpleActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (flag[0]) {
-
+                    data.setClickedItemId( (int) id);
                     Intent intent = new Intent(ClientsActivity.this, OrdersActivity.class);
                     Order.clickedClientId = (int) id;
                     startActivity(intent);
@@ -130,15 +136,19 @@ public class ClientsActivity extends SimpleActivity {
     }
 
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public void onActivityResult(int requestCode, int resultCode, Intent intentData) {
+        super.onActivityResult(requestCode, resultCode, intentData);
         if (requestCode == BACK_CODE) {
             if (resultCode == RESULT_OK) {
 
-                Integer personId = data.getIntExtra("personId", 0);
+                Integer personId = intentData.getIntExtra("personId", 0);
                 Integer catalogId = Client.clickedCatalogId;
 
-                myDB.insertDataToClients(catalogId.toString(), personId.toString(), getString(R.string.db_status_not_payed));
+                String[] value = new String[]{catalogId.toString(), personId.toString(), getString(R.string.db_status_not_payed)};
+
+                data.insertData(value);
+
+                //myDB.insertDataToClients(catalogId.toString(), personId.toString(), getString(R.string.db_status_not_payed));
 
                 refreshListView();
             }

@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:drawable/editbox_background_normal"
+    android:descendantFocusability="blocksDescendants"
     android:paddingBottom="@dimen/default_margin"
     android:paddingLeft="@dimen/default_padding"
     android:paddingRight="@dimen/default_padding">
+
+    <Button
+        android:id="@+id/listItem_delete_button"
+        style="@style/Widget.AppCompat.Button.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="1"
+        android:background="@android:drawable/ic_menu_delete"
+        android:backgroundTint="@color/redPrimary_dark" />
 
     <LinearLayout
         android:id="@+id/linearLayout11"
@@ -104,7 +118,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/linearLayout12"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout15">
 
         <TextView
             android:layout_width="wrap_content"

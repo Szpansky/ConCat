@@ -28,7 +28,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.apps.szpansky.concat.add_edit.AddEditCatalogActivity;
+
 import com.apps.szpansky.concat.add_edit.AddEditItemsActivity;
 import com.apps.szpansky.concat.add_edit.AddEditPersonActivity;
 import com.apps.szpansky.concat.main_browsing.CatalogsActivity;
@@ -252,8 +252,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         fabNewCatalog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddEditCatalogActivity.class);
-                MainActivity.this.startActivity(intent);
+
             }
         });
 

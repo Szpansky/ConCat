@@ -3,12 +3,11 @@ package com.apps.szpansky.concat.simple_data;
 import android.database.Cursor;
 
 import com.apps.szpansky.concat.R;
+import com.apps.szpansky.concat.tools.Data;
 import com.apps.szpansky.concat.tools.Database;
 
 
-public class Item extends Order {
-
-    public static int clickedItemId;
+public class Item extends Data {
 
 
     @Override
@@ -19,7 +18,7 @@ public class Item extends Order {
 
 
     @Override
-    public Cursor setCursor(Database myDB) {
+    public Cursor getCursor() {
 
         return myDB.getItems(this.filter);
     }
@@ -50,9 +49,17 @@ public class Item extends Order {
 
 
     @Override
-    public void deleteData(int itemId, Database myDB) {
-
-        myDB.delete(Database.TABLE_ORDERS, Database.ORDER_ITEM_ID, itemId);
-        myDB.delete(Database.TABLE_ITEMS, Database.ITEM_ID, itemId);
+    public boolean deleteData(int itemId) {
+        boolean flag = true;
+        if (!myDB.delete(Database.TABLE_ORDERS, Database.ORDER_ITEM_ID, itemId)) flag = false;
+        if (!myDB.delete(Database.TABLE_ITEMS, Database.ITEM_ID, itemId)) flag = false;
+        return flag;
     }
+
+    @Override
+    public boolean insertData(String[] value) {
+        return false;
+    }
+
+
 }

@@ -2,12 +2,10 @@ package com.apps.szpansky.concat.tools;
 
 
 import android.content.SharedPreferences;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -21,23 +19,25 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 
+
+import com.apps.szpansky.concat.MainActivity;
 import com.apps.szpansky.concat.R;
 
 
 public abstract class SimpleActivity extends AppCompatActivity {
 
     private boolean flag = true;
-    protected Database myDB;
+    //protected Database myDB;
     protected Bundle toNextActivityBundle = new Bundle();
-    protected SimpleCursorAdapter myCursorAdapter;
+    protected MyCursorAdapter myCursorAdapter;
     protected ListView listView;
     protected FloatingActionButton addButton;
     private AbsListView.OnScrollListener onScrollListener;
     protected Toolbar toolbar;
-    private Data data;
+    protected Data data;
     private String styleKey;
+    AlertDialog builder;
 
     protected abstract void onAddButtonClick();
 
@@ -50,6 +50,7 @@ public abstract class SimpleActivity extends AppCompatActivity {
     protected SimpleActivity(Data data, String styleKey) {
         this.data = data;
         this.styleKey = styleKey;
+
     }
 
 
@@ -70,12 +71,14 @@ public abstract class SimpleActivity extends AppCompatActivity {
 
         addButton = (FloatingActionButton) findViewById(R.id.add);
 
-        myDB = new Database(this);
+        //myDB = new Database(this);
+        data.setDatabase(new Database(this));
 
         setToolBar();
 
         listView = setListView();
         refreshListView();
+
         onAddButtonClick();
         onScrolling();
     }
@@ -128,22 +131,26 @@ public abstract class SimpleActivity extends AppCompatActivity {
 
 
     protected void refreshListView() {
-        int prevPosition = listView.getFirstVisiblePosition();
-        myCursorAdapter = new SimpleCursorAdapter(getBaseContext(),
-                data.getItemLayoutResourceId(),
-                data.setCursor(myDB),
-                data.getFromFieldsNames(),
-                data.getToViewIDs(),
-                0);
+        int index = listView.getFirstVisiblePosition();
+        View v = listView.getChildAt(0);
+        int top = (v == null) ? 0 : (v.getTop() - listView.getPaddingTop());
+
+        myCursorAdapter = new MyCursorAdapter(getBaseContext(),
+                data.getCursor(),
+                0,
+                data,
+                builder = new AlertDialog.Builder(this).create(),
+                getLayoutInflater().inflate(R.layout.dialog_popup_alert, null)
+                );
+
+
         listView.setAdapter(myCursorAdapter);
         listView.setOnScrollListener(onScrollListener);
-        if (prevPosition!=0) listView.setSelection(prevPosition+1);
-        listView.requestFocus();
-        //listView.clearFocus();
+        if (index != 0) listView.setSelectionFromTop(index, top);
     }
 
 
-    protected void popupForDelete(final int id) {
+   /* protected void popupForDelete(final int id) {
         final AlertDialog builder = new AlertDialog.Builder(this).create();
         View view = getLayoutInflater().inflate(R.layout.dialog_popup_alert, null);
 
@@ -153,7 +160,7 @@ public abstract class SimpleActivity extends AppCompatActivity {
         buttonYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                data.deleteData(id, myDB);
+                data.deleteData(id);
                 refreshListView();
                 builder.dismiss();
             }
@@ -167,7 +174,7 @@ public abstract class SimpleActivity extends AppCompatActivity {
 
         builder.setView(view);
         builder.show();
-    }
+    }*/
 
 
     private void onScrolling() {
