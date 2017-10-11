@@ -5,6 +5,9 @@ import android.database.Cursor;
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.tools.Data;
 import com.apps.szpansky.concat.tools.Database;
+import com.apps.szpansky.concat.tools.SimpleFunctions;
+
+import java.util.Calendar;
 
 
 public class Item extends Data {
@@ -56,10 +59,29 @@ public class Item extends Data {
         return flag;
     }
 
+
     @Override
     public boolean insertData(String[] value) {
-        return false;
+        final String[] keys = new String[]{
+                Database.ITEM_ID,
+                Database.ITEM_NUMBER,
+                Database.ITEM_NAME,
+                Database.ITEM_PRICE,
+                Database.ITEM_DISCOUNT};
+        return myDB.insertData(value, keys, Database.TABLE_ITEMS);
     }
 
 
+    @Override
+    public boolean updateData(String[] value, String[] keys) {
+        String where = Database.ITEM_ID + " = " + clickedItemId;
+        return myDB.updateData(value, keys, Database.TABLE_ITEMS, where);
+    }
+
+
+    @Override
+    public String[] getClickedData() {
+        Cursor cursor = myDB.getRows(Database.TABLE_ITEMS, Database.ITEM_ID, clickedItemId);
+        return new String[]{cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)};
+    }
 }

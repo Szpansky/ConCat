@@ -148,7 +148,6 @@ public class ClientsActivity extends SimpleActivity {
 
                 data.insertData(value);
 
-                //myDB.insertDataToClients(catalogId.toString(), personId.toString(), getString(R.string.db_status_not_payed));
 
                 refreshListView();
             }

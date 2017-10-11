@@ -150,22 +150,6 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-
-    public boolean insertDataToCatalogs(String number, String dateStart, String dateEnd) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(CATALOG_NUMBER, number);
-        contentValues.put(CATALOG_DATE_START, dateStart);
-        contentValues.put(CATALOG_DATE_ENDS, dateEnd);
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        long result = db.insert(TABLE_CATALOGS, null, contentValues);
-        if (result == -1)
-            return false;
-        else
-            return true;
-    }
-
-
     public boolean insertDataToPersons(String name, String surname, String address, String phone) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(PERSON_NAME, name);
@@ -175,23 +159,6 @@ public class Database extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.insert(TABLE_PERSONS, null, contentValues);
-        if (result == -1)
-            return false;
-        else
-            return true;
-    }
-
-
-    public boolean insertDataToItems(String id, String nr, String name, String price, String discount) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(ITEM_ID, id);
-        contentValues.put(ITEM_NUMBER, nr);
-        contentValues.put(ITEM_NAME, name);
-        contentValues.put(ITEM_PRICE, price);
-        contentValues.put(ITEM_DISCOUNT, discount);
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        long result = db.insert(TABLE_ITEMS, null, contentValues);
         if (result == -1)
             return false;
         else
@@ -441,25 +408,6 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public boolean updateRowCatalog(int id,String number, String dateStart, String dateEnd) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String where = CATALOG_ID + " = " + id;
-        ContentValues newValues = new ContentValues();
-        newValues.put(CATALOG_DATE_START, dateStart);
-        newValues.put(CATALOG_DATE_ENDS, dateEnd);
-        newValues.put(CATALOG_NUMBER, number);
-        try{
-        long result = db.update(TABLE_CATALOGS, newValues, where, null);
-        if (result == 1)
-            return true;
-        else
-            return false;
-    } catch (SQLException se) {
-        return false;
-    }
-    }
-
-
     public boolean updateRowPerson(int id, String name, String surname, String address, String phone) {
         SQLiteDatabase db = this.getWritableDatabase();
         String where = PERSON_ID + " = " + id;
@@ -476,49 +424,7 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public boolean updateRowItem(int id, String name, String price, String discount) {
-        Calendar calendar = Calendar.getInstance();
-        Integer year_x = calendar.get(Calendar.YEAR);
-        Integer month_x = calendar.get(Calendar.MONTH) + 1;
-        Integer day_x = calendar.get(Calendar.DAY_OF_MONTH);
-
-        String day = day_x.toString();
-        day = SimpleFunctions.fillWithZeros(day, 2);
-
-        String month = month_x.toString();
-        month = SimpleFunctions.fillWithZeros(month, 2);
-
-        String thisDate = year_x + "-" + month + "-" + day;
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        String where = ITEM_ID + " = " + id;
-        ContentValues newValues = new ContentValues();
-        newValues.put(ITEM_NAME, name);
-        newValues.put(ITEM_PRICE, price);
-        newValues.put(ITEM_DISCOUNT, discount);
-        newValues.put(ITEM_UPDATE_DATE, thisDate);
-        long result = db.update(TABLE_ITEMS, newValues, where, null);
-        if (result == 1)
-            return true;
-        else
-            return false;
-    }
-
-
-    public boolean updateRowClient(int id, String status) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String where = CLIENT_ID + " = " + id;
-        ContentValues newValues = new ContentValues();
-        newValues.put(CLIENT_STATUS, status);
-        long result = db.update(TABLE_CLIENTS, newValues, where, null);
-        if (result == 1)
-            return true;
-        else
-            return false;
-    }
-
-
-    public boolean updateRowOrder(int clientId, int itemId, String countSTR) {
+    public boolean updateRowOrder(String clientId, String itemId, String countSTR) {
         SQLiteDatabase db = this.getReadableDatabase();
         String where = ORDER_CLIENT_ID + " = " + clientId + " AND " + ORDER_ITEM_ID + " = " + itemId;
 

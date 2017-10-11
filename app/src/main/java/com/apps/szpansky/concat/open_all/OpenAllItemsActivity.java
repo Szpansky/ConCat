@@ -1,14 +1,21 @@
 package com.apps.szpansky.concat.open_all;
 
-import android.content.Intent;
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.apps.szpansky.concat.R;
-import com.apps.szpansky.concat.add_edit.AddEditItemsActivity;
 import com.apps.szpansky.concat.simple_data.Item;
+import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleActivity;
+import com.apps.szpansky.concat.tools.SimpleFunctions;
+
+import java.util.Calendar;
 
 public class OpenAllItemsActivity extends SimpleActivity {
 
@@ -17,13 +24,15 @@ public class OpenAllItemsActivity extends SimpleActivity {
         super(new Item(),"list_preference_open_all_colors");
     }
 
+    String discount;
+    CheckBox dis_5, dis_10, dis_15, dis_20, dis_25, dis_30, dis_35, dis_40, dis_100;
+    final CheckBox[] dis_all = {dis_5, dis_10, dis_15, dis_20, dis_25, dis_30, dis_35, dis_40, dis_100};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         addButton.setImageDrawable(getResources().getDrawable(R.mipmap.ic_fiber_new_white_24dp));
-
         listViewItemClick();
     }
 
@@ -33,10 +42,113 @@ public class OpenAllItemsActivity extends SimpleActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OpenAllItemsActivity.this, AddEditItemsActivity.class);
-                startActivity(intent);
+                addEdit_ItemDialog(false);
             }
         });
+    }
+
+
+    private void addEdit_ItemDialog(final boolean isEdit) {
+        final String[] keys = new String[]{
+                Database.ITEM_ID,
+                Database.ITEM_NUMBER,
+                Database.ITEM_NAME,
+                Database.ITEM_PRICE,
+                Database.ITEM_DISCOUNT};
+
+        final AlertDialog builder = new AlertDialog.Builder(this).create();
+        View view = getLayoutInflater().inflate(R.layout.dialog_add_edit_item, null);
+        final EditText nr, price, name;
+
+        FloatingActionButton add;
+
+        nr = (EditText) view.findViewById(R.id.add_edit_itemNr);
+        name = (EditText) view.findViewById(R.id.add_edit_itemName);
+        price = (EditText) view.findViewById(R.id.add_edit_itemPrice);
+
+        dis_all[0] = (CheckBox) view.findViewById(R.id.check_5);
+        dis_all[1] = (CheckBox) view.findViewById(R.id.check_10);
+        dis_all[2] = (CheckBox) view.findViewById(R.id.check_15);
+        dis_all[3] = (CheckBox) view.findViewById(R.id.check_20);
+        dis_all[4] = (CheckBox) view.findViewById(R.id.check_25);
+        dis_all[5] = (CheckBox) view.findViewById(R.id.check_30);
+        dis_all[6] = (CheckBox) view.findViewById(R.id.check_35);
+        dis_all[7] = (CheckBox) view.findViewById(R.id.check_40);
+        dis_all[8] = (CheckBox) view.findViewById(R.id.check_100);
+
+        add = (FloatingActionButton) view.findViewById(R.id.add_edit_item_fab);
+
+        if (isEdit) {
+            String[] values = data.getClickedData();
+            nr.setText(values[0]);
+            name.setText(values[1]);
+            price.setText(values[2]);
+            discount = values[3];
+            for (int i = 0; i < discount.length(); i++) {
+                int discountRevert = discount.length() - 1 - i;
+                if (discount.charAt((discountRevert)) == '1') dis_all[i].setChecked(true);
+            }
+            nr.setFocusable(false);
+        }
+
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                discount = "";
+                for (int i = 0; i <= 8; i++) {
+                    if (dis_all[i].isChecked()) {
+                        discount = "1" + discount;
+                    } else {
+                        discount = "0" + discount;
+                    }
+                }
+
+                String number = SimpleFunctions.fillWithZeros(nr.getText().toString(),5);
+                String[] value;
+                if(isEdit){
+                    Calendar calendar = Calendar.getInstance();
+                    Integer year_x = calendar.get(Calendar.YEAR);
+                    Integer month_x = calendar.get(Calendar.MONTH) + 1;
+                    Integer day_x = calendar.get(Calendar.DAY_OF_MONTH);
+                    String day = day_x.toString();
+                    day = SimpleFunctions.fillWithZeros(day, 2);
+                    String month = month_x.toString();
+                    month = SimpleFunctions.fillWithZeros(month, 2);
+                    String thisDate = year_x + "-" + month + "-" + day;
+
+                    value = new String[]{
+                            nr.getText().toString(),
+                            number,
+                            name.getText().toString(),
+                            price.getText().toString(),
+                            discount,
+                            thisDate};
+
+                }else {
+                    value = new String[]{
+                            nr.getText().toString(),
+                            number,
+                            name.getText().toString(),
+                            price.getText().toString(),
+                            discount};
+                }
+
+                boolean flag;
+                if (isEdit) flag = data.updateData(value, keys);
+                else
+                    flag = data.insertData(value);
+                if (flag) {
+                    Toast.makeText(getBaseContext(), getString(R.string.add_item_notify) + "/" + getString(R.string.edit_item_notify), Toast.LENGTH_SHORT).show();
+                    refreshListView();
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.error_notify, Toast.LENGTH_LONG).show();
+                }
+                builder.dismiss();
+            }
+        });
+        builder.setView(view);
+        builder.show();
     }
 
 
@@ -48,7 +160,9 @@ public class OpenAllItemsActivity extends SimpleActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 flag[0] = false;
-                //popupForDelete((int) id);
+                data.setClickedItemId((int) id);
+
+                addEdit_ItemDialog(true);
                 return false;
             }
         });
@@ -57,13 +171,7 @@ public class OpenAllItemsActivity extends SimpleActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (flag[0]) {
-                    Intent intent = new Intent(OpenAllItemsActivity.this, AddEditItemsActivity.class);
-
-                    toNextActivityBundle.putBoolean("isEdit", true);
-                    toNextActivityBundle.putInt("itemId", (int) id);
-
-                    intent.putExtras(toNextActivityBundle);
-                    startActivity(intent);
+                    data.setClickedItemId((int) id);
                 }
                 flag[0] = true;
             }
@@ -75,4 +183,11 @@ public class OpenAllItemsActivity extends SimpleActivity {
     public void onBackPressed() {
         onNavigateUp();
     }
+
+
+   /* private void setAds() {
+        mAdView = (AdView) findViewById(R.id.adViewItem);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+    }*/
 }

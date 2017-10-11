@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_add_items"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical"
-    tools:context="com.apps.szpansky.concat.add_edit.AddEditItemsActivity">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/activity_add_items"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical">
 
 
-    <LinearLayout
-        android:layout_width="0px"
-        android:layout_height="0px"
-        android:focusable="true"
-        android:focusableInTouchMode="true" />
+        <LinearLayout
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,6 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="@dimen/default_padding"
                 android:fontFamily="sans-serif"
                 android:padding="@dimen/default_padding"
                 android:text="@string/new_item"
@@ -48,6 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/default_edit_text_height"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:hint="@string/item_title"
                     android:inputType="textCapSentences"
                     android:maxLength="150"
@@ -67,6 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/default_edit_text_height"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:hint="@string/code"
                     android:inputType="number"
                     android:maxLength="10"
@@ -86,6 +87,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/default_edit_text_height"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:hint="@string/price"
                     android:inputType="numberDecimal"
                     android:maxLength="8"
@@ -100,7 +102,9 @@
                 style="@style/Base.TextAppearance.AppCompat.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="@dimen/default_padding"
+                android:layout_marginStart="@dimen/default_padding"
+                android:layout_marginTop="@dimen/default_padding"
                 android:text="@string/pick_discounts"
                 android:textColor="@android:color/holo_blue_dark"
                 android:textStyle="bold" />
@@ -224,36 +228,29 @@
                     android:textColor="@android:color/holo_blue_dark"
                     android:textStyle="bold" />
 
-                <com.google.android.gms.ads.AdView
-                    android:id="@+id/adViewItem"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_below="@+id/check_100"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/default_margin"
-                    app:adSize="BANNER"
-                    app:adUnitId="@string/ads_banner_add_item" />
-
 
             </RelativeLayout>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/add_edit_item_fab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="bottom|end"
+                android:layout_marginBottom="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
+                android:layout_marginRight="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_padding"
+                android:clickable="true"
+                android:paddingBottom="@dimen/default_margin"
+                app:fabSize="normal"
+                app:srcCompat="@mipmap/ic_done_white_24dp" />
 
 
         </LinearLayout>
     </ScrollView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_edit_item_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:layout_marginEnd="@dimen/default_margin"
-        android:layout_marginRight="@dimen/default_margin"
-        android:clickable="true"
-        app:fabSize="normal"
-        app:srcCompat="@mipmap/ic_done_white_24dp" />
 
 </RelativeLayout>

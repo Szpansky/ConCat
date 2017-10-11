@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.apps.szpansky.concat.R;
-import com.apps.szpansky.concat.add_edit.AddEditItemsActivity;
+import com.apps.szpansky.concat.open_all.OpenAllItemsActivity;
 import com.apps.szpansky.concat.simple_data.Item;
 import com.apps.szpansky.concat.tools.SimpleActivity;
 
@@ -40,7 +40,7 @@ public class PickItem extends SimpleActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PickItem.this, AddEditItemsActivity.class);
+                Intent intent = new Intent(PickItem.this, OpenAllItemsActivity.class);
                 PickItem.this.startActivity(intent);
             }
         });

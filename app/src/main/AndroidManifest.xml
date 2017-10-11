@@ -57,11 +57,6 @@
             android:launchMode="singleTop"
             tools:targetApi="jelly_bean" />
         <activity
-            android:name=".add_edit.AddEditItemsActivity"
-            android:label="@string/add_or_edit"
-            android:launchMode="singleTop"
-            tools:targetApi="jelly_bean" />
-        <activity
             android:name=".main_browsing.CatalogsActivity"
             android:label="@string/orders"
             android:launchMode="singleTop"

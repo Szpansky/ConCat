@@ -19,6 +19,7 @@
         android:clipToPadding="false"
         android:drawSelectorOnTop="true"
         android:paddingTop="@dimen/toolBar_height"
+        android:paddingBottom="@dimen/toolBar_height"
         android:scrollbarStyle="outsideInset"
         android:choiceMode="singleChoice"/>
 

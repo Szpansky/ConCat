@@ -63,7 +63,7 @@ public class Order extends Data {
 
     @Override
     public boolean updateData(String[] value, String[] keys){
-        return myDB.updateRowOrder(clickedClientId,clickedItemId,value[0]);
+        return myDB.updateRowOrder(value[0],value[1], value[2]);
     }
 
 

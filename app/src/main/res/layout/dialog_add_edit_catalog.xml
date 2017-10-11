@@ -104,17 +104,6 @@
                                     android:textStyle="bold" />
                         </android.support.design.widget.TextInputLayout>
 
-                        <com.google.android.gms.ads.AdView
-                            android:id="@+id/adViewCatalog"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="@dimen/default_margin"
-                            android:layout_weight="1"
-                            app:adSize="BANNER"
-                            app:adUnitId="@string/ads_banner_add_catalog" />
-
                         <android.support.design.widget.FloatingActionButton
                             android:id="@+id/add_edit_catalog_fab"
                             android:layout_width="match_parent"
@@ -126,6 +115,7 @@
                             android:layout_marginBottom="@dimen/default_margin"
                             android:layout_marginEnd="@dimen/default_margin"
                             android:layout_marginRight="@dimen/default_margin"
+                            android:layout_marginTop="@dimen/default_margin"
                             android:layout_weight="1"
                             android:clickable="true"
                             app:fabSize="normal"

@@ -47,6 +47,17 @@ public class CatalogsActivity extends SimpleActivity {
     }
 
 
+    @Override
+    protected void onAddButtonClick() {
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addEdit_CatalogDialog(false);
+            }
+        });
+    }
+
+
     private void addEdit_CatalogDialog(final boolean isEdit) {
         final String[] keys = new String[]{
                 Database.CATALOG_NUMBER,
@@ -109,17 +120,6 @@ public class CatalogsActivity extends SimpleActivity {
         });
         builder.setView(view);
         builder.show();
-    }
-
-
-    @Override
-    protected void onAddButtonClick() {
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addEdit_CatalogDialog(false);
-            }
-        });
     }
 
 

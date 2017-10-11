@@ -20,7 +20,7 @@ public class OrdersActivity extends SimpleActivity {
     private boolean flag = true;
 
     public OrdersActivity() {
-        super(new Order(),"list_preference_browsing_colors");
+        super(new Order(), "list_preference_browsing_colors");
     }
 
 
@@ -47,7 +47,7 @@ public class OrdersActivity extends SimpleActivity {
     }
 
 
-    private void setTitle(){
+    private void setTitle() {
         this.setTitle(data.getTitle());
     }
 
@@ -85,12 +85,11 @@ public class OrdersActivity extends SimpleActivity {
                 Integer itemCount = intentData.getIntExtra("itemCount", 1);
                 Integer clientId = Order.clickedClientId;
 
-                String[] value = new String[]{itemId.toString(),itemCount.toString(),clientId.toString()};
-                String[] count = new String[]{itemCount.toString()};
+                String[] value = new String[]{clientId.toString(), itemId.toString(), itemCount.toString()};
 
-                boolean isInserted = data.insertData(value);
-                if (!isInserted)
-                    //data.updateData(itemId,value,new String[]{""});           //TODO updating in dialog
+                boolean isInserted = data.updateData(value,null);
+                if (!isInserted){
+                    data.insertData(value);  }      //TODO updating in dialog
                 refreshListView();
             }
         }

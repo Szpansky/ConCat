@@ -29,7 +29,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.apps.szpansky.concat.add_edit.AddEditItemsActivity;
 import com.apps.szpansky.concat.add_edit.AddEditPersonActivity;
 import com.apps.szpansky.concat.main_browsing.CatalogsActivity;
 import com.apps.szpansky.concat.open_all.OpenAllItemsActivity;
@@ -267,8 +266,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         fabNewItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddEditItemsActivity.class);
-                MainActivity.this.startActivity(intent);
+
             }
         });
     }

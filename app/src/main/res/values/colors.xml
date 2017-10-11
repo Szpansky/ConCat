@@ -20,10 +20,6 @@
     <color name="colorPrimaryLight">#ffeeeeee</color>
     <color name="colorAccent">#ff4081</color>
 
-    <color name="lightBackground">#ffeeeeee</color>
-    <color name="background">#ffcccccc</color>
-    <color name="darkBackground">#ff777777</color>
-
     <color name="bluePrimary">#03a9f4</color>
     <color name="bluePrimary_dark">#880288D1</color>
     <color name="bluePrimary_light">#B3E5FC</color>
@@ -53,6 +49,10 @@
     <color name="greyPrimary_dark">#88455A64</color>
     <color name="greyPrimary_light">#CFD8DC</color>
     <color name="greyAccent">#9E9E9E</color>
+
+    <color name="lightBackground">#ffeeeeee</color>
+    <color name="background">#ffcccccc</color>
+    <color name="darkBackground">#ff777777</color>
 
 
 </resources>
