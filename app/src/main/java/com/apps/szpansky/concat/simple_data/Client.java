@@ -17,7 +17,8 @@ public class Client extends Data {
 
     @Override
     public String getTitle() {
-        return myDB.getRows(TABLE_CATALOGS, CATALOG_ID, Client.clickedCatalogId ).getString(1);
+        String where = CATALOG_ID + " = " + clickedCatalogId;
+        return myDB.getRows(TABLE_CATALOGS, where).getString(1);
     }
 
 
@@ -70,7 +71,7 @@ public class Client extends Data {
 
 
     @Override
-    public boolean deleteData(int clientId) {
+    public boolean deleteData(long clientId) {
         boolean flag = true;
         if (!myDB.delete(TABLE_ORDERS, ORDER_CLIENT_ID, clientId)) flag = false;
         if (!myDB.delete(TABLE_CLIENTS, CLIENT_ID, clientId)) flag = false;

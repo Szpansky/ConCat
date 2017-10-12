@@ -319,7 +319,6 @@ public class Database extends SQLiteOpenHelper {
 
     public Cursor getOrders(long id, String filter) {
         SQLiteDatabase db = this.getReadableDatabase();
-        //String clientId = id.toString();
         Cursor c = db.rawQuery(
                 "SELECT O." + ORDER_ID + ", " +
                         "O." + ORDER_CLIENT_ID + ", " +
@@ -330,7 +329,7 @@ public class Database extends SQLiteOpenHelper {
                         "FROM " + TABLE_ORDERS + " AS O " +
                         "JOIN " + TABLE_ITEMS + " AS I " +
                         "ON O." + ORDER_ITEM_ID + " = I." + ITEM_ID + " " +
-                        "WHERE " + ORDER_CLIENT_ID + " = " + id + " " + " AND (" +      //clientid
+                        "WHERE " + ORDER_CLIENT_ID + " = " + id + " " + " AND (" +
                         ITEM_NAME + " LIKE \"%" + filter + "%\"" + " OR " +
                         "I." + ITEM_NUMBER + " LIKE \"%" + filter + "%\"" + ") " +
                         "ORDER BY " + ITEM_NAME
@@ -458,12 +457,12 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public Cursor getRows(String TABLE_NAME, String WHERE, long toWhere) {
+    public Cursor getRows(String TABLE_NAME, String WHERE) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(
                 "SELECT *" +
                         " FROM " + TABLE_NAME +
-                        " WHERE " + WHERE + " = " + toWhere, null);
+                        " WHERE " + WHERE, null);
         if (c != null) {
             c.moveToFirst();
         }
@@ -471,22 +470,22 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public int getInt(String TABLE_NAME, String COLUMN_NAME, String WHERE, int toWhere) {
+    public long getLong(String TABLE_NAME, String COLUMN_NAME, String fromWhere, long toWhere) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(
                 "SELECT " + COLUMN_NAME +
                         " FROM " + TABLE_NAME +
-                        " WHERE " + WHERE + " = " + toWhere, null);
+                        " WHERE " + fromWhere + " = " + toWhere, null);
 
         if (c.getCount() == 0) return -1;
         c.moveToFirst();
-        return c.getInt(0);
+        return c.getLong(0);
     }
 
 
-    public boolean delete(String TABLE_NAME, String ROW_WHERE_ID, int id) {
+    public boolean delete(String TABLE_NAME, String fromWhere, long toWhere) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String where = ROW_WHERE_ID + " = " + id;
+        String where = fromWhere + " = " + toWhere;
         long result = db.delete(TABLE_NAME, where, null);
         if (result == -1)
             return false;
@@ -538,18 +537,6 @@ public class Database extends SQLiteOpenHelper {
         }
     }
 
-
-    public Cursor getRows(String TABLE_NAME, String WHERE) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery(
-                "SELECT *" +
-                        " FROM " + TABLE_NAME +
-                        " WHERE " + WHERE, null);
-        if (c != null) {
-            c.moveToFirst();
-        }
-        return c;
-    }
 }
 
 

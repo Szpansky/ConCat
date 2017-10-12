@@ -1,6 +1,5 @@
 package com.apps.szpansky.concat.simple_data;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.apps.szpansky.concat.R;
@@ -53,11 +52,11 @@ public class Catalog extends Data {
 
 
     @Override
-    public boolean deleteData(int catalogId) {
-        int clientId;
+    public boolean deleteData(long catalogId) {
+        long clientId;
         boolean flag = true;
         do {
-            clientId = myDB.getInt(TABLE_CLIENTS, CLIENT_ID, CLIENT_CATALOG_ID, catalogId);
+            clientId = myDB.getLong(TABLE_CLIENTS, CLIENT_ID, CLIENT_CATALOG_ID, catalogId);
             if (clientId != -1) ;{
                 if (!myDB.delete(TABLE_ORDERS, ORDER_CLIENT_ID, clientId)) flag = false;
                 if (!myDB.delete(TABLE_CLIENTS, CLIENT_ID, clientId)) flag = false;
@@ -76,7 +75,8 @@ public class Catalog extends Data {
 
     @Override
     public String[] getClickedData() {
-        Cursor cursor = myDB.getRows(TABLE_CATALOGS, CATALOG_ID, clickedItemId);
+        String where = CATALOG_ID + " = " + clickedItemId;
+        Cursor cursor = myDB.getRows(TABLE_CATALOGS, where);
         return new String[]{cursor.getString(1),cursor.getString(2),cursor.getString(3)};
     }
 

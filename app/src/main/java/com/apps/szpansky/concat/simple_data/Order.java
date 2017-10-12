@@ -52,7 +52,7 @@ public class Order extends Data {
 
 
     @Override
-    public boolean deleteData(int orderId) {
+    public boolean deleteData(long orderId) {
         return myDB.delete(TABLE_ORDERS, ORDER_ID, orderId);
     }
 
@@ -75,9 +75,11 @@ public class Order extends Data {
 
     @Override
     public String getTitle() {
-        Cursor c = myDB.getRows(TABLE_CLIENTS, CLIENT_ID, Order.clickedClientId);
-        int cursorId = c.getInt(2);
-        c = myDB.getRows(TABLE_PERSONS, PERSON_ID, cursorId);
+        String where = CLIENT_ID + " = " + clickedClientId;
+        Cursor c = myDB.getRows(TABLE_CLIENTS, where);
+        int personId = c.getInt(2);
+        where = PERSON_ID + " = " + personId;
+        c = myDB.getRows(TABLE_PERSONS, where);
         String title = c.getString(1) + " " + c.getString(2);
     return  title;
     }

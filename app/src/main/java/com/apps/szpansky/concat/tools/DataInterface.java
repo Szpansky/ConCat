@@ -9,7 +9,7 @@ import android.database.Cursor;
 
 public interface DataInterface {
 
-    boolean deleteData(int id);
+    boolean deleteData(long id);
 
     boolean updateData(String[] value, String[] keys);
 

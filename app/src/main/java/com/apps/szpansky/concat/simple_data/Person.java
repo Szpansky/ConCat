@@ -1,7 +1,6 @@
 package com.apps.szpansky.concat.simple_data;
 
 import android.database.Cursor;
-import android.database.SQLException;
 
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.tools.Data;
@@ -54,11 +53,11 @@ public class Person extends Data {
 
 
     @Override
-    public boolean deleteData(int personId) {
-        int clientId;
+    public boolean deleteData(long personId) {
+        long clientId;
         boolean flag = true;
             do {
-                clientId = myDB.getInt(TABLE_CLIENTS, CLIENT_ID, CLIENT_PERSON_ID, personId);
+                clientId = myDB.getLong(TABLE_CLIENTS, CLIENT_ID, CLIENT_PERSON_ID, personId);
                 if (clientId != -1) {
                     if (!myDB.delete(TABLE_ORDERS, ORDER_CLIENT_ID, clientId)) flag = false;
                     if (!myDB.delete(TABLE_CLIENTS, CLIENT_ID, clientId)) flag = false;

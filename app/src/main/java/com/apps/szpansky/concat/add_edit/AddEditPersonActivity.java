@@ -127,7 +127,8 @@ public class AddEditPersonActivity extends AppCompatActivity {
 
 
     private String getPersonInfo(int columnIndex) {
-        Cursor cursor = myDB.getRows(Database.TABLE_PERSONS, Database.PERSON_ID, thisId);
+        String where = Database.PERSON_ID + " = " + thisId;
+        Cursor cursor = myDB.getRows(Database.TABLE_PERSONS, where);
         cursor.moveToFirst();
         return cursor.getString(columnIndex);
     }

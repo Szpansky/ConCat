@@ -58,7 +58,7 @@ public class Item extends Data {
 
 
     @Override
-    public boolean deleteData(int itemId) {
+    public boolean deleteData(long itemId) {
         boolean flag = true;
         if (!myDB.delete(TABLE_ORDERS, ORDER_ITEM_ID, itemId)) flag = false;
         if (!myDB.delete(TABLE_ITEMS, ITEM_ID, itemId)) flag = false;
@@ -73,7 +73,8 @@ public class Item extends Data {
 
     @Override
     public String[] getClickedData() {
-        Cursor cursor = myDB.getRows(TABLE_ITEMS, ITEM_ID, clickedItemId);
+        String where = ITEM_ID + " = " + clickedItemId;
+        Cursor cursor = myDB.getRows(TABLE_ITEMS, where);
         return new String[]{cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)};
     }
 }

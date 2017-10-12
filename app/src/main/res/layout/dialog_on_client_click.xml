@@ -68,15 +68,4 @@
         android:textSize="@dimen/default_sub_text_size"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/buttonOrderDelete"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
-        android:fontFamily="sans-serif"
-        android:text="Usuń"
-        android:textSize="@dimen/default_sub_text_size"
-        android:textStyle="bold" />
-
 </LinearLayout>

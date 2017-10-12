@@ -41,7 +41,7 @@ public class MyCursorAdapter extends SimpleCursorAdapter {
             @Override
             public void onClick(View v) {
 
-                final int id = Integer.parseInt(button.getTag().toString());        //TODO create loadermanager
+                final long id = Long.parseLong(button.getTag().toString());        //TODO create loadermanager
                 Button buttonYes = (Button) builderView.findViewById(R.id.dialog_button_yes);
                 Button buttonNo = (Button) builderView.findViewById(R.id.dialog_button_no);
                 buttonYes.setOnClickListener(new View.OnClickListener() {
