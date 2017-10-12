@@ -47,7 +47,7 @@ public class PickItem extends SimpleActivity {
     }
 
 
-    private void dialogItemCount(final int id) {
+    private void dialogItemCount(final long id) {
         final AlertDialog builder = new AlertDialog.Builder(this).create();
         View view = getLayoutInflater().inflate(R.layout.dialog_item_count, null);
 
@@ -125,7 +125,7 @@ public class PickItem extends SimpleActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (flag) {
-                    dialogItemCount((int) id);
+                    dialogItemCount(id);
                 }
                 flag = true;
             }

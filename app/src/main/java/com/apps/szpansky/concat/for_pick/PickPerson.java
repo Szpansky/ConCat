@@ -60,7 +60,7 @@ public class PickPerson extends SimpleActivity {
                 if (flag[0]) {
 
                     Intent intent = new Intent();
-                    intent.putExtra("personId", (int) id);
+                    intent.putExtra("personId", id);
                     setResult(RESULT_OK, intent);
                     finish();
                 }

@@ -59,10 +59,7 @@ public class CatalogsActivity extends SimpleActivity {
 
 
     private void addEdit_CatalogDialog(final boolean isEdit) {
-        final String[] keys = new String[]{
-                Database.CATALOG_NUMBER,
-                Database.CATALOG_DATE_START,
-                Database.CATALOG_DATE_ENDS};
+
         final Calendar calendar = Calendar.getInstance();
         final AlertDialog builder = new AlertDialog.Builder(this).create();
         final View view = getLayoutInflater().inflate(R.layout.dialog_add_edit_catalog, null);
@@ -70,11 +67,6 @@ public class CatalogsActivity extends SimpleActivity {
         catalogDateStart = (EditText) view.findViewById(R.id.add_edit_catalogDateStart);
         catalogDateEnd = (EditText) view.findViewById(R.id.add_edit_catalogDateEnd);
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.add_edit_catalog_fab);
-
-      /*  AdView mAdView;
-        mAdView = (AdView) view.findViewById(R.id.adViewCatalog);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);*/
 
         catalogDateStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,15 +83,21 @@ public class CatalogsActivity extends SimpleActivity {
         });
 
         if (isEdit) {
-            String[] values = data.getClickedData();
-            catalogNumber.setText(values[0]);
-            catalogDateStart.setText(values[1]);
-            catalogDateEnd.setText(values[2]);
+            String[] currentValues = data.getClickedData();
+            catalogNumber.setText(currentValues[0]);
+            catalogDateStart.setText(currentValues[1]);
+            catalogDateEnd.setText(currentValues[2]);
         }
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String[] keys = new String[]{
+                        Database.CATALOG_NUMBER,
+                        Database.CATALOG_DATE_START,
+                        Database.CATALOG_DATE_ENDS};
+
                 String[] value = new String[]{
                         catalogNumber.getText().toString(),
                         catalogDateStart.getText().toString(),
@@ -108,7 +106,7 @@ public class CatalogsActivity extends SimpleActivity {
                 boolean flag;
                 if (isEdit) flag = data.updateData(value, keys);
                 else
-                    flag = data.insertData(value);
+                    flag = data.insertData(value,keys);
                 if (flag) {
                     Toast.makeText(getBaseContext(), getString(R.string.add_catalog_notify) + "/" + getString(R.string.edit_catalog_notify), Toast.LENGTH_SHORT).show();
                     refreshListView();
@@ -128,7 +126,7 @@ public class CatalogsActivity extends SimpleActivity {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                data.setClickedItemId((int) id);
+                data.setClickedItemId(id);
                 flag = false;
                 addEdit_CatalogDialog(true);
                 return false;
@@ -138,10 +136,10 @@ public class CatalogsActivity extends SimpleActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                data.setClickedItemId((int) id);
+                data.setClickedItemId(id);
                 if (flag) {
                     Intent intent = new Intent(CatalogsActivity.this, ClientsActivity.class);
-                    Client.clickedCatalogId = (int) id;         //to know which catalog is opened is next activity
+                    Client.clickedCatalogId = id;         //to know which catalog is opened is next activity
                     startActivity(intent);
                 }
                 flag = true;

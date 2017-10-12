@@ -27,6 +27,7 @@ public class OpenAllItemsActivity extends SimpleActivity {
     String discount;
     CheckBox dis_5, dis_10, dis_15, dis_20, dis_25, dis_30, dis_35, dis_40, dis_100;
     final CheckBox[] dis_all = {dis_5, dis_10, dis_15, dis_20, dis_25, dis_30, dis_35, dis_40, dis_100};
+    boolean flag = true;
 
 
     @Override
@@ -49,12 +50,6 @@ public class OpenAllItemsActivity extends SimpleActivity {
 
 
     private void addEdit_ItemDialog(final boolean isEdit) {
-        final String[] keys = new String[]{
-                Database.ITEM_ID,
-                Database.ITEM_NUMBER,
-                Database.ITEM_NAME,
-                Database.ITEM_PRICE,
-                Database.ITEM_DISCOUNT};
 
         final AlertDialog builder = new AlertDialog.Builder(this).create();
         View view = getLayoutInflater().inflate(R.layout.dialog_add_edit_item, null);
@@ -79,11 +74,11 @@ public class OpenAllItemsActivity extends SimpleActivity {
         add = (FloatingActionButton) view.findViewById(R.id.add_edit_item_fab);
 
         if (isEdit) {
-            String[] values = data.getClickedData();
-            nr.setText(values[0]);
-            name.setText(values[1]);
-            price.setText(values[2]);
-            discount = values[3];
+            String[] currentValues = data.getClickedData();
+            nr.setText(currentValues[0]);
+            name.setText(currentValues[1]);
+            price.setText(currentValues[2]);
+            discount = currentValues[3];
             for (int i = 0; i < discount.length(); i++) {
                 int discountRevert = discount.length() - 1 - i;
                 if (discount.charAt((discountRevert)) == '1') dis_all[i].setChecked(true);
@@ -106,6 +101,7 @@ public class OpenAllItemsActivity extends SimpleActivity {
 
                 String number = SimpleFunctions.fillWithZeros(nr.getText().toString(),5);
                 String[] value;
+                String[] keys;
                 if(isEdit){
                     Calendar calendar = Calendar.getInstance();
                     Integer year_x = calendar.get(Calendar.YEAR);
@@ -125,6 +121,14 @@ public class OpenAllItemsActivity extends SimpleActivity {
                             discount,
                             thisDate};
 
+                    keys = new String[]{
+                            Database.ITEM_ID,
+                            Database.ITEM_NUMBER,
+                            Database.ITEM_NAME,
+                            Database.ITEM_PRICE,
+                            Database.ITEM_DISCOUNT,
+                            Database.ITEM_UPDATE_DATE};
+
                 }else {
                     value = new String[]{
                             nr.getText().toString(),
@@ -132,12 +136,19 @@ public class OpenAllItemsActivity extends SimpleActivity {
                             name.getText().toString(),
                             price.getText().toString(),
                             discount};
+
+                    keys = new String[]{
+                            Database.ITEM_ID,
+                            Database.ITEM_NUMBER,
+                            Database.ITEM_NAME,
+                            Database.ITEM_PRICE,
+                            Database.ITEM_DISCOUNT};
                 }
 
                 boolean flag;
                 if (isEdit) flag = data.updateData(value, keys);
                 else
-                    flag = data.insertData(value);
+                    flag = data.insertData(value, keys);
                 if (flag) {
                     Toast.makeText(getBaseContext(), getString(R.string.add_item_notify) + "/" + getString(R.string.edit_item_notify), Toast.LENGTH_SHORT).show();
                     refreshListView();
@@ -153,14 +164,12 @@ public class OpenAllItemsActivity extends SimpleActivity {
 
 
     public void listViewItemClick() {
-        final boolean[] flag = new boolean[1];
-        flag[0] = true;
-
+        flag = true;
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                flag[0] = false;
-                data.setClickedItemId((int) id);
+                flag = false;
+                data.setClickedItemId(id);
 
                 addEdit_ItemDialog(true);
                 return false;
@@ -170,10 +179,10 @@ public class OpenAllItemsActivity extends SimpleActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (flag[0]) {
-                    data.setClickedItemId((int) id);
+                if (flag) {
+                    data.setClickedItemId(id);
                 }
-                flag[0] = true;
+                flag = true;
             }
         });
     }

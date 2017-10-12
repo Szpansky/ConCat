@@ -17,6 +17,8 @@ public class OpenAllPersonsActivity extends SimpleActivity {
         super(new Person(),"list_preference_open_all_colors");
     }
 
+    boolean flag = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +44,13 @@ public class OpenAllPersonsActivity extends SimpleActivity {
 
 
     private void listViewItemClick() {
-        final boolean[] flag = new boolean[1];
-        flag[0] = true;
+        flag = true;
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                flag[0] = false;
-                //popupForDelete((int) id);
+                flag = false;
+
                 return false;
             }
         });
@@ -58,16 +59,16 @@ public class OpenAllPersonsActivity extends SimpleActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if (flag[0]) {
+                if (flag) {
                     Intent intent = new Intent(OpenAllPersonsActivity.this, AddEditPersonActivity.class);
 
                     toNextActivityBundle.putBoolean("isEdit", true);
-                    toNextActivityBundle.putInt("personId", (int) id);
+                    toNextActivityBundle.putLong("personId", id);
 
                     intent.putExtras(toNextActivityBundle);
                     startActivity(intent);
                 }
-                flag[0] = true;
+                flag = true;
             }
         });
     }

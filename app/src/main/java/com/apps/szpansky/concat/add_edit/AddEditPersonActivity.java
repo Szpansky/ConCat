@@ -31,7 +31,7 @@ public class AddEditPersonActivity extends AppCompatActivity {
     private EditText phone;
     private FloatingActionButton add, openContacts;
 
-    private Integer thisId = 0;
+    private Long thisId ;
     private Boolean isEdit = false;
 
     private Database myDB;
@@ -57,7 +57,7 @@ public class AddEditPersonActivity extends AppCompatActivity {
 
         if (bundle != null) {
 
-            thisId = bundle.getInt("personId");
+            thisId = bundle.getLong("personId");
             isEdit = bundle.getBoolean("isEdit");
         }
 

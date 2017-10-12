@@ -203,4 +203,6 @@
 
     <string name="main">Main</string>
 
+    <string name="DefaultTheme" translatable="false">DefaultTheme</string>   //static colors values
+
 </resources>

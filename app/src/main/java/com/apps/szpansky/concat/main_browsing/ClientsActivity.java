@@ -33,7 +33,7 @@ public class ClientsActivity extends SimpleActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTitle();
+        this.setTitle(data.getTitle());
         addButton.setImageDrawable(getResources().getDrawable(R.mipmap.ic_playlist_add_white_24dp));
 
         listViewItemClick();
@@ -51,27 +51,11 @@ public class ClientsActivity extends SimpleActivity {
         });
     }
 
-    private void setTitle(){
-        //Cursor c = myDB.getRows(Database.TABLE_CATALOGS,Database.CATALOG_ID, Client.clickedCatalogId );
-       // String title = c.getString(1);
-
-        this.setTitle(data.getTitle());
-    }
-
 
     private void dialogOnClientClick(){
         final AlertDialog builder = new AlertDialog.Builder(this).create();
         final View dialogView = getLayoutInflater().inflate(R.layout.dialog_on_client_click, null);
         Button saveCatalog = (Button) dialogView.findViewById(R.id.buttonOrderSave);
-        Button deleteCatalog = (Button) dialogView.findViewById(R.id.buttonOrderDelete);
-
-        deleteCatalog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //popupForDelete(thisId);
-                builder.dismiss();
-            }
-        });
 
         saveCatalog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,10 +76,9 @@ public class ClientsActivity extends SimpleActivity {
                         status = getString(R.string.db_status_not_payed);
                         break;
                 }
-                String[] where = new String[]{Database.CLIENT_STATUS};
-                String[] what = new String[]{status};
-                data.updateData(what,where);
-
+                String[] keys = new String[]{Database.CLIENT_STATUS};
+                String[] value = new String[]{status};
+                data.updateData(value,keys);
                 refreshListView();
                 builder.dismiss();
             }
@@ -113,10 +96,8 @@ public class ClientsActivity extends SimpleActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 flag[0] = false;
-                data.setClickedItemId( (int) id);
-
+                data.setClickedItemId(id);
                 dialogOnClientClick();
-
                 return false;
             }
         });
@@ -125,9 +106,9 @@ public class ClientsActivity extends SimpleActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (flag[0]) {
-                    data.setClickedItemId( (int) id);
+                    data.setClickedItemId(id);
                     Intent intent = new Intent(ClientsActivity.this, OrdersActivity.class);
-                    Order.clickedClientId = (int) id;
+                    Order.clickedClientId = id;
                     startActivity(intent);
                 }
                 flag[0] = true;
@@ -141,12 +122,13 @@ public class ClientsActivity extends SimpleActivity {
         if (requestCode == BACK_CODE) {
             if (resultCode == RESULT_OK) {
 
-                Integer personId = intentData.getIntExtra("personId", 0);
-                Integer catalogId = Client.clickedCatalogId;
+                Long personId = intentData.getLongExtra("personId", 0);
+                Long catalogId = Client.clickedCatalogId;
 
                 String[] value = new String[]{catalogId.toString(), personId.toString(), getString(R.string.db_status_not_payed)};
+                String[] keys = new String[]{Database.CLIENT_CATALOG_ID, Database.CLIENT_PERSON_ID, Database.CLIENT_STATUS};
 
-                data.insertData(value);
+                data.insertData(value, keys);
 
 
                 refreshListView();

@@ -9,9 +9,15 @@ import com.apps.szpansky.concat.tools.SimpleFunctions;
 
 import java.util.Calendar;
 
+import static com.apps.szpansky.concat.tools.Database.*;
+
 
 public class Item extends Data {
 
+
+    public Item() {
+        currentTable = TABLE_ITEMS;
+    }
 
     @Override
     public int getItemLayoutResourceId() {
@@ -43,10 +49,10 @@ public class Item extends Data {
     public String[] getFromFieldsNames() {
 
         return (new String[]{
-                Database.ITEM_NUMBER,
-                Database.ITEM_NAME,
-                Database.ITEM_PRICE,
-                Database.ITEM_UPDATE_DATE
+                ITEM_NUMBER,
+                ITEM_NAME,
+                ITEM_PRICE,
+                ITEM_UPDATE_DATE
         });
     }
 
@@ -54,34 +60,20 @@ public class Item extends Data {
     @Override
     public boolean deleteData(int itemId) {
         boolean flag = true;
-        if (!myDB.delete(Database.TABLE_ORDERS, Database.ORDER_ITEM_ID, itemId)) flag = false;
-        if (!myDB.delete(Database.TABLE_ITEMS, Database.ITEM_ID, itemId)) flag = false;
+        if (!myDB.delete(TABLE_ORDERS, ORDER_ITEM_ID, itemId)) flag = false;
+        if (!myDB.delete(TABLE_ITEMS, ITEM_ID, itemId)) flag = false;
         return flag;
     }
 
-
     @Override
-    public boolean insertData(String[] value) {
-        final String[] keys = new String[]{
-                Database.ITEM_ID,
-                Database.ITEM_NUMBER,
-                Database.ITEM_NAME,
-                Database.ITEM_PRICE,
-                Database.ITEM_DISCOUNT};
-        return myDB.insertData(value, keys, Database.TABLE_ITEMS);
-    }
-
-
-    @Override
-    public boolean updateData(String[] value, String[] keys) {
-        String where = Database.ITEM_ID + " = " + clickedItemId;
-        return myDB.updateData(value, keys, Database.TABLE_ITEMS, where);
+    public String getCurrentTable() {
+        return Database.TABLE_ITEMS;
     }
 
 
     @Override
     public String[] getClickedData() {
-        Cursor cursor = myDB.getRows(Database.TABLE_ITEMS, Database.ITEM_ID, clickedItemId);
+        Cursor cursor = myDB.getRows(TABLE_ITEMS, ITEM_ID, clickedItemId);
         return new String[]{cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)};
     }
 }

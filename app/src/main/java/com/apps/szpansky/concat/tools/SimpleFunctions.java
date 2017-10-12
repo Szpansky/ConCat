@@ -1,8 +1,6 @@
 package com.apps.szpansky.concat.tools;
 
-
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import com.apps.szpansky.concat.R;
 
@@ -50,7 +48,7 @@ public final class SimpleFunctions {
         } else {
             String months, days;
             months = (mnth > 0) ? mnth + "" : "0";
-            days = (dy > 0) ? dy + ""  : "0";
+            days = (dy > 0) ? dy + "" : "0";
 
             if ((months + days).equals(""))
                 return "0 0";
@@ -59,41 +57,31 @@ public final class SimpleFunctions {
         }
     }
 
-    public static int setStyle(String styleKey, SharedPreferences sharedPreferences, String[] colorsKey){
-
-        if(sharedPreferences.getString(styleKey,"0").equals(colorsKey[0])){
-            return  (R.style.DefaultTheme);
-        }else
-        if(sharedPreferences.getString(styleKey,"0").equals(colorsKey[1])){
-            return  (R.style.OpenAllTheme);
-        }else
-        if(sharedPreferences.getString(styleKey,"0").equals(colorsKey[2])){
-            return  (R.style.BrowsingTheme);
-        }else
-        if(sharedPreferences.getString(styleKey,"0").equals(colorsKey[3])){
-            return  (R.style.PickTheme);
-        }else
-        if(sharedPreferences.getString(styleKey,"0").equals(colorsKey[4])){
-            return  (R.style.BlueTheme);
-        }else
-        if(sharedPreferences.getString(styleKey,"0").equals(colorsKey[5])){
-            return  (R.style.GreenTheme);
-        }else
-        if(sharedPreferences.getString(styleKey,"0").equals(colorsKey[6])){
-            return  (R.style.RedTheme);
-        }else
-        if(sharedPreferences.getString(styleKey,"0").equals(colorsKey[7])){
-            return  (R.style.PurpleTheme);
-        }else
-        if(sharedPreferences.getString(styleKey,"0").equals(colorsKey[8])){
-            return  (R.style.PinkTheme);
-        }else
-        if(sharedPreferences.getString(styleKey,"0").equals(colorsKey[9])){
-            return  (R.style.GrayTheme);
-        }else
-            return (R.style.DefaultTheme);
+    public static int setStyle(String styleKey, SharedPreferences sharedPreferences) {
+        switch (sharedPreferences.getString(styleKey, "0")) {
+            case ("DefaultTheme"):
+                return R.style.DefaultTheme;
+            case ("DefaultOpenAllTheme"):
+                return R.style.OpenAllTheme;
+            case ("DefaultBrowsingTheme"):
+                return R.style.BrowsingTheme;
+            case ("DefaultPickTheme"):
+                return R.style.PickTheme;
+            case ("BlueTheme"):
+                return R.style.BlueTheme;
+            case ("GreenTheme"):
+                return R.style.GreenTheme;
+            case ("RedTheme"):
+                return R.style.RedTheme;
+            case ("PurpleTheme"):
+                return R.style.PurpleTheme;
+            case ("PinkTheme"):
+                return R.style.PinkTheme;
+            case ("GrayTheme"):
+                return R.style.GrayTheme;
+            default:
+                return R.style.DefaultTheme;
+        }
     }
-
-
-    }
+}
 

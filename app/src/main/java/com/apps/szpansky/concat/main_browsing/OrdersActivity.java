@@ -28,7 +28,8 @@ public class OrdersActivity extends SimpleActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTitle();
+        this.setTitle(data.getTitle());
+
         addButton.setImageDrawable(getResources().getDrawable(R.mipmap.ic_playlist_add_white_24dp));
 
         listViewItemClick();
@@ -47,11 +48,6 @@ public class OrdersActivity extends SimpleActivity {
     }
 
 
-    private void setTitle() {
-        this.setTitle(data.getTitle());
-    }
-
-
     private void listViewItemClick() {
         flag = true;
 
@@ -59,7 +55,7 @@ public class OrdersActivity extends SimpleActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 flag = false;
-                //popupForDelete((int) id);
+
                 return false;
             }
         });
@@ -81,15 +77,15 @@ public class OrdersActivity extends SimpleActivity {
         if (requestCode == BACK_CODE) {
             if (resultCode == RESULT_OK) {
 
-                Integer itemId = intentData.getIntExtra("itemId", 0);
+                Long itemId = intentData.getLongExtra("itemId", 0);
                 Integer itemCount = intentData.getIntExtra("itemCount", 1);
-                Integer clientId = Order.clickedClientId;
+                Long clientId = Order.clickedClientId;
 
                 String[] value = new String[]{clientId.toString(), itemId.toString(), itemCount.toString()};
 
                 boolean isInserted = data.updateData(value,null);
                 if (!isInserted){
-                    data.insertData(value);  }      //TODO updating in dialog
+                    data.insertData(value, null);  }      //TODO updating in dialog
                 refreshListView();
             }
         }

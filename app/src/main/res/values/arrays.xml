@@ -2,10 +2,10 @@
 <resources>
 
     <string-array name="colors">
-        <item>Default for Main</item>
-        <item>Default for Contacts/ Items</item>
-        <item>Default for Browsing</item>
-        <item>Default for Picking</item>
+        <item>Default</item>
+        <item>Blue/Red</item>
+        <item>Green/Red</item>
+        <item>Yellow/Red</item>
         <item>Blue</item>
         <item>Green</item>
         <item>Red</item>
@@ -15,7 +15,7 @@
 
     </string-array>
 
-    <string-array name="colors_key" translatable="false">        //static colors values
+    <string-array name="colors_key" translatable="false">        //static colors values to add another one need add constants value to settheme function
         <item>DefaultTheme</item>
         <item>DefaultOpenAllTheme</item>
         <item>DefaultBrowsingTheme</item>
@@ -27,18 +27,6 @@
         <item>PinkTheme</item>
         <item>GrayTheme</item>
     </string-array>
-
-
-    <string name="DefaultTheme" translatable="false">DefaultTheme</string>   //static colors values
-    <string name="DefaultOpenAllTheme" translatable="false">DefaultOpenAllTheme</string>
-    <string name="DefaultBrowsingTheme" translatable="false">DefaultBrowsingTheme</string>
-    <string name="DefaultPickTheme" translatable="false">DefaultPickTheme</string>
-    <string name="BlueTheme" translatable="false">BlueTheme</string>
-    <string name="GreenTheme" translatable="false">GreenTheme</string>
-    <string name="RedTheme" translatable="false">RedTheme</string>
-    <string name="PurpleTheme" translatable="false">PurpleTheme</string>
-    <string name="PinkTheme" translatable="false">PinkTheme</string>
-    <string name="GrayTheme" translatable="false">GrayTheme</string>
 
 
 </resources>

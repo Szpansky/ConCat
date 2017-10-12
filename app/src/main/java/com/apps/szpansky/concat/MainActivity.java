@@ -71,9 +71,8 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         super.onCreate(savedInstanceState);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String[] colorsKey = getBaseContext().getResources().getStringArray(R.array.colors_key);
 
-        setTheme(SimpleFunctions.setStyle(styleKey,sharedPreferences,colorsKey));
+        setTheme(SimpleFunctions.setStyle(styleKey,sharedPreferences));
 
         setContentView(R.layout.activity_main);
 

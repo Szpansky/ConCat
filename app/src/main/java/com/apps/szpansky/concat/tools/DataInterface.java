@@ -11,9 +11,11 @@ public interface DataInterface {
 
     boolean deleteData(int id);
 
-    boolean insertData(String[] value);
-
     boolean updateData(String[] value, String[] keys);
+
+    boolean insertData(String[] value, String[] keys);
+
+    String getCurrentTable();
 
     String getTitle();
 

@@ -28,7 +28,6 @@ import com.apps.szpansky.concat.R;
 public abstract class SimpleActivity extends AppCompatActivity {
 
     private boolean flag = true;
-    //protected Database myDB;
     protected Bundle toNextActivityBundle = new Bundle();
     protected MyCursorAdapter myCursorAdapter;
     protected ListView listView;
@@ -40,11 +39,6 @@ public abstract class SimpleActivity extends AppCompatActivity {
     AlertDialog builder;
 
     protected abstract void onAddButtonClick();
-
-
-    /*protected SimpleActivity(Data data) {
-        this.data = data;
-    }*/
 
 
     protected SimpleActivity(Data data, String styleKey) {
@@ -64,14 +58,12 @@ public abstract class SimpleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String[] colorsKey = getBaseContext().getResources().getStringArray(R.array.colors_key);
 
-        setTheme(SimpleFunctions.setStyle(styleKey,sharedPreferences,colorsKey));
+        setTheme(SimpleFunctions.setStyle(styleKey,sharedPreferences));
         setContentView(R.layout.activity_simple_view);
 
         addButton = (FloatingActionButton) findViewById(R.id.add);
 
-        //myDB = new Database(this);
         data.setDatabase(new Database(this));
 
         setToolBar();
