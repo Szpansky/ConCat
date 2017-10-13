@@ -68,7 +68,7 @@
                     android:layout_height="@dimen/default_edit_text_height"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:hint="@string/code"
+                    android:hint="@string/unique_code"
                     android:inputType="number"
                     android:maxLength="18"
                     android:textAlignment="center"

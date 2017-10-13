@@ -1,25 +1,23 @@
 package com.apps.szpansky.concat.open_all;
 
-import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.apps.szpansky.concat.R;
+import com.apps.szpansky.concat.fragments.Dialog_AddEditPerson;
 import com.apps.szpansky.concat.simple_data.Person;
-import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleActivity;
 
 
-public class OpenAllPersonsActivity extends SimpleActivity {
+public class OpenAllPersonsActivity extends SimpleActivity implements DialogInterface.OnDismissListener {
 
 
     public OpenAllPersonsActivity() {
@@ -46,101 +44,10 @@ public class OpenAllPersonsActivity extends SimpleActivity {
 
             @Override
             public void onClick(View v) {
-                addEdit_PersonDialog(false);
+                Dialog_AddEditPerson addEditPerson =  Dialog_AddEditPerson.newInstance();
+                addEditPerson.show(getFragmentManager().beginTransaction(),"DialogAddEditPerson");
             }
         });
-    }
-
-
-    private void addEdit_PersonDialog(final boolean isEdit) {
-        final AlertDialog builder = new AlertDialog.Builder(this).create();
-
-
-        View view = getLayoutInflater().inflate(R.layout.dialog_add_edit_person, null);
-        name = (EditText) view.findViewById(R.id.add_edit_personName);
-        surname = (EditText) view.findViewById(R.id.add_edit_personSurname);
-        address = (EditText) view.findViewById(R.id.add_edit_personAddress);
-        phone = (EditText) view.findViewById(R.id.add_edit_personPhone);
-        FloatingActionButton add = (FloatingActionButton) view.findViewById(R.id.add_edit_person_fab);
-        FloatingActionButton openContacts = (FloatingActionButton) view.findViewById(R.id.openContacts);
-
-        if (isEdit) {
-            String[] currentValue = data.getClickedItemData();
-            name.setText(currentValue[0]);
-            surname.setText(currentValue[1]);
-            address.setText(currentValue[2]);
-            phone.setText(currentValue[3]);
-        }
-
-
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isEdit) {
-                    Long test = data.getClickedItemId();
-
-                    String[] values = new String[]{
-                            test.toString(),
-                            name.getText().toString(),
-                            surname.getText().toString(),
-                            address.getText().toString(),
-                            phone.getText().toString()};
-
-                    String[] keys = new String[]{
-                            Database.PERSON_ID,
-                            Database.PERSON_NAME,
-                            Database.PERSON_SURNAME,
-                            Database.PERSON_ADDRESS,
-                            Database.PERSON_PHONE};
-
-                    boolean isUpdated = data.updateData(values,keys);
-
-                    if (isUpdated) {
-                        Toast.makeText(getBaseContext(), R.string.edit_client_notify, Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getBaseContext(), R.string.error_notify, Toast.LENGTH_LONG).show();
-                    }
-
-                } else {
-
-                    String[] values = new String[]{
-                            name.getText().toString(),
-                            surname.getText().toString(),
-                            address.getText().toString(),
-                            phone.getText().toString()};
-
-                    String[] keys = new String[]{
-                            Database.PERSON_NAME,
-                            Database.PERSON_SURNAME,
-                            Database.PERSON_ADDRESS,
-                            Database.PERSON_PHONE};
-
-                    boolean isInserted = data.insertData(values,keys);
-
-                    if (isInserted) {
-                        Toast.makeText(getBaseContext(), R.string.add_client_notify, Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getBaseContext(), R.string.error_notify, Toast.LENGTH_LONG).show();
-                    }
-
-                }
-                refreshListView();
-                builder.dismiss();
-            }
-        });
-
-        openContacts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent contactPickIntent = new Intent(Intent.ACTION_PICK,
-                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-                startActivityForResult(contactPickIntent, RESULT_PICK_CONTACT);
-            }
-        });
-
-
-        builder.setView(view);
-        builder.show();
     }
 
 
@@ -152,17 +59,17 @@ public class OpenAllPersonsActivity extends SimpleActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 data.setClickedItemId(id);
                 flag = false;
-                addEdit_PersonDialog(true);
-                return false;
+                Dialog_AddEditPerson addEditPerson =  Dialog_AddEditPerson.newInstance(id);
+                addEditPerson.show(getFragmentManager().beginTransaction(),"DialogAddEditPerson");
+                return true;
             }
         });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                data.setClickedItemId(id);
                 if (flag) {
-
+                    data.setClickedItemId(id);
                 }
                 flag = true;
             }
@@ -215,5 +122,11 @@ public class OpenAllPersonsActivity extends SimpleActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        refreshListView();
     }
 }

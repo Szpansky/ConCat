@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.fragments.Dialog_AddEditItem;
-import com.apps.szpansky.concat.open_all.OpenAllItemsActivity;
 import com.apps.szpansky.concat.simple_data.Item;
 import com.apps.szpansky.concat.tools.SimpleActivity;
 
@@ -19,7 +18,6 @@ import com.apps.szpansky.concat.tools.SimpleActivity;
 public class PickItem extends SimpleActivity implements DialogInterface.OnDismissListener {
 
     Integer count = 1;
-    private boolean flag = true;
 
     public PickItem() {
         super(new Item(),"list_preference_picking_colors");
@@ -111,26 +109,19 @@ public class PickItem extends SimpleActivity implements DialogInterface.OnDismis
 
 
     private void listViewItemClick() {
-
-        flag = true;
-
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                flag = false;
                 Dialog_AddEditItem addEditItem = Dialog_AddEditItem.newInstance(id);
                 addEditItem.show(getFragmentManager().beginTransaction(),"DialogAddEditItem");
-                return false;
+                return true;
             }
         });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (flag) {
                     dialogItemCount(id);
-                }
-                flag = true;
             }
         });
     }

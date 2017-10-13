@@ -1,7 +1,6 @@
 package com.apps.szpansky.concat.main_browsing;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,14 +9,12 @@ import android.widget.AdapterView;
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.for_pick.PickItem;
 import com.apps.szpansky.concat.simple_data.Order;
-import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleActivity;
 
 
 public class OrdersActivity extends SimpleActivity {
 
     private final int BACK_CODE = 1;
-    private boolean flag = true;
 
     public OrdersActivity() {
         super(new Order(), "list_preference_browsing_colors");
@@ -49,24 +46,18 @@ public class OrdersActivity extends SimpleActivity {
 
 
     private void listViewItemClick() {
-        flag = true;
-
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                flag = false;
 
-                return false;
+                return true;
             }
         });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (flag) {
 
-                }
-                flag = true;
             }
         });
     }

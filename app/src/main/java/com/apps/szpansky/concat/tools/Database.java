@@ -16,7 +16,6 @@ public class Database extends SQLiteOpenHelper {
 
     static Context context;
 
-
     public static final String DATABASE_NAME = "ConCat.db";
     public static final int DATABASE_VERSION = 4;
 
@@ -64,25 +63,26 @@ public class Database extends SQLiteOpenHelper {
         this.context = context;
     }
 
+
     @Override
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("create table " + TABLE_CATALOGS + " (" +
-                CATALOG_ID + " BIGINT PRIMARY KEY NOT NULL," +
+                CATALOG_ID + " INTEGER PRIMARY KEY NOT NULL," +
                 CATALOG_NUMBER + " VARCHAR(30) UNIQUE," +
                 CATALOG_DATE_START + " DATE DEFAULT CURRENT_DATE," +
                 CATALOG_DATE_ENDS + " DATE DEFAULT CURRENT_DATE)");
 
         db.execSQL("create table " + TABLE_PERSONS + " (" +
-                PERSON_ID + " BIGINT PRIMARY KEY NOT NULL," +
+                PERSON_ID + " INTEGER PRIMARY KEY NOT NULL," +
                 PERSON_NAME + " VARCHAR(40)," +
                 PERSON_SURNAME + " VARCHAR(40)," +
                 PERSON_ADDRESS + " VARCHAR(150)," +
                 PERSON_PHONE + " VARCHAR(25) NOT NULL," +
-                PERSON_NETWORK_ID + " BIGINT DEFAULT 0)");
+                PERSON_NETWORK_ID + " INTEGER DEFAULT 0)");
 
         db.execSQL("create table " + TABLE_ITEMS + " (" +
-                ITEM_ID + " BIGINT PRIMARY KEY NOT NULL," +
+                ITEM_ID + " INTEGER PRIMARY KEY NOT NULL," +
                 ITEM_NUMBER + " VARCHAR(11) UNIQUE," +
                 ITEM_NAME + " VARCHAR(150)," +
                 ITEM_PRICE + " DECIMAL NOT NULL," +
@@ -90,23 +90,24 @@ public class Database extends SQLiteOpenHelper {
                 ITEM_UPDATE_DATE + " DATE DEFAULT CURRENT_DATE)");
 
         db.execSQL("create table " + TABLE_CLIENTS + " (" +
-                CLIENT_ID + " BIGINT PRIMARY KEY NOT NULL," +
-                CLIENT_CATALOG_ID + " BIGINT," +
-                CLIENT_PERSON_ID + " BIGINT," +
+                CLIENT_ID + " INTEGER PRIMARY KEY NOT NULL," +
+                CLIENT_CATALOG_ID + " INTEGER," +
+                CLIENT_PERSON_ID + " INTEGER," +
                 CLIENT_DATE + "  DATE DEFAULT CURRENT_DATE," +
                 CLIENT_STATUS + " VARCHAR(25)," +
                 "FOREIGN KEY (" + CLIENT_CATALOG_ID + ") REFERENCES " + TABLE_CATALOGS + " (" + CATALOG_ID + ")," +
                 "FOREIGN KEY (" + CLIENT_PERSON_ID + ") REFERENCES " + TABLE_PERSONS + " (" + PERSON_ID + "))");
 
         db.execSQL("create table " + TABLE_ORDERS + " (" +
-                ORDER_ID + " BIGINT PRIMARY KEY NOT NULL," +
-                ORDER_ITEM_ID + " BIGINT," +
-                ORDER_CLIENT_ID + " BIGINT," +
+                ORDER_ID + " INTEGER PRIMARY KEY NOT NULL," +
+                ORDER_ITEM_ID + " INTEGER," +
+                ORDER_CLIENT_ID + " INTEGER," +
                 ORDER_AMOUNT + " SHORTINTEGER," +
                 ORDER_TOTAL + " DECIMAL," +
                 "FOREIGN KEY (" + ORDER_ITEM_ID + ") REFERENCES " + TABLE_ITEMS + " (" + ITEM_ID + ")," +
                 "FOREIGN KEY (" + ORDER_CLIENT_ID + ") REFERENCES " + TABLE_CLIENTS + " (" + CLIENT_ID + "))");
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -118,10 +119,11 @@ public class Database extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String[] values, String[] keys, String table){
+
+    public boolean insertData(String[] values, String[] keys, String table) {
         ContentValues contentValues = new ContentValues();
-        for(int i=0; i<values.length;i++){
-            contentValues.put(keys[i],values[i]);
+        for (int i = 0; i < values.length; i++) {
+            contentValues.put(keys[i], values[i]);
         }
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.insert(table, null, contentValues);
@@ -132,12 +134,10 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-
-    public boolean updateData(String[] values,String[] keys, String table,long id) {
-
+    public boolean updateData(String[] values, String[] keys, String table, long id) {
         ContentValues newValues = new ContentValues();
-        for(int i=0; i<values.length;i++){
-            newValues.put(keys[i],values[i]);
+        for (int i = 0; i < values.length; i++) {
+            newValues.put(keys[i], values[i]);
         }
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.update(table, newValues, "_id = " + id, null);
@@ -145,22 +145,6 @@ public class Database extends SQLiteOpenHelper {
             return true;
         else
             return false;
-    }
-
-
-    public boolean insertDataToPersons(String name, String surname, String address, String phone) {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(PERSON_NAME, name);
-        contentValues.put(PERSON_SURNAME, surname);
-        contentValues.put(PERSON_ADDRESS, address);
-        contentValues.put(PERSON_PHONE, phone);
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        long result = db.insert(TABLE_PERSONS, null, contentValues);
-        if (result == -1)
-            return false;
-        else
-            return true;
     }
 
 
@@ -228,10 +212,10 @@ public class Database extends SQLiteOpenHelper {
                         "LEFT JOIN " + TABLE_CLIENTS + " AS K " +
                         "ON C." + CATALOG_ID + " = K." + CLIENT_CATALOG_ID + " " +
                         "WHERE (" +
-                        "C."+CATALOG_ID + " LIKE \"%" + filter + "%\"" + " OR " +
-                        "C."+CATALOG_NUMBER + " LIKE \"%" + filter + "%\"" + " OR " +
-                        "C."+CATALOG_DATE_START + " LIKE \"%" + filter + "%\"" + " OR " +
-                        "C."+CATALOG_DATE_ENDS + " LIKE \"%" + filter + "%\"" + ") " +
+                        "C." + CATALOG_ID + " LIKE \"%" + filter + "%\"" + " OR " +
+                        "C." + CATALOG_NUMBER + " LIKE \"%" + filter + "%\"" + " OR " +
+                        "C." + CATALOG_DATE_START + " LIKE \"%" + filter + "%\"" + " OR " +
+                        "C." + CATALOG_DATE_ENDS + " LIKE \"%" + filter + "%\"" + ") " +
                         "GROUP BY C." + CATALOG_ID + " " +
                         "ORDER BY C." + CATALOG_DATE_START + " DESC"
                 , null);
@@ -351,7 +335,7 @@ public class Database extends SQLiteOpenHelper {
                         "count(distinct k." + CLIENT_ID + "), " +
                         "count(o." + ORDER_ID + "), " +
                         "sum(o." + ORDER_AMOUNT + "), " +
-                        "count(case k." + CLIENT_STATUS + " when '" + context.getString(R.string.db_status_not_payed)+ "' then 1 else null end ), " +
+                        "count(case k." + CLIENT_STATUS + " when '" + context.getString(R.string.db_status_not_payed) + "' then 1 else null end ), " +
                         "count(case k." + CLIENT_STATUS + " when '" + context.getString(R.string.db_status_payed) + "' then 1 else null end ), " +
                         "count(case k." + CLIENT_STATUS + " when '" + context.getString(R.string.db_status_ready) + "' then 1 else null end ), " +
                         "sum(o." + ORDER_TOTAL + "), " +
@@ -370,54 +354,38 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public Cursor getCurrentInfo(){
+    public Cursor getCurrentInfo() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(
                 "SELECT * " +
                         "FROM (select " +
-                        "count("+CATALOG_ID+"), " +
-                        "1 as filter "+
-                        "from "+TABLE_CATALOGS+" " +
+                        "count(" + CATALOG_ID + "), " +
+                        "1 as filter " +
+                        "from " + TABLE_CATALOGS + " " +
 
                         "union " +
                         "select " +
-                        "count("+CLIENT_STATUS+"), " +
-                        "2 as filter "+
-                        "from "+TABLE_CLIENTS+" " +
+                        "count(" + CLIENT_STATUS + "), " +
+                        "2 as filter " +
+                        "from " + TABLE_CLIENTS + " " +
 
                         "union " +
                         "select " +
-                        "count("+ORDER_ID+"), " +
-                        "3 as filter "+
-                        "from "+TABLE_ORDERS+" " +
+                        "count(" + ORDER_ID + "), " +
+                        "3 as filter " +
+                        "from " + TABLE_ORDERS + " " +
 
                         "union " +
                         "select " +
-                        "sum("+ORDER_TOTAL+"), " +
-                        "4 as filter "+
-                        "from "+TABLE_ORDERS+") " +
+                        "sum(" + ORDER_TOTAL + "), " +
+                        "4 as filter " +
+                        "from " + TABLE_ORDERS + ") " +
                         "order by filter"
                 , null);
         if (c != null) {
             c.moveToFirst();
         }
         return c;
-    }
-
-
-    public boolean updateRowPerson(long id, String name, String surname, String address, String phone) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String where = PERSON_ID + " = " + id;
-        ContentValues newValues = new ContentValues();
-        newValues.put(PERSON_NAME, name);
-        newValues.put(PERSON_SURNAME, surname);
-        newValues.put(PERSON_ADDRESS, address);
-        newValues.put(PERSON_PHONE, phone);
-        long result = db.update(TABLE_PERSONS, newValues, where, null);
-        if (result == 1)
-            return true;
-        else
-            return false;
     }
 
 
@@ -536,7 +504,6 @@ public class Database extends SQLiteOpenHelper {
             return false;
         }
     }
-
 }
 
 

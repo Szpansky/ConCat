@@ -23,7 +23,6 @@ import java.util.Calendar;
 
 public class CatalogsActivity extends SimpleActivity {
 
-    private boolean flag = true;
     private EditText catalogDateStart;
     private EditText catalogDateEnd;
 
@@ -122,14 +121,12 @@ public class CatalogsActivity extends SimpleActivity {
 
 
     private void listViewItemClick() {
-        flag = true;
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 data.setClickedItemId(id);
-                flag = false;
                 addEdit_CatalogDialog(true);
-                return false;
+                return true;
             }
         });
 
@@ -137,12 +134,9 @@ public class CatalogsActivity extends SimpleActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 data.setClickedItemId(id);
-                if (flag) {
                     Intent intent = new Intent(CatalogsActivity.this, ClientsActivity.class);
-                    Client.clickedCatalogId = id;         //to know which catalog is opened is next activity
+                    Client.clickedCatalogId = id;         //to know which catalog is opened in next activity
                     startActivity(intent);
-                }
-                flag = true;
             }
         });
     }

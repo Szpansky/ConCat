@@ -203,6 +203,8 @@
 
     <string name="main">Main</string>
 
-    <string name="DefaultTheme" translatable="false">DefaultTheme</string>   //static colors values
+    <string name="DefaultTheme" translatable="false">DefaultTheme</string>
+    <string name="unique_code">Unique Code</string>
+    //static colors values
 
 </resources>

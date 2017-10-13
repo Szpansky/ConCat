@@ -2,7 +2,6 @@ package com.apps.szpansky.concat.main_browsing;
 
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -16,8 +15,6 @@ import com.apps.szpansky.concat.simple_data.Client;
 import com.apps.szpansky.concat.simple_data.Order;
 import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleActivity;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 
 public class ClientsActivity extends SimpleActivity {
@@ -89,29 +86,22 @@ public class ClientsActivity extends SimpleActivity {
 
 
     private void listViewItemClick() {
-        final boolean[] flag = new boolean[1];
-        flag[0] = true;
-
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                flag[0] = false;
                 data.setClickedItemId(id);
                 dialogOnClientClick();
-                return false;
+                return true;
             }
         });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (flag[0]) {
                     data.setClickedItemId(id);
                     Intent intent = new Intent(ClientsActivity.this, OrdersActivity.class);
                     Order.clickedClientId = id;
                     startActivity(intent);
-                }
-                flag[0] = true;
             }
         });
     }

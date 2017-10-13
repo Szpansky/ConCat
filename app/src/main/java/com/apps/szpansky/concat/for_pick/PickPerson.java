@@ -1,17 +1,18 @@
 package com.apps.szpansky.concat.for_pick;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 
 import com.apps.szpansky.concat.R;
-import com.apps.szpansky.concat.open_all.OpenAllPersonsActivity;
+import com.apps.szpansky.concat.fragments.Dialog_AddEditPerson;
 import com.apps.szpansky.concat.simple_data.Person;
 import com.apps.szpansky.concat.tools.SimpleActivity;
 
 
-public class PickPerson extends SimpleActivity {
+public class PickPerson extends SimpleActivity implements DialogInterface.OnDismissListener {
 
 
     public PickPerson() {
@@ -34,38 +35,36 @@ public class PickPerson extends SimpleActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(PickPerson.this, OpenAllPersonsActivity.class);
-                //PickPerson.this.startActivity(intent);
+                Dialog_AddEditPerson addEditPerson =  Dialog_AddEditPerson.newInstance();
+                addEditPerson.show(getFragmentManager().beginTransaction(),"DialogAddEditPerson");
             }
         });
     }
 
 
     private void listViewItemClick() {
-        final boolean[] flag = new boolean[1];
-        flag[0] = true;
-
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                flag[0] = false;
-
-                return false;
+                Dialog_AddEditPerson addEditPerson =  Dialog_AddEditPerson.newInstance(id);
+                addEditPerson.show(getFragmentManager().beginTransaction(),"DialogAddEditPerson");
+                return true;
             }
         });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (flag[0]) {
-
                     Intent intent = new Intent();
                     intent.putExtra("personId", id);
                     setResult(RESULT_OK, intent);
                     finish();
-                }
-                flag[0] = true;
             }
         });
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        refreshListView();
     }
 }

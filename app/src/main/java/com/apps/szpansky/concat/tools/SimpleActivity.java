@@ -17,11 +17,9 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
-import android.widget.Button;
 import android.widget.ListView;
 
 
-import com.apps.szpansky.concat.MainActivity;
 import com.apps.szpansky.concat.R;
 
 
@@ -44,7 +42,6 @@ public abstract class SimpleActivity extends AppCompatActivity {
     protected SimpleActivity(Data data, String styleKey) {
         this.data = data;
         this.styleKey = styleKey;
-
     }
 
 
@@ -118,7 +115,6 @@ public abstract class SimpleActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
 
 
@@ -140,33 +136,6 @@ public abstract class SimpleActivity extends AppCompatActivity {
         listView.setOnScrollListener(onScrollListener);
         if (index != 0) listView.setSelectionFromTop(index, top);
     }
-
-
-   /* protected void popupForDelete(final int id) {
-        final AlertDialog builder = new AlertDialog.Builder(this).create();
-        View view = getLayoutInflater().inflate(R.layout.dialog_popup_alert, null);
-
-        Button buttonYes = (Button) view.findViewById(R.id.dialog_button_yes);
-        Button buttonNo = (Button) view.findViewById(R.id.dialog_button_no);
-
-        buttonYes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                data.deleteData(id);
-                refreshListView();
-                builder.dismiss();
-            }
-        });
-        buttonNo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                builder.dismiss();
-            }
-        });
-
-        builder.setView(view);
-        builder.show();
-    }*/
 
 
     private void onScrolling() {

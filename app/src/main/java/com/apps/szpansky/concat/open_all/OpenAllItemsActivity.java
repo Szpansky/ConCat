@@ -15,7 +15,7 @@ public class OpenAllItemsActivity extends SimpleActivity implements DialogInterf
 
 
     public OpenAllItemsActivity() {
-        super(new Item(),"list_preference_open_all_colors");
+        super(new Item(), "list_preference_open_all_colors");
     }
 
     boolean flag = true;
@@ -35,7 +35,7 @@ public class OpenAllItemsActivity extends SimpleActivity implements DialogInterf
             @Override
             public void onClick(View v) {
                 Dialog_AddEditItem addEditItem = Dialog_AddEditItem.newInstance();
-                addEditItem.show(getFragmentManager().beginTransaction(),"DialogAddEditItem");
+                addEditItem.show(getFragmentManager().beginTransaction(), "DialogAddEditItem");
 
             }
         });
@@ -48,11 +48,10 @@ public class OpenAllItemsActivity extends SimpleActivity implements DialogInterf
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 flag = false;
-
+                data.setClickedItemId(id);
                 Dialog_AddEditItem addEditItem = Dialog_AddEditItem.newInstance(id);
-                addEditItem.show(getFragmentManager().beginTransaction(),"DialogAddEditItem");
-
-                return false;
+                addEditItem.show(getFragmentManager().beginTransaction(), "DialogAddEditItem");
+                return true;
             }
         });
 
@@ -60,7 +59,7 @@ public class OpenAllItemsActivity extends SimpleActivity implements DialogInterf
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (flag) {
-
+                    data.setClickedItemId(id);
                 }
                 flag = true;
             }

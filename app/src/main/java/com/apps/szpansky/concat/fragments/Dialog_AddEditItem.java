@@ -22,11 +22,10 @@ import com.apps.szpansky.concat.tools.SimpleFunctions;
 public class Dialog_AddEditItem extends DialogFragment {
 
     private EditText nr, price, name;
-    private String discount ="";
+    private String discount = "";
     private CheckBox dis_5, dis_10, dis_15, dis_20, dis_25, dis_30, dis_35, dis_40, dis_100;
     private final CheckBox[] dis_all = {dis_5, dis_10, dis_15, dis_20, dis_25, dis_30, dis_35, dis_40, dis_100};
     FloatingActionButton add;
-    Database myDb;
     final Item item = new Item();
 
 
@@ -64,8 +63,7 @@ public class Dialog_AddEditItem extends DialogFragment {
 
         isEdit = getArguments().getBoolean("isEdit", false);
 
-        myDb = new Database(getActivity());
-        item.setDatabase(myDb);
+        item.setDatabase(new Database(getActivity()));
 
         final View view = inflater.inflate(R.layout.dialog_add_edit_item, null);
 
@@ -120,12 +118,12 @@ public class Dialog_AddEditItem extends DialogFragment {
                             Database.ITEM_DISCOUNT,
                             Database.ITEM_UPDATE_DATE};
 
-                    if(item.updateData(value,keys)){
-                        Snackbar snackbarInfo = Snackbar.make(view,R.string.edit_item_notify, Snackbar.LENGTH_SHORT);
+                    if (item.updateData(value, keys)) {
+                        Snackbar snackbarInfo = Snackbar.make(view, R.string.edit_item_notify, Snackbar.LENGTH_SHORT);
                         snackbarInfo.show();
                         //Dialog_AddEditItem.super.dismiss();
 
-                    } else{
+                    } else {
                         Snackbar snackbarInfo = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
                         snackbarInfo.show();
                     }
@@ -145,11 +143,11 @@ public class Dialog_AddEditItem extends DialogFragment {
                             Database.ITEM_PRICE,
                             Database.ITEM_DISCOUNT};
 
-                    if(item.insertData(value, keys)){
-                        Snackbar snackbarInfo = Snackbar.make(view,R.string.add_item_notify, Snackbar.LENGTH_SHORT);
+                    if (item.insertData(value, keys)) {
+                        Snackbar snackbarInfo = Snackbar.make(view, R.string.add_item_notify, Snackbar.LENGTH_SHORT);
                         snackbarInfo.show();
 
-                    } else{
+                    } else {
                         Snackbar snackbarInfo = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
                         snackbarInfo.show();
                     }
@@ -173,7 +171,7 @@ public class Dialog_AddEditItem extends DialogFragment {
     }
 
 
-    private String convertCheckBoxToString(CheckBox[] dis_all){
+    private String convertCheckBoxToString(CheckBox[] dis_all) {
         String discount = "";
         for (int i = 0; i <= 8; i++) {
             if (dis_all[i].isChecked()) {
@@ -185,7 +183,7 @@ public class Dialog_AddEditItem extends DialogFragment {
         return discount;
     }
 
-    private void convertStringToCheckBox(String discount){
+    private void convertStringToCheckBox(String discount) {
         for (int i = 0; i < discount.length(); i++) {
             int discountRevert = discount.length() - 1 - i;
             if (discount.charAt((discountRevert)) == '1') dis_all[i].setChecked(true);
@@ -196,7 +194,7 @@ public class Dialog_AddEditItem extends DialogFragment {
     public void onDismiss(final DialogInterface dialog) {
         super.onDismiss(dialog);
         final Activity activity = getActivity();
-        if (activity instanceof DialogInterface.OnDismissListener){
+        if (activity instanceof DialogInterface.OnDismissListener) {
             ((DialogInterface.OnDismissListener) activity).onDismiss(dialog);
         }
     }

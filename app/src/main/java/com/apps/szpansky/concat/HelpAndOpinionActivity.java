@@ -13,6 +13,7 @@ public class HelpAndOpinionActivity extends AppCompatActivity {
     Toolbar toolbar;
     Button devContact, marketRate, devDonate;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +26,6 @@ public class HelpAndOpinionActivity extends AppCompatActivity {
         onMarketRateClick();
 
         onDonateDevClick();
-
     }
 
 
