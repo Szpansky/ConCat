@@ -67,9 +67,18 @@ public class Person extends Data {
         return flag;
     }
 
+
     @Override
     public String getCurrentTable() {
         return Database.TABLE_PERSONS;
+    }
+
+
+    @Override
+    public String[] getClickedItemData() {
+        String where = PERSON_ID + " = " + clickedItemId;
+        Cursor cursor = myDB.getRows(TABLE_PERSONS, where);
+        return new String[]{cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4)};
     }
 
 

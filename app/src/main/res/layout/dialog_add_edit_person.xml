@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_add_person"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:orientation="vertical"
-    tools:context="com.apps.szpansky.concat.add_edit.AddEditPersonActivity">
+    android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/linearLayout16"
         android:layout_width="0px"
         android:layout_height="0px"
         android:layout_weight="1"
@@ -18,8 +17,11 @@
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/linearLayout16"
+        android:layout_toRightOf="@+id/linearLayout16">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,6 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/default_edit_text_height"
                     android:ems="10"
+                    android:gravity="center"
                     android:hint="@string/name"
                     android:inputType="textPersonName"
                     android:maxLength="40"
@@ -73,6 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/default_edit_text_height"
                     android:ems="10"
+                    android:gravity="center"
                     android:hint="@string/surname"
                     android:inputType="textPersonName"
                     android:maxLength="40"
@@ -94,6 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/default_edit_text_height"
                     android:ems="10"
+                    android:gravity="center"
                     android:hint="@string/phone_number"
                     android:inputType="phone"
                     android:maxLength="19"
@@ -115,55 +120,52 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/default_edit_text_height"
                     android:ems="10"
+                    android:gravity="center"
                     android:hint="@string/address"
                     android:inputType="textPostalAddress"
                     android:maxLength="150"
                     android:textAlignment="center"
                     android:textColor="@android:color/holo_blue_dark"
                     android:textStyle="bold" />
+
             </android.support.design.widget.TextInputLayout>
 
-            <com.google.android.gms.ads.AdView
-                android:id="@+id/adViewPerson"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/default_margin"
-                android:layout_weight="1"
-                app:adSize="BANNER"
-                app:adUnitId="@string/ads_banner_add_person" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_weight="1">
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/openContacts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignTop="@+id/add_edit_person_fab"
+                    android:layout_marginBottom="@dimen/default_margin"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:clickable="true"
+                    app:fabSize="normal"
+                    app:srcCompat="@mipmap/ic_account_box_white_24dp" />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/add_edit_person_fab"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="@dimen/default_margin"
+                    android:layout_marginRight="@dimen/default_margin"
+                    android:clickable="true"
+                    app:fabSize="normal"
+                    app:srcCompat="@mipmap/ic_done_white_24dp" />
+            </RelativeLayout>
 
         </LinearLayout>
     </ScrollView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_edit_person_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:layout_marginEnd="@dimen/default_margin"
-        android:layout_marginRight="@dimen/default_margin"
-        android:clickable="true"
-        app:fabSize="normal"
-        app:srcCompat="@mipmap/ic_done_white_24dp" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/openContacts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:layout_marginStart="@dimen/default_margin"
-        android:layout_marginLeft="@dimen/default_margin"
-        android:clickable="true"
-        app:fabSize="normal"
-        app:srcCompat="@mipmap/ic_account_box_white_24dp" />
 
 
 </RelativeLayout>

@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.apps.szpansky.concat.R;
-import com.apps.szpansky.concat.add_edit.AddEditPersonActivity;
+import com.apps.szpansky.concat.open_all.OpenAllPersonsActivity;
 import com.apps.szpansky.concat.simple_data.Person;
 import com.apps.szpansky.concat.tools.SimpleActivity;
 
@@ -34,8 +34,8 @@ public class PickPerson extends SimpleActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PickPerson.this, AddEditPersonActivity.class);
-                PickPerson.this.startActivity(intent);
+                //Intent intent = new Intent(PickPerson.this, OpenAllPersonsActivity.class);
+                //PickPerson.this.startActivity(intent);
             }
         });
     }

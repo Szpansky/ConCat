@@ -83,5 +83,19 @@ public final class SimpleFunctions {
                 return R.style.DefaultTheme;
         }
     }
+
+
+    public static String getCurrentDate(){
+        Calendar calendar = Calendar.getInstance();
+        Integer year_x = calendar.get(Calendar.YEAR);
+        Integer month_x = calendar.get(Calendar.MONTH) + 1;
+        Integer day_x = calendar.get(Calendar.DAY_OF_MONTH);
+        String day = day_x.toString();
+        day = fillWithZeros(day, 2);
+        String month = month_x.toString();
+        month = fillWithZeros(month, 2);
+        String thisDate = year_x + "-" + month + "-" + day;
+        return thisDate;
+    }
 }
 

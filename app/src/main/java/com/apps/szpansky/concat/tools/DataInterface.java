@@ -17,6 +17,8 @@ public interface DataInterface {
 
     String getCurrentTable();
 
+    String[] getClickedItemData();
+
     String getTitle();
 
     int getItemLayoutResourceId();

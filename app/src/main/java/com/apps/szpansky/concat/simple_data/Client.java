@@ -59,14 +59,21 @@ public class Client extends Data {
         });
     }
 
+
     @Override
     public boolean insertData(String[] value, String keys[]) {
         return  myDB.insertDataToClients(value[0],value[1],value[2]);
     }
 
+
     @Override
     public String getCurrentTable() {
         return Database.TABLE_CLIENTS;
+    }
+
+    @Override
+    public String[] getClickedItemData() {
+        return new String[0];
     }
 
 

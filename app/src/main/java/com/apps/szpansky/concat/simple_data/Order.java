@@ -62,14 +62,21 @@ public class Order extends Data {
         return myDB.updateRowOrder(value[0],value[1], value[2]);
     }
 
+
     @Override
     public boolean insertData(String[] value, String[] keys) {
         return myDB.insertDataToOrders(value[0],value[1],value[2]);
     }
 
+
     @Override
     public String getCurrentTable() {
         return Database.TABLE_ORDERS;
+    }
+
+    @Override
+    public String[] getClickedItemData() {
+        return new String[0];
     }
 
 

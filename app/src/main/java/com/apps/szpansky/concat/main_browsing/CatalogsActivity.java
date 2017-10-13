@@ -83,7 +83,7 @@ public class CatalogsActivity extends SimpleActivity {
         });
 
         if (isEdit) {
-            String[] currentValues = data.getClickedData();
+            String[] currentValues = data.getClickedItemData();
             catalogNumber.setText(currentValues[0]);
             catalogDateStart.setText(currentValues[1]);
             catalogDateEnd.setText(currentValues[2]);

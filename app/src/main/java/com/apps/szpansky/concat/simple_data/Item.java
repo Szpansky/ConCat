@@ -19,6 +19,7 @@ public class Item extends Data {
         currentTable = TABLE_ITEMS;
     }
 
+
     @Override
     public int getItemLayoutResourceId() {
 
@@ -65,6 +66,7 @@ public class Item extends Data {
         return flag;
     }
 
+
     @Override
     public String getCurrentTable() {
         return Database.TABLE_ITEMS;
@@ -72,7 +74,7 @@ public class Item extends Data {
 
 
     @Override
-    public String[] getClickedData() {
+    public String[] getClickedItemData() {
         String where = ITEM_ID + " = " + clickedItemId;
         Cursor cursor = myDB.getRows(TABLE_ITEMS, where);
         return new String[]{cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)};

@@ -10,12 +10,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.apps.szpansky.concat.R;
+import com.apps.szpansky.concat.fragments.Dialog_AddEditItem;
 import com.apps.szpansky.concat.open_all.OpenAllItemsActivity;
 import com.apps.szpansky.concat.simple_data.Item;
 import com.apps.szpansky.concat.tools.SimpleActivity;
 
 
-public class PickItem extends SimpleActivity {
+public class PickItem extends SimpleActivity implements DialogInterface.OnDismissListener {
 
     Integer count = 1;
     private boolean flag = true;
@@ -40,8 +41,8 @@ public class PickItem extends SimpleActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PickItem.this, OpenAllItemsActivity.class);
-                PickItem.this.startActivity(intent);
+                Dialog_AddEditItem addEditItem = Dialog_AddEditItem.newInstance();
+                addEditItem.show(getFragmentManager().beginTransaction(),"DialogAddEditItem");
             }
         });
     }
@@ -117,6 +118,8 @@ public class PickItem extends SimpleActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 flag = false;
+                Dialog_AddEditItem addEditItem = Dialog_AddEditItem.newInstance();
+                addEditItem.show(getFragmentManager().beginTransaction(),"DialogAddEditItem");
                 return false;
             }
         });
@@ -130,5 +133,11 @@ public class PickItem extends SimpleActivity {
                 flag = true;
             }
         });
+    }
+
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        refreshListView();
     }
 }

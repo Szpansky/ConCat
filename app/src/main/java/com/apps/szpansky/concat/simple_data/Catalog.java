@@ -8,11 +8,7 @@ import com.apps.szpansky.concat.tools.Database;
 
 import static com.apps.szpansky.concat.tools.Database.*;
 
-
-
-
 public class Catalog extends Data {
-
 
     @Override
     public int getItemLayoutResourceId() {
@@ -67,6 +63,7 @@ public class Catalog extends Data {
         return flag;
     }
 
+
     @Override
     public String getCurrentTable() {
         return Database.TABLE_CATALOGS;
@@ -74,11 +71,12 @@ public class Catalog extends Data {
 
 
     @Override
-    public String[] getClickedData() {
+    public String[] getClickedItemData() {
         String where = CATALOG_ID + " = " + clickedItemId;
         Cursor cursor = myDB.getRows(TABLE_CATALOGS, where);
         return new String[]{cursor.getString(1),cursor.getString(2),cursor.getString(3)};
     }
+
 
     @Override
     public String getTitle() {
