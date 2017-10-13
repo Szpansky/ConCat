@@ -2,7 +2,6 @@ package com.apps.szpansky.concat.fragments;
 
 import android.app.Activity;
 import android.app.DialogFragment;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,7 +27,6 @@ public class Dialog_AddEditItem extends DialogFragment {
     private final CheckBox[] dis_all = {dis_5, dis_10, dis_15, dis_20, dis_25, dis_30, dis_35, dis_40, dis_100};
     FloatingActionButton add;
     Database myDb;
-    private boolean flag = true;
     final Item item = new Item();
 
 
@@ -43,7 +41,7 @@ public class Dialog_AddEditItem extends DialogFragment {
         args.putLong("myIndex", myIndex);
         args.putBoolean("isEdit", true);
         dialog_addEditItem.setArguments(args);
-
+        dialog_addEditItem.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         return dialog_addEditItem;
     }
 
@@ -54,6 +52,7 @@ public class Dialog_AddEditItem extends DialogFragment {
         Bundle args = new Bundle();
         args.putBoolean("isEdit", false);
         dialog_addEditItem.setArguments(args);
+        dialog_addEditItem.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
 
         return dialog_addEditItem;
     }
@@ -69,6 +68,7 @@ public class Dialog_AddEditItem extends DialogFragment {
         item.setDatabase(myDb);
 
         final View view = inflater.inflate(R.layout.dialog_add_edit_item, null);
+
 
         nr = (EditText) view.findViewById(R.id.add_edit_itemNr);
         name = (EditText) view.findViewById(R.id.add_edit_itemName);

@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:text="@string/error"
-            android:textAlignment="center"
+            android:textAlignment="textStart"
             android:textSize="@dimen/default_text_size"
             android:textStyle="bold" />
 

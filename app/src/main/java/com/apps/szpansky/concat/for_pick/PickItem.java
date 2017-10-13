@@ -118,7 +118,7 @@ public class PickItem extends SimpleActivity implements DialogInterface.OnDismis
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 flag = false;
-                Dialog_AddEditItem addEditItem = Dialog_AddEditItem.newInstance();
+                Dialog_AddEditItem addEditItem = Dialog_AddEditItem.newInstance(id);
                 addEditItem.show(getFragmentManager().beginTransaction(),"DialogAddEditItem");
                 return false;
             }
