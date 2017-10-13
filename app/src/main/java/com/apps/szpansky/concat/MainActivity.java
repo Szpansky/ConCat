@@ -29,6 +29,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.apps.szpansky.concat.fragments.Dialog_AddEditCatalog;
+import com.apps.szpansky.concat.fragments.Dialog_AddEditItem;
+import com.apps.szpansky.concat.fragments.Dialog_AddEditPerson;
 import com.apps.szpansky.concat.main_browsing.CatalogsActivity;
 import com.apps.szpansky.concat.open_all.OpenAllItemsActivity;
 import com.apps.szpansky.concat.open_all.OpenAllPersonsActivity;
@@ -249,21 +252,24 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         fabNewCatalog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Dialog_AddEditCatalog addEditCatalog = new Dialog_AddEditCatalog().newInstance();
+                addEditCatalog.show(getFragmentManager().beginTransaction(),"DialogAddEditCatalog");
             }
         });
 
         fabNewPerson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Dialog_AddEditPerson addEditPerson = new Dialog_AddEditPerson().newInstance();
+                addEditPerson.show(getFragmentManager().beginTransaction(),"DialogAddEditCatalog");
             }
         });
 
         fabNewItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Dialog_AddEditItem addEditItem = new Dialog_AddEditItem().newInstance();
+                addEditItem.show(getFragmentManager().beginTransaction(),"DialogAddEditCatalog");
             }
         });
     }

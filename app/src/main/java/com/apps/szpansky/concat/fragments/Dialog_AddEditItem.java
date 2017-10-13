@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.simple_data.Item;
@@ -119,15 +120,12 @@ public class Dialog_AddEditItem extends DialogFragment {
                             Database.ITEM_UPDATE_DATE};
 
                     if (item.updateData(value, keys)) {
-                        Snackbar snackbarInfo = Snackbar.make(view, R.string.edit_item_notify, Snackbar.LENGTH_SHORT);
-                        snackbarInfo.show();
-                        //Dialog_AddEditItem.super.dismiss();
-
+                        Toast.makeText(getActivity().getBaseContext(), R.string.edit_item_notify, Toast.LENGTH_SHORT).show();
+                        dismiss();
                     } else {
                         Snackbar snackbarInfo = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
                         snackbarInfo.show();
                     }
-
                 } else {
                     value = new String[]{
                             nr.getText().toString(),
@@ -144,9 +142,8 @@ public class Dialog_AddEditItem extends DialogFragment {
                             Database.ITEM_DISCOUNT};
 
                     if (item.insertData(value, keys)) {
-                        Snackbar snackbarInfo = Snackbar.make(view, R.string.add_item_notify, Snackbar.LENGTH_SHORT);
-                        snackbarInfo.show();
-
+                        Toast.makeText(getActivity().getBaseContext(), R.string.add_item_notify, Toast.LENGTH_SHORT).show();
+                        dismiss();
                     } else {
                         Snackbar snackbarInfo = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
                         snackbarInfo.show();

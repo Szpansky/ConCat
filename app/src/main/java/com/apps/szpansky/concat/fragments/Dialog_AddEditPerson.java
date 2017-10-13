@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.simple_data.Person;
@@ -101,8 +102,8 @@ public class Dialog_AddEditPerson extends DialogFragment {
                             Database.PERSON_PHONE};
 
                     if (person.updateData(value, keys)) {
-                        Snackbar snackbarInfo = Snackbar.make(view, R.string.edit_client_notify, Snackbar.LENGTH_SHORT);
-                        snackbarInfo.show();
+                        Toast.makeText(getActivity().getBaseContext(), R.string.edit_client_notify, Toast.LENGTH_SHORT).show();
+                        dismiss();
                     } else {
                         Snackbar snackbarInfo = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
                         snackbarInfo.show();
@@ -123,8 +124,8 @@ public class Dialog_AddEditPerson extends DialogFragment {
                             Database.PERSON_PHONE};
 
                     if (person.insertData(value, keys)) {
-                        Snackbar snackbarInfo = Snackbar.make(view, R.string.add_client_notify, Snackbar.LENGTH_SHORT);
-                        snackbarInfo.show();
+                        Toast.makeText(getActivity().getBaseContext(), R.string.add_client_notify, Toast.LENGTH_SHORT).show();
+                        dismiss();
                     } else {
                         Snackbar snackbarInfo = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
                         snackbarInfo.show();

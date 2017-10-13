@@ -1,30 +1,20 @@
 package com.apps.szpansky.concat.main_browsing;
 
 
-import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.apps.szpansky.concat.R;
+import com.apps.szpansky.concat.fragments.Dialog_AddEditCatalog;
 import com.apps.szpansky.concat.simple_data.Catalog;
 import com.apps.szpansky.concat.simple_data.Client;
-import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleActivity;
-import com.apps.szpansky.concat.tools.SimpleFunctions;
-import java.util.Calendar;
 
 
-public class CatalogsActivity extends SimpleActivity {
-
-    private EditText catalogDateStart;
-    private EditText catalogDateEnd;
+public class CatalogsActivity extends SimpleActivity implements DialogInterface.OnDismissListener{
 
 
     public CatalogsActivity() {
@@ -51,72 +41,10 @@ public class CatalogsActivity extends SimpleActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addEdit_CatalogDialog(false);
+                Dialog_AddEditCatalog addEditCatalog = new Dialog_AddEditCatalog().newInstance();
+                addEditCatalog.show(getFragmentManager().beginTransaction(),"DialogAddEditCatalog");
             }
         });
-    }
-
-
-    private void addEdit_CatalogDialog(final boolean isEdit) {
-
-        final Calendar calendar = Calendar.getInstance();
-        final AlertDialog builder = new AlertDialog.Builder(this).create();
-        final View view = getLayoutInflater().inflate(R.layout.dialog_add_edit_catalog, null);
-        final EditText catalogNumber = (EditText) view.findViewById(R.id.add_edit_catalogNumber);
-        catalogDateStart = (EditText) view.findViewById(R.id.add_edit_catalogDateStart);
-        catalogDateEnd = (EditText) view.findViewById(R.id.add_edit_catalogDateEnd);
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.add_edit_catalog_fab);
-
-        catalogDateStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(CatalogsActivity.this, pickStartDate, calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-
-        catalogDateEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(CatalogsActivity.this, pickEndDate,  calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-
-        if (isEdit) {
-            String[] currentValues = data.getClickedItemData();
-            catalogNumber.setText(currentValues[0]);
-            catalogDateStart.setText(currentValues[1]);
-            catalogDateEnd.setText(currentValues[2]);
-        }
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String[] keys = new String[]{
-                        Database.CATALOG_NUMBER,
-                        Database.CATALOG_DATE_START,
-                        Database.CATALOG_DATE_ENDS};
-
-                String[] value = new String[]{
-                        catalogNumber.getText().toString(),
-                        catalogDateStart.getText().toString(),
-                        catalogDateEnd.getText().toString()};
-
-                boolean flag;
-                if (isEdit) flag = data.updateData(value, keys);
-                else
-                    flag = data.insertData(value,keys);
-                if (flag) {
-                    Toast.makeText(getBaseContext(), getString(R.string.add_catalog_notify) + "/" + getString(R.string.edit_catalog_notify), Toast.LENGTH_SHORT).show();
-                    refreshListView();
-                } else {
-                    Toast.makeText(getBaseContext(), R.string.error_notify, Toast.LENGTH_LONG).show();
-                }
-                builder.dismiss();
-            }
-        });
-        builder.setView(view);
-        builder.show();
     }
 
 
@@ -125,7 +53,8 @@ public class CatalogsActivity extends SimpleActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 data.setClickedItemId(id);
-                addEdit_CatalogDialog(true);
+                Dialog_AddEditCatalog addEditCatalog = new Dialog_AddEditCatalog().newInstance(id);
+                addEditCatalog.show(getFragmentManager().beginTransaction(),"DialogAddEditCatalog");
                 return true;
             }
         });
@@ -134,30 +63,16 @@ public class CatalogsActivity extends SimpleActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 data.setClickedItemId(id);
-                    Intent intent = new Intent(CatalogsActivity.this, ClientsActivity.class);
-                    Client.clickedCatalogId = id;         //to know which catalog is opened in next activity
-                    startActivity(intent);
+                Intent intent = new Intent(CatalogsActivity.this, ClientsActivity.class);
+                Client.clickedCatalogId = id;         //to know which catalog is opened in next activity
+                startActivity(intent);
             }
         });
     }
 
 
-    final DatePickerDialog.OnDateSetListener pickStartDate = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            String monthString = SimpleFunctions.fillWithZeros(Integer.toString(month+1), 2);
-            String dayString = SimpleFunctions.fillWithZeros(Integer.toString(dayOfMonth), 2);
-            catalogDateStart.setText(year + "-" + monthString + "-" + dayString);
-        }
-    };
-
-
-    final DatePickerDialog.OnDateSetListener pickEndDate = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            String monthString = SimpleFunctions.fillWithZeros(Integer.toString(month+1), 2);
-            String dayString = SimpleFunctions.fillWithZeros(Integer.toString(dayOfMonth), 2);
-            catalogDateEnd.setText(year + "-" + monthString + "-" + dayString);
-        }
-    };
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        refreshListView();
+    }
 }
