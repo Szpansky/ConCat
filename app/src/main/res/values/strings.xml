@@ -205,6 +205,9 @@
 
     <string name="DefaultTheme" translatable="false">DefaultTheme</string>
     <string name="unique_code">Unique Code</string>
+    <string name="save">Save</string>
+    <string name="info_about_order">Information about order</string>
+    <string name="change_status">Change status</string>
     //static colors values
 
 </resources>

@@ -189,6 +189,9 @@
 
     <string name="main">Główny</string>
     <string name="unique_code">Unikalny Kod</string>
+    <string name="save">Zapisz</string>
+    <string name="info_about_order">Informacje o zamówieniu</string>
+    <string name="change_status">Zmień status</string>
 
 
 </resources>

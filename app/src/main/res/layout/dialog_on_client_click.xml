@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="sans-serif"
-        android:text="Informacje o Zamówieniu"
+        android:text="@string/info_about_order"
         android:textSize="@dimen/default_text_size"
         android:textStyle="bold" />
 
@@ -20,7 +20,7 @@
         android:layout_gravity="center"
         android:fontFamily="sans-serif"
         android:padding="@dimen/default_text_margin"
-        android:text="Zmień Status"
+        android:text="@string/change_status"
         android:textSize="@dimen/default_sub_text_size"
         android:textStyle="bold" />
 
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_padding"
         android:fontFamily="sans-serif"
-        android:text="Zapisz"
+        android:text="@string/save"
         android:textSize="@dimen/default_sub_text_size"
         android:textStyle="bold" />
 
