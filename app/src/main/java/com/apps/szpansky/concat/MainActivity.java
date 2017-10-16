@@ -29,6 +29,7 @@ import com.apps.szpansky.concat.fragments.Dialog_AddEditItem;
 import com.apps.szpansky.concat.fragments.Dialog_AddEditPerson;
 import com.apps.szpansky.concat.fragments.Dialog_ExportImport;
 import com.apps.szpansky.concat.fragments.Dialog_Information;
+import com.apps.szpansky.concat.fragments.Dialog_Loading;
 import com.apps.szpansky.concat.fragments.Dialog_Login;
 import com.apps.szpansky.concat.main_browsing.CatalogsActivity;
 import com.apps.szpansky.concat.open_all.OpenAllItemsActivity;
@@ -36,6 +37,7 @@ import com.apps.szpansky.concat.open_all.OpenAllPersonsActivity;
 import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleFunctions;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
@@ -58,8 +60,9 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     private GridLayout subFloatingMenu;
     View navViewHeader;
 
-    //private AdView mAdView;
+    private AdView mAdView;
     private RewardedVideoAd mAd;
+    Dialog_Loading loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme(SimpleFunctions.setStyle(styleKey, sharedPreferences));
         setContentView(R.layout.activity_main);
+        loading = new Dialog_Loading();
         setAds();
         setMainInfo();
         setDrawer();
@@ -89,9 +93,9 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
 
     private void setAds() {
-        //mAdView = (AdView) findViewById(R.id.adView);
-        //AdRequest adRequest = new AdRequest.Builder().build();
-        //mAdView.loadAd(adRequest);
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         mAd = MobileAds.getRewardedVideoAdInstance(this);
         mAd.setRewardedVideoAdListener(this);
     }
@@ -114,8 +118,8 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
             @Override
             public void onClick(View v) {
                 mAd.loadAd(getResources().getString(R.string.ads_reward_main_id), new AdRequest.Builder().build());
-                Snackbar snackbarInfo = Snackbar.make(findViewById(R.id.drawerLayout), R.string.wait_notify, Snackbar.LENGTH_INDEFINITE);
-                snackbarInfo.show();
+                loading.show(getFragmentManager().beginTransaction(),"Loading");
+                loading.setCancelable(true);
             }
         });
     }
@@ -337,6 +341,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         snackbarInfo.show();
         addPoints(1);
         updateUserInfo();
+        loading.dismiss();
     }
 
 
@@ -370,6 +375,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     public void onRewardedVideoAdFailedToLoad(int i) {
         Snackbar snackbarInfo = Snackbar.make(findViewById(R.id.drawerLayout), R.string.failed_to_load_ad, Snackbar.LENGTH_SHORT);
         snackbarInfo.show();
+        if(loading.isVisible())loading.dismiss();
     }
 }
 
