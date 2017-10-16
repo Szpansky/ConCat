@@ -1,248 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="@dimen/default_padding">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/current_order"
-        android:textSize="@dimen/default_text_size"
-        android:textStyle="bold|italic" />
-
-    <TextView
-        android:id="@+id/current_catalogs_number"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_column="1"
-        android:layout_gravity="center"
-        android:layout_row="0"
-        android:gravity="center"
-        android:text="@string/error"
-        android:textSize="@dimen/default_text_size" />
-
-    <GridLayout
-        android:id="@+id/grid_current"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:horizontalSpacing="10dp"
-        android:numColumns="auto_fit"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="10dp">
-
+        android:orientation="vertical">
 
 
         <TextView
-            android:layout_column="0"
-            android:layout_gravity="start"
-            android:layout_row="1"
-            android:text="@string/clients_amount"
-            android:textSize="@dimen/default_text_size" />
-
-        <TextView
-            android:layout_column="0"
-            android:layout_gravity="start"
-            android:layout_row="2"
-            android:text="@string/count_of_order"
-            android:textSize="@dimen/default_text_size" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_gravity="start"
-            android:layout_row="3"
-            android:text="@string/pieces"
-            android:textSize="@dimen/default_text_size" />
+            android:gravity="center"
+            android:text="@string/current_order"
+            android:textSize="@dimen/default_text_size"
+            android:textStyle="bold|italic" />
 
         <TextView
-            android:layout_column="0"
-            android:layout_gravity="start"
-            android:layout_row="4"
-            android:text="@string/db_status_not_payed"
-            android:textSize="@dimen/default_text_size" />
-
-        <TextView
-            android:layout_column="0"
-            android:layout_gravity="start"
-            android:layout_row="5"
-            android:text="@string/db_status_payed"
-            android:textSize="@dimen/default_text_size" />
-
-        <TextView
-            android:layout_column="0"
-            android:layout_gravity="start"
-            android:layout_row="6"
-            android:text="@string/db_status_ready"
-            android:textSize="@dimen/default_text_size" />
-
-        <TextView
-            android:layout_column="0"
-            android:layout_gravity="start"
-            android:layout_row="7"
-            android:text="@string/total"
-            android:textSize="@dimen/default_text_size" />
-
-        <TextView
-            android:id="@+id/current_clients_amount"
-            android:layout_column="1"
-            android:layout_gravity="center"
-            android:layout_row="1"
-            android:text="@string/error"
-            android:textSize="@dimen/default_text_size" />
-
-        <TextView
-            android:id="@+id/current_ordered_item_amount"
-            android:layout_column="1"
-            android:layout_gravity="center"
-            android:layout_row="2"
-            android:text="@string/error"
-            android:textSize="@dimen/default_text_size" />
-
-        <TextView
-            android:id="@+id/current_pcs_ordered"
-            android:layout_width="wrap_content"
+            android:id="@+id/current_catalogs_number"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_column="1"
-            android:layout_gravity="center"
-            android:layout_row="3"
-            android:text="@string/error"
-            android:textSize="@dimen/default_text_size" />
-
-        <TextView
-            android:id="@+id/current_not_payed_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_gravity="center"
-            android:layout_row="4"
-            android:text="@string/error"
-            android:textSize="@dimen/default_text_size" />
-
-        <TextView
-            android:id="@+id/current_payed_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_gravity="center"
-            android:layout_row="5"
-            android:text="@string/error"
-            android:textSize="@dimen/default_text_size" />
-
-        <TextView
-            android:id="@+id/current_ready_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_gravity="center"
-            android:layout_row="6"
-            android:text="@string/error"
-            android:textSize="@dimen/default_text_size" />
-
-        <TextView
-            android:id="@+id/current_total"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_gravity="center"
-            android:layout_row="7"
-            android:text="@string/error"
-            android:textSize="@dimen/default_text_size" />
-
-    </GridLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/default_margin"
-        android:text="@string/general"
-        android:textSize="@dimen/default_text_size"
-        android:textStyle="bold|italic" />
-
-    <GridLayout
-        android:id="@+id/grid_general"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
-
-        <TextView
-            android:layout_column="0"
-            android:layout_gravity="left"
             android:layout_row="0"
-            android:text="@string/number_of_orders"
-            android:textSize="@dimen/default_text_size" />
-
-        <TextView
-            android:layout_column="0"
-            android:layout_gravity="left"
-            android:layout_row="1"
-            android:text="@string/clients_amount"
-            android:textSize="@dimen/default_text_size" />
-
-        <TextView
-            android:layout_column="0"
-            android:layout_gravity="left"
-            android:layout_row="2"
-            android:text="@string/count_of_order"
-            android:textSize="@dimen/default_text_size" />
-
-
-        <TextView
-            android:layout_column="0"
-            android:layout_gravity="left"
-            android:layout_row="3"
-            android:text="@string/total"
-            android:textSize="@dimen/default_text_size" />
-
-        <TextView
-            android:id="@+id/all_catalogs_amount"
-            android:layout_column="1"
-            android:layout_gravity="center"
-            android:layout_row="0"
+            android:gravity="center"
             android:text="@string/error"
             android:textSize="@dimen/default_text_size" />
 
-        <TextView
-            android:id="@+id/all_clients_amount"
-            android:layout_column="1"
+        <GridLayout
+            android:id="@+id/grid_current"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_row="1"
-            android:text="@string/error"
-            android:textSize="@dimen/default_text_size" />
+            android:horizontalSpacing="10dp"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp">
+
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="start"
+                android:layout_row="1"
+                android:text="@string/clients_amount"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="start"
+                android:layout_row="2"
+                android:text="@string/count_of_order"
+                android:textSize="@dimen/default_text_size" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_gravity="start"
+                android:layout_row="3"
+                android:text="@string/pieces"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="start"
+                android:layout_row="4"
+                android:text="@string/db_status_not_payed"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="start"
+                android:layout_row="5"
+                android:text="@string/db_status_payed"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="start"
+                android:layout_row="6"
+                android:text="@string/db_status_ready"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="start"
+                android:layout_row="7"
+                android:text="@string/total"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:id="@+id/current_clients_amount"
+                android:layout_column="1"
+                android:layout_gravity="center"
+                android:layout_row="1"
+                android:text="@string/error"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:id="@+id/current_ordered_item_amount"
+                android:layout_column="1"
+                android:layout_gravity="center"
+                android:layout_row="2"
+                android:text="@string/error"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:id="@+id/current_pcs_ordered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_gravity="center"
+                android:layout_row="3"
+                android:text="@string/error"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:id="@+id/current_not_payed_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_gravity="center"
+                android:layout_row="4"
+                android:text="@string/error"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:id="@+id/current_payed_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_gravity="center"
+                android:layout_row="5"
+                android:text="@string/error"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:id="@+id/current_ready_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_gravity="center"
+                android:layout_row="6"
+                android:text="@string/error"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:id="@+id/current_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_gravity="center"
+                android:layout_row="7"
+                android:text="@string/error"
+                android:textSize="@dimen/default_text_size" />
+
+        </GridLayout>
 
         <TextView
-            android:id="@+id/all_items_amount"
-            android:layout_column="1"
-            android:layout_gravity="center"
-            android:layout_row="2"
-            android:text="@string/error"
-            android:textSize="@dimen/default_text_size" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:gravity="center"
+            android:text="@string/general"
+            android:textSize="@dimen/default_text_size"
+            android:textStyle="bold|italic" />
 
-        <TextView
-            android:id="@+id/all_total"
-            android:layout_column="1"
-            android:layout_gravity="center"
-            android:layout_row="3"
-            android:text="@string/error"
-            android:textSize="@dimen/default_text_size" />
+        <GridLayout
+            android:id="@+id/grid_general"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="left"
+                android:layout_row="0"
+                android:text="@string/number_of_orders"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="left"
+                android:layout_row="1"
+                android:text="@string/clients_amount"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="left"
+                android:layout_row="2"
+                android:text="@string/count_of_order"
+                android:textSize="@dimen/default_text_size" />
 
 
-    </GridLayout>
+            <TextView
+                android:layout_column="0"
+                android:layout_gravity="left"
+                android:layout_row="3"
+                android:text="@string/total"
+                android:textSize="@dimen/default_text_size" />
 
-    <Button
-        android:id="@+id/dialog_info_backBtn"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
-        android:fontFamily="sans-serif"
-        android:text="@string/back" />
+            <TextView
+                android:id="@+id/all_catalogs_amount"
+                android:layout_column="1"
+                android:layout_gravity="center"
+                android:layout_row="0"
+                android:text="@string/error"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:id="@+id/all_clients_amount"
+                android:layout_column="1"
+                android:layout_gravity="center"
+                android:layout_row="1"
+                android:text="@string/error"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:id="@+id/all_items_amount"
+                android:layout_column="1"
+                android:layout_gravity="center"
+                android:layout_row="2"
+                android:text="@string/error"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:id="@+id/all_total"
+                android:layout_column="1"
+                android:layout_gravity="center"
+                android:layout_row="3"
+                android:text="@string/error"
+                android:textSize="@dimen/default_text_size" />
 
 
-</LinearLayout>
+        </GridLayout>
+
+        <Button
+            android:id="@+id/dialog_info_backBtn"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:fontFamily="sans-serif"
+            android:text="@string/back" />
+
+    </LinearLayout>
+
+</ScrollView>

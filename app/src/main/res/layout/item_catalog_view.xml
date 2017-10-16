@@ -11,12 +11,12 @@
         style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/printCatalogOrder"
+        android:layout_toStartOf="@+id/printCatalogOrder"
         android:layout_weight="1"
         android:background="@android:drawable/ic_menu_delete"
-        android:backgroundTint="@color/redPrimary_dark"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:backgroundTint="@color/redPrimary_dark" />
 
     <LinearLayout
         android:id="@+id/linearLayout11"
@@ -147,5 +147,19 @@
             android:textSize="@dimen/default_sub_text_size"
             android:textStyle="italic" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/printCatalogOrder"
+        style="@style/Widget.AppCompat.Button.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@mipmap/ic_print_black_24dp"
+        android:backgroundTint="?attr/colorButtonNormal"
+        android:fontFamily="sans-serif"
+        android:textAllCaps="false"
+        android:textSize="@dimen/default_sub_text_size" />
 
 </RelativeLayout>

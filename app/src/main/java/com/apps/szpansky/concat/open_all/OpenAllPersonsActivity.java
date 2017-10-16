@@ -1,6 +1,5 @@
 package com.apps.szpansky.concat.open_all;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -17,7 +16,7 @@ import com.apps.szpansky.concat.simple_data.Person;
 import com.apps.szpansky.concat.tools.SimpleActivity;
 
 
-public class OpenAllPersonsActivity extends SimpleActivity implements DialogInterface.OnDismissListener {
+public class OpenAllPersonsActivity extends SimpleActivity {
 
 
     public OpenAllPersonsActivity() {
@@ -44,8 +43,8 @@ public class OpenAllPersonsActivity extends SimpleActivity implements DialogInte
 
             @Override
             public void onClick(View v) {
-                Dialog_AddEditPerson addEditPerson =  Dialog_AddEditPerson.newInstance();
-                addEditPerson.show(getFragmentManager().beginTransaction(),"DialogAddEditPerson");
+                Dialog_AddEditPerson addEditPerson = Dialog_AddEditPerson.newInstance();
+                addEditPerson.show(getFragmentManager().beginTransaction(), "DialogAddEditPerson");
             }
         });
     }
@@ -59,8 +58,8 @@ public class OpenAllPersonsActivity extends SimpleActivity implements DialogInte
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 data.setClickedItemId(id);
                 flag = false;
-                Dialog_AddEditPerson addEditPerson =  Dialog_AddEditPerson.newInstance(id);
-                addEditPerson.show(getFragmentManager().beginTransaction(),"DialogAddEditPerson");
+                Dialog_AddEditPerson addEditPerson = Dialog_AddEditPerson.newInstance(id);
+                addEditPerson.show(getFragmentManager().beginTransaction(), "DialogAddEditPerson");
                 return true;
             }
         });
@@ -70,6 +69,8 @@ public class OpenAllPersonsActivity extends SimpleActivity implements DialogInte
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (flag) {
                     data.setClickedItemId(id);
+                    Dialog_AddEditPerson addEditPerson = Dialog_AddEditPerson.newInstance(id);
+                    addEditPerson.show(getFragmentManager().beginTransaction(), "DialogAddEditPerson");
                 }
                 flag = true;
             }
@@ -112,7 +113,7 @@ public class OpenAllPersonsActivity extends SimpleActivity implements DialogInte
 
             if (contactData.length == 1) {
                 name.setText(contactData[0]);
-            }else if (contactData.length > 1) {
+            } else if (contactData.length > 1) {
                 name.setText(contactData[0]);
                 surname.setText(contactData[1]);
             }
@@ -122,11 +123,5 @@ public class OpenAllPersonsActivity extends SimpleActivity implements DialogInte
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        refreshListView();
     }
 }

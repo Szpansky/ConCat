@@ -1,6 +1,5 @@
 package com.apps.szpansky.concat.open_all;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,7 +10,7 @@ import com.apps.szpansky.concat.simple_data.Item;
 import com.apps.szpansky.concat.tools.SimpleActivity;
 
 
-public class OpenAllItemsActivity extends SimpleActivity implements DialogInterface.OnDismissListener {
+public class OpenAllItemsActivity extends SimpleActivity {
 
 
     public OpenAllItemsActivity() {
@@ -60,6 +59,8 @@ public class OpenAllItemsActivity extends SimpleActivity implements DialogInterf
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (flag) {
                     data.setClickedItemId(id);
+                    Dialog_AddEditItem addEditItem = Dialog_AddEditItem.newInstance(id);
+                    addEditItem.show(getFragmentManager().beginTransaction(), "DialogAddEditItem");
                 }
                 flag = true;
             }
@@ -72,11 +73,6 @@ public class OpenAllItemsActivity extends SimpleActivity implements DialogInterf
         onNavigateUp();
     }
 
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        refreshListView();
-    }
 
 
    /* private void setAds() {

@@ -38,7 +38,7 @@ public final class FileManagement {
         String toCopyLine = "";
 
         try {
-            File root = new File(Environment.getExternalStorageDirectory(), appName + "/Exported");
+            File root = new File(Environment.getExternalStorageDirectory(), appName);
             if (!root.exists()) {
                 root.mkdirs();
             }
@@ -71,8 +71,10 @@ public final class FileManagement {
     }
 
 
-    public static boolean importTXT(String fileName, String tableName,String appName, Database myDB) {
+    public static boolean importTXT(String fileName, String tableName, String appName, Database myDB) {
         String where_query;
+        updated = 0;
+        created = 0;
 
         Cursor cursor = myDB.getTable(tableName);
         int columnCount = cursor.getColumnCount();
@@ -117,7 +119,7 @@ public final class FileManagement {
 
                 } else {
                     if (columnsName[columnCount - 1].contains(myDB.ITEM_UPDATE_DATE)) {
-                        where_query = columnsName[0] + " = " + copiedCells[0] + " AND "+myDB.ITEM_UPDATE_DATE+" <  '" + copiedCells[columnCount - 1] + "'";
+                        where_query = columnsName[0] + " = " + copiedCells[0] + " AND " + myDB.ITEM_UPDATE_DATE + " <  '" + copiedCells[columnCount - 1] + "'";
                         cursor.close();
                         cursor = myDB.getRows(tableName, where_query);
                     }
@@ -144,7 +146,7 @@ public final class FileManagement {
     }
 
 
-    public static boolean importExportDB(boolean export, String packageName, String appName) {
+    public static boolean importExportDB(boolean isExport, String packageName, String appName) {
         try {
             File sd = Environment.getExternalStorageDirectory();
             File data = Environment.getDataDirectory();
@@ -155,18 +157,13 @@ public final class FileManagement {
                 String currentDBPath = "//data//" + packageName
                         + "//databases//" + Database.DATABASE_NAME;
 
-                if(export){
-                    backupDBPath = "/" + appName + "/Exported/" + Database.DATABASE_NAME;
-                    appFolderPathOnSD = sd.getPath() + "/" + appName + "/Exported/";
-                }else {
-                    backupDBPath = "/" + appName + "/" + Database.DATABASE_NAME;
-                    appFolderPathOnSD = sd.getPath() + "/" + appName;
-                }
+                backupDBPath = "/" + appName + "/" + Database.DATABASE_NAME;
+                appFolderPathOnSD = sd.getPath() + "/" + appName;
 
                 File currentDB;
                 File backupDB;
 
-                if (export) {
+                if (isExport) {
                     File file = new File(appFolderPathOnSD);
                     if (!file.exists()) {
                         file.mkdirs();

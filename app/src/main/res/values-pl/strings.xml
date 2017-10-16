@@ -68,7 +68,7 @@
     <string name="wait_notify">Czekaj, właśnie pracuje :) </string>
     <string name="backup_error">Nie Znaleziono Bazy</string>
     <string name="search_hint">Nazwa/Kod/Data/Status</string>
-    <string name="import_export_DB_information">Importowanie bazy zastąpi istniejące dane.\nEksport utworzy plik w katalogu głównym:\n\"/ConCat/Exported/\"\n(Używaj gdy np. chcesz przeinstalować aplikacje)</string>
+    <string name="import_export_DB_information">Importowanie bazy zastąpi istniejące dane.\nEksport utworzy plik w katalogu głównym:\n\"/ConCat?\"\n(Używaj gdy np. chcesz przeinstalować aplikacje)</string>
     <string name="import_export_DB_title">Import / Eksport\nBazy Danych</string>
     <string name="import_export">Import / Eksport</string>
     <string name="export_db">Eksport</string>
@@ -82,8 +82,8 @@
     <string name="new_item">Nowy Przedmiot</string>
 
     <string name="import_export_folder">Import / Eksport (Zaznaczenia)</string>
-    <string name="import_export_table_info">Importowanie doda brakujące wartości.\nJeżeli istnieją zaktualizuje je.\nEksport utworzy plik w katalogu głównym:\n\"/ConCat/Exported/\"\ni pozwala sie nim dzielić.</string>
-    <string name="import_export_hint">WAŻNE! (Wszystkie pliki przeznaczone do importowania, umieść w głównym katalogu: \"/ConCat/\".\nWięcej informacji w zkładce pomocy</string>
+    <string name="import_export_table_info">Importowanie doda brakujące wartości.\nJeżeli istnieją zaktualizuje je.\nEksport utworzy plik w katalogu głównym:\n\"/ConCat/\"\ni pozwala sie nim dzielić.</string>
+    <string name="import_export_hint">Więcej informacji w zkładce pomocy</string>
     <string name="file_does_not_exists">Plik nie istnieje</string>
     <string name="updated">Zaktualizowano:</string>
     <string name="created">\nUtworzono:</string>
@@ -121,7 +121,7 @@
     <string name="help_and_opinion_title_1">Oceń aplikację</string>
     <string name="help_and_opinion_title_3">Gdzie są wyeksportowane pliki ?</string>
     <string name="help_and_opinion_title_2">Nie widzę wyeksportowanych plików …</string>
-    <string name="help_and_opinion_title_4">Wyeksportowałem pliki ale teraz nie mogę imporotwać …</string>
+    <string name="help_and_opinion_title_4">Wyeksportowałem pliki ale teraz nie mogę importować …</string>
     <string name="help_and_opinion_text_1">Chciałbym wiedzieć co myślisz o mojej aplikacji. Jeżeli masz jakieś sugestie lub chcesz mnie poinformować o problemach, proszę wyślij do mnie wiadomość i zrobię wszystko co w mojej mocy by Ci pomóc!</string>
     <string name="help_and_opinion_text_2">Jeżeli używasz komputera i kabla USB do przeglądania plików na telefonie, spróbuj rozłączyć i połączyć kabel ponownie. W innym wypadku restart urządzenia powinien pomóc.</string>
     <string name="help_and_opinion_text_3">Jeżeli masz kartę pamięci SD, to właśnie tam są pliki w katalogu \"/ConCat\", w przeciwnym wypadku użyj aplikacji do przeglądania plików i znajdź główny folder pamięci, gdzie będzie folder \"/ConCat\"</string>
@@ -192,6 +192,9 @@
     <string name="save">Zapisz</string>
     <string name="info_about_order">Informacje o zamówieniu</string>
     <string name="change_status">Zmień status</string>
+    <string name="minus_sign">-</string>
+    <string name="item_name">Nazwa</string>
+    <string name="click_to_copy">Kliknij by skopiować</string>
 
 
 </resources>

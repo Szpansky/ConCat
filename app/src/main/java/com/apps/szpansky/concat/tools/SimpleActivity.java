@@ -1,12 +1,13 @@
 package com.apps.szpansky.concat.tools;
 
 
+import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -23,10 +24,9 @@ import android.widget.ListView;
 import com.apps.szpansky.concat.R;
 
 
-public abstract class SimpleActivity extends AppCompatActivity {
+public abstract class SimpleActivity extends AppCompatActivity implements DialogInterface.OnDismissListener {
 
     private boolean flag = true;
-    protected Bundle toNextActivityBundle = new Bundle();
     protected MyCursorAdapter myCursorAdapter;
     protected ListView listView;
     protected FloatingActionButton addButton;
@@ -34,7 +34,7 @@ public abstract class SimpleActivity extends AppCompatActivity {
     protected Toolbar toolbar;
     protected Data data;
     private String styleKey;
-    AlertDialog builder;
+    FragmentManager fragmentManager;
 
     protected abstract void onAddButtonClick();
 
@@ -56,7 +56,7 @@ public abstract class SimpleActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        setTheme(SimpleFunctions.setStyle(styleKey,sharedPreferences));
+        setTheme(SimpleFunctions.setStyle(styleKey, sharedPreferences));
         setContentView(R.layout.activity_simple_view);
 
         addButton = (FloatingActionButton) findViewById(R.id.add);
@@ -70,6 +70,7 @@ public abstract class SimpleActivity extends AppCompatActivity {
 
         onAddButtonClick();
         onScrolling();
+        fragmentManager = getFragmentManager();
     }
 
 
@@ -123,18 +124,14 @@ public abstract class SimpleActivity extends AppCompatActivity {
         View v = listView.getChildAt(0);
         int top = (v == null) ? 0 : (v.getTop() - listView.getPaddingTop());
 
-        myCursorAdapter = new MyCursorAdapter(getBaseContext(),
-                data.getCursor(),
-                0,
-                data,
-                builder = new AlertDialog.Builder(this).create(),
-                getLayoutInflater().inflate(R.layout.dialog_popup_alert, null)
-                );
-
-
+        myCursorAdapter = new MyCursorAdapter(getBaseContext(), data, fragmentManager, 0);
         listView.setAdapter(myCursorAdapter);
         listView.setOnScrollListener(onScrollListener);
-        if (index != 0) listView.setSelectionFromTop(index, top);
+        if (top != 0) {
+            listView.setSelectionFromTop(index, top);
+        } else {
+            listView.setSelectionFromTop(index, top + listView.getPaddingTop());
+        }
     }
 
 
@@ -171,6 +168,10 @@ public abstract class SimpleActivity extends AppCompatActivity {
         onScrollListener.onScroll(listView, listView.getFirstVisiblePosition(), listView.getLastVisiblePosition(), listView.getCount());
     }
 
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        refreshListView();
+    }
 }
 
 

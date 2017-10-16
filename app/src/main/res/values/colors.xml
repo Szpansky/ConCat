@@ -53,6 +53,7 @@
     <color name="lightBackground">#ffeeeeee</color>
     <color name="background">#ffcccccc</color>
     <color name="darkBackground">#ff777777</color>
+    <color name="transparent">#00000000</color>
 
 
 </resources>

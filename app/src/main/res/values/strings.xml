@@ -46,10 +46,10 @@
     <string name="import_db">Import</string>
     <string name="import_export_folder">Import / Export (Selection)</string>
     <string name="import_export">Import / Export</string>
-    <string name="import_export_DB_information">Import will overwrite current database.\nExport will create file in home directory:\n\"/ConCat/Exported/\"\n(Use it when you want reinstall your app)</string>
+    <string name="import_export_DB_information">Import Database will overwrite current all data.\nExport will create file in home directory:\n\"/ConCat/\"\n(Use it when you want reinstall your app)</string>
     <string name="import_export_DB_title">Import / Export Database</string>
-    <string name="import_export_hint">IMPORTANT! (Every file you want to import must be moved to home directory: \"ConCat\". More information in the Help tab)</string>
-    <string name="import_export_table_info">Import will add new content. If they exist, they will be updated.\nExport will create file in home directory:\n\"/ConCat/Exported/\"\n and you can share ito</string>
+    <string name="import_export_hint">More information in the Help tab</string>
+    <string name="import_export_table_info">Import will add new content. If they exist, they will be updated.\nExport will create file in home directory:\n\"/ConCat/\"\n and you can share ito</string>
     <string name="information">Information\'s</string>
     <string name="item">Item</string>
     <string name="item_title">Item Name</string>
@@ -208,6 +208,8 @@
     <string name="save">Save</string>
     <string name="info_about_order">Information about order</string>
     <string name="change_status">Change status</string>
-    //static colors values
+    <string name="minus_sign">-</string>
+    <string name="item_name">Name</string>
+    <string name="click_to_copy">Click to copy</string>
 
 </resources>

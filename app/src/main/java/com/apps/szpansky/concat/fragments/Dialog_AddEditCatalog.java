@@ -29,26 +29,26 @@ public class Dialog_AddEditCatalog extends DialogFragment implements DialogInter
     boolean isEdit;
     Catalog catalog = new Catalog();
 
-    public Dialog_AddEditCatalog newInstance(long myIndex) {
+    public static Dialog_AddEditCatalog newInstance(long myIndex) {
         Dialog_AddEditCatalog addEditCatalog = new Dialog_AddEditCatalog();
 
         Bundle bundle = new Bundle();
         bundle.putBoolean("isEdit", true);
         bundle.putLong("myIndex", myIndex);
         addEditCatalog.setArguments(bundle);
-        addEditCatalog.setStyle(STYLE_NO_TITLE,0);
+        addEditCatalog.setStyle(STYLE_NO_TITLE, 0);
 
         return addEditCatalog;
     }
 
 
-    public Dialog_AddEditCatalog newInstance() {
+    public static Dialog_AddEditCatalog newInstance() {
         Dialog_AddEditCatalog addEditCatalog = new Dialog_AddEditCatalog();
 
         Bundle bundle = new Bundle();
         bundle.putBoolean("isEdit", false);
         addEditCatalog.setArguments(bundle);
-        addEditCatalog.setStyle(STYLE_NO_TITLE,0);
+        addEditCatalog.setStyle(STYLE_NO_TITLE, 0);
 
         return addEditCatalog;
     }
@@ -61,7 +61,7 @@ public class Dialog_AddEditCatalog extends DialogFragment implements DialogInter
         isEdit = getArguments().getBoolean("isEdit");
         catalog.setDatabase(new Database(getActivity()));
 
-        final View view = inflater.inflate(R.layout.dialog_add_edit_catalog,null);
+        final View view = inflater.inflate(R.layout.dialog_add_edit_catalog, null);
 
         catalogNumber = (EditText) view.findViewById(R.id.add_edit_catalogNumber);
         catalogDateStart = (EditText) view.findViewById(R.id.add_edit_catalogDateStart);
@@ -80,7 +80,7 @@ public class Dialog_AddEditCatalog extends DialogFragment implements DialogInter
         catalogDateEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(getActivity(), pickEndDate, Integer.valueOf(currentDate[0]), Integer.valueOf(currentDate[1]), Integer.valueOf(currentDate[2])).show();
+                new DatePickerDialog(getActivity(), pickEndDate, Integer.valueOf(currentDate[0]), Integer.valueOf(currentDate[1]) - 1, Integer.valueOf(currentDate[2])).show();
             }
         });
 
@@ -105,20 +105,20 @@ public class Dialog_AddEditCatalog extends DialogFragment implements DialogInter
                         catalogDateStart.getText().toString(),
                         catalogDateEnd.getText().toString()};
 
-                if (isEdit){
-                    if (catalog.updateData(value, keys)){
+                if (isEdit) {
+                    if (catalog.updateData(value, keys)) {
                         Toast.makeText(getActivity().getBaseContext(), R.string.edit_catalog_notify, Toast.LENGTH_SHORT).show();
                         dismiss();
-                    }else{
+                    } else {
                         Snackbar snackbarInfo = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
                         snackbarInfo.show();
                     }
 
-                }else {
-                    if(catalog.insertData(value, keys)){
+                } else {
+                    if (catalog.insertData(value, keys)) {
                         Toast.makeText(getActivity().getBaseContext(), R.string.add_catalog_notify, Toast.LENGTH_SHORT).show();
                         dismiss();
-                    }else {
+                    } else {
                         Snackbar snackbarInfo = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
                         snackbarInfo.show();
                     }
@@ -133,7 +133,7 @@ public class Dialog_AddEditCatalog extends DialogFragment implements DialogInter
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
         final Activity activity = getActivity();
-        if(activity instanceof DialogInterface.OnDismissListener){
+        if (activity instanceof DialogInterface.OnDismissListener) {
             ((DialogInterface.OnDismissListener) activity).onDismiss(dialog);
         }
     }

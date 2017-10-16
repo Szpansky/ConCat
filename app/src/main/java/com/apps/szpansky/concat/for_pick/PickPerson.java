@@ -1,6 +1,5 @@
 package com.apps.szpansky.concat.for_pick;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,11 +11,11 @@ import com.apps.szpansky.concat.simple_data.Person;
 import com.apps.szpansky.concat.tools.SimpleActivity;
 
 
-public class PickPerson extends SimpleActivity implements DialogInterface.OnDismissListener {
+public class PickPerson extends SimpleActivity {
 
 
     public PickPerson() {
-        super(new Person(),"list_preference_picking_colors");
+        super(new Person(), "list_preference_picking_colors");
     }
 
 
@@ -35,8 +34,8 @@ public class PickPerson extends SimpleActivity implements DialogInterface.OnDism
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog_AddEditPerson addEditPerson =  Dialog_AddEditPerson.newInstance();
-                addEditPerson.show(getFragmentManager().beginTransaction(),"DialogAddEditPerson");
+                Dialog_AddEditPerson addEditPerson = Dialog_AddEditPerson.newInstance();
+                addEditPerson.show(getFragmentManager().beginTransaction(), "DialogAddEditPerson");
             }
         });
     }
@@ -46,8 +45,8 @@ public class PickPerson extends SimpleActivity implements DialogInterface.OnDism
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Dialog_AddEditPerson addEditPerson =  Dialog_AddEditPerson.newInstance(id);
-                addEditPerson.show(getFragmentManager().beginTransaction(),"DialogAddEditPerson");
+                Dialog_AddEditPerson addEditPerson = Dialog_AddEditPerson.newInstance(id);
+                addEditPerson.show(getFragmentManager().beginTransaction(), "DialogAddEditPerson");
                 return true;
             }
         });
@@ -55,16 +54,11 @@ public class PickPerson extends SimpleActivity implements DialogInterface.OnDism
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent();
-                    intent.putExtra("personId", id);
-                    setResult(RESULT_OK, intent);
-                    finish();
+                Intent intent = new Intent();
+                intent.putExtra("personId", id);
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
-    }
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        refreshListView();
     }
 }

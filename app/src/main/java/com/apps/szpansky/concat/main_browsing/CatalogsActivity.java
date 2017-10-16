@@ -1,7 +1,6 @@
 package com.apps.szpansky.concat.main_browsing;
 
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +13,7 @@ import com.apps.szpansky.concat.simple_data.Client;
 import com.apps.szpansky.concat.tools.SimpleActivity;
 
 
-public class CatalogsActivity extends SimpleActivity implements DialogInterface.OnDismissListener{
+public class CatalogsActivity extends SimpleActivity {
 
 
     public CatalogsActivity() {
@@ -42,7 +41,7 @@ public class CatalogsActivity extends SimpleActivity implements DialogInterface.
             @Override
             public void onClick(View v) {
                 Dialog_AddEditCatalog addEditCatalog = new Dialog_AddEditCatalog().newInstance();
-                addEditCatalog.show(getFragmentManager().beginTransaction(),"DialogAddEditCatalog");
+                addEditCatalog.show(getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
             }
         });
     }
@@ -54,7 +53,7 @@ public class CatalogsActivity extends SimpleActivity implements DialogInterface.
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 data.setClickedItemId(id);
                 Dialog_AddEditCatalog addEditCatalog = new Dialog_AddEditCatalog().newInstance(id);
-                addEditCatalog.show(getFragmentManager().beginTransaction(),"DialogAddEditCatalog");
+                addEditCatalog.show(getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
                 return true;
             }
         });
@@ -70,9 +69,4 @@ public class CatalogsActivity extends SimpleActivity implements DialogInterface.
         });
     }
 
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        refreshListView();
-    }
 }

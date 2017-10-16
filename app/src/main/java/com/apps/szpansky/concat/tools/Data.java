@@ -1,6 +1,8 @@
 package com.apps.szpansky.concat.tools;
 
-public abstract class Data implements DataInterface {
+import java.io.Serializable;
+
+public abstract class Data implements DataInterface, Serializable {
 
     protected String filter = "";
     protected long clickedItemId;
@@ -29,11 +31,11 @@ public abstract class Data implements DataInterface {
     }
 
     public boolean updateData(String[] value, String[] keys) {
-        return myDB.updateData(value,keys, currentTable, clickedItemId);
+        return myDB.updateData(value, keys, currentTable, clickedItemId);
     }
 
     public boolean insertData(String[] value, String[] keys) {
-        return myDB.insertData(value,keys,currentTable);
+        return myDB.insertData(value, keys, currentTable);
     }
 
     public String getTitle() {

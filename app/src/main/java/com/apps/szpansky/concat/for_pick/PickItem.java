@@ -15,12 +15,12 @@ import com.apps.szpansky.concat.simple_data.Item;
 import com.apps.szpansky.concat.tools.SimpleActivity;
 
 
-public class PickItem extends SimpleActivity implements DialogInterface.OnDismissListener {
+public class PickItem extends SimpleActivity {
 
     Integer count = 1;
 
     public PickItem() {
-        super(new Item(),"list_preference_picking_colors");
+        super(new Item(), "list_preference_picking_colors");
     }
 
 
@@ -40,7 +40,7 @@ public class PickItem extends SimpleActivity implements DialogInterface.OnDismis
             @Override
             public void onClick(View v) {
                 Dialog_AddEditItem addEditItem = Dialog_AddEditItem.newInstance();
-                addEditItem.show(getFragmentManager().beginTransaction(),"DialogAddEditItem");
+                addEditItem.show(getFragmentManager().beginTransaction(), "DialogAddEditItem");
             }
         });
     }
@@ -113,7 +113,7 @@ public class PickItem extends SimpleActivity implements DialogInterface.OnDismis
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Dialog_AddEditItem addEditItem = Dialog_AddEditItem.newInstance(id);
-                addEditItem.show(getFragmentManager().beginTransaction(),"DialogAddEditItem");
+                addEditItem.show(getFragmentManager().beginTransaction(), "DialogAddEditItem");
                 return true;
             }
         });
@@ -121,14 +121,9 @@ public class PickItem extends SimpleActivity implements DialogInterface.OnDismis
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    dialogItemCount(id);
+                dialogItemCount(id);
             }
         });
     }
 
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        refreshListView();
-    }
 }

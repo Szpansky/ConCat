@@ -389,6 +389,28 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
+    public Cursor printCatalog(long id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(
+                "SELECT O." + ORDER_ITEM_ID + ", " +
+                        "SUM(O." + ORDER_AMOUNT + "), " +
+                        "I." + ITEM_NAME + " " +
+                        "FROM " + TABLE_CLIENTS + " AS C " +
+                        "JOIN " + TABLE_ORDERS + " AS O " +
+                        "JOIN " + TABLE_ITEMS + " AS I " +
+                        "ON (C." + CLIENT_ID + " = O." + ORDER_CLIENT_ID + " AND O." + ORDER_ITEM_ID + " = I." + ITEM_ID + ") " +
+                        "WHERE C." + CLIENT_CATALOG_ID + " = " + id + " GROUP BY O." + ORDER_ITEM_ID
+                , null
+        );
+
+
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
+
     public boolean updateRowOrder(String clientId, String itemId, String countSTR) {
         SQLiteDatabase db = this.getReadableDatabase();
         String where = ORDER_CLIENT_ID + " = " + clientId + " AND " + ORDER_ITEM_ID + " = " + itemId;
