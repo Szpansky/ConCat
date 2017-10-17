@@ -5,7 +5,7 @@ import java.io.Serializable;
 public abstract class Data implements DataInterface, Serializable {
 
     protected String filter = "";
-    protected long clickedItemId;
+    protected long clickedItemId = 0;
     protected String currentTable;
 
     public Database getMyDB() {

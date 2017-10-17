@@ -12,12 +12,9 @@ import com.apps.szpansky.concat.tools.SimpleActivity;
 
 public class OpenAllItemsActivity extends SimpleActivity {
 
-
     public OpenAllItemsActivity() {
         super(new Item(), "list_preference_open_all_colors");
     }
-
-    boolean flag = true;
 
 
     @Override
@@ -33,20 +30,19 @@ public class OpenAllItemsActivity extends SimpleActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Dialog_AddEditItem addEditItem = Dialog_AddEditItem.newInstance();
                 addEditItem.show(getFragmentManager().beginTransaction(), "DialogAddEditItem");
-
             }
         });
     }
 
 
     public void listViewItemClick() {
-        flag = true;
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                flag = false;
+
                 data.setClickedItemId(id);
                 Dialog_AddEditItem addEditItem = Dialog_AddEditItem.newInstance(id);
                 addEditItem.show(getFragmentManager().beginTransaction(), "DialogAddEditItem");
@@ -57,12 +53,10 @@ public class OpenAllItemsActivity extends SimpleActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (flag) {
-                    data.setClickedItemId(id);
-                    Dialog_AddEditItem addEditItem = Dialog_AddEditItem.newInstance(id);
-                    addEditItem.show(getFragmentManager().beginTransaction(), "DialogAddEditItem");
-                }
-                flag = true;
+
+                data.setClickedItemId(id);
+                Dialog_AddEditItem addEditItem = Dialog_AddEditItem.newInstance(id);
+                addEditItem.show(getFragmentManager().beginTransaction(), "DialogAddEditItem");
             }
         });
     }
@@ -73,11 +67,4 @@ public class OpenAllItemsActivity extends SimpleActivity {
         onNavigateUp();
     }
 
-
-
-   /* private void setAds() {
-        mAdView = (AdView) findViewById(R.id.adViewItem);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-    }*/
 }

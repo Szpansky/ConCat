@@ -211,6 +211,6 @@
     <string name="minus_sign">-</string>
     <string name="item_name">Name</string>
     <string name="click_to_copy">Click to copy</string>
-    <string name="error_notify_duplicate">That item with that code exist</string>
+    <string name="error_notify_duplicate">That record already exist !</string>
 
 </resources>

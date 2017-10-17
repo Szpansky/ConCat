@@ -34,7 +34,7 @@
                             android:layout_weight="1"
                             android:fontFamily="sans-serif"
                             android:padding="@dimen/default_padding"
-                            android:text="@string/new_catalog"
+                            android:text="@string/new_order"
                             android:textAllCaps="true"
                             android:textSize="@dimen/default_text_size"
                             android:textStyle="bold|italic" />

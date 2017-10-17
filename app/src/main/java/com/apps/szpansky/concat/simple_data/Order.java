@@ -11,8 +11,8 @@ import static com.apps.szpansky.concat.tools.Database.*;
 
 public class Order extends Data {
 
-    public static long clickedClientId;
 
+    public static long clickedClientId;
 
 
     @Override
@@ -58,14 +58,14 @@ public class Order extends Data {
 
 
     @Override
-    public boolean updateData(String[] value, String[] keys){
-        return myDB.updateRowOrder(value[0],value[1], value[2]);
+    public boolean updateData(String[] value, String[] keys) {
+        return myDB.updateRowOrder(value[0], value[1], value[2]);
     }
 
 
     @Override
     public boolean insertData(String[] value, String[] keys) {
-        return myDB.insertDataToOrders(value[0],value[1],value[2]);
+        return myDB.insertDataToOrders(value[0], value[1], value[2]);
     }
 
 
@@ -76,7 +76,9 @@ public class Order extends Data {
 
     @Override
     public String[] getClickedItemData() {
-        return new String[0];
+        String where = ORDER_ID + " = " + clickedItemId;
+        Cursor cursor = myDB.getRows(TABLE_ORDERS, where);
+        return new String[]{cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)};
     }
 
 
@@ -88,7 +90,7 @@ public class Order extends Data {
         where = PERSON_ID + " = " + personId;
         c = myDB.getRows(TABLE_PERSONS, where);
         String title = c.getString(1) + " " + c.getString(2);
-    return  title;
+        return title;
     }
 
 

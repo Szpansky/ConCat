@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.apps.szpansky.concat.for_pick.PickPerson;
 import com.apps.szpansky.concat.R;
@@ -22,7 +23,7 @@ public class ClientsActivity extends SimpleActivity {
     private final int BACK_CODE = 1;
 
     public ClientsActivity() {
-        super(new Client(),"list_preference_browsing_colors");
+        super(new Client(), "list_preference_browsing_colors");
     }
 
 
@@ -49,7 +50,7 @@ public class ClientsActivity extends SimpleActivity {
     }
 
 
-    private void dialogOnClientClick(){
+    private void dialogOnClientClick() {
         final AlertDialog builder = new AlertDialog.Builder(this).create();
         final View dialogView = getLayoutInflater().inflate(R.layout.dialog_on_client_click, null);
         Button saveCatalog = (Button) dialogView.findViewById(R.id.buttonOrderSave);
@@ -75,7 +76,7 @@ public class ClientsActivity extends SimpleActivity {
                 }
                 String[] keys = new String[]{Database.CLIENT_STATUS};
                 String[] value = new String[]{status};
-                data.updateData(value,keys);
+                data.updateData(value, keys);
                 refreshListView();
                 builder.dismiss();
             }
@@ -98,10 +99,10 @@ public class ClientsActivity extends SimpleActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    data.setClickedItemId(id);
-                    Intent intent = new Intent(ClientsActivity.this, OrdersActivity.class);
-                    Order.clickedClientId = id;
-                    startActivity(intent);
+                data.setClickedItemId(id);
+                Intent intent = new Intent(ClientsActivity.this, OrdersActivity.class);
+                Order.clickedClientId = id;
+                startActivity(intent);
             }
         });
     }
@@ -118,9 +119,11 @@ public class ClientsActivity extends SimpleActivity {
                 String[] value = new String[]{catalogId.toString(), personId.toString(), getString(R.string.db_status_not_payed)};
                 String[] keys = new String[]{Database.CLIENT_CATALOG_ID, Database.CLIENT_PERSON_ID, Database.CLIENT_STATUS};
 
-                data.insertData(value, keys);
-
-
+                if (data.insertData(value, keys)) {
+                    Toast.makeText(this, R.string.add_client_notify, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this,R.string.error_notify_duplicate, Toast.LENGTH_SHORT).show();
+                }
                 refreshListView();
             }
         }

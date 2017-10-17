@@ -95,7 +95,12 @@ public class Dialog_AddEditItem extends DialogFragment {
             public void onClick(View v) {
                 discount = convertCheckBoxToString(dis_all);
 
-                String number = SimpleFunctions.fillWithZeros(nr.getText().toString(), 5);      //for avon numbers whits 0 like 00123
+                if (nr.getText().toString().isEmpty()) {
+                    nr.setText("0");
+                }
+
+                String number = SimpleFunctions.fillWithZeros(nr.getText().toString(), 5);   //for avon numbers whits 0 like 00123 TODO create zeros count for user in settings
+
                 String[] value;
                 String[] keys;
 
@@ -127,6 +132,7 @@ public class Dialog_AddEditItem extends DialogFragment {
                         snackbarInfo.show();
                     }
                 } else {
+
                     value = new String[]{
                             nr.getText().toString(),
                             number,

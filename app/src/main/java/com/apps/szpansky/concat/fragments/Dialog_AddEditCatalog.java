@@ -119,7 +119,7 @@ public class Dialog_AddEditCatalog extends DialogFragment implements DialogInter
                         Toast.makeText(getActivity().getBaseContext(), R.string.add_catalog_notify, Toast.LENGTH_SHORT).show();
                         dismiss();
                     } else {
-                        Snackbar snackbarInfo = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
+                        Snackbar snackbarInfo = Snackbar.make(view, R.string.error_notify_duplicate, Snackbar.LENGTH_SHORT);
                         snackbarInfo.show();
                     }
                 }

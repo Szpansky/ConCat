@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.apps.szpansky.concat.R;
-import com.apps.szpansky.concat.tools.NetworkFunctions;
 
 
 public class Dialog_Login extends DialogFragment {
@@ -38,8 +37,6 @@ public class Dialog_Login extends DialogFragment {
             public void onClick(View v) {
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
-
-                isLogged = NetworkFunctions.logIn(email, password);
 
                 if (isLogged) {
                     Snackbar snackbar = Snackbar.make(view, R.string.coming_soon, Snackbar.LENGTH_SHORT);

@@ -195,7 +195,7 @@
     <string name="minus_sign">-</string>
     <string name="item_name">Nazwa</string>
     <string name="click_to_copy">Kliknij by skopiować</string>
-    <string name="error_notify_duplicate">Taki przedmiot z tym kodem już istnieje</string>
+    <string name="error_notify_duplicate">Taki rekord już istnieje !</string>
 
 
 </resources>

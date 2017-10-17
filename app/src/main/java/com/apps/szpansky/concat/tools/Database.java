@@ -120,7 +120,7 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public boolean insertData(String[] values, String[] keys, String table) {
+    public boolean insertData(String[] values, String[] keys, String table) {       //insert return Id of inserted row, otherwise -1
         ContentValues contentValues = new ContentValues();
         for (int i = 0; i < values.length; i++) {
             contentValues.put(keys[i], values[i]);
@@ -134,7 +134,7 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public boolean updateData(String[] values, String[] keys, String table, long id) {
+    public boolean updateData(String[] values, String[] keys, String table, long id) {      //update return count of updated rows
         ContentValues newValues = new ContentValues();
         for (int i = 0; i < values.length; i++) {
             newValues.put(keys[i], values[i]);
@@ -171,22 +171,31 @@ public class Database extends SQLiteOpenHelper {
     }
 
 
-    public boolean insertDataToOrders(String personId, String itemId, String amountSTR) {
+    public boolean insertDataToOrders(String clientId, String itemId, String amountSTR) {
         SQLiteDatabase db = this.getReadableDatabase();
 
+        String where = ORDER_CLIENT_ID + " = " + clientId + " AND " + ORDER_ITEM_ID + " = " + itemId;
+
         Cursor c = db.rawQuery(
+                "SELECT " + ORDER_ITEM_ID + ", " + ORDER_CLIENT_ID + " " +
+                        "FROM " + TABLE_ORDERS + " " +
+                        "WHERE " + where
+                , null);
+        if (c.getCount() != 0) return false;        //if exist, quit from adding the same data
+
+        c = db.rawQuery(
                 "SELECT " + ITEM_PRICE + " " +
                         "FROM " + TABLE_ITEMS + " " +
                         "WHERE " + ITEM_ID + " = " + itemId
                 , null);
 
-        c.moveToFirst();
+        c.moveToFirst();                                    //TODO check is there some data
         double price = c.getDouble(0);
         int amount = Integer.parseInt(amountSTR);
         double total = price * amount;
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(ORDER_CLIENT_ID, personId);
+        contentValues.put(ORDER_CLIENT_ID, clientId);
         contentValues.put(ORDER_ITEM_ID, itemId);
         contentValues.put(ORDER_AMOUNT, amount);
         contentValues.put(ORDER_TOTAL, total);
@@ -197,6 +206,32 @@ public class Database extends SQLiteOpenHelper {
             return false;
         else
             return true;
+    }
+
+
+    public boolean updateRowOrder(String clientId, String itemId, String countSTR) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String where = ORDER_CLIENT_ID + " = " + clientId + " AND " + ORDER_ITEM_ID + " = " + itemId;
+
+        Cursor c = db.rawQuery(
+                "SELECT " + ITEM_PRICE +
+                        " FROM " + TABLE_ITEMS +
+                        " WHERE " + ITEM_ID + " = " + itemId, null);
+        c.moveToFirst();
+
+        double price = c.getDouble(0);
+        int count = Integer.parseInt(countSTR);
+        double total = price * count;
+
+        ContentValues newValues = new ContentValues();
+        newValues.put(ORDER_AMOUNT, count);
+        newValues.put(ORDER_TOTAL, total);
+        db = this.getWritableDatabase();
+        long result = db.update(TABLE_ORDERS, newValues, where, null);
+        if (result == 1)
+            return true;
+        else
+            return false;
     }
 
 
@@ -408,42 +443,6 @@ public class Database extends SQLiteOpenHelper {
             c.moveToFirst();
         }
         return c;
-    }
-
-
-    public boolean updateRowOrder(String clientId, String itemId, String countSTR) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String where = ORDER_CLIENT_ID + " = " + clientId + " AND " + ORDER_ITEM_ID + " = " + itemId;
-
-        Cursor c = db.rawQuery(
-                "SELECT " + ITEM_PRICE +
-                        " FROM " + TABLE_ITEMS +
-                        " WHERE " + ITEM_ID + " = " + itemId, null);
-        c.moveToFirst();
-        double price = c.getDouble(0);
-
-        c = db.rawQuery(
-                "SELECT " + ORDER_AMOUNT +
-                        " FROM " + TABLE_ORDERS +
-                        " WHERE " + ORDER_CLIENT_ID + " = " + clientId + " AND " + ORDER_ITEM_ID + " = " + itemId, null);
-        if (c.getCount() == 0) return false;
-        c.moveToFirst();
-        double amount = c.getDouble(0);
-
-        int count = Integer.parseInt(countSTR);
-
-        amount = amount + count;
-        double total = price * amount;
-
-        ContentValues newValues = new ContentValues();
-        newValues.put(ORDER_AMOUNT, amount);
-        newValues.put(ORDER_TOTAL, total);
-        db = this.getWritableDatabase();
-        long result = db.update(TABLE_ORDERS, newValues, where, null);
-        if (result == 1)
-            return true;
-        else
-            return false;
     }
 
 
