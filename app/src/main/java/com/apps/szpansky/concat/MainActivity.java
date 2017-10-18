@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
     private AdView mAdView;
     private RewardedVideoAd mAd;
-    Dialog_Loading loading;
+    Dialog_Loading loading = new Dialog_Loading();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +70,9 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme(SimpleFunctions.setStyle(styleKey, sharedPreferences));
         setContentView(R.layout.activity_main);
-        loading = new Dialog_Loading();
+
+
+
         setAds();
         setMainInfo();
         setDrawer();
@@ -117,9 +119,11 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         startAds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 mAd.loadAd(getResources().getString(R.string.ads_reward_main_id), new AdRequest.Builder().build());
-                loading.show(getFragmentManager().beginTransaction(),"Loading");
-                loading.setCancelable(true);
+
+                loading.show(getFragmentManager().beginTransaction(), "Dialog_Loading");
+
             }
         });
     }
@@ -325,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
     @Override
     public void onRewardedVideoAdOpened() {
-
+        if(loading.isVisible())loading.dismiss();
     }
 
 
@@ -341,7 +345,6 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         snackbarInfo.show();
         addPoints(1);
         updateUserInfo();
-        loading.dismiss();
     }
 
 
@@ -357,9 +360,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         rewardAmount = Integer.parseInt(sharedPreferences.getString("pref_edit_text_rewardAmount", "0"));
         rewardAmount = rewardAmount + amount;
-
         SharedPreferences.Editor editor = sharedPreferences.edit();
-
         editor.putString("pref_edit_text_rewardAmount", rewardAmount.toString());
         editor.apply();
     }
@@ -375,7 +376,6 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     public void onRewardedVideoAdFailedToLoad(int i) {
         Snackbar snackbarInfo = Snackbar.make(findViewById(R.id.drawerLayout), R.string.failed_to_load_ad, Snackbar.LENGTH_SHORT);
         snackbarInfo.show();
-        if(loading.isVisible())loading.dismiss();
     }
 }
 

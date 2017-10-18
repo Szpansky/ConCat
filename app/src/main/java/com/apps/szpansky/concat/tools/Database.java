@@ -427,7 +427,7 @@ public class Database extends SQLiteOpenHelper {
     public Cursor printCatalog(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(
-                "SELECT O." + ORDER_ITEM_ID + ", " +
+                "SELECT I." + ITEM_NUMBER + ", " +
                         "SUM(O." + ORDER_AMOUNT + "), " +
                         "I." + ITEM_NAME + " " +
                         "FROM " + TABLE_CLIENTS + " AS C " +

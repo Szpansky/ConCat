@@ -68,7 +68,7 @@
     <string name="wait_notify">Czekaj, właśnie pracuje :) </string>
     <string name="backup_error">Nie Znaleziono Bazy</string>
     <string name="search_hint">Nazwa/Kod/Data/Status</string>
-    <string name="import_export_DB_information">Importowanie bazy zastąpi istniejące dane.\nEksport utworzy plik w katalogu głównym:\n\"/ConCat?\"\n(Używaj gdy np. chcesz przeinstalować aplikacje)</string>
+    <string name="import_export_DB_information">Importowanie bazy zastąpi istniejące dane.\nEksport utworzy plik w katalogu głównym:\n\"/ConCat/\"\n(Używaj gdy np. chcesz przeinstalować aplikacje)</string>
     <string name="import_export_DB_title">Import / Eksport\nBazy Danych</string>
     <string name="import_export">Import / Eksport</string>
     <string name="export_db">Eksport</string>
