@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.widget.Toast;
 
 import com.apps.szpansky.concat.R;
@@ -64,11 +65,22 @@ public class OrdersActivity extends AppCompatActivity implements DialogInterface
 
         if (order.insertData(value, null)) {
             Toast.makeText(this, R.string.add_item_notify, Toast.LENGTH_SHORT).show();
-            DrawerLayout drawerLayout = (DrawerLayout) getWindow().findViewById(R.id.drawerLayout);
+            DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
             drawerLayout.closeDrawers();
         } else {
             Toast.makeText(this, R.string.error_notify_duplicate, Toast.LENGTH_SHORT).show();
         }
         ordersFragment.refreshListView();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        if (drawerLayout.isDrawerOpen(Gravity.END)) {
+            drawerLayout.closeDrawers();
+        } else {
+            onNavigateUp();
+        }
     }
 }

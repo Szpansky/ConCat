@@ -44,6 +44,7 @@ public class SelectCount_Item extends DialogFragment {
         Button okButton = (Button) view.findViewById(R.id.button_ok);
         final TextView textCount = (TextView) view.findViewById(R.id.number_of_items);
         textCount.setText(getCurrentData[3]);
+        count = Integer.parseInt(getCurrentData[3]);
 
 
         plusMark.setOnClickListener(new View.OnClickListener() {

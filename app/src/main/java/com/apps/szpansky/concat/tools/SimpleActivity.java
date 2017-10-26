@@ -19,6 +19,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 import com.apps.szpansky.concat.R;
@@ -35,6 +36,7 @@ public abstract class SimpleActivity extends AppCompatActivity implements Dialog
     protected Data data;
     private String styleKey;
     FragmentManager fragmentManager;
+    TextView emptyList;
 
     protected abstract void onAddButtonClick();
 
@@ -64,7 +66,7 @@ public abstract class SimpleActivity extends AppCompatActivity implements Dialog
         data.setDatabase(new Database(this));
 
         setToolBar();
-
+        emptyList = (TextView) findViewById(R.id.empty_textView);
         listView = setListView();
         refreshListView();
 
@@ -131,6 +133,11 @@ public abstract class SimpleActivity extends AppCompatActivity implements Dialog
             listView.setSelectionFromTop(index, top);
         } else {
             listView.setSelectionFromTop(index, top + listView.getPaddingTop());
+        }
+        if (listView.getCount() <= 0) {
+            emptyList.setVisibility(View.VISIBLE);
+        } else {
+            emptyList.setVisibility(View.GONE);
         }
     }
 

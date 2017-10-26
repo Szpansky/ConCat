@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,9 +47,9 @@ import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
 public class MainActivity extends AppCompatActivity implements RewardedVideoAdListener {
 
-    public static Integer rewardAmount;
+    public Integer rewardAmount;
 
-    private static boolean FLOATING_MENU = false;
+    private boolean FLOATING_MENU_IS_OPEN = false;
     private static String styleKey = "list_preference_main_colors";
 
     private Database myDB = new Database(this);
@@ -234,29 +235,25 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         fabMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (FLOATING_MENU) {
-                            subFloatingMenu.startAnimation(fabClose);
-                            fabMain.startAnimation(fabRotateBack);
-                            fabNewCatalog.setClickable(false);
-                            fabNewPerson.setClickable(false);
-                            fabNewItem.setClickable(false);
-                            FLOATING_MENU = false;
-                            subFloatingMenu.setVisibility(View.GONE);
-                        } else {
-                            subFloatingMenu.startAnimation(fabOpen);
-                            fabMain.startAnimation(fabRotate);
-                            fabNewCatalog.setClickable(true);
-                            fabNewPerson.setClickable(true);
-                            fabNewItem.setClickable(true);
-                            FLOATING_MENU = true;
-                            subFloatingMenu.setVisibility(View.VISIBLE);
-                        }
-                    }
-                });
+                if (FLOATING_MENU_IS_OPEN) {
+                    subFloatingMenu.startAnimation(fabClose);
+                    fabMain.startAnimation(fabRotateBack);
+                    fabNewCatalog.setClickable(false);
+                    fabNewPerson.setClickable(false);
+                    fabNewItem.setClickable(false);
+                    FLOATING_MENU_IS_OPEN = false;
+                    subFloatingMenu.setVisibility(View.GONE);
+                } else {
+                    subFloatingMenu.startAnimation(fabOpen);
+                    fabMain.startAnimation(fabRotate);
+                    fabNewCatalog.setClickable(true);
+                    fabNewPerson.setClickable(true);
+                    fabNewItem.setClickable(true);
+                    FLOATING_MENU_IS_OPEN = true;
+                    subFloatingMenu.setVisibility(View.VISIBLE);
+                }
             }
+
         });
     }
 
@@ -396,6 +393,16 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         Snackbar snackbarInfo = Snackbar.make(findViewById(R.id.drawerLayout), R.string.failed_to_load_ad, Snackbar.LENGTH_SHORT);
         snackbarInfo.show();
         if (loading.isVisible()) loading.dismiss();
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        if (drawerLayout.isDrawerOpen(Gravity.START)) {
+            drawerLayout.closeDrawers();
+        } else {
+            finish();
+        }
     }
 }
 
