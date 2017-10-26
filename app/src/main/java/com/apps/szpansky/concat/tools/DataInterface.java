@@ -19,8 +19,6 @@ public interface DataInterface {
 
     String[] getClickedItemData();
 
-    String getTitle();
-
     int getItemLayoutResourceId();
 
     Cursor getCursor();

@@ -1,4 +1,4 @@
-package com.apps.szpansky.concat.fragments;
+package com.apps.szpansky.concat.dialog_fragments;
 
 import android.app.DialogFragment;
 import android.database.Cursor;
@@ -14,12 +14,12 @@ import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.tools.Database;
 
 
-public class Dialog_Information extends DialogFragment {
+public class InformationCurrentCatalog extends DialogFragment {
 
     Database myDB;
 
-    public Dialog_Information newInstance() {
-        Dialog_Information information = new Dialog_Information();
+    public static InformationCurrentCatalog newInstance() {
+        InformationCurrentCatalog information = new InformationCurrentCatalog();
 
         information.setStyle(STYLE_NO_TITLE, 0);
 

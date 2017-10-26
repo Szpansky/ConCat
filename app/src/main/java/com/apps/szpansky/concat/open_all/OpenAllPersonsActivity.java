@@ -6,7 +6,7 @@ import android.widget.AdapterView;
 
 
 import com.apps.szpansky.concat.R;
-import com.apps.szpansky.concat.fragments.Dialog_AddEditPerson;
+import com.apps.szpansky.concat.dialog_fragments.AddEdit_Person;
 import com.apps.szpansky.concat.simple_data.Person;
 import com.apps.szpansky.concat.tools.SimpleActivity;
 
@@ -33,15 +33,15 @@ public class OpenAllPersonsActivity extends SimpleActivity {
             @Override
             public void onClick(View v) {
 
-                Dialog_AddEditPerson addEditPerson = Dialog_AddEditPerson.newInstance();
+                AddEdit_Person addEditPerson = AddEdit_Person.newInstance();
                 addEditPerson.show(getFragmentManager().beginTransaction(), "DialogAddEditPerson");
             }
         });
     }
 
 
-    private void showDialog(long id){
-        Dialog_AddEditPerson addEditPerson = Dialog_AddEditPerson.newInstance(id);
+    private void showDialog(long id) {
+        AddEdit_Person addEditPerson = AddEdit_Person.newInstance(id);
         addEditPerson.show(getFragmentManager().beginTransaction(), "DialogAddEditPerson");
     }
 

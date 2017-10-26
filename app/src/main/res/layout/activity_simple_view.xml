@@ -16,12 +16,13 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="@dimen/default_padding"
         android:layout_marginRight="@dimen/default_padding"
+        android:choiceMode="singleChoice"
         android:clipToPadding="false"
         android:drawSelectorOnTop="true"
-        android:paddingTop="@dimen/toolBar_height"
         android:paddingBottom="@dimen/toolBar_height"
+        android:paddingTop="@dimen/toolBar_height"
         android:scrollbarStyle="outsideInset"
-        android:choiceMode="singleChoice"/>
+        android:visibility="visible" />
 
 
     <include
@@ -45,6 +46,19 @@
         android:verticalScrollbarPosition="left"
         app:fabSize="normal"
         app:srcCompat="@mipmap/ic_add_white_24dp" />
+
+    <TextView
+        android:id="@+id/empty_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:foregroundGravity="center_vertical|center_horizontal|center"
+        android:gravity="center_vertical|center_horizontal|center"
+        android:text="@string/empty_list_add_new"
+        android:textSize="@dimen/default_text_size"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
 
 </RelativeLayout>

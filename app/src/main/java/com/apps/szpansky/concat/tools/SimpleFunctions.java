@@ -85,7 +85,35 @@ public final class SimpleFunctions {
     }
 
 
-    public static String getCurrentDate(){
+    public static int setBackgroundColor(String styleKey, SharedPreferences sharedPreferences) {
+        switch (sharedPreferences.getString(styleKey, "0")) {
+            case ("DefaultTheme"):
+                return R.color.colorPrimaryLight;
+            case ("DefaultOpenAllTheme"):
+                return R.color.colorPrimaryForOpenAll;
+            case ("DefaultBrowsingTheme"):
+                return R.color.colorPrimaryLightForBrowsing;
+            case ("DefaultPickTheme"):
+                return R.color.colorPrimaryLightForPick;
+            case ("BlueTheme"):
+                return R.color.bluePrimary_light;
+            case ("GreenTheme"):
+                return R.color.greenPrimary_light;
+            case ("RedTheme"):
+                return R.color.redPrimary_light;
+            case ("PurpleTheme"):
+                return R.color.purplePrimary_light;
+            case ("PinkTheme"):
+                return R.color.pinkPrimary_light;
+            case ("GrayTheme"):
+                return R.color.greyPrimary_light;
+            default:
+                return R.color.colorPrimaryLight;
+        }
+    }
+
+
+    public static String getCurrentDate() {
         Calendar calendar = Calendar.getInstance();
         Integer year_x = calendar.get(Calendar.YEAR);
         Integer month_x = calendar.get(Calendar.MONTH) + 1;

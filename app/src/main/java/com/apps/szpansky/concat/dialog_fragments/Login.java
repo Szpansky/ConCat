@@ -1,4 +1,4 @@
-package com.apps.szpansky.concat.fragments;
+package com.apps.szpansky.concat.dialog_fragments;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -13,12 +13,12 @@ import android.widget.EditText;
 import com.apps.szpansky.concat.R;
 
 
-public class Dialog_Login extends DialogFragment {
+public class Login extends DialogFragment {
 
     boolean isLogged;
 
-    public Dialog_Login newInstance() {
-        Dialog_Login login = new Dialog_Login();
+    public static Login newInstance() {
+        Login login = new Login();
         login.setStyle(STYLE_NO_TITLE, 0);
         return login;
     }

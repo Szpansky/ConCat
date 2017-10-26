@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:padding="@dimen/default_padding"
             android:text="@string/current_order"
             android:textSize="@dimen/default_text_size"
             android:textStyle="bold|italic" />
@@ -33,7 +34,8 @@
             android:id="@+id/grid_current"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center_vertical|center_horizontal|center"
+            android:foregroundGravity="center_vertical|center_horizontal|center"
             android:horizontalSpacing="10dp"
             android:numColumns="auto_fit"
             android:stretchMode="columnWidth"
@@ -165,6 +167,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_margin"
             android:gravity="center"
+            android:padding="@dimen/default_padding"
             android:text="@string/general"
             android:textSize="@dimen/default_text_size"
             android:textStyle="bold|italic" />
@@ -173,7 +176,8 @@
             android:id="@+id/grid_general"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_gravity="center_vertical|center_horizontal|center"
+            android:foregroundGravity="center_vertical|center_horizontal|center">
 
             <TextView
                 android:layout_column="0"

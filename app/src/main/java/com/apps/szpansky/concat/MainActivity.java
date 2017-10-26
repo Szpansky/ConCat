@@ -24,13 +24,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.apps.szpansky.concat.fragments.Dialog_AddEditCatalog;
-import com.apps.szpansky.concat.fragments.Dialog_AddEditItem;
-import com.apps.szpansky.concat.fragments.Dialog_AddEditPerson;
-import com.apps.szpansky.concat.fragments.Dialog_ExportImport;
-import com.apps.szpansky.concat.fragments.Dialog_Information;
-import com.apps.szpansky.concat.fragments.Dialog_Loading;
-import com.apps.szpansky.concat.fragments.Dialog_Login;
+import com.apps.szpansky.concat.dialog_fragments.AddEdit_Catalog;
+import com.apps.szpansky.concat.dialog_fragments.AddEdit_Item;
+import com.apps.szpansky.concat.dialog_fragments.AddEdit_Person;
+import com.apps.szpansky.concat.dialog_fragments.ExportImport;
+import com.apps.szpansky.concat.dialog_fragments.InformationCurrentCatalog;
+import com.apps.szpansky.concat.dialog_fragments.Loading;
+import com.apps.szpansky.concat.dialog_fragments.Login;
 import com.apps.szpansky.concat.main_browsing.CatalogsActivity;
 import com.apps.szpansky.concat.open_all.OpenAllItemsActivity;
 import com.apps.szpansky.concat.open_all.OpenAllPersonsActivity;
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
     private AdView mAdView;
     private RewardedVideoAd mAd;
-    Dialog_Loading loading = new Dialog_Loading();
+    Loading loading = Loading.newInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,17 +71,39 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         setTheme(SimpleFunctions.setStyle(styleKey, sharedPreferences));
         setContentView(R.layout.activity_main);
 
-
-
-        setAds();
-        setMainInfo();
-        setDrawer();
-        onNavigationItemClick();
+        //setAds();
         onStartClick();
-        onFloatingButtonClick();
-        onFabMenuItemClick();
         onDailyRewardClick();
-        updateUserInfo();
+
+        new Runnable() {
+            @Override
+            public void run() {
+                setDrawer();
+                onNavigationItemClick();
+            }
+        }.run();
+
+        new Runnable() {
+            @Override
+            public void run() {
+                onFloatingButtonClick();
+                onFabMenuItemClick();
+            }
+        }.run();
+
+        new Runnable() {
+            @Override
+            public void run() {
+                updateUserInfo();
+            }
+        }.run();
+
+        new Runnable() {
+            @Override
+            public void run() {
+                setMainInfo();
+            }
+        }.run();
     }
 
 
@@ -119,11 +141,8 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         startAds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 mAd.loadAd(getResources().getString(R.string.ads_reward_main_id), new AdRequest.Builder().build());
-
-                loading.show(getFragmentManager().beginTransaction(), "Dialog_Loading");
-
+                loading.show(getFragmentManager().beginTransaction(), "Loading");
             }
         });
     }
@@ -158,12 +177,12 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case (R.id.menuLogin):
-                        Dialog_Login login = new Dialog_Login().newInstance();
-                        login.show(getFragmentManager().beginTransaction(), "Dialog_Login");
+                        Login login = Login.newInstance();
+                        login.show(getFragmentManager().beginTransaction(), "Login");
                         break;
-                    case (R.id.menuMyAccount):
-                        Dialog_Information information = new Dialog_Information().newInstance();
-                        information.show(getFragmentManager().beginTransaction(), "Dialog_Information");
+                    case (R.id.menuOrderInfo):
+                        InformationCurrentCatalog information = InformationCurrentCatalog.newInstance();
+                        information.show(getFragmentManager().beginTransaction(), "InformationCurrentCatalog");
                         break;
                     case (R.id.menuClients):
                         Intent Intent_Open_Persons = new Intent(MainActivity.this, OpenAllPersonsActivity.class);
@@ -184,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
                         }
                         break;
                     case (R.id.menuExportImport):
-                        Dialog_ExportImport exportImport = new Dialog_ExportImport().newInstance();
+                        ExportImport exportImport = ExportImport.newInstance();
                         exportImport.show(getFragmentManager().beginTransaction(), "Dialog_Exportimport");
                         break;
                     case (R.id.menuSetting):
@@ -250,7 +269,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         fabNewCatalog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog_AddEditCatalog addEditCatalog = new Dialog_AddEditCatalog().newInstance();
+                AddEdit_Catalog addEditCatalog = AddEdit_Catalog.newInstance();
                 addEditCatalog.show(getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
             }
         });
@@ -258,7 +277,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         fabNewPerson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog_AddEditPerson addEditPerson = new Dialog_AddEditPerson().newInstance();
+                AddEdit_Person addEditPerson = AddEdit_Person.newInstance();
                 addEditPerson.show(getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
             }
         });
@@ -266,7 +285,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         fabNewItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog_AddEditItem addEditItem = new Dialog_AddEditItem().newInstance();
+                AddEdit_Item addEditItem = AddEdit_Item.newInstance();
                 addEditItem.show(getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
             }
         });
@@ -329,7 +348,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
     @Override
     public void onRewardedVideoAdOpened() {
-        if(loading.isVisible())loading.dismiss();
+        if (loading.isVisible()) loading.dismiss();
     }
 
 
@@ -341,10 +360,10 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
     @Override
     public void onRewardedVideoAdClosed() {
-        Snackbar snackbarInfo = Snackbar.make(findViewById(R.id.drawerLayout), R.string.end, Snackbar.LENGTH_SHORT);
+       /* Snackbar snackbarInfo = Snackbar.make(findViewById(R.id.drawerLayout), R.string.end, Snackbar.LENGTH_SHORT);
         snackbarInfo.show();
         addPoints(1);
-        updateUserInfo();
+        updateUserInfo();*/
     }
 
 
@@ -368,7 +387,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
 
     @Override
     public void onRewardedVideoAdLeftApplication() {
-
+        if (loading.isVisible()) loading.dismiss();
     }
 
 
@@ -376,7 +395,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
     public void onRewardedVideoAdFailedToLoad(int i) {
         Snackbar snackbarInfo = Snackbar.make(findViewById(R.id.drawerLayout), R.string.failed_to_load_ad, Snackbar.LENGTH_SHORT);
         snackbarInfo.show();
-        if(loading.isVisible())loading.dismiss();
+        if (loading.isVisible()) loading.dismiss();
     }
 }
 

@@ -79,4 +79,10 @@ public class Item extends Data {
         Cursor cursor = myDB.getRows(TABLE_ITEMS, where);
         return new String[]{cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)};
     }
+
+
+    @Override
+    public String getTitle() {
+        return "Select Item";
+    }
 }

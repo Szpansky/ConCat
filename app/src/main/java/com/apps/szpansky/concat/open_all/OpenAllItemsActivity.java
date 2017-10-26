@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.apps.szpansky.concat.R;
-import com.apps.szpansky.concat.fragments.Dialog_AddEditItem;
+import com.apps.szpansky.concat.dialog_fragments.AddEdit_Item;
 import com.apps.szpansky.concat.simple_data.Item;
 import com.apps.szpansky.concat.tools.SimpleActivity;
 
@@ -31,7 +31,7 @@ public class OpenAllItemsActivity extends SimpleActivity {
             @Override
             public void onClick(View v) {
 
-                Dialog_AddEditItem addEditItem = Dialog_AddEditItem.newInstance();
+                AddEdit_Item addEditItem = AddEdit_Item.newInstance();
                 addEditItem.show(getFragmentManager().beginTransaction(), "DialogAddEditItem");
             }
         });
@@ -44,7 +44,7 @@ public class OpenAllItemsActivity extends SimpleActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                 data.setClickedItemId(id);
-                Dialog_AddEditItem addEditItem = Dialog_AddEditItem.newInstance(id);
+                AddEdit_Item addEditItem = AddEdit_Item.newInstance(id);
                 addEditItem.show(getFragmentManager().beginTransaction(), "DialogAddEditItem");
                 return true;
             }
@@ -55,7 +55,7 @@ public class OpenAllItemsActivity extends SimpleActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 data.setClickedItemId(id);
-                Dialog_AddEditItem addEditItem = Dialog_AddEditItem.newInstance(id);
+                AddEdit_Item addEditItem = AddEdit_Item.newInstance(id);
                 addEditItem.show(getFragmentManager().beginTransaction(), "DialogAddEditItem");
             }
         });

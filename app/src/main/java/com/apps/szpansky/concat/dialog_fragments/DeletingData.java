@@ -1,4 +1,4 @@
-package com.apps.szpansky.concat.fragments;
+package com.apps.szpansky.concat.dialog_fragments;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -14,10 +14,10 @@ import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.tools.Data;
 
 
-public class Dialog_DeletingData extends DialogFragment {
+public class DeletingData extends DialogFragment {
 
-    public Dialog_DeletingData newInstance(Data data) {
-        Dialog_DeletingData deletingData = new Dialog_DeletingData();
+    public static DeletingData newInstance(Data data) {
+        DeletingData deletingData = new DeletingData();
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", data);
@@ -30,7 +30,7 @@ public class Dialog_DeletingData extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_popup_alert, null);
+        View view = inflater.inflate(R.layout.dialog_deleting, null);
 
         final Data data = (Data) getArguments().getSerializable("data");
         Button buttonYes = (Button) view.findViewById(R.id.dialog_button_yes);

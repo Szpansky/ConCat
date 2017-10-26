@@ -9,8 +9,8 @@ import android.widget.Button;
 import android.widget.SimpleCursorAdapter;
 
 import com.apps.szpansky.concat.R;
-import com.apps.szpansky.concat.fragments.Dialog_DeletingData;
-import com.apps.szpansky.concat.fragments.Dialog_PrintCatalogInfo;
+import com.apps.szpansky.concat.dialog_fragments.DeletingData;
+import com.apps.szpansky.concat.dialog_fragments.PrintDetail_Catalog;
 
 
 public class MyCursorAdapter extends SimpleCursorAdapter {
@@ -34,8 +34,8 @@ public class MyCursorAdapter extends SimpleCursorAdapter {
             public void onClick(View v) {
                 final long id = Long.parseLong(delete.getTag().toString());
                 data.setClickedItemId(id);
-                Dialog_DeletingData deletingData = new Dialog_DeletingData().newInstance(data);
-                deletingData.show(fragmentManager.beginTransaction(), "Dialog_Information");
+                DeletingData deletingData = DeletingData.newInstance(data);
+                deletingData.show(fragmentManager.beginTransaction(), "InformationCurrentCatalog");
             }
         });
 
@@ -46,8 +46,8 @@ public class MyCursorAdapter extends SimpleCursorAdapter {
                 @Override
                 public void onClick(View v) {
                     final long id = Long.parseLong(delete.getTag().toString());
-                    Dialog_PrintCatalogInfo printCatalog = new Dialog_PrintCatalogInfo().newInstance(id);
-                    printCatalog.show(fragmentManager.beginTransaction(), "Dialog_Information");
+                    PrintDetail_Catalog printCatalog = PrintDetail_Catalog.newInstance(id);
+                    printCatalog.show(fragmentManager.beginTransaction(), "InformationCurrentCatalog");
                 }
             });
         } catch (NullPointerException e) {

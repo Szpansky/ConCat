@@ -17,26 +17,13 @@
         android:theme="@style/DefaultTheme">
         <activity
             android:name=".MainActivity"
-            android:label="ConCat">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".for_pick.PickPerson"
-            android:label="@string/pick_person"
-            android:launchMode="singleTop"
-            android:parentActivityName=".main_browsing.ClientsActivity"
-            android:theme="@style/PickTheme"
-            tools:targetApi="jelly_bean" />
-        <activity
-            android:name=".for_pick.PickItem"
-            android:label="@string/pick_item"
-            android:launchMode="singleTop"
-            android:parentActivityName=".main_browsing.OrdersActivity"
-            android:theme="@style/PickTheme"
-            tools:targetApi="jelly_bean" />
         <activity
             android:name=".open_all.OpenAllPersonsActivity"
             android:label="@string/contacts"
@@ -59,28 +46,22 @@
             android:theme="@style/BrowsingTheme"
             tools:targetApi="jelly_bean" />
         <activity
-            android:name=".main_browsing.ClientsActivity"
-            android:label="@string/browsing"
-            android:launchMode="singleTop"
-            android:parentActivityName=".main_browsing.CatalogsActivity"
-            android:theme="@style/BrowsingTheme"
-            tools:targetApi="jelly_bean" />
-        <activity
-            android:name=".main_browsing.OrdersActivity"
-            android:label="@string/browsing"
-            android:launchMode="singleTop"
-            android:parentActivityName=".main_browsing.ClientsActivity"
-            android:theme="@style/BrowsingTheme"
-            tools:targetApi="jelly_bean" />
-        <activity
             android:name=".SettingsActivity"
-            tools:targetApi="jelly_bean"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            tools:targetApi="jelly_bean" />
         <activity
             android:name=".HelpAndOpinionActivity"
-            tools:targetApi="jelly_bean"
             android:label="@string/help_opinion"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".main_browsing.ClientsActivity"
+            android:parentActivityName=".main_browsing.CatalogsActivity" />
+        <activity
+            android:name=".main_browsing.OrdersActivity"
+            android:parentActivityName=".main_browsing.ClientsActivity"/>
+
+
     </application>
 
 </manifest>

@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
+    android:layout_gravity="center_vertical|center_horizontal|center"
     android:background="@android:color/transparent"
     android:backgroundTint="@android:color/transparent"
-    android:orientation="vertical">
+    android:foregroundGravity="center_vertical|center_horizontal|center"
+    android:gravity="center_vertical|center_horizontal|center"
+    android:orientation="vertical"
+    app:layout_anchorGravity="center_vertical|center_horizontal|center">
 
     <ProgressBar
         android:id="@+id/dialog_progresBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal|center"
         android:background="@android:color/transparent"
-        android:backgroundTint="@android:color/transparent" />
+        android:backgroundTint="@android:color/transparent"
+        android:foregroundGravity="center_vertical|center_horizontal|center" />
 </LinearLayout>

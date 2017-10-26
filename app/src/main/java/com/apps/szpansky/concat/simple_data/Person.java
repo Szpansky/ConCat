@@ -1,6 +1,7 @@
 package com.apps.szpansky.concat.simple_data;
 
 import android.database.Cursor;
+import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.tools.Data;
@@ -56,14 +57,14 @@ public class Person extends Data {
     public boolean deleteData(long personId) {
         long clientId;
         boolean flag = true;
-            do {
-                clientId = myDB.getLong(TABLE_CLIENTS, CLIENT_ID, CLIENT_PERSON_ID, personId);
-                if (clientId != -1) {
-                    if (!myDB.delete(TABLE_ORDERS, ORDER_CLIENT_ID, clientId)) flag = false;
-                    if (!myDB.delete(TABLE_CLIENTS, CLIENT_ID, clientId)) flag = false;
-                }
-            } while (clientId != -1);
-            if (!myDB.delete(TABLE_PERSONS, PERSON_ID, personId)) flag = false;
+        do {
+            clientId = myDB.getLong(TABLE_CLIENTS, CLIENT_ID, CLIENT_PERSON_ID, personId);
+            if (clientId != -1) {
+                if (!myDB.delete(TABLE_ORDERS, ORDER_CLIENT_ID, clientId)) flag = false;
+                if (!myDB.delete(TABLE_CLIENTS, CLIENT_ID, clientId)) flag = false;
+            }
+        } while (clientId != -1);
+        if (!myDB.delete(TABLE_PERSONS, PERSON_ID, personId)) flag = false;
         return flag;
     }
 
@@ -78,12 +79,12 @@ public class Person extends Data {
     public String[] getClickedItemData() {
         String where = PERSON_ID + " = " + clickedItemId;
         Cursor cursor = myDB.getRows(TABLE_PERSONS, where);
-        return new String[]{cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4)};
+        return new String[]{cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)};
     }
 
 
     @Override
     public String getTitle() {
-        return "";
+        return "Select Person";
     }
 }

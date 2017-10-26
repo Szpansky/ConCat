@@ -111,7 +111,7 @@
     <!-- -      <string name="ads_banner_main_id" translatable="false">ca-app-pub-9635712631261774/7604423447</string>              My ids 2     <!- -->
     <!-- -      <string name="ads_reward_main_id" translatable="false">ca-app-pub-9635712631261774/2174583266</string>              My ids 3     <!- -->
     <!-- -  <string name="ads_banner_add_catalog" translatable="false">ca-app-pub-9635712631261774/3467617080</string>              My ids 4     <!- -->
-     <!-- - <string name="ads_banner_add_item" translatable="false">ca-app-pub-9635712631261774/6264993205</string>                 My ids 5     <!- -->
+    <!-- - <string name="ads_banner_add_item" translatable="false">ca-app-pub-9635712631261774/6264993205</string>                 My ids 5     <!- -->
     <!-- -  <string name="ads_banner_add_person" translatable="false">ca-app-pub-9635712631261774/5000190606</string>               My ids 6     <!- -->
 
 
@@ -123,48 +123,48 @@
     <string name="ads_banner_add_person" translatable="false">ca-app-pub-9635712631261774/5000190606</string>
 
     <string name="count_of_order">Ordered</string>
-     <string name="pcs">" pcs"</string>
-     <string name="money_shortcut">" usd"</string>
-     <string name="clients_amount">Clients Amount</string>
-     <string name="daily_reward">Daily Reward</string>
-     <string name="calendar">Calendar</string>
-     <string name="catalog_on_line">Catalog On-Line</string>
-     <string name="start_date">Starting Date</string>
-     <string name="end_date">Ending Date</string>
-     <string name="help_and_opinion_title_1">Rate this app</string>
-     <string name="help_and_opinion_title_2">I don\'t see exported data …</string>
-     <string name="help_and_opinion_title_3">Where are the exported files ?</string>
-     <string name="help_and_opinion_title_4">I exported files but can\'t import …</string>
-     <string name="help_and_opinion_text_1">I\'d like to know what do you think about my app. If you have any suggestions or issues, please send me an email and I\'will try my best to help you!</string>
-     <string name="help_and_opinion_text_2">If you are using PC and USB cable, try to disconnect the cable and plug it in again, otherwise try to restart phone.</string>
-     <string name="help_and_opinion_text_3">If you got SD-card, the files are located in \"/ConCat\" folder on that SD, otherwise you need to use some File Browser and then go to folder named \"Internal storage\"</string>
-     <string name="help_and_opinion_text_4">If you want to import the file, you to need move exported files from \"/ConCat/Exported\" folder directly to \"/ConCat\" folder. Thanks to that you don\'t have to worry about overwriting files. ;)</string>
-     <string name="send_mail_to_developer">-> Send Mail to Developer</string>
-     <string name="help_and_opinion_title_5">How can I contact with the developer ?</string>
-     <string name="help_and_opinion_text_5">If you\'re having issues, have any suggestions or something else you can contact with me at concatapp@gmail.com</string>
-     <string name="rate_on_play_store">-> Rate on Play Store</string>
-     <string name="points">Points</string>
-     <string name="points_amount">Points amount</string>
-     <string name="help_and_opinion_title_6">Weird exported txt files</string>
-     <string name="help_and_opinion_text_6">Don\'t use standard notepad to open the file and use Word or notepad++ instead</string>
-     <string name="help_and_opinion_title_7">Can I use Excel with exported txt files ?</string>
-     <string name="help_and_opinion_text_7">Yes, you can use it. In Excel just open it as text file. Use UTF-8 as text encoding, leave checked default separators and then mark all column as text. I don\'t recommend use Excel for it.</string>
-     <string name="help_and_opinion_title_8">How now create txt from Excel ?</string>
-     <string name="help_and_opinion_text_8">Just choose \"save as\" option, select text file with separators. And that\'s all</string>
-     <string name="failed_to_load_ad">Try again tomorrow or check your internet connection</string>
-     <string name="contacts">Contacts</string>
+    <string name="pcs">" pcs"</string>
+    <string name="money_shortcut">" usd"</string>
+    <string name="clients_amount">Clients Amount</string>
+    <string name="daily_reward">Daily Reward</string>
+    <string name="calendar">Calendar</string>
+    <string name="catalog_on_line">Catalog On-Line</string>
+    <string name="start_date">Starting Date</string>
+    <string name="end_date">Ending Date</string>
+    <string name="help_and_opinion_title_1">Rate this app</string>
+    <string name="help_and_opinion_title_2">I don\'t see exported data …</string>
+    <string name="help_and_opinion_title_3">Where are the exported files ?</string>
+    <string name="help_and_opinion_title_4">I exported files but can\'t import …</string>
+    <string name="help_and_opinion_text_1">I\'d like to know what do you think about my app. If you have any suggestions or issues, please send me an email and I\'will try my best to help you!</string>
+    <string name="help_and_opinion_text_2">If you are using PC and USB cable, try to disconnect the cable and plug it in again, otherwise try to restart phone.</string>
+    <string name="help_and_opinion_text_3">If you got SD-card, the files are located in \"/ConCat\" folder on that SD, otherwise you need to use some File Browser and then go to folder named \"Internal storage\"</string>
+    <string name="help_and_opinion_text_4">If you want to import the file, you to need move exported files from \"/ConCat/Exported\" folder directly to \"/ConCat\" folder. Thanks to that you don\'t have to worry about overwriting files. ;)</string>
+    <string name="send_mail_to_developer">-> Send Mail to Developer</string>
+    <string name="help_and_opinion_title_5">How can I contact with the developer ?</string>
+    <string name="help_and_opinion_text_5">If you\'re having issues, have any suggestions or something else you can contact with me at concatapp@gmail.com</string>
+    <string name="rate_on_play_store">-> Rate on Play Store</string>
+    <string name="points">Points</string>
+    <string name="points_amount">Points amount</string>
+    <string name="help_and_opinion_title_6">Weird exported txt files</string>
+    <string name="help_and_opinion_text_6">Don\'t use standard notepad to open the file and use Word or notepad++ instead</string>
+    <string name="help_and_opinion_title_7">Can I use Excel with exported txt files ?</string>
+    <string name="help_and_opinion_text_7">Yes, you can use it. In Excel just open it as text file. Use UTF-8 as text encoding, leave checked default separators and then mark all column as text. I don\'t recommend use Excel for it.</string>
+    <string name="help_and_opinion_title_8">How now create txt from Excel ?</string>
+    <string name="help_and_opinion_text_8">Just choose \"save as\" option, select text file with separators. And that\'s all</string>
+    <string name="failed_to_load_ad">Try again tomorrow or check your internet connection</string>
+    <string name="contacts">Contacts</string>
 
-     <string name="db_status_payed">Paid</string>
-     <string name="db_status_not_payed">Not Paid</string>
-     <string name="db_status_ready">Delivered</string>
-     <string name="current_catalog">Current Catalog</string>
-     <string name="count_of_catalogs">Count of Catalogs</string>
-     <string name="count_of_clients">Count of Clients</string>
-     <string name="back">Back</string>
-     <string name="catalogs_amount">Catalogs Amounts</string>
-     <string name="help_and_opinion_title_9">How I can donate to the developer?</string>
-     <string name="help_and_opinion_text_9">If you would like to send donation to the developer, you can do this by visiting web site:</string>
-     <string name="visit_website">-> Open Website</string>
+    <string name="db_status_payed">Paid</string>
+    <string name="db_status_not_payed">Not Paid</string>
+    <string name="db_status_ready">Delivered</string>
+    <string name="current_catalog">Current Catalog</string>
+    <string name="count_of_catalogs">Count of Catalogs</string>
+    <string name="count_of_clients">Count of Clients</string>
+    <string name="back">Back</string>
+    <string name="catalogs_amount">Catalogs Amounts</string>
+    <string name="help_and_opinion_title_9">How I can donate to the developer?</string>
+    <string name="help_and_opinion_text_9">If you would like to send donation to the developer, you can do this by visiting web site:</string>
+    <string name="visit_website">-> Open Website</string>
     <string name="ExportDB">Save Database</string>
     <string name="help_and_opinion_title_10">There isn\'t any folder named ConCat …</string>
     <string name="help_and_opinion_text_10">Just export the selected item or entire database once, and the folder will be created itself.</string>
@@ -191,7 +191,7 @@
     <string name="browsing_color_scheme">Browsing color scheme</string>
     <string name="pick_color">Pick color</string>
     <string name="pick_color_scheme">Pick color scheme</string>
-    <string name="open_all_colors" >Contacts/Items colors</string>
+    <string name="open_all_colors">Contacts/Items colors</string>
     <string name="open_all_color_scheme">Contacts/Items scheme</string>
 
     <string name="click_to_see">Click to see</string>
@@ -212,5 +212,6 @@
     <string name="item_name">Name</string>
     <string name="click_to_copy">Click to copy</string>
     <string name="error_notify_duplicate">That record already exist !</string>
+    <string name="empty_list_add_new">Empty list, add new</string>
 
 </resources>

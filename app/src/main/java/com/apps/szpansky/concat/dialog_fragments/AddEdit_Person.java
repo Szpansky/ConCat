@@ -1,4 +1,4 @@
-package com.apps.szpansky.concat.fragments;
+package com.apps.szpansky.concat.dialog_fragments;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -25,7 +25,7 @@ import com.apps.szpansky.concat.tools.Database;
 import static android.app.Activity.RESULT_OK;
 
 
-public class Dialog_AddEditPerson extends DialogFragment {
+public class AddEdit_Person extends DialogFragment {
 
     Person person = new Person();
     boolean isEdit;
@@ -34,27 +34,27 @@ public class Dialog_AddEditPerson extends DialogFragment {
     private final int RESULT_PICK_CONTACT = 12;
 
 
-    public static Dialog_AddEditPerson newInstance(long myIndex) {
-        Dialog_AddEditPerson dialog_addEditPerson = new Dialog_AddEditPerson();
+    public static AddEdit_Person newInstance(long myIndex) {
+        AddEdit_Person _addEditPerson = new AddEdit_Person();
 
         Bundle bundle = new Bundle();
         bundle.putLong("myIndex", myIndex);
         bundle.putBoolean("isEdit", true);
-        dialog_addEditPerson.setArguments(bundle);
-        dialog_addEditPerson.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+        _addEditPerson.setArguments(bundle);
+        _addEditPerson.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
 
-        return dialog_addEditPerson;
+        return _addEditPerson;
     }
 
-    public static Dialog_AddEditPerson newInstance() {
-        Dialog_AddEditPerson dialog_addEditPerson = new Dialog_AddEditPerson();
+    public static AddEdit_Person newInstance() {
+        AddEdit_Person _addEditPerson = new AddEdit_Person();
 
         Bundle bundle = new Bundle();
         bundle.putBoolean("isEdit", false);
-        dialog_addEditPerson.setArguments(bundle);
-        dialog_addEditPerson.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+        _addEditPerson.setArguments(bundle);
+        _addEditPerson.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
 
-        return dialog_addEditPerson;
+        return _addEditPerson;
     }
 
 

@@ -1,13 +1,15 @@
-package com.apps.szpansky.concat.fragments;
+package com.apps.szpansky.concat.dialog_fragments;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +23,7 @@ import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleFunctions;
 
 
-public class Dialog_AddEditCatalog extends DialogFragment implements DialogInterface.OnDismissListener {
+public class AddEdit_Catalog extends DialogFragment implements DialogInterface.OnDismissListener {
 
 
     EditText catalogNumber, catalogDateStart, catalogDateEnd;
@@ -29,8 +31,8 @@ public class Dialog_AddEditCatalog extends DialogFragment implements DialogInter
     boolean isEdit;
     Catalog catalog = new Catalog();
 
-    public static Dialog_AddEditCatalog newInstance(long myIndex) {
-        Dialog_AddEditCatalog addEditCatalog = new Dialog_AddEditCatalog();
+    public static AddEdit_Catalog newInstance(long myIndex) {
+        AddEdit_Catalog addEditCatalog = new AddEdit_Catalog();
 
         Bundle bundle = new Bundle();
         bundle.putBoolean("isEdit", true);
@@ -42,8 +44,8 @@ public class Dialog_AddEditCatalog extends DialogFragment implements DialogInter
     }
 
 
-    public static Dialog_AddEditCatalog newInstance() {
-        Dialog_AddEditCatalog addEditCatalog = new Dialog_AddEditCatalog();
+    public static AddEdit_Catalog newInstance() {
+        AddEdit_Catalog addEditCatalog = new AddEdit_Catalog();
 
         Bundle bundle = new Bundle();
         bundle.putBoolean("isEdit", false);

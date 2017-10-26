@@ -1,131 +1,75 @@
 package com.apps.szpansky.concat.main_browsing;
 
 
-import android.content.Intent;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.apps.szpansky.concat.for_pick.PickPerson;
 import com.apps.szpansky.concat.R;
+import com.apps.szpansky.concat.fragments.OpenClients;
+import com.apps.szpansky.concat.fragments.SelectPerson;
 import com.apps.szpansky.concat.simple_data.Client;
-import com.apps.szpansky.concat.simple_data.Order;
+import com.apps.szpansky.concat.simple_data.Person;
 import com.apps.szpansky.concat.tools.Database;
-import com.apps.szpansky.concat.tools.SimpleActivity;
+import com.apps.szpansky.concat.tools.SimpleFunctions;
 
 
-public class ClientsActivity extends SimpleActivity {
+public class ClientsActivity extends AppCompatActivity implements DialogInterface.OnDismissListener, SelectPerson.ClickedPerson {
 
-    private final int BACK_CODE = 1;
-
-    public ClientsActivity() {
-        super(new Client(), "list_preference_browsing_colors");
-    }
+    private static String styleKey = "list_preference_browsing_colors";
+    private OpenClients clientsFragment;
+    private SelectPerson personsFragment;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.setTitle(data.getTitle());
-        addButton.setImageDrawable(getResources().getDrawable(R.mipmap.ic_playlist_add_white_24dp));
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        setTheme(SimpleFunctions.setStyle(styleKey, sharedPreferences));
 
-        listViewItemClick();
+        setContentView(R.layout.simple_sliding_pane_layout);
+
+        personsFragment = SelectPerson.newInstance(new Person(), "list_preference_picking_colors");
+        FragmentTransaction manager2 = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_second, personsFragment);
+        manager2.commit();
+
+        clientsFragment = OpenClients.newInstance(new Client(), styleKey);
+        FragmentTransaction manager = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_first, clientsFragment);
+        manager.commit();
     }
 
 
     @Override
-    protected void onAddButtonClick() {
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ClientsActivity.this, PickPerson.class);
-                startActivityForResult(intent, BACK_CODE);
-            }
-        });
+    public void onDismiss(DialogInterface dialog) {
+        clientsFragment.refreshListView();
+        personsFragment.refreshListView();
     }
 
 
-    private void dialogOnClientClick() {
-        final AlertDialog builder = new AlertDialog.Builder(this).create();
-        final View dialogView = getLayoutInflater().inflate(R.layout.dialog_on_client_click, null);
-        Button saveCatalog = (Button) dialogView.findViewById(R.id.buttonOrderSave);
+    @Override
+    public void onPersonPick(Long id) {
+        Client client = new Client();
 
-        saveCatalog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String status;
-                RadioGroup radioGroup = (RadioGroup) dialogView.findViewById(R.id.radioGroupOrder);
-                switch (radioGroup.getCheckedRadioButtonId()) {
-                    case (R.id.radioButtonOrderNotPaid):
-                        status = getString(R.string.db_status_not_payed);
-                        break;
-                    case (R.id.radioButtonOrderPaid):
-                        status = getString(R.string.db_status_payed);
-                        break;
-                    case (R.id.radioButtonOrderReady):
-                        status = getString(R.string.db_status_ready);
-                        break;
-                    default:
-                        status = getString(R.string.db_status_not_payed);
-                        break;
-                }
-                String[] keys = new String[]{Database.CLIENT_STATUS};
-                String[] value = new String[]{status};
-                data.updateData(value, keys);
-                refreshListView();
-                builder.dismiss();
-            }
-        });
-        builder.setView(dialogView);
-        builder.show();
-    }
+        client.setDatabase(new Database(this));         //TODO throwexeption jezeli nei ustawimy bazydanych
 
+        Long catalogId = Client.clickedCatalogId;
 
-    private void listViewItemClick() {
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                data.setClickedItemId(id);
-                dialogOnClientClick();
-                return true;
-            }
-        });
+        String[] value = new String[]{catalogId.toString(), id.toString(), getString(R.string.db_status_not_payed)};
+        String[] keys = new String[]{Database.CLIENT_CATALOG_ID, Database.CLIENT_PERSON_ID, Database.CLIENT_STATUS};
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                data.setClickedItemId(id);
-                Intent intent = new Intent(ClientsActivity.this, OrdersActivity.class);
-                Order.clickedClientId = id;
-                startActivity(intent);
-            }
-        });
-    }
-
-
-    public void onActivityResult(int requestCode, int resultCode, Intent intentData) {
-        super.onActivityResult(requestCode, resultCode, intentData);
-        if (requestCode == BACK_CODE) {
-            if (resultCode == RESULT_OK) {
-
-                Long personId = intentData.getLongExtra("personId", 0);
-                Long catalogId = Client.clickedCatalogId;
-
-                String[] value = new String[]{catalogId.toString(), personId.toString(), getString(R.string.db_status_not_payed)};
-                String[] keys = new String[]{Database.CLIENT_CATALOG_ID, Database.CLIENT_PERSON_ID, Database.CLIENT_STATUS};
-
-                if (data.insertData(value, keys)) {
-                    Toast.makeText(this, R.string.add_client_notify, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this,R.string.error_notify_duplicate, Toast.LENGTH_SHORT).show();
-                }
-                refreshListView();
-            }
+        if (client.insertData(value, keys)) {
+            Toast.makeText(this, R.string.add_client_notify, Toast.LENGTH_SHORT).show();
+            DrawerLayout drawerLayout = (DrawerLayout) getWindow().findViewById(R.id.drawerLayout);
+            drawerLayout.closeDrawers();
+        } else {
+            Toast.makeText(this, R.string.error_notify_duplicate, Toast.LENGTH_SHORT).show();
         }
+        clientsFragment.refreshListView();
     }
 }

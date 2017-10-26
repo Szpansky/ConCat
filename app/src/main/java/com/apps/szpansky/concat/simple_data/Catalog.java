@@ -18,7 +18,7 @@ public class Catalog extends Data {
 
 
     @Override
-    public Cursor getCursor( ) {
+    public Cursor getCursor() {
         return myDB.getCatalogs(this.filter);
     }
 
@@ -53,7 +53,8 @@ public class Catalog extends Data {
         boolean flag = true;
         do {
             clientId = myDB.getLong(TABLE_CLIENTS, CLIENT_ID, CLIENT_CATALOG_ID, catalogId);
-            if (clientId != -1) ;{
+            if (clientId != -1) ;
+            {
                 if (!myDB.delete(TABLE_ORDERS, ORDER_CLIENT_ID, clientId)) flag = false;
                 if (!myDB.delete(TABLE_CLIENTS, CLIENT_ID, clientId)) flag = false;
             }
@@ -74,13 +75,7 @@ public class Catalog extends Data {
     public String[] getClickedItemData() {
         String where = CATALOG_ID + " = " + clickedItemId;
         Cursor cursor = myDB.getRows(TABLE_CATALOGS, where);
-        return new String[]{cursor.getString(1),cursor.getString(2),cursor.getString(3)};
-    }
-
-
-    @Override
-    public String getTitle() {
-        return "";
+        return new String[]{cursor.getString(1), cursor.getString(2), cursor.getString(3)};
     }
 
 

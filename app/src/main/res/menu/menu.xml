@@ -11,7 +11,7 @@
                 android:icon="@mipmap/ic_person_black_24dp"
                 android:title="@string/login" />
             <item
-                android:id="@+id/menuMyAccount"
+                android:id="@+id/menuOrderInfo"
                 android:icon="@mipmap/ic_info_black_24dp"
                 android:title="@string/orders_details" />
         </menu>

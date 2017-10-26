@@ -1,4 +1,4 @@
-package com.apps.szpansky.concat.fragments;
+package com.apps.szpansky.concat.dialog_fragments;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -20,7 +20,7 @@ import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleFunctions;
 
 
-public class Dialog_AddEditItem extends DialogFragment {
+public class AddEdit_Item extends DialogFragment {
 
     private EditText nr, price, name;
     private String discount = "";
@@ -33,28 +33,28 @@ public class Dialog_AddEditItem extends DialogFragment {
     boolean isEdit;
 
 
-    public static Dialog_AddEditItem newInstance(long myIndex) {
-        Dialog_AddEditItem dialog_addEditItem = new Dialog_AddEditItem();
+    public static AddEdit_Item newInstance(long myIndex) {
+        AddEdit_Item _addEditItem = new AddEdit_Item();
 
         //passing args
         Bundle args = new Bundle();
         args.putLong("myIndex", myIndex);
         args.putBoolean("isEdit", true);
-        dialog_addEditItem.setArguments(args);
-        dialog_addEditItem.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
-        return dialog_addEditItem;
+        _addEditItem.setArguments(args);
+        _addEditItem.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+        return _addEditItem;
     }
 
 
-    public static Dialog_AddEditItem newInstance() {
-        Dialog_AddEditItem dialog_addEditItem = new Dialog_AddEditItem();
+    public static AddEdit_Item newInstance() {
+        AddEdit_Item _addEditItem = new AddEdit_Item();
 
         Bundle args = new Bundle();
         args.putBoolean("isEdit", false);
-        dialog_addEditItem.setArguments(args);
-        dialog_addEditItem.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+        _addEditItem.setArguments(args);
+        _addEditItem.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
 
-        return dialog_addEditItem;
+        return _addEditItem;
     }
 
 

@@ -1,4 +1,4 @@
-package com.apps.szpansky.concat.fragments;
+package com.apps.szpansky.concat.dialog_fragments;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -15,12 +15,12 @@ import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.simple_data.Order;
 
 
-public class Dialog_AddItemCount extends DialogFragment {
+public class SelectCount_Item extends DialogFragment {
 
     Integer count = 0;
 
-    public static Dialog_AddItemCount newInstance(Order order) {
-        Dialog_AddItemCount addItemCount = new Dialog_AddItemCount();
+    public static SelectCount_Item newInstance(Order order) {
+        SelectCount_Item addItemCount = new SelectCount_Item();
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("order", order);
@@ -70,7 +70,7 @@ public class Dialog_AddItemCount extends DialogFragment {
             @Override
             public void onClick(View v) {
                 String itemCount = textCount.getText().toString();
-                if (itemCount.equals("") || count < 1 ) count = 0;
+                if (itemCount.equals("") || count < 1) count = 0;
                 else count = Integer.parseInt(itemCount);
                 String[] value = {
                         getCurrentData[2],

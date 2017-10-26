@@ -12,7 +12,7 @@ public abstract class Data implements DataInterface, Serializable {
         return myDB;
     }
 
-    protected Database myDB;
+    protected transient Database myDB;              //database is not serializable
 
     public Data() {
         this.currentTable = getCurrentTable();

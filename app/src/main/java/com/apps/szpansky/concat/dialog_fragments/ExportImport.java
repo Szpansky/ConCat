@@ -1,4 +1,4 @@
-package com.apps.szpansky.concat.fragments;
+package com.apps.szpansky.concat.dialog_fragments;
 
 import android.app.DialogFragment;
 import android.os.AsyncTask;
@@ -17,7 +17,7 @@ import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.FileManagement;
 
 
-public class Dialog_ExportImport extends DialogFragment {
+public class ExportImport extends DialogFragment {
 
     private String tableName = Database.TABLE_ITEMS;    //default exported/imported content
     private String fileName = "Items.txt";
@@ -26,11 +26,11 @@ public class Dialog_ExportImport extends DialogFragment {
     final boolean EXPORT = true;
     final boolean IMPORT = false;
     String appName;
-    Dialog_Loading loading;
+    Loading loading;
 
 
-    public Dialog_ExportImport newInstance() {
-        Dialog_ExportImport exportImport = new Dialog_ExportImport();
+    public static ExportImport newInstance() {
+        ExportImport exportImport = new ExportImport();
         exportImport.setStyle(STYLE_NO_TITLE, 0);
 
         return exportImport;
@@ -41,7 +41,7 @@ public class Dialog_ExportImport extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.dialog_export_import, null);
         appName = getActivity().getBaseContext().getResources().getString(R.string.app_name);
-        loading = new Dialog_Loading();
+        loading = Loading.newInstance();
         myDB = new Database(getActivity());
         Button importDBButton = (Button) view.findViewById(R.id.dialog_ie_button_db_import);
         Button exportDBButton = (Button) view.findViewById(R.id.dialog_ie_button_db_export);
@@ -96,8 +96,7 @@ public class Dialog_ExportImport extends DialogFragment {
     }
 
 
-
-    private class AsyncImportDB extends AsyncTask<Void, Void, Void>{
+    private class AsyncImportDB extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
             if (FileManagement.importExportDB(IMPORT, getActivity().getPackageName(), appName)) {
@@ -113,7 +112,7 @@ public class Dialog_ExportImport extends DialogFragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            loading.show(getFragmentManager().beginTransaction(), "Dialog_Loading");
+            loading.show(getFragmentManager().beginTransaction(), "Loading");
         }
 
         @Override
@@ -124,8 +123,7 @@ public class Dialog_ExportImport extends DialogFragment {
     }
 
 
-
-    private class AsyncExportDB extends AsyncTask<Void, Void, Void>{
+    private class AsyncExportDB extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
             if (FileManagement.importExportDB(EXPORT, getActivity().getPackageName(), appName)) {
@@ -141,7 +139,7 @@ public class Dialog_ExportImport extends DialogFragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            loading.show(getFragmentManager().beginTransaction(), "Dialog_Loading");
+            loading.show(getFragmentManager().beginTransaction(), "Loading");
         }
 
         @Override
@@ -152,8 +150,7 @@ public class Dialog_ExportImport extends DialogFragment {
     }
 
 
-
-    private class AsyncImportTXT extends AsyncTask<Void, Void, Void>{
+    private class AsyncImportTXT extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
             if (FileManagement.importTXT(fileName, tableName, appName, myDB)) {
@@ -169,7 +166,7 @@ public class Dialog_ExportImport extends DialogFragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            loading.show(getFragmentManager().beginTransaction(), "Dialog_Loading");
+            loading.show(getFragmentManager().beginTransaction(), "Loading");
         }
 
         @Override
@@ -180,8 +177,7 @@ public class Dialog_ExportImport extends DialogFragment {
     }
 
 
-
-    private class AsyncExportTXT extends AsyncTask<Void, Void, Void>{
+    private class AsyncExportTXT extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
             if (FileManagement.generateTXT(fileName, tableName, appName, myDB)) {
@@ -197,7 +193,7 @@ public class Dialog_ExportImport extends DialogFragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            loading.show(getFragmentManager().beginTransaction(), "Dialog_Loading");
+            loading.show(getFragmentManager().beginTransaction(), "Loading");
         }
 
         @Override

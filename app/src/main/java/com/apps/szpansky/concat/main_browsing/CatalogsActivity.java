@@ -3,11 +3,12 @@ package com.apps.szpansky.concat.main_browsing;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.View;
 import android.widget.AdapterView;
 
 import com.apps.szpansky.concat.R;
-import com.apps.szpansky.concat.fragments.Dialog_AddEditCatalog;
+import com.apps.szpansky.concat.dialog_fragments.AddEdit_Catalog;
 import com.apps.szpansky.concat.simple_data.Catalog;
 import com.apps.szpansky.concat.simple_data.Client;
 import com.apps.szpansky.concat.tools.SimpleActivity;
@@ -24,7 +25,7 @@ public class CatalogsActivity extends SimpleActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addButton.setImageDrawable(getResources().getDrawable(R.mipmap.ic_fiber_new_white_24dp));
+        addButton.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_fiber_new_white_24dp, null));
         listViewItemClick();
     }
 
@@ -40,7 +41,7 @@ public class CatalogsActivity extends SimpleActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog_AddEditCatalog addEditCatalog = new Dialog_AddEditCatalog().newInstance();
+                AddEdit_Catalog addEditCatalog = AddEdit_Catalog.newInstance();
                 addEditCatalog.show(getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
             }
         });
@@ -52,7 +53,7 @@ public class CatalogsActivity extends SimpleActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 data.setClickedItemId(id);
-                Dialog_AddEditCatalog addEditCatalog = new Dialog_AddEditCatalog().newInstance(id);
+                AddEdit_Catalog addEditCatalog = AddEdit_Catalog.newInstance(id);
                 addEditCatalog.show(getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
                 return true;
             }
@@ -62,8 +63,8 @@ public class CatalogsActivity extends SimpleActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 data.setClickedItemId(id);
+                Client.clickedCatalogId = id;         //to know which catalog is opened in next activity, that value is static and the same in every copy of that object
                 Intent intent = new Intent(CatalogsActivity.this, ClientsActivity.class);
-                Client.clickedCatalogId = id;         //to know which catalog is opened in next activity
                 startActivity(intent);
             }
         });
