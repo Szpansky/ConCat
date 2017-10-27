@@ -112,6 +112,7 @@ public abstract class SimpleFragment extends Fragment {
         item = toolbar.getMenu().findItem(R.id.menuSearch);
         searchView = (SearchView) item.getActionView();
         searchView.setQueryHint(getString(R.string.search_hint));
+        searchView.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.white));
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

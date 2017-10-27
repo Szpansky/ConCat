@@ -8,6 +8,9 @@ public abstract class Data implements DataInterface, Serializable {
     protected long clickedItemId = 0;
     protected String currentTable;
 
+
+    private String title = "";
+
     public Database getMyDB() {
         return myDB;
     }
@@ -39,7 +42,11 @@ public abstract class Data implements DataInterface, Serializable {
     }
 
     public String getTitle() {
-        return "";
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
 }

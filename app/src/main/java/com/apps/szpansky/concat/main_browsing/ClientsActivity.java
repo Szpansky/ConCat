@@ -37,7 +37,7 @@ public class ClientsActivity extends AppCompatActivity implements DialogInterfac
 
         setContentView(R.layout.simple_sliding_pane_layout);
 
-        pickPersonFragment = PickPerson.newInstance(new Person_InPickList(), "list_preference_picking_colors");
+        pickPersonFragment = PickPerson.newInstance(new Person_InPickList(getResources().getString(R.string.pick_person)), "list_preference_picking_colors");
         FragmentTransaction manager2 = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_second, pickPersonFragment);
         manager2.commit();
 

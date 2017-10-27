@@ -50,6 +50,7 @@
     <color name="greyPrimary_light">#CFD8DC</color>
     <color name="greyAccent">#9E9E9E</color>
 
+    <color name="white">#ffffffff</color>
     <color name="lightBackground">#ffeeeeee</color>
     <color name="background">#ffcccccc</color>
     <color name="darkBackground">#ff777777</color>

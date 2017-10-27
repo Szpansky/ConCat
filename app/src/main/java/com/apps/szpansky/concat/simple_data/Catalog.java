@@ -10,6 +10,17 @@ import static com.apps.szpansky.concat.tools.Database.*;
 
 public class Catalog extends Data {
 
+    public Catalog(String title) {
+        super();
+        setTitle(title);
+    }
+
+
+    public Catalog() {
+        super();
+    }
+
+
     @Override
     public int getItemLayoutResourceId() {
 

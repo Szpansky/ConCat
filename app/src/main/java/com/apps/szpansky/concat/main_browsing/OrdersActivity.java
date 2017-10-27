@@ -37,7 +37,7 @@ public class OrdersActivity extends AppCompatActivity implements DialogInterface
 
         setContentView(R.layout.simple_sliding_pane_layout);
 
-        pickItemFragment = PickItem.newInstance(new Item_InPickList(), "list_preference_picking_colors");
+        pickItemFragment = PickItem.newInstance(new Item_InPickList(getResources().getString(R.string.pick_item)), "list_preference_picking_colors");
         FragmentTransaction manager2 = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_second, pickItemFragment);
         manager2.commit();
 

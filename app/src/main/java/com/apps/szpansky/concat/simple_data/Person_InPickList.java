@@ -14,6 +14,16 @@ public class Person_InPickList extends Person {
     }
 
 
+    public Person_InPickList() {
+        super();
+    }
+
+    public Person_InPickList(String title) {
+        super();
+        setTitle(title);
+    }
+
+
     @Override
     public int[] getToViewIDs() {
 

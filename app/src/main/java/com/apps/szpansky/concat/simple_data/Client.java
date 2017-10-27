@@ -1,6 +1,6 @@
 package com.apps.szpansky.concat.simple_data;
 
-import android.content.ContentValues;
+
 import android.database.Cursor;
 
 import com.apps.szpansky.concat.R;
@@ -11,7 +11,6 @@ import static com.apps.szpansky.concat.tools.Database.*;
 
 
 public class Client extends Data {
-
 
     public static long clickedCatalogId;
 

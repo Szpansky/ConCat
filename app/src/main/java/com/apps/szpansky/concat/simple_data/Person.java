@@ -11,7 +11,17 @@ import static com.apps.szpansky.concat.tools.Database.*;
 
 public class Person extends Data {
 
-    public static int clickedPersonId;
+    //public static int clickedPersonId;
+
+    public Person() {
+        super();
+    }
+
+
+    public Person(String title) {
+        super();
+        setTitle(title);
+    }
 
 
     @Override
@@ -82,8 +92,4 @@ public class Person extends Data {
     }
 
 
-    @Override
-    public String getTitle() {
-        return "Select Person";
-    }
 }

@@ -15,8 +15,14 @@ import static com.apps.szpansky.concat.tools.Database.*;
 public class Item extends Data {
 
 
+    public Item(String title) {
+        super();
+        setTitle(title);
+    }
+
+
     public Item() {
-        currentTable = TABLE_ITEMS;
+        super();
     }
 
 
@@ -80,8 +86,4 @@ public class Item extends Data {
     }
 
 
-    @Override
-    public String getTitle() {
-        return "Select Item";
-    }
 }

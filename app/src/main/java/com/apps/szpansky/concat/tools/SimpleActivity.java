@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -86,6 +87,7 @@ public abstract class SimpleActivity extends AppCompatActivity implements Dialog
         MenuItem item = menu.findItem(R.id.menuSearch);
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setQueryHint(getString(R.string.search_hint));
+        searchView.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

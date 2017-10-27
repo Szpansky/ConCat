@@ -30,7 +30,7 @@ public class CatalogsActivity extends AppCompatActivity implements DialogInterfa
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
-        openCatalogs = OpenCatalogs.newInstance(new Catalog(), styleKey);
+        openCatalogs = OpenCatalogs.newInstance(new Catalog(getTitle().toString()), styleKey);
         FragmentTransaction manager2 = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_first, openCatalogs);
         manager2.commit();
 
