@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -37,6 +38,7 @@ public abstract class SimpleActivity extends AppCompatActivity implements Dialog
     private String styleKey;
     FragmentManager fragmentManager;
     TextView emptyList;
+    ImageView catPointing;
 
     protected abstract void onAddButtonClick();
 
@@ -67,6 +69,7 @@ public abstract class SimpleActivity extends AppCompatActivity implements Dialog
 
         setToolBar();
         emptyList = (TextView) findViewById(R.id.empty_textView);
+        catPointing = (ImageView) findViewById(R.id.cat_pointing);
         listView = setListView();
         refreshListView();
 
@@ -136,8 +139,10 @@ public abstract class SimpleActivity extends AppCompatActivity implements Dialog
         }
         if (listView.getCount() <= 0) {
             emptyList.setVisibility(View.VISIBLE);
+            catPointing.setVisibility(View.VISIBLE);
         } else {
             emptyList.setVisibility(View.GONE);
+            catPointing.setVisibility(View.GONE);
         }
     }
 

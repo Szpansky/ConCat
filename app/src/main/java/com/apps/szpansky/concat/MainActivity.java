@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         setTheme(SimpleFunctions.setStyle(styleKey, sharedPreferences));
         setContentView(R.layout.activity_main);
 
-        //setAds();
+        setAds();
         onStartClick();
         onDailyRewardClick();
 
@@ -361,6 +361,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         snackbarInfo.show();
         addPoints(1);
         updateUserInfo();*/
+        if (loading.isVisible()) loading.dismiss();
     }
 
 

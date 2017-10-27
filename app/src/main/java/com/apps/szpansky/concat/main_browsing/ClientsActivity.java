@@ -13,18 +13,19 @@ import android.widget.Toast;
 
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.fragments.OpenClients;
-import com.apps.szpansky.concat.fragments.SelectPerson;
+import com.apps.szpansky.concat.fragments.PickPerson;
 import com.apps.szpansky.concat.simple_data.Client;
 import com.apps.szpansky.concat.simple_data.Person;
+import com.apps.szpansky.concat.simple_data.Person_InPickList;
 import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleFunctions;
 
 
-public class ClientsActivity extends AppCompatActivity implements DialogInterface.OnDismissListener, SelectPerson.ClickedPerson {
+public class ClientsActivity extends AppCompatActivity implements DialogInterface.OnDismissListener, PickPerson.ClickedPerson {
 
     private static String styleKey = "list_preference_browsing_colors";
     private OpenClients clientsFragment;
-    private SelectPerson personsFragment;
+    private PickPerson pickPersonFragment;
 
 
     @Override
@@ -36,8 +37,8 @@ public class ClientsActivity extends AppCompatActivity implements DialogInterfac
 
         setContentView(R.layout.simple_sliding_pane_layout);
 
-        personsFragment = SelectPerson.newInstance(new Person(), "list_preference_picking_colors");
-        FragmentTransaction manager2 = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_second, personsFragment);
+        pickPersonFragment = PickPerson.newInstance(new Person_InPickList(), "list_preference_picking_colors");
+        FragmentTransaction manager2 = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_second, pickPersonFragment);
         manager2.commit();
 
         clientsFragment = OpenClients.newInstance(new Client(), styleKey);
@@ -49,7 +50,7 @@ public class ClientsActivity extends AppCompatActivity implements DialogInterfac
     @Override
     public void onDismiss(DialogInterface dialog) {
         clientsFragment.refreshListView();
-        personsFragment.refreshListView();
+        pickPersonFragment.refreshListView();
     }
 
 

@@ -1,7 +1,6 @@
 package com.apps.szpansky.concat.simple_data;
 
 import android.database.Cursor;
-import android.support.v7.graphics.drawable.DrawerArrowDrawable;
 
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.tools.Data;

@@ -22,7 +22,6 @@ public class Item extends Data {
 
     @Override
     public int getItemLayoutResourceId() {
-
         return (R.layout.item_item_view);
     }
 

@@ -13,7 +13,7 @@ import com.apps.szpansky.concat.tools.Data;
 import com.apps.szpansky.concat.tools.SimpleFragment;
 
 
-public class SelectPerson extends SimpleFragment {
+public class PickPerson extends SimpleFragment {
 
 
     ClickedPerson clickedPerson;
@@ -31,15 +31,15 @@ public class SelectPerson extends SimpleFragment {
     }
 
 
-    public static SelectPerson newInstance(Data data, String styleKey) {
-        SelectPerson selectPerson = new SelectPerson();
+    public static PickPerson newInstance(Data data, String styleKey) {
+        PickPerson pickPerson = new PickPerson();
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", data);
         bundle.putString("styleKey", styleKey);
 
-        selectPerson.setArguments(bundle);
-        return selectPerson;
+        pickPerson.setArguments(bundle);
+        return pickPerson;
     }
 
 

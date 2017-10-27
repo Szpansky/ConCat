@@ -1,73 +1,51 @@
 package com.apps.szpansky.concat.main_browsing;
 
-
-import android.content.Intent;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v4.content.res.ResourcesCompat;
-import android.view.View;
-import android.widget.AdapterView;
 
 import com.apps.szpansky.concat.R;
-import com.apps.szpansky.concat.dialog_fragments.AddEdit_Catalog;
+import com.apps.szpansky.concat.fragments.OpenCatalogs;
 import com.apps.szpansky.concat.simple_data.Catalog;
-import com.apps.szpansky.concat.simple_data.Client;
-import com.apps.szpansky.concat.tools.SimpleActivity;
+import com.apps.szpansky.concat.tools.SimpleFunctions;
 
+public class CatalogsActivity extends AppCompatActivity implements DialogInterface.OnDismissListener {
 
-public class CatalogsActivity extends SimpleActivity {
-
-
-    public CatalogsActivity() {
-        super(new Catalog(), "list_preference_browsing_colors");
-    }
-
+    private static String styleKey = "list_preference_browsing_colors";
+    private OpenCatalogs openCatalogs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addButton.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_fiber_new_white_24dp, null));
-        listViewItemClick();
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        setTheme(SimpleFunctions.setStyle(styleKey, sharedPreferences));
+
+        setContentView(R.layout.simple_sliding_pane_layout);
+
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+        openCatalogs = OpenCatalogs.newInstance(new Catalog(), styleKey);
+        FragmentTransaction manager2 = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_first, openCatalogs);
+        manager2.commit();
+
     }
 
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        openCatalogs.refreshListView();
+
+    }
 
     @Override
     public void onBackPressed() {
         onNavigateUp();
-    }
-
-
-    @Override
-    protected void onAddButtonClick() {
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddEdit_Catalog addEditCatalog = AddEdit_Catalog.newInstance();
-                addEditCatalog.show(getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
-            }
-        });
-    }
-
-
-    private void listViewItemClick() {
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                data.setClickedItemId(id);
-                AddEdit_Catalog addEditCatalog = AddEdit_Catalog.newInstance(id);
-                addEditCatalog.show(getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
-                return true;
-            }
-        });
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                data.setClickedItemId(id);
-                Client.clickedCatalogId = id;         //to know which catalog is opened in next activity, that value is static and the same in every copy of that object
-                Intent intent = new Intent(CatalogsActivity.this, ClientsActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
 }

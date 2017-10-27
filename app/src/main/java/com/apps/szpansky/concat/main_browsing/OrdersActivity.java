@@ -13,18 +13,19 @@ import android.widget.Toast;
 
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.fragments.OpenOrders;
-import com.apps.szpansky.concat.fragments.SelectItem;
+import com.apps.szpansky.concat.fragments.PickItem;
 import com.apps.szpansky.concat.simple_data.Item;
+import com.apps.szpansky.concat.simple_data.Item_InPickList;
 import com.apps.szpansky.concat.simple_data.Order;
 import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleFunctions;
 
 
-public class OrdersActivity extends AppCompatActivity implements DialogInterface.OnDismissListener, SelectItem.ClickedItem {
+public class OrdersActivity extends AppCompatActivity implements DialogInterface.OnDismissListener, PickItem.ClickedItem {
 
     private static String styleKey = "list_preference_browsing_colors";
     private OpenOrders ordersFragment;
-    private SelectItem itemsFragment;
+    private PickItem pickItemFragment;
 
 
     @Override
@@ -36,8 +37,8 @@ public class OrdersActivity extends AppCompatActivity implements DialogInterface
 
         setContentView(R.layout.simple_sliding_pane_layout);
 
-        itemsFragment = SelectItem.newInstance(new Item(), "list_preference_picking_colors");
-        FragmentTransaction manager2 = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_second, itemsFragment);
+        pickItemFragment = PickItem.newInstance(new Item_InPickList(), "list_preference_picking_colors");
+        FragmentTransaction manager2 = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_second, pickItemFragment);
         manager2.commit();
 
         ordersFragment = OpenOrders.newInstance(new Order(), styleKey);
@@ -49,7 +50,7 @@ public class OrdersActivity extends AppCompatActivity implements DialogInterface
     @Override
     public void onDismiss(DialogInterface dialog) {
         ordersFragment.refreshListView();
-        itemsFragment.refreshListView();
+        pickItemFragment.refreshListView();
     }
 
 

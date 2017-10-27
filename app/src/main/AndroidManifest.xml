@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.apps.szpansky.concat">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -17,6 +16,7 @@
         android:theme="@style/DefaultTheme">
         <activity
             android:name=".MainActivity"
+            android:launchMode="singleTask"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,43 +25,37 @@
             </intent-filter>
         </activity>
         <activity
+            android:launchMode="singleTask"
             android:name=".open_all.OpenAllPersonsActivity"
             android:label="@string/contacts"
-            android:launchMode="singleTop"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/OpenAllTheme"
-            tools:targetApi="jelly_bean" />
+            android:parentActivityName=".MainActivity" />
         <activity
+            android:launchMode="singleTask"
             android:name=".open_all.OpenAllItemsActivity"
             android:label="@string/items"
-            android:launchMode="singleTop"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/OpenAllTheme"
-            tools:targetApi="jelly_bean" />
+            android:parentActivityName=".MainActivity" />
         <activity
+            android:launchMode="singleTask"
             android:name=".main_browsing.CatalogsActivity"
             android:label="@string/orders"
-            android:launchMode="singleTop"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/BrowsingTheme"
-            tools:targetApi="jelly_bean" />
+            android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".SettingsActivity"
-            android:parentActivityName=".MainActivity"
-            tools:targetApi="jelly_bean" />
-        <activity
-            android:name=".HelpAndOpinionActivity"
-            android:label="@string/help_opinion"
-            android:parentActivityName=".MainActivity"
-            tools:targetApi="jelly_bean" />
-        <activity
+            android:launchMode="singleTask"
             android:name=".main_browsing.ClientsActivity"
             android:parentActivityName=".main_browsing.CatalogsActivity" />
         <activity
+            android:launchMode="singleTask"
             android:name=".main_browsing.OrdersActivity"
-            android:parentActivityName=".main_browsing.ClientsActivity"/>
-
-
+            android:parentActivityName=".main_browsing.ClientsActivity" />
+        <activity
+            android:launchMode="singleTask"
+            android:name=".SettingsActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:launchMode="singleTask"
+            android:name=".HelpAndOpinionActivity"
+            android:label="@string/help_opinion"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

@@ -118,7 +118,7 @@ public class ExportImport extends DialogFragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            loading.dismiss();
+            if(loading.isVisible())loading.dismiss();
         }
     }
 
@@ -145,7 +145,7 @@ public class ExportImport extends DialogFragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            loading.dismiss();
+            if(loading.isVisible())loading.dismiss();
         }
     }
 
@@ -172,7 +172,7 @@ public class ExportImport extends DialogFragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            loading.dismiss();
+            if(loading.isVisible())loading.dismiss();
         }
     }
 
@@ -199,7 +199,7 @@ public class ExportImport extends DialogFragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            loading.dismiss();
+            if(loading.isVisible())loading.dismiss();
         }
     }
 

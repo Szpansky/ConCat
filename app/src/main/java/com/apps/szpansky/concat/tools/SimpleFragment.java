@@ -4,6 +4,7 @@ package com.apps.szpansky.concat.tools;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -45,6 +47,7 @@ public abstract class SimpleFragment extends Fragment {
     MenuItem item;
     SearchView searchView;
     TextView emptyList;
+    ImageView catPointing;
 
 
     protected abstract void onAddButtonClick();
@@ -77,7 +80,7 @@ public abstract class SimpleFragment extends Fragment {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         getActivity().setTheme(SimpleFunctions.setStyle(styleKey, sharedPreferences));
 
-        View view = inflater.inflate(R.layout.activity_simple_view, null);
+        View view = inflater.inflate(R.layout.activity_simple_view, container, false);
 
         view.setBackgroundColor(ContextCompat.getColor(getContext(), SimpleFunctions.setBackgroundColor(styleKey, sharedPreferences)));
 
@@ -88,6 +91,8 @@ public abstract class SimpleFragment extends Fragment {
 
         listView = (ListView) view.findViewById(R.id.list_view_simple_view);
         emptyList = (TextView) view.findViewById(R.id.empty_textView);
+        catPointing = (ImageView) view.findViewById(R.id.cat_pointing);
+
         refreshListView();
         onScrolling();
         onAddButtonClick();
@@ -153,8 +158,10 @@ public abstract class SimpleFragment extends Fragment {
         }
         if (listView.getCount() <= 0) {
             emptyList.setVisibility(View.VISIBLE);
+            catPointing.setVisibility(View.VISIBLE);
         } else {
             emptyList.setVisibility(View.GONE);
+            catPointing.setVisibility(View.GONE);
         }
     }
 

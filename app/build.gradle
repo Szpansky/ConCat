@@ -7,8 +7,8 @@ android {
         applicationId "com.apps.szpansky.concat"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 17
-        versionName "1.59"
+        versionCode 21
+        versionName "1.61"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
