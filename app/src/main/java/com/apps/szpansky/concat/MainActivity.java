@@ -32,7 +32,6 @@ import com.apps.szpansky.concat.dialog_fragments.ExportImport;
 import com.apps.szpansky.concat.dialog_fragments.InformationCurrentCatalog;
 import com.apps.szpansky.concat.dialog_fragments.Loading;
 import com.apps.szpansky.concat.dialog_fragments.Login;
-import com.apps.szpansky.concat.main_browsing.CatalogsActivity;
 import com.apps.szpansky.concat.open_all.OpenAllItemsActivity;
 import com.apps.szpansky.concat.open_all.OpenAllPersonsActivity;
 import com.apps.szpansky.concat.tools.Database;
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         setTheme(SimpleFunctions.setStyle(styleKey, sharedPreferences));
         setContentView(R.layout.activity_main);
 
-        setAds();
+        //setAds();
         onStartClick();
         onDailyRewardClick();
 
@@ -130,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         Button openCatalogs = (Button) findViewById(R.id.openCatalogs);
         openCatalogs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent Intent_Open_Catalogs = new Intent(MainActivity.this, CatalogsActivity.class);
+                Intent Intent_Open_Catalogs = new Intent(MainActivity.this, MainActivity2.class);
                 MainActivity.this.startActivity(Intent_Open_Catalogs);
             }
         });

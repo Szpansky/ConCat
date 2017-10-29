@@ -1,12 +1,13 @@
 package com.apps.szpansky.concat.fragments;
 
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.AdapterView;
 
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.dialog_fragments.SelectCount_Item;
@@ -31,40 +32,41 @@ public class OpenOrders extends SimpleFragment {
 
     @Override
     protected void onAddButtonClick() {
-        addButton.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_playlist_add_white_24dp, null));
-        addButton.setOnClickListener(new View.OnClickListener() {
+        DrawerLayout drawerLayout = (DrawerLayout) getActivity().getWindow().findViewById(R.id.drawerLayout);
+        drawerLayout.openDrawer(Gravity.END, true);
+    }
+
+    @Override
+    protected void onListViewClick(long id) {
+        getDataObject().setClickedItemId(id);
+
+        SelectCount_Item selectCount_item = SelectCount_Item.newInstance((Order) getDataObject());
+        selectCount_item.show(getActivity().getFragmentManager().beginTransaction(), "SelectCount_Item");
+    }
+
+    @Override
+    protected void onListViewLongClick(long id) {
+        getDataObject().setClickedItemId(id);
+
+        SelectCount_Item selectCount_item = SelectCount_Item.newInstance((Order) getDataObject());
+        selectCount_item.show(getActivity().getFragmentManager().beginTransaction(), "SelectCount_Item");
+    }
+
+
+    @Override
+    protected void inflateNewViewInToolBar(Toolbar toolbar) {
+        toolbar.setNavigationIcon(ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_arrow_back_black_24dp, null));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DrawerLayout drawerLayout = (DrawerLayout) getActivity().getWindow().findViewById(R.id.drawerLayout);
-                drawerLayout.openDrawer(Gravity.END, true);
+                getActivity().onNavigateUp();
             }
         });
     }
 
     @Override
-    public void onListViewClick() {
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                data.setClickedItemId(id);
-
-                SelectCount_Item selectCount_item = SelectCount_Item.newInstance((Order) data);
-                selectCount_item.show(getActivity().getFragmentManager().beginTransaction(), "SelectCount_Item");
-
-                return true;
-            }
-        });
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                data.setClickedItemId(id);
-
-                SelectCount_Item selectCount_item = SelectCount_Item.newInstance((Order) data);
-                selectCount_item.show(getActivity().getFragmentManager().beginTransaction(), "SelectCount_Item");
-
-            }
-        });
+    protected Drawable setFABImage() {
+        return (ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_playlist_add_white_24dp, null));
     }
 
 

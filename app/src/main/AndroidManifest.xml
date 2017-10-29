@@ -56,6 +56,11 @@
             android:name=".HelpAndOpinionActivity"
             android:label="@string/help_opinion"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:launchMode="singleTask"
+            android:name=".MainActivity2"
+            android:label="@string/help_opinion"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

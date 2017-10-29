@@ -1,6 +1,5 @@
 package com.apps.szpansky.concat.fragments;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
@@ -8,51 +7,47 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.apps.szpansky.concat.R;
-import com.apps.szpansky.concat.dialog_fragments.AddEdit_Catalog;
-import com.apps.szpansky.concat.main_browsing.ClientsActivity;
-import com.apps.szpansky.concat.simple_data.Client;
+import com.apps.szpansky.concat.dialog_fragments.AddEdit_Person;
 import com.apps.szpansky.concat.tools.Data;
 import com.apps.szpansky.concat.tools.SimpleFragment;
 
+/**
+ * Created by Marcin on 2017-10-28.
+ */
 
-public class OpenCatalogs extends SimpleFragment {
+public class OpenPersons extends SimpleFragment {
 
 
-    public static OpenCatalogs newInstance(Data data, String styleKey) {
-        OpenCatalogs openCatalogs = new OpenCatalogs();
+    public static OpenPersons newInstance(Data data, String styleKey) {
+        OpenPersons openPersons = new OpenPersons();
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", data);
         bundle.putString("styleKey", styleKey);
 
-        openCatalogs.setArguments(bundle);
-        return openCatalogs;
+        openPersons.setArguments(bundle);
+        return openPersons;
     }
-
-
 
 
     @Override
     protected void onAddButtonClick() {
-        AddEdit_Catalog addEditCatalog = AddEdit_Catalog.newInstance();
-        addEditCatalog.show(getActivity().getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
+        AddEdit_Person addEditPerson = AddEdit_Person.newInstance();
+        addEditPerson.show(getActivity().getFragmentManager().beginTransaction(), "DialogAddEditPerson");
     }
-
 
     @Override
     protected void onListViewClick(long id) {
         getDataObject().setClickedItemId(id);
-        Client.clickedCatalogId = id;         //to know which catalog is opened in next activity, that value is static and the same in every copy of that object
-        Intent intent = new Intent(getActivity(), ClientsActivity.class);
-        startActivity(intent);
+        showDialog(id);
     }
 
     @Override
     protected void onListViewLongClick(long id) {
         getDataObject().setClickedItemId(id);
-        AddEdit_Catalog addEditCatalog = AddEdit_Catalog.newInstance(id);
-        addEditCatalog.show(getActivity().getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
+        showDialog(id);
     }
+
 
     @Override
     protected void inflateNewViewInToolBar(Toolbar toolbar) {
@@ -65,8 +60,15 @@ public class OpenCatalogs extends SimpleFragment {
         });
     }
 
+
+    private void showDialog(long id) {
+        AddEdit_Person addEditPerson = AddEdit_Person.newInstance(id);
+        addEditPerson.show(getActivity().getFragmentManager().beginTransaction(), "DialogAddEditPerson");
+    }
+
     @Override
     protected Drawable setFABImage() {
         return (ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_fiber_new_white_24dp, null));
     }
+
 }
