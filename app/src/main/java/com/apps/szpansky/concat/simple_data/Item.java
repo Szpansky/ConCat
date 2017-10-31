@@ -5,9 +5,6 @@ import android.database.Cursor;
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.tools.Data;
 import com.apps.szpansky.concat.tools.Database;
-import com.apps.szpansky.concat.tools.SimpleFunctions;
-
-import java.util.Calendar;
 
 import static com.apps.szpansky.concat.tools.Database.*;
 
@@ -15,16 +12,9 @@ import static com.apps.szpansky.concat.tools.Database.*;
 public class Item extends Data {
 
 
-    public Item(String title) {
-        super();
-        setTitle(title);
+    public Item(Database database) {
+        super(database);
     }
-
-
-    public Item() {
-        super();
-    }
-
 
     @Override
     public int getItemLayoutResourceId() {
@@ -35,7 +25,7 @@ public class Item extends Data {
     @Override
     public Cursor getCursor() {
 
-        return myDB.getItems(this.filter);
+        return getDatabase().getItems(this.filter);
     }
 
 
@@ -66,8 +56,8 @@ public class Item extends Data {
     @Override
     public boolean deleteData(long itemId) {
         boolean flag = true;
-        if (!myDB.delete(TABLE_ORDERS, ORDER_ITEM_ID, itemId)) flag = false;
-        if (!myDB.delete(TABLE_ITEMS, ITEM_ID, itemId)) flag = false;
+        if (!getDatabase().delete(TABLE_ORDERS, ORDER_ITEM_ID, itemId)) flag = false;
+        if (!getDatabase().delete(TABLE_ITEMS, ITEM_ID, itemId)) flag = false;
         return flag;
     }
 
@@ -81,7 +71,7 @@ public class Item extends Data {
     @Override
     public String[] getClickedItemData() {
         String where = ITEM_ID + " = " + clickedItemId;
-        Cursor cursor = myDB.getRows(TABLE_ITEMS, where);
+        Cursor cursor = getDatabase().getRows(TABLE_ITEMS, where);
         return new String[]{cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)};
     }
 

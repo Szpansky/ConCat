@@ -27,7 +27,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class AddEdit_Person extends DialogFragment {
 
-    Person person = new Person();
+    Person person = new Person(new Database(getActivity()));
     boolean isEdit;
     EditText name, surname, address, phone;
     FloatingActionButton add, openContacts;

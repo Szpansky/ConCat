@@ -13,17 +13,19 @@ import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.dialog_fragments.SelectCount_Item;
 import com.apps.szpansky.concat.simple_data.Order;
 import com.apps.szpansky.concat.tools.Data;
-import com.apps.szpansky.concat.tools.SimpleFragment;
-
-public class OpenOrders extends SimpleFragment {
+import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
 
 
-    public static OpenOrders newInstance(Data data, String styleKey) {
+public class OpenOrders extends SimpleFragmentWithList {
+
+
+    public static OpenOrders newInstance(Data data) {
         OpenOrders openOrders = new OpenOrders();
+        String browsingColor = "list_preference_browsing_colors";
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", data);
-        bundle.putString("styleKey", styleKey);
+        bundle.putString("styleKey", browsingColor);
 
         openOrders.setArguments(bundle);
         return openOrders;

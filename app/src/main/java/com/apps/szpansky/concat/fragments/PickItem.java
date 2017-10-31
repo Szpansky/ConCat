@@ -10,10 +10,10 @@ import android.support.v7.widget.Toolbar;
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.dialog_fragments.AddEdit_Item;
 import com.apps.szpansky.concat.tools.Data;
-import com.apps.szpansky.concat.tools.SimpleFragment;
+import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
 
 
-public class PickItem extends SimpleFragment {
+public class PickItem extends SimpleFragmentWithList {
 
 
     ClickedItem clickedPerson;
@@ -32,15 +32,17 @@ public class PickItem extends SimpleFragment {
 
     @Override
     protected void inflateNewViewInToolBar(Toolbar toolbar) {
+        toolbar.setTitle(R.string.pick_item);
     }
 
 
-    public static PickItem newInstance(Data data, String styleKey) {
+    public static PickItem newInstance(Data data) {
         PickItem pickItem = new PickItem();
+        String openAllColor = "list_preference_open_all_colors";
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", data);
-        bundle.putString("styleKey", styleKey);
+        bundle.putString("styleKey", openAllColor);
 
         pickItem.setArguments(bundle);
         return pickItem;
@@ -62,7 +64,6 @@ public class PickItem extends SimpleFragment {
     @Override
     protected void onListViewLongClick(long id) {
         getDataObject().setClickedItemId(id);
-
         AddEdit_Item addEdit_item = AddEdit_Item.newInstance(id);
         addEdit_item.show(getActivity().getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
     }

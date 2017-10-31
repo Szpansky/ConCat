@@ -8,17 +8,12 @@ public abstract class Data implements DataInterface, Serializable {
     protected long clickedItemId = 0;
     protected String currentTable;
 
-
+    private transient Database database;              //database is not serializable
     private String title = "";
 
-    public Database getMyDB() {
-        return myDB;
-    }
-
-    protected transient Database myDB;              //database is not serializable
-
-    public Data() {
+    public Data(Database database) {
         this.currentTable = getCurrentTable();
+        setDatabase(database);
     }
 
     public void setClickedItemId(long clickedItemId) {
@@ -30,15 +25,19 @@ public abstract class Data implements DataInterface, Serializable {
     }
 
     public void setDatabase(Database myDB) {
-        this.myDB = myDB;
+        this.database = myDB;
+    }
+
+    public Database getDatabase() {
+        return database;
     }
 
     public boolean updateData(String[] value, String[] keys) {
-        return myDB.updateData(value, keys, currentTable, clickedItemId);
+        return database.updateData(value, keys, currentTable, clickedItemId);
     }
 
     public boolean insertData(String[] value, String[] keys) {
-        return myDB.insertData(value, keys, currentTable);
+        return database.insertData(value, keys, currentTable);
     }
 
     public String getTitle() {

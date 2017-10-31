@@ -12,18 +12,20 @@ import com.apps.szpansky.concat.dialog_fragments.AddEdit_Catalog;
 import com.apps.szpansky.concat.main_browsing.ClientsActivity;
 import com.apps.szpansky.concat.simple_data.Client;
 import com.apps.szpansky.concat.tools.Data;
-import com.apps.szpansky.concat.tools.SimpleFragment;
+import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
 
 
-public class OpenCatalogs extends SimpleFragment {
+public class OpenCatalogs extends SimpleFragmentWithList {
 
+    private final int REQUEST_REFRESH = 2;
 
-    public static OpenCatalogs newInstance(Data data, String styleKey) {
+    public static OpenCatalogs newInstance(Data data) {
         OpenCatalogs openCatalogs = new OpenCatalogs();
+        String browsingColor = "list_preference_browsing_colors";
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", data);
-        bundle.putString("styleKey", styleKey);
+        bundle.putString("styleKey", browsingColor);
 
         openCatalogs.setArguments(bundle);
         return openCatalogs;
@@ -44,7 +46,8 @@ public class OpenCatalogs extends SimpleFragment {
         getDataObject().setClickedItemId(id);
         Client.clickedCatalogId = id;         //to know which catalog is opened in next activity, that value is static and the same in every copy of that object
         Intent intent = new Intent(getActivity(), ClientsActivity.class);
-        startActivity(intent);
+        getActivity().startActivityForResult(intent, REQUEST_REFRESH);
+
     }
 
     @Override
@@ -56,6 +59,7 @@ public class OpenCatalogs extends SimpleFragment {
 
     @Override
     protected void inflateNewViewInToolBar(Toolbar toolbar) {
+        toolbar.setTitle(R.string.orders);
         toolbar.setNavigationIcon(ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_menu_black_24dp, null));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +68,7 @@ public class OpenCatalogs extends SimpleFragment {
             }
         });
     }
+
 
     @Override
     protected Drawable setFABImage() {

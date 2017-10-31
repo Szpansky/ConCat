@@ -49,25 +49,16 @@
             android:defaultValue="@string/DefaultTheme"
             android:entries="@array/colors"
             android:entryValues="@array/colors_key"
-            android:key="list_preference_open_all_colors"
-            android:summary="@string/open_all_color_scheme"
-            android:title="@string/open_all_colors" />
-
-        <ListPreference
-            android:defaultValue="@string/DefaultTheme"
-            android:entries="@array/colors"
-            android:entryValues="@array/colors_key"
             android:key="list_preference_browsing_colors"
             android:summary="@string/browsing_color_scheme"
             android:title="@string/browsing_color" />
-
         <ListPreference
             android:defaultValue="@string/DefaultTheme"
             android:entries="@array/colors"
             android:entryValues="@array/colors_key"
-            android:key="list_preference_picking_colors"
-            android:summary="@string/pick_color_scheme"
-            android:title="@string/pick_color" />
+            android:key="list_preference_open_all_colors"
+            android:summary="@string/open_all_color_scheme"
+            android:title="@string/open_all_colors" />
 
     </PreferenceCategory>
 

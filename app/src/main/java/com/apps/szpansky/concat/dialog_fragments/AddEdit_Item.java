@@ -27,7 +27,7 @@ public class AddEdit_Item extends DialogFragment {
     private CheckBox dis_5, dis_10, dis_15, dis_20, dis_25, dis_30, dis_35, dis_40, dis_100;
     private final CheckBox[] dis_all = {dis_5, dis_10, dis_15, dis_20, dis_25, dis_30, dis_35, dis_40, dis_100};
     FloatingActionButton add;
-    final Item item = new Item();
+    final Item item = new Item(new Database(getActivity()));
 
 
     boolean isEdit;

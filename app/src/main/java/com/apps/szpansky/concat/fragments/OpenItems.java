@@ -9,17 +9,18 @@ import android.view.View;
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.dialog_fragments.AddEdit_Item;
 import com.apps.szpansky.concat.tools.Data;
-import com.apps.szpansky.concat.tools.SimpleFragment;
+import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
 
-public class OpenItems extends SimpleFragment {
+public class OpenItems extends SimpleFragmentWithList {
 
 
-    public static OpenItems newInstance(Data data, String styleKey) {
+    public static OpenItems newInstance(Data data) {
         OpenItems openItems = new OpenItems();
+        String openAllColor = "list_preference_open_all_colors";
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", data);
-        bundle.putString("styleKey", styleKey);
+        bundle.putString("styleKey", openAllColor);
 
         openItems.setArguments(bundle);
         return openItems;
@@ -51,6 +52,7 @@ public class OpenItems extends SimpleFragment {
 
     @Override
     protected void inflateNewViewInToolBar(Toolbar toolbar) {
+        toolbar.setTitle(R.string.items);
         toolbar.setNavigationIcon(ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_menu_black_24dp, null));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

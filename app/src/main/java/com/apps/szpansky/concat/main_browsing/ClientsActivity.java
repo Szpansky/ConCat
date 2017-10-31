@@ -1,7 +1,9 @@
 package com.apps.szpansky.concat.main_browsing;
 
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentTransaction;
@@ -15,7 +17,6 @@ import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.fragments.OpenClients;
 import com.apps.szpansky.concat.fragments.PickPerson;
 import com.apps.szpansky.concat.simple_data.Client;
-import com.apps.szpansky.concat.simple_data.Person;
 import com.apps.szpansky.concat.simple_data.Person_InPickList;
 import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleFunctions;
@@ -23,9 +24,12 @@ import com.apps.szpansky.concat.tools.SimpleFunctions;
 
 public class ClientsActivity extends AppCompatActivity implements DialogInterface.OnDismissListener, PickPerson.ClickedPerson {
 
-    private static String styleKey = "list_preference_browsing_colors";
+    private static String browsingColors = "list_preference_browsing_colors";
     private OpenClients clientsFragment;
     private PickPerson pickPersonFragment;
+    private boolean contentChanged = false;
+    final int REQUEST_REFRESH = 2;
+
 
 
     @Override
@@ -33,15 +37,15 @@ public class ClientsActivity extends AppCompatActivity implements DialogInterfac
         super.onCreate(savedInstanceState);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        setTheme(SimpleFunctions.setStyle(styleKey, sharedPreferences));
+        setTheme(SimpleFunctions.setStyle(browsingColors, sharedPreferences));
 
         setContentView(R.layout.simple_sliding_pane_layout);
 
-        pickPersonFragment = PickPerson.newInstance(new Person_InPickList(getResources().getString(R.string.pick_person)), "list_preference_picking_colors");
+        pickPersonFragment = PickPerson.newInstance(new Person_InPickList(new Database(this)));
         FragmentTransaction manager2 = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_second, pickPersonFragment);
         manager2.commit();
 
-        clientsFragment = OpenClients.newInstance(new Client(), styleKey);
+        clientsFragment = OpenClients.newInstance(new Client(new Database(this)));
         FragmentTransaction manager = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_first, clientsFragment);
         manager.commit();
     }
@@ -49,16 +53,17 @@ public class ClientsActivity extends AppCompatActivity implements DialogInterfac
 
     @Override
     public void onDismiss(DialogInterface dialog) {
-        clientsFragment.refreshListView();
-        pickPersonFragment.refreshListView();
+        clientsFragment.refreshFragmentState();
+        pickPersonFragment.refreshFragmentState();
+        contentChanged = true;
     }
 
 
     @Override
     public void onPersonPick(Long id) {
-        Client client = new Client();
+        Client client = new Client(new Database(this));
 
-        client.setDatabase(new Database(this));         //TODO throwexeption jezeli nei ustawimy bazydanych
+        //client.setDatabase(new Database(this));         //TODO throwexeption jezeli nei ustawimy bazydanych
 
         Long catalogId = Client.clickedCatalogId;
 
@@ -69,10 +74,12 @@ public class ClientsActivity extends AppCompatActivity implements DialogInterfac
             Toast.makeText(this, R.string.add_client_notify, Toast.LENGTH_SHORT).show();
             DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
             drawerLayout.closeDrawers();
+            clientsFragment.refreshFragmentState();
+            contentChanged = true;
         } else {
             Toast.makeText(this, R.string.error_notify_duplicate, Toast.LENGTH_SHORT).show();
         }
-        clientsFragment.refreshListView();
+
     }
 
 
@@ -82,7 +89,32 @@ public class ClientsActivity extends AppCompatActivity implements DialogInterfac
         if (drawerLayout.isDrawerOpen(Gravity.END)) {
             drawerLayout.closeDrawers();
         } else {
-            onNavigateUp();
+                Intent intent = new Intent();
+                setResult(Activity.RESULT_OK, intent);
+                onNavigateUp();
         }
     }
+
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+
+            switch (requestCode) {
+                case (REQUEST_REFRESH):{
+                    clientsFragment.refreshFragmentState();
+                    contentChanged = true;
+                    break;
+                }
+            }
+        }
+        if (resultCode == Activity.RESULT_CANCELED) {
+
+        }
+    }
+
+
+
 }

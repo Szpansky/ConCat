@@ -14,6 +14,10 @@ public class Order extends Data {
 
     public static long clickedClientId;
 
+    public Order(Database database) {
+        super(database);
+    }
+
 
     @Override
     public int getItemLayoutResourceId() {
@@ -23,7 +27,7 @@ public class Order extends Data {
 
     @Override
     public Cursor getCursor() {
-        return myDB.getOrders(clickedClientId, this.filter);
+        return getDatabase().getOrders(clickedClientId, this.filter);
     }
 
 
@@ -53,19 +57,19 @@ public class Order extends Data {
 
     @Override
     public boolean deleteData(long orderId) {
-        return myDB.delete(TABLE_ORDERS, ORDER_ID, orderId);
+        return getDatabase().delete(TABLE_ORDERS, ORDER_ID, orderId);
     }
 
 
     @Override
     public boolean updateData(String[] value, String[] keys) {
-        return myDB.updateRowOrder(value[0], value[1], value[2]);
+        return getDatabase().updateRowOrder(value[0], value[1], value[2]);
     }
 
 
     @Override
     public boolean insertData(String[] value, String[] keys) {
-        return myDB.insertDataToOrders(value[0], value[1], value[2]);
+        return getDatabase().insertDataToOrders(value[0], value[1], value[2]);
     }
 
 
@@ -77,7 +81,7 @@ public class Order extends Data {
     @Override
     public String[] getClickedItemData() {
         String where = ORDER_ID + " = " + clickedItemId;
-        Cursor cursor = myDB.getRows(TABLE_ORDERS, where);
+        Cursor cursor = getDatabase().getRows(TABLE_ORDERS, where);
         return new String[]{cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)};
     }
 
@@ -85,10 +89,10 @@ public class Order extends Data {
     @Override
     public String getTitle() {
         String where = CLIENT_ID + " = " + clickedClientId;
-        Cursor c = myDB.getRows(TABLE_CLIENTS, where);
+        Cursor c = getDatabase().getRows(TABLE_CLIENTS, where);
         int personId = c.getInt(2);
         where = PERSON_ID + " = " + personId;
-        c = myDB.getRows(TABLE_PERSONS, where);
+        c = getDatabase().getRows(TABLE_PERSONS, where);
         String title = c.getString(1) + " " + c.getString(2);
         return title;
     }

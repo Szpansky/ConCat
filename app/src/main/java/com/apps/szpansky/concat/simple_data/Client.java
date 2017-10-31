@@ -14,10 +14,14 @@ public class Client extends Data {
 
     public static long clickedCatalogId;
 
+    public Client(Database database) {
+        super(database);
+    }
+
     @Override
     public String getTitle() {
         String where = CATALOG_ID + " = " + clickedCatalogId;
-        return myDB.getRows(TABLE_CATALOGS, where).getString(1);
+        return getDatabase().getRows(TABLE_CATALOGS, where).getString(1);
     }
 
 
@@ -29,7 +33,7 @@ public class Client extends Data {
 
     @Override
     public Cursor getCursor() {
-        return myDB.getClients(clickedCatalogId, this.filter);
+        return getDatabase().getClients(clickedCatalogId, this.filter);
     }
 
 
@@ -61,7 +65,7 @@ public class Client extends Data {
 
     @Override
     public boolean insertData(String[] value, String keys[]) {
-        return  myDB.insertDataToClients(value[0],value[1],value[2]);
+        return  getDatabase().insertDataToClients(value[0],value[1],value[2]);
     }
 
 
@@ -79,8 +83,8 @@ public class Client extends Data {
     @Override
     public boolean deleteData(long clientId) {
         boolean flag = true;
-        if (!myDB.delete(TABLE_ORDERS, ORDER_CLIENT_ID, clientId)) flag = false;
-        if (!myDB.delete(TABLE_CLIENTS, CLIENT_ID, clientId)) flag = false;
+        if (!getDatabase().delete(TABLE_ORDERS, ORDER_CLIENT_ID, clientId)) flag = false;
+        if (!getDatabase().delete(TABLE_CLIENTS, CLIENT_ID, clientId)) flag = false;
         return flag;
     }
 

@@ -10,19 +10,11 @@ import static com.apps.szpansky.concat.tools.Database.*;
 
 
 public class Person extends Data {
+    public Person(Database database) {
+        super(database);
+    }
 
     //public static int clickedPersonId;
-
-    public Person() {
-        super();
-    }
-
-
-    public Person(String title) {
-        super();
-        setTitle(title);
-    }
-
 
     @Override
     public int getItemLayoutResourceId() {
@@ -34,7 +26,7 @@ public class Person extends Data {
     @Override
     public Cursor getCursor() {
 
-        return myDB.getPersons(this.filter);
+        return getDatabase().getPersons(this.filter);
     }
 
 
@@ -67,13 +59,13 @@ public class Person extends Data {
         long clientId;
         boolean flag = true;
         do {
-            clientId = myDB.getLong(TABLE_CLIENTS, CLIENT_ID, CLIENT_PERSON_ID, personId);
+            clientId = getDatabase().getLong(TABLE_CLIENTS, CLIENT_ID, CLIENT_PERSON_ID, personId);
             if (clientId != -1) {
-                if (!myDB.delete(TABLE_ORDERS, ORDER_CLIENT_ID, clientId)) flag = false;
-                if (!myDB.delete(TABLE_CLIENTS, CLIENT_ID, clientId)) flag = false;
+                if (!getDatabase().delete(TABLE_ORDERS, ORDER_CLIENT_ID, clientId)) flag = false;
+                if (!getDatabase().delete(TABLE_CLIENTS, CLIENT_ID, clientId)) flag = false;
             }
         } while (clientId != -1);
-        if (!myDB.delete(TABLE_PERSONS, PERSON_ID, personId)) flag = false;
+        if (!getDatabase().delete(TABLE_PERSONS, PERSON_ID, personId)) flag = false;
         return flag;
     }
 
@@ -87,7 +79,7 @@ public class Person extends Data {
     @Override
     public String[] getClickedItemData() {
         String where = PERSON_ID + " = " + clickedItemId;
-        Cursor cursor = myDB.getRows(TABLE_PERSONS, where);
+        Cursor cursor = getDatabase().getRows(TABLE_PERSONS, where);
         return new String[]{cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4)};
     }
 

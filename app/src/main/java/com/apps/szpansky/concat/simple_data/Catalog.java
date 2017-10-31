@@ -10,16 +10,9 @@ import static com.apps.szpansky.concat.tools.Database.*;
 
 public class Catalog extends Data {
 
-    public Catalog(String title) {
-        super();
-        setTitle(title);
+    public Catalog(Database database) {
+        super(database);
     }
-
-
-    public Catalog() {
-        super();
-    }
-
 
     @Override
     public int getItemLayoutResourceId() {
@@ -30,7 +23,7 @@ public class Catalog extends Data {
 
     @Override
     public Cursor getCursor() {
-        return myDB.getCatalogs(this.filter);
+        return getDatabase().getCatalogs(this.filter);
     }
 
 
@@ -63,15 +56,15 @@ public class Catalog extends Data {
         long clientId;
         boolean flag = true;
         do {
-            clientId = myDB.getLong(TABLE_CLIENTS, CLIENT_ID, CLIENT_CATALOG_ID, catalogId);
+            clientId = getDatabase().getLong(TABLE_CLIENTS, CLIENT_ID, CLIENT_CATALOG_ID, catalogId);
             if (clientId != -1) ;
             {
-                if (!myDB.delete(TABLE_ORDERS, ORDER_CLIENT_ID, clientId)) flag = false;
-                if (!myDB.delete(TABLE_CLIENTS, CLIENT_ID, clientId)) flag = false;
+                if (!getDatabase().delete(TABLE_ORDERS, ORDER_CLIENT_ID, clientId)) flag = false;
+                if (!getDatabase().delete(TABLE_CLIENTS, CLIENT_ID, clientId)) flag = false;
             }
         } while (clientId != -1);
 
-        if (!myDB.delete(TABLE_CATALOGS, CATALOG_ID, catalogId)) flag = false;
+        if (!getDatabase().delete(TABLE_CATALOGS, CATALOG_ID, catalogId)) flag = false;
         return flag;
     }
 
@@ -85,7 +78,7 @@ public class Catalog extends Data {
     @Override
     public String[] getClickedItemData() {
         String where = CATALOG_ID + " = " + clickedItemId;
-        Cursor cursor = myDB.getRows(TABLE_CATALOGS, where);
+        Cursor cursor = getDatabase().getRows(TABLE_CATALOGS, where);
         return new String[]{cursor.getString(1), cursor.getString(2), cursor.getString(3)};
     }
 

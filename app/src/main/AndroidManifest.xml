@@ -26,23 +26,8 @@
         </activity>
         <activity
             android:launchMode="singleTask"
-            android:name=".open_all.OpenAllPersonsActivity"
-            android:label="@string/contacts"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:launchMode="singleTask"
-            android:name=".open_all.OpenAllItemsActivity"
-            android:label="@string/items"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:launchMode="singleTask"
-            android:name=".main_browsing.CatalogsActivity"
-            android:label="@string/orders"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:launchMode="singleTask"
             android:name=".main_browsing.ClientsActivity"
-            android:parentActivityName=".main_browsing.CatalogsActivity" />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:launchMode="singleTask"
             android:name=".main_browsing.OrdersActivity"
@@ -54,11 +39,6 @@
         <activity
             android:launchMode="singleTask"
             android:name=".HelpAndOpinionActivity"
-            android:label="@string/help_opinion"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:launchMode="singleTask"
-            android:name=".MainActivity2"
             android:label="@string/help_opinion"
             android:parentActivityName=".MainActivity" />
     </application>

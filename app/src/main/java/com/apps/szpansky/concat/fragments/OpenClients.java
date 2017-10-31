@@ -16,17 +16,20 @@ import com.apps.szpansky.concat.dialog_fragments.UpdateStatus_Client;
 import com.apps.szpansky.concat.simple_data.Client;
 import com.apps.szpansky.concat.simple_data.Order;
 import com.apps.szpansky.concat.tools.Data;
-import com.apps.szpansky.concat.tools.SimpleFragment;
-
-public class OpenClients extends SimpleFragment {
+import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
 
 
-    public static OpenClients newInstance(Data data, String styleKey) {
+public class OpenClients extends SimpleFragmentWithList {
+
+    private final int REQUEST_REFRESH = 2;
+
+    public static OpenClients newInstance(Data data) {
         OpenClients openClients = new OpenClients();
+        String browsingColor = "list_preference_browsing_colors";
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", data);
-        bundle.putString("styleKey", styleKey);
+        bundle.putString("styleKey", browsingColor);
 
         openClients.setArguments(bundle);
         return openClients;
@@ -45,7 +48,7 @@ public class OpenClients extends SimpleFragment {
 
         Intent intent = new Intent(getActivity(), OrdersActivity.class);
         Order.clickedClientId = id;
-        startActivity(intent);
+        getActivity().startActivityForResult(intent,REQUEST_REFRESH);
 
     }
 

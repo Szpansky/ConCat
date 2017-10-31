@@ -1,172 +1,122 @@
 package com.apps.szpansky.concat;
 
+
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.Bundle;
+
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
+import android.support.v4.view.PagerTitleStrip;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.GridLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
 
 import com.apps.szpansky.concat.dialog_fragments.AddEdit_Catalog;
 import com.apps.szpansky.concat.dialog_fragments.AddEdit_Item;
 import com.apps.szpansky.concat.dialog_fragments.AddEdit_Person;
 import com.apps.szpansky.concat.dialog_fragments.ExportImport;
 import com.apps.szpansky.concat.dialog_fragments.InformationCurrentCatalog;
-import com.apps.szpansky.concat.dialog_fragments.Loading;
 import com.apps.szpansky.concat.dialog_fragments.Login;
-import com.apps.szpansky.concat.open_all.OpenAllItemsActivity;
-import com.apps.szpansky.concat.open_all.OpenAllPersonsActivity;
 import com.apps.szpansky.concat.tools.Database;
+import com.apps.szpansky.concat.tools.MyPagerAdapter;
 import com.apps.szpansky.concat.tools.SimpleFunctions;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardItem;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
 
-public class MainActivity extends AppCompatActivity implements RewardedVideoAdListener {
+public class MainActivity extends AppCompatActivity implements DialogInterface.OnDismissListener {
 
-    public Integer rewardAmount;
-
+    private final int REQUEST_RECREATE = 1;
+    private final int REQUEST_REFRESH = 2;
     private boolean FLOATING_MENU_IS_OPEN = false;
-    private static String styleKey = "list_preference_main_colors";
 
-    private Database myDB = new Database(this);
-
-    private FloatingActionButton fabMain, fabNewCatalog, fabNewPerson, fabNewItem;
-
-    private ActionBarDrawerToggle drawerToggle;
+    private ViewPager pager;
+    private MyPagerAdapter myPagerAdapter;
+    private static String mainColor = "list_preference_main_colors";
     private NavigationView navigationView;
-    private GridLayout subFloatingMenu;
-    View navViewHeader;
+    private View navViewHeader;
 
-    private AdView mAdView;
-    private RewardedVideoAd mAd;
-    Loading loading = Loading.newInstance();
+    private DrawerLayout drawerLayout;
+    private FloatingActionButton fabMain, fabNewCatalog, fabNewPerson, fabNewItem;
+    private GridLayout subFloatingMenu;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        setTheme(SimpleFunctions.setStyle(mainColor, sharedPreferences));
+
         super.onCreate(savedInstanceState);
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        setTheme(SimpleFunctions.setStyle(styleKey, sharedPreferences));
-        setContentView(R.layout.activity_main);
-
-        //setAds();
-        onStartClick();
-        onDailyRewardClick();
-
-        new Runnable() {
-            @Override
-            public void run() {
-                setDrawer();
-                onNavigationItemClick();
-            }
-        }.run();
-
-        new Runnable() {
-            @Override
-            public void run() {
-                onFloatingButtonClick();
-                onFabMenuItemClick();
-            }
-        }.run();
-
-        new Runnable() {
-            @Override
-            public void run() {
-                updateUserInfo();
-            }
-        }.run();
-
-        new Runnable() {
-            @Override
-            public void run() {
-                setMainInfo();
-            }
-        }.run();
+        setContentView(R.layout.pager_layout);
+        setDrawer();
+        setPager();
+        onFloatingButtonClick();
+        onNavigationItemClick();
     }
 
 
-    private void updateUserInfo() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        TextView loggedAs = (TextView) navViewHeader.findViewById(R.id.navi_loggedAs);
-        loggedAs.setText(sharedPreferences.getString("pref_edit_text_loggedAs", getResources().getString(R.string.pref_def_logged_as)));
-        TextView rewardPoints = (TextView) navViewHeader.findViewById(R.id.navi_rewardAmount);
-        rewardPoints.setText(sharedPreferences.getString("pref_edit_text_rewardAmount", "0"));
-    }
-
-
-    private void setAds() {
-        mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-        mAd = MobileAds.getRewardedVideoAdInstance(this);
-        mAd.setRewardedVideoAdListener(this);
-    }
-
-
-    private void onStartClick() {
-        Button openCatalogs = (Button) findViewById(R.id.openCatalogs);
-        openCatalogs.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent Intent_Open_Catalogs = new Intent(MainActivity.this, MainActivity2.class);
-                MainActivity.this.startActivity(Intent_Open_Catalogs);
-            }
-        });
-    }
-
-
-    private void onDailyRewardClick() {
-        Button startAds = (Button) findViewById(R.id.startAd);
-        startAds.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAd.loadAd(getResources().getString(R.string.ads_reward_main_id), new AdRequest.Builder().build());
-                loading.show(getFragmentManager().beginTransaction(), "Loading");
-            }
-        });
+    private void setPager() {
+        pager = (ViewPager) findViewById(R.id.pager);
+        PagerTitleStrip pagerTitleStrip = new PagerTitleStrip(this);
+        pagerTitleStrip.findViewById(R.id.pager_title_strip);
+        pagerTitleStrip.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        //pager.setPageTransformer(true, new ZoomOutPageTransformer());
+        String[] titles = new String[]{getString(R.string.main), getString(R.string.orders), getString(R.string.persons), getString(R.string.items)};
+        myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), titles, new Database(this));
+        pager.setAdapter(myPagerAdapter);
     }
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (drawerToggle.onOptionsItemSelected(item)) {
-            return true;
+    public void onDismiss(DialogInterface dialog) {
+        myPagerAdapter.notifyDataSetChanged();
+    }
+
+
+    @Override
+    public void openOptionsMenu() {
+        super.openOptionsMenu();
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        drawerLayout.openDrawer(Gravity.START);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        if (drawerLayout.isDrawerOpen(Gravity.START)) {
+            drawerLayout.closeDrawers();
+        } else {
+            //finish();
+            if (pager.getCurrentItem() == 0) {
+                // If the user is currently looking at the first step, allow the system to handle the
+                // Back button. This calls finish() on this activity and pops the back stack.
+                super.onBackPressed();
+            } else {
+                // Otherwise, select the previous step.
+                pager.setCurrentItem(pager.getCurrentItem() - 1);
+            }
         }
-        return super.onOptionsItemSelected(item);
     }
 
 
     private void setDrawer() {
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         navigationView = (NavigationView) findViewById(R.id.navView);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
-        drawerLayout.addDrawerListener(drawerToggle);
-        drawerToggle.syncState();
         navViewHeader = navigationView.getHeaderView(0);
+
     }
 
 
@@ -184,13 +134,17 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
                         InformationCurrentCatalog information = InformationCurrentCatalog.newInstance();
                         information.show(getFragmentManager().beginTransaction(), "InformationCurrentCatalog");
                         break;
+                    case (R.id.menuOrders):
+                        drawerLayout.closeDrawer(Gravity.LEFT, false);
+                        pager.setCurrentItem(1, true);
+                        break;
                     case (R.id.menuClients):
-                        Intent Intent_Open_Persons = new Intent(MainActivity.this, OpenAllPersonsActivity.class);
-                        startActivity(Intent_Open_Persons);
+                        drawerLayout.closeDrawer(Gravity.LEFT, false);
+                        pager.setCurrentItem(2, true);
                         break;
                     case (R.id.menuItems):
-                        Intent Intent_Open_Items = new Intent(MainActivity.this, OpenAllItemsActivity.class);
-                        startActivity(Intent_Open_Items);
+                        drawerLayout.closeDrawer(Gravity.LEFT, false);
+                        pager.setCurrentItem(3, true);
                         break;
                     case (R.id.showTools):
                         Menu menu = navigationView.getMenu();
@@ -208,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
                         break;
                     case (R.id.menuSetting):
                         Intent Intent_Open_Settings = new Intent(MainActivity.this, SettingsActivity.class);
-                        startActivity(Intent_Open_Settings);
+                        startActivityForResult(Intent_Open_Settings, REQUEST_RECREATE);
                         break;
                     case (R.id.menuHelpOpinion):
                         Intent Intent_Open_HelpAndOpinion = new Intent(MainActivity.this, HelpAndOpinionActivity.class);
@@ -218,6 +172,29 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
                 return true;
             }
         });
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+
+            switch (requestCode) {
+                case (REQUEST_RECREATE): {
+                    recreate();
+                    break;
+                }
+                case (REQUEST_REFRESH):{
+                    myPagerAdapter.notifyDataSetChanged();
+                    break;
+                }
+            }
+        }
+
+        if (resultCode == Activity.RESULT_CANCELED) {
+
+        }
+
     }
 
 
@@ -254,10 +231,13 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
             }
 
         });
+        onFabMenuItemClick();
     }
 
 
     public void onFabMenuItemClick() {
+        //handler is set for smooth data content chages
+
         fabNewCatalog = (FloatingActionButton) findViewById(R.id.fabAddCatalog);
         fabNewPerson = (FloatingActionButton) findViewById(R.id.fabAddPerson);
         fabNewItem = (FloatingActionButton) findViewById(R.id.fabAddItem);
@@ -265,6 +245,13 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         fabNewCatalog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pager.setCurrentItem(1, true);
+                    }
+                }, 250);
                 AddEdit_Catalog addEditCatalog = AddEdit_Catalog.newInstance();
                 addEditCatalog.show(getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
             }
@@ -273,138 +260,31 @@ public class MainActivity extends AppCompatActivity implements RewardedVideoAdLi
         fabNewPerson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pager.setCurrentItem(2, true);
+                    }
+                }, 250);
                 AddEdit_Person addEditPerson = AddEdit_Person.newInstance();
-                addEditPerson.show(getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
+                addEditPerson.show(getFragmentManager().beginTransaction(), "DialogAddEditPerson");
             }
         });
 
         fabNewItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        pager.setCurrentItem(3, true);
+                    }
+                }, 250);
                 AddEdit_Item addEditItem = AddEdit_Item.newInstance();
-                addEditItem.show(getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
+                addEditItem.show(getFragmentManager().beginTransaction(), "DialogAddEditItem");
             }
         });
     }
-
-
-    private void setMainInfo() {
-        TextView mainCatalogNr = (TextView) findViewById(R.id.main_order_number);
-        TextView mainCatalogMonthsLeft = (TextView) findViewById(R.id.main_order_months_left);
-        TextView mainCatalogDaysLeft = (TextView) findViewById(R.id.main_order_days_left);
-        TextView mainCatalogPrice = (TextView) findViewById(R.id.main_order_price);
-        TextView mainCatalogNotPayed = (TextView) findViewById(R.id.main_order_client_count);
-        View view = findViewById(R.id.main_layout_info);
-
-        Cursor c = myDB.getCurrentCatalogInfo();
-
-        if (c.isNull(0) || c.isNull(4) || c.isNull(7) || c.isNull(9)) {
-            view.setVisibility(View.GONE);
-        } else {
-            view.setVisibility(View.VISIBLE);
-            mainCatalogNr.setText(c.getString(0));
-            String notPayed = c.getString(4);
-            notPayed = (notPayed.equals("1")) ? notPayed + " " + getResources().getString(R.string.order) : notPayed + " " + getResources().getString(R.string.orders);
-            mainCatalogNotPayed.setText(notPayed);
-            String price = c.getString(7) + getResources().getString(R.string.money_shortcut);
-            mainCatalogPrice.setText(price);
-            String daysLeft;
-            String monthsLeft;
-
-            String endDate = c.getString(9);
-            if (endDate.equals("")) {
-                daysLeft = "-";
-                monthsLeft = "-";
-
-            } else {
-                String[] date;
-                date = SimpleFunctions.getTimeLeft(endDate).split(" ");
-                if (!date[0].isEmpty()) {
-                    daysLeft = date[1];
-                    daysLeft = (daysLeft.equals("1")) ? daysLeft + " " + getResources().getString(R.string.day) : daysLeft + " " + getResources().getString(R.string.days);
-                    mainCatalogDaysLeft.setText(daysLeft);
-                }
-                if (!date[0].isEmpty()) {
-                    monthsLeft = date[0];
-                    monthsLeft = (monthsLeft.equals("1") || monthsLeft.equals("0")) ? monthsLeft + " " + getResources().getString(R.string.month) : monthsLeft + " " + getResources().getString(R.string.months);
-                    mainCatalogMonthsLeft.setText(monthsLeft);
-                }
-            }
-        }
-        c.close();
-        myDB.close();
-    }
-
-
-    @Override
-    public void onRewardedVideoAdLoaded() {
-        mAd.show();
-    }
-
-
-    @Override
-    public void onRewardedVideoAdOpened() {
-        if (loading.isVisible()) loading.dismiss();
-    }
-
-
-    @Override
-    public void onRewardedVideoStarted() {
-
-    }
-
-
-    @Override
-    public void onRewardedVideoAdClosed() {
-       /* Snackbar snackbarInfo = Snackbar.make(findViewById(R.id.drawerLayout), R.string.end, Snackbar.LENGTH_SHORT);
-        snackbarInfo.show();
-        addPoints(1);
-        updateUserInfo();*/
-        if (loading.isVisible()) loading.dismiss();
-    }
-
-
-    @Override
-    public void onRewarded(RewardItem rewardItem) {
-        Toast.makeText(this, "Added points: " + rewardItem.getAmount(), Toast.LENGTH_SHORT).show();
-        addPoints(rewardItem.getAmount());
-        updateUserInfo();
-    }
-
-
-    private void addPoints(int amount) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        rewardAmount = Integer.parseInt(sharedPreferences.getString("pref_edit_text_rewardAmount", "0"));
-        rewardAmount = rewardAmount + amount;
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("pref_edit_text_rewardAmount", rewardAmount.toString());
-        editor.apply();
-    }
-
-
-    @Override
-    public void onRewardedVideoAdLeftApplication() {
-        if (loading.isVisible()) loading.dismiss();
-    }
-
-
-    @Override
-    public void onRewardedVideoAdFailedToLoad(int i) {
-        Snackbar snackbarInfo = Snackbar.make(findViewById(R.id.drawerLayout), R.string.failed_to_load_ad, Snackbar.LENGTH_SHORT);
-        snackbarInfo.show();
-        if (loading.isVisible()) loading.dismiss();
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        if (drawerLayout.isDrawerOpen(Gravity.START)) {
-            drawerLayout.closeDrawers();
-        } else {
-            finish();
-        }
-    }
 }
-
-
-

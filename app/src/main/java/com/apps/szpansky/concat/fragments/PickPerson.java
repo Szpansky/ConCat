@@ -10,10 +10,10 @@ import android.support.v7.widget.Toolbar;
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.dialog_fragments.AddEdit_Person;
 import com.apps.szpansky.concat.tools.Data;
-import com.apps.szpansky.concat.tools.SimpleFragment;
+import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
 
 
-public class PickPerson extends SimpleFragment {
+public class PickPerson extends SimpleFragmentWithList {
 
 
     ClickedPerson clickedPerson;
@@ -32,16 +32,18 @@ public class PickPerson extends SimpleFragment {
 
     @Override
     protected void inflateNewViewInToolBar(Toolbar toolbar) {
+        toolbar.setTitle(R.string.pick_person);
 
     }
 
 
-    public static PickPerson newInstance(Data data, String styleKey) {
+    public static PickPerson newInstance(Data data) {
         PickPerson pickPerson = new PickPerson();
+        String openAllColor = "list_preference_open_all_colors";
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", data);
-        bundle.putString("styleKey", styleKey);
+        bundle.putString("styleKey", openAllColor);
 
         pickPerson.setArguments(bundle);
         return pickPerson;

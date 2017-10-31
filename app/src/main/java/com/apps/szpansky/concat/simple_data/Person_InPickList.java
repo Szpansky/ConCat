@@ -1,6 +1,7 @@
 package com.apps.szpansky.concat.simple_data;
 
 import com.apps.szpansky.concat.R;
+import com.apps.szpansky.concat.tools.Database;
 
 import static com.apps.szpansky.concat.tools.Database.*;
 
@@ -8,19 +9,13 @@ import static com.apps.szpansky.concat.tools.Database.*;
 
 public class Person_InPickList extends Person {
 
+    public Person_InPickList(Database database) {
+        super(database);
+    }
+
     @Override
     public int getItemLayoutResourceId() {
         return R.layout.item_personinlist_view;
-    }
-
-
-    public Person_InPickList() {
-        super();
-    }
-
-    public Person_InPickList(String title) {
-        super();
-        setTitle(title);
     }
 
 

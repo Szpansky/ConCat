@@ -29,7 +29,7 @@ public class AddEdit_Catalog extends DialogFragment implements DialogInterface.O
     EditText catalogNumber, catalogDateStart, catalogDateEnd;
     FloatingActionButton add;
     boolean isEdit;
-    Catalog catalog = new Catalog();
+    Catalog catalog = new Catalog(new Database(getActivity()));
 
     public static AddEdit_Catalog newInstance(long myIndex) {
         AddEdit_Catalog addEditCatalog = new AddEdit_Catalog();

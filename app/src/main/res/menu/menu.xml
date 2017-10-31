@@ -23,10 +23,15 @@
         android:title="@string/basic">
         <menu>
             <item
+                android:id="@+id/menuOrders"
+                android:checkable="true"
+                android:icon="@mipmap/ic_library_books_black_24dp"
+                android:title="@string/orders" />
+            <item
                 android:id="@+id/menuClients"
                 android:checkable="true"
                 android:icon="@mipmap/ic_account_box_black_24dp"
-                android:title="@string/contacts" />
+                android:title="@string/persons" />
             <item
                 android:id="@+id/menuItems"
                 android:checkable="true"

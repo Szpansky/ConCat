@@ -9,21 +9,19 @@ import android.view.View;
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.dialog_fragments.AddEdit_Person;
 import com.apps.szpansky.concat.tools.Data;
-import com.apps.szpansky.concat.tools.SimpleFragment;
-
-/**
- * Created by Marcin on 2017-10-28.
- */
-
-public class OpenPersons extends SimpleFragment {
+import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
 
 
-    public static OpenPersons newInstance(Data data, String styleKey) {
+public class OpenPersons extends SimpleFragmentWithList {
+
+
+    public static OpenPersons newInstance(Data data) {
         OpenPersons openPersons = new OpenPersons();
+        String openAllColor = "list_preference_open_all_colors";
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", data);
-        bundle.putString("styleKey", styleKey);
+        bundle.putString("styleKey", openAllColor);
 
         openPersons.setArguments(bundle);
         return openPersons;
@@ -51,6 +49,7 @@ public class OpenPersons extends SimpleFragment {
 
     @Override
     protected void inflateNewViewInToolBar(Toolbar toolbar) {
+        toolbar.setTitle(R.string.persons);
         toolbar.setNavigationIcon(ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_menu_black_24dp, null));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
