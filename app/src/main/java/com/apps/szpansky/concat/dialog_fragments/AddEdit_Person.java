@@ -27,11 +27,11 @@ import static android.app.Activity.RESULT_OK;
 
 public class AddEdit_Person extends DialogFragment {
 
-    Person person = new Person(new Database(getActivity()));
     boolean isEdit;
     EditText name, surname, address, phone;
     FloatingActionButton add, openContacts;
     private final int RESULT_PICK_CONTACT = 12;
+    Person person;
 
 
     public static AddEdit_Person newInstance(long myIndex) {
@@ -61,8 +61,9 @@ public class AddEdit_Person extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        person = new Person(new Database(getActivity()));
+
         isEdit = getArguments().getBoolean("isEdit");
-        person.setDatabase(new Database(getActivity()));
 
         final View view = inflater.inflate(R.layout.dialog_add_edit_person, null);
 

@@ -16,13 +16,13 @@
 
 
         <android.support.v4.view.PagerTitleStrip
-            style="@style/TitleInPagerStrip"
             android:id="@+id/pager_title_strip"
+            style="@style/TitleInPagerStrip"
             android:layout_width="match_parent"
             android:layout_height="@dimen/default_margin"
             android:layout_gravity="top"
             android:background="?attr/colorPrimary"
-            android:paddingBottom="4dp"/>
+            android:paddingBottom="4dp" />
 
 
     </android.support.v4.view.ViewPager>
@@ -46,7 +46,6 @@
             app:elevation="9dp"
             app:fabSize="normal"
             app:srcCompat="@mipmap/ic_add_white_24dp" />
-
 
 
         <GridLayout
@@ -166,7 +165,35 @@
 
         </GridLayout>
 
+        <RelativeLayout
+            android:id="@+id/AdViewLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
+            <Button
+                android:id="@+id/closeAds"
+                style="@android:style/Widget.Button"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/adView"
+                android:layout_toEndOf="@+id/adView"
+                android:layout_toRightOf="@+id/adView"
+                android:text="X" />
+
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/ads_banner_main_id" />
+
+        </RelativeLayout>
 
 
     </RelativeLayout>

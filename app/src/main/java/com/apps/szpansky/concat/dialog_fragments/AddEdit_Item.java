@@ -27,7 +27,7 @@ public class AddEdit_Item extends DialogFragment {
     private CheckBox dis_5, dis_10, dis_15, dis_20, dis_25, dis_30, dis_35, dis_40, dis_100;
     private final CheckBox[] dis_all = {dis_5, dis_10, dis_15, dis_20, dis_25, dis_30, dis_35, dis_40, dis_100};
     FloatingActionButton add;
-    final Item item = new Item(new Database(getActivity()));
+    Item item;
 
 
     boolean isEdit;
@@ -61,10 +61,9 @@ public class AddEdit_Item extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        item = new Item(new Database(getActivity()));
 
         isEdit = getArguments().getBoolean("isEdit", false);
-
-        item.setDatabase(new Database(getActivity()));
 
         final View view = inflater.inflate(R.layout.dialog_add_edit_item, null);
 

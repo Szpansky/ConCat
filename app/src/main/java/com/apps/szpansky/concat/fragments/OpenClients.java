@@ -4,6 +4,7 @@ package com.apps.szpansky.concat.fragments;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
@@ -21,15 +22,14 @@ import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
 
 public class OpenClients extends SimpleFragmentWithList {
 
+
     private final int REQUEST_REFRESH = 2;
 
     public static OpenClients newInstance(Data data) {
         OpenClients openClients = new OpenClients();
-        String browsingColor = "list_preference_browsing_colors";
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", data);
-        bundle.putString("styleKey", browsingColor);
 
         openClients.setArguments(bundle);
         return openClients;
@@ -37,10 +37,24 @@ public class OpenClients extends SimpleFragmentWithList {
 
 
     @Override
-    protected void onAddButtonClick() {
-        DrawerLayout drawerLayout = (DrawerLayout) getActivity().getWindow().findViewById(R.id.drawerLayout);
-        drawerLayout.openDrawer(Gravity.END, true);
+    protected String selectStyleKey() {
+        String browsingColor = "list_preference_browsing_colors";
+        return browsingColor;
     }
+
+
+    @Override
+    protected void inflateFABView(FloatingActionButton addButton) {
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DrawerLayout drawerLayout = (DrawerLayout) getActivity().getWindow().findViewById(R.id.drawerLayout);
+                drawerLayout.openDrawer(Gravity.END, true);
+            }
+        });
+
+    }
+
 
     @Override
     protected void onListViewClick(long id) {
@@ -48,9 +62,10 @@ public class OpenClients extends SimpleFragmentWithList {
 
         Intent intent = new Intent(getActivity(), OrdersActivity.class);
         Order.clickedClientId = id;
-        getActivity().startActivityForResult(intent,REQUEST_REFRESH);
+        getActivity().startActivityForResult(intent, REQUEST_REFRESH);
 
     }
+
 
     @Override
     protected void onListViewLongClick(long id) {
@@ -72,10 +87,10 @@ public class OpenClients extends SimpleFragmentWithList {
         });
     }
 
+
     @Override
     protected Drawable setFABImage() {
         return (ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_playlist_add_white_24dp, null));
     }
-
 
 }

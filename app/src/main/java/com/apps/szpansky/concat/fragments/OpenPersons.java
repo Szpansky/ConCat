@@ -2,6 +2,8 @@ package com.apps.szpansky.concat.fragments;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,14 +16,11 @@ import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
 
 public class OpenPersons extends SimpleFragmentWithList {
 
-
     public static OpenPersons newInstance(Data data) {
         OpenPersons openPersons = new OpenPersons();
-        String openAllColor = "list_preference_open_all_colors";
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", data);
-        bundle.putString("styleKey", openAllColor);
 
         openPersons.setArguments(bundle);
         return openPersons;
@@ -29,16 +28,24 @@ public class OpenPersons extends SimpleFragmentWithList {
 
 
     @Override
-    protected void onAddButtonClick() {
-        AddEdit_Person addEditPerson = AddEdit_Person.newInstance();
-        addEditPerson.show(getActivity().getFragmentManager().beginTransaction(), "DialogAddEditPerson");
+    protected String selectStyleKey() {
+        String openAllColor = "list_preference_open_all_colors";
+        return openAllColor;
     }
+
+
+    @Override
+    protected void inflateFABView(FloatingActionButton addButton) {
+    addButton.hide();
+    }
+
 
     @Override
     protected void onListViewClick(long id) {
         getDataObject().setClickedItemId(id);
         showDialog(id);
     }
+
 
     @Override
     protected void onListViewLongClick(long id) {
@@ -64,6 +71,7 @@ public class OpenPersons extends SimpleFragmentWithList {
         AddEdit_Person addEditPerson = AddEdit_Person.newInstance(id);
         addEditPerson.show(getActivity().getFragmentManager().beginTransaction(), "DialogAddEditPerson");
     }
+
 
     @Override
     protected Drawable setFABImage() {

@@ -3,6 +3,7 @@ package com.apps.szpansky.concat.fragments;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
@@ -21,11 +22,9 @@ public class OpenOrders extends SimpleFragmentWithList {
 
     public static OpenOrders newInstance(Data data) {
         OpenOrders openOrders = new OpenOrders();
-        String browsingColor = "list_preference_browsing_colors";
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", data);
-        bundle.putString("styleKey", browsingColor);
 
         openOrders.setArguments(bundle);
         return openOrders;
@@ -33,10 +32,23 @@ public class OpenOrders extends SimpleFragmentWithList {
 
 
     @Override
-    protected void onAddButtonClick() {
-        DrawerLayout drawerLayout = (DrawerLayout) getActivity().getWindow().findViewById(R.id.drawerLayout);
-        drawerLayout.openDrawer(Gravity.END, true);
+    protected String selectStyleKey() {
+        String browsingColor = "list_preference_browsing_colors";
+        return browsingColor;
     }
+
+
+    @Override
+    protected void inflateFABView(FloatingActionButton addButton) {
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DrawerLayout drawerLayout = (DrawerLayout) getActivity().getWindow().findViewById(R.id.drawerLayout);
+                drawerLayout.openDrawer(Gravity.END, true);
+            }
+        });
+    }
+
 
     @Override
     protected void onListViewClick(long id) {
@@ -65,6 +77,7 @@ public class OpenOrders extends SimpleFragmentWithList {
             }
         });
     }
+
 
     @Override
     protected Drawable setFABImage() {

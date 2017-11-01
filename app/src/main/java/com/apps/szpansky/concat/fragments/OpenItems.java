@@ -2,6 +2,7 @@ package com.apps.szpansky.concat.fragments;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -16,11 +17,9 @@ public class OpenItems extends SimpleFragmentWithList {
 
     public static OpenItems newInstance(Data data) {
         OpenItems openItems = new OpenItems();
-        String openAllColor = "list_preference_open_all_colors";
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", data);
-        bundle.putString("styleKey", openAllColor);
 
         openItems.setArguments(bundle);
         return openItems;
@@ -28,9 +27,15 @@ public class OpenItems extends SimpleFragmentWithList {
 
 
     @Override
-    protected void onAddButtonClick() {
-        AddEdit_Item addEditItem = AddEdit_Item.newInstance();
-        addEditItem.show(getActivity().getFragmentManager().beginTransaction(), "DialogAddEditItem");
+    protected String selectStyleKey() {
+        String openAllColor = "list_preference_open_all_colors";
+        return openAllColor;
+    }
+
+
+    @Override
+    protected void inflateFABView(FloatingActionButton addButton) {
+    addButton.hide();
     }
 
 
@@ -61,6 +66,7 @@ public class OpenItems extends SimpleFragmentWithList {
             }
         });
     }
+
 
     @Override
     protected Drawable setFABImage() {

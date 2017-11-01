@@ -3,6 +3,7 @@ package com.apps.szpansky.concat.fragments;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -17,15 +18,14 @@ import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
 
 public class OpenCatalogs extends SimpleFragmentWithList {
 
+
     private final int REQUEST_REFRESH = 2;
 
     public static OpenCatalogs newInstance(Data data) {
         OpenCatalogs openCatalogs = new OpenCatalogs();
-        String browsingColor = "list_preference_browsing_colors";
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", data);
-        bundle.putString("styleKey", browsingColor);
 
         openCatalogs.setArguments(bundle);
         return openCatalogs;
@@ -33,11 +33,16 @@ public class OpenCatalogs extends SimpleFragmentWithList {
 
 
 
+    @Override
+    protected String selectStyleKey() {
+        String browsingColor = "list_preference_browsing_colors";
+        return browsingColor;
+    }
+
 
     @Override
-    protected void onAddButtonClick() {
-        AddEdit_Catalog addEditCatalog = AddEdit_Catalog.newInstance();
-        addEditCatalog.show(getActivity().getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
+    protected void inflateFABView(FloatingActionButton addButton) {
+    addButton.hide();
     }
 
 
@@ -50,12 +55,14 @@ public class OpenCatalogs extends SimpleFragmentWithList {
 
     }
 
+
     @Override
     protected void onListViewLongClick(long id) {
         getDataObject().setClickedItemId(id);
         AddEdit_Catalog addEditCatalog = AddEdit_Catalog.newInstance(id);
         addEditCatalog.show(getActivity().getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
     }
+
 
     @Override
     protected void inflateNewViewInToolBar(Toolbar toolbar) {

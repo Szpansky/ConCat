@@ -12,6 +12,8 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -23,7 +25,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.RelativeLayout;
 
 import com.apps.szpansky.concat.dialog_fragments.AddEdit_Catalog;
 import com.apps.szpansky.concat.dialog_fragments.AddEdit_Item;
@@ -31,9 +35,18 @@ import com.apps.szpansky.concat.dialog_fragments.AddEdit_Person;
 import com.apps.szpansky.concat.dialog_fragments.ExportImport;
 import com.apps.szpansky.concat.dialog_fragments.InformationCurrentCatalog;
 import com.apps.szpansky.concat.dialog_fragments.Login;
+import com.apps.szpansky.concat.fragments.Main;
+import com.apps.szpansky.concat.fragments.OpenCatalogs;
+import com.apps.szpansky.concat.fragments.OpenItems;
+import com.apps.szpansky.concat.fragments.OpenPersons;
+import com.apps.szpansky.concat.simple_data.Catalog;
+import com.apps.szpansky.concat.simple_data.Item;
+import com.apps.szpansky.concat.simple_data.Person;
 import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.MyPagerAdapter;
 import com.apps.szpansky.concat.tools.SimpleFunctions;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 
 public class MainActivity extends AppCompatActivity implements DialogInterface.OnDismissListener {
@@ -52,18 +65,52 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
     private FloatingActionButton fabMain, fabNewCatalog, fabNewPerson, fabNewItem;
     private GridLayout subFloatingMenu;
 
+    private Main main;
+    private OpenCatalogs openCatalogs;
+    private OpenPersons openPersons;
+    private OpenItems openItems;
+
+    String[] titles;
+    Fragment[] fragments;
+
+    AdView adView;
+    Button closeAdView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme(SimpleFunctions.setStyle(mainColor, sharedPreferences));
-
         super.onCreate(savedInstanceState);
+
+        main = Main.newInstance();
+        openCatalogs = OpenCatalogs.newInstance(new Catalog(new Database(getBaseContext())));
+        openPersons = OpenPersons.newInstance(new Person(new Database(getBaseContext())));
+        openItems = OpenItems.newInstance(new Item(new Database(getBaseContext())));
+        fragments = new Fragment[]{main, openCatalogs, openPersons, openItems};
+
         setContentView(R.layout.pager_layout);
+
+        setAd();
         setDrawer();
         setPager();
         onFloatingButtonClick();
         onNavigationItemClick();
+    }
+
+    private void setAd(){
+        adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+        final View view = findViewById(R.id.AdViewLayout);
+        closeAdView = (Button) findViewById(R.id.closeAds);
+        closeAdView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                view.setVisibility(View.GONE);
+            }
+        });
     }
 
 
@@ -73,15 +120,18 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
         pagerTitleStrip.findViewById(R.id.pager_title_strip);
         pagerTitleStrip.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
         //pager.setPageTransformer(true, new ZoomOutPageTransformer());
-        String[] titles = new String[]{getString(R.string.main), getString(R.string.orders), getString(R.string.persons), getString(R.string.items)};
-        myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), titles, new Database(this));
+        titles = new String[]{getString(R.string.main), getString(R.string.orders), getString(R.string.persons), getString(R.string.items)};
+        myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), fragments, titles);
         pager.setAdapter(myPagerAdapter);
     }
 
 
     @Override
     public void onDismiss(DialogInterface dialog) {
-        myPagerAdapter.notifyDataSetChanged();
+        if(main.isVisible()) main.refreshFragmentState();
+        if(openCatalogs.isVisible()) openCatalogs.refreshFragmentState();
+        if(openPersons.isVisible()) openPersons.refreshFragmentState();
+        if(openItems.isVisible()) openItems.refreshFragmentState();
     }
 
 
@@ -116,7 +166,6 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         navigationView = (NavigationView) findViewById(R.id.navView);
         navViewHeader = navigationView.getHeaderView(0);
-
     }
 
 
@@ -178,19 +227,17 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-
             switch (requestCode) {
                 case (REQUEST_RECREATE): {
                     recreate();
                     break;
                 }
-                case (REQUEST_REFRESH):{
+                case (REQUEST_REFRESH): {
                     myPagerAdapter.notifyDataSetChanged();
                     break;
                 }
             }
         }
-
         if (resultCode == Activity.RESULT_CANCELED) {
 
         }
@@ -237,7 +284,6 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
 
     public void onFabMenuItemClick() {
         //handler is set for smooth data content chages
-
         fabNewCatalog = (FloatingActionButton) findViewById(R.id.fabAddCatalog);
         fabNewPerson = (FloatingActionButton) findViewById(R.id.fabAddPerson);
         fabNewItem = (FloatingActionButton) findViewById(R.id.fabAddItem);
@@ -286,5 +332,10 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
                 addEditItem.show(getFragmentManager().beginTransaction(), "DialogAddEditItem");
             }
         });
+    }
+
+
+    public void setPage(int pos){
+        pager.setCurrentItem(pos);
     }
 }

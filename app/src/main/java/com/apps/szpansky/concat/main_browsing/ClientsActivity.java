@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -63,8 +64,6 @@ public class ClientsActivity extends AppCompatActivity implements DialogInterfac
     public void onPersonPick(Long id) {
         Client client = new Client(new Database(this));
 
-        //client.setDatabase(new Database(this));         //TODO throwexeption jezeli nei ustawimy bazydanych
-
         Long catalogId = Client.clickedCatalogId;
 
         String[] value = new String[]{catalogId.toString(), id.toString(), getString(R.string.db_status_not_payed)};
@@ -72,14 +71,22 @@ public class ClientsActivity extends AppCompatActivity implements DialogInterfac
 
         if (client.insertData(value, keys)) {
             Toast.makeText(this, R.string.add_client_notify, Toast.LENGTH_SHORT).show();
-            DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-            drawerLayout.closeDrawers();
+
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+                    drawerLayout.closeDrawers();
+                }
+            }, 250);
+
             clientsFragment.refreshFragmentState();
             contentChanged = true;
         } else {
             Toast.makeText(this, R.string.error_notify_duplicate, Toast.LENGTH_SHORT).show();
         }
-
+        client = null;
     }
 
 
@@ -94,8 +101,6 @@ public class ClientsActivity extends AppCompatActivity implements DialogInterfac
                 onNavigateUp();
         }
     }
-
-
 
 
     @Override
@@ -114,7 +119,4 @@ public class ClientsActivity extends AppCompatActivity implements DialogInterfac
 
         }
     }
-
-
-
 }

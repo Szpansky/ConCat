@@ -4,8 +4,10 @@ package com.apps.szpansky.concat.fragments;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.dialog_fragments.AddEdit_Item;
@@ -14,7 +16,6 @@ import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
 
 
 public class PickItem extends SimpleFragmentWithList {
-
 
     ClickedItem clickedPerson;
 
@@ -38,11 +39,9 @@ public class PickItem extends SimpleFragmentWithList {
 
     public static PickItem newInstance(Data data) {
         PickItem pickItem = new PickItem();
-        String openAllColor = "list_preference_open_all_colors";
 
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", data);
-        bundle.putString("styleKey", openAllColor);
 
         pickItem.setArguments(bundle);
         return pickItem;
@@ -50,10 +49,23 @@ public class PickItem extends SimpleFragmentWithList {
 
 
     @Override
-    protected void onAddButtonClick() {
-        AddEdit_Item addEdit_item = AddEdit_Item.newInstance();
-        addEdit_item.show(getActivity().getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
+    protected String selectStyleKey() {
+        String openAllColor = "list_preference_open_all_colors";
+        return openAllColor;
     }
+
+
+    @Override
+    protected void inflateFABView(FloatingActionButton addButton) {
+    addButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            AddEdit_Item addEdit_item = AddEdit_Item.newInstance();
+            addEdit_item.show(getActivity().getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
+        }
+    });
+    }
+
 
     @Override
     protected void onListViewClick(long id) {
@@ -61,12 +73,14 @@ public class PickItem extends SimpleFragmentWithList {
         clickedPerson.onItemPick(id);
     }
 
+
     @Override
     protected void onListViewLongClick(long id) {
         getDataObject().setClickedItemId(id);
         AddEdit_Item addEdit_item = AddEdit_Item.newInstance(id);
         addEdit_item.show(getActivity().getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
     }
+
 
     @Override
     protected Drawable setFABImage() {

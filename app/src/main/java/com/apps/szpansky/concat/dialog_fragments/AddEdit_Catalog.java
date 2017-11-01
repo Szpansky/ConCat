@@ -29,7 +29,7 @@ public class AddEdit_Catalog extends DialogFragment implements DialogInterface.O
     EditText catalogNumber, catalogDateStart, catalogDateEnd;
     FloatingActionButton add;
     boolean isEdit;
-    Catalog catalog = new Catalog(new Database(getActivity()));
+    Catalog catalog;
 
     public static AddEdit_Catalog newInstance(long myIndex) {
         AddEdit_Catalog addEditCatalog = new AddEdit_Catalog();
@@ -59,9 +59,9 @@ public class AddEdit_Catalog extends DialogFragment implements DialogInterface.O
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        catalog = new Catalog(new Database(getActivity()));
 
         isEdit = getArguments().getBoolean("isEdit");
-        catalog.setDatabase(new Database(getActivity()));
 
         final View view = inflater.inflate(R.layout.dialog_add_edit_catalog, null);
 

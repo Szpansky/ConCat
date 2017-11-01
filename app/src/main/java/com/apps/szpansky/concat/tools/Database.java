@@ -58,6 +58,9 @@ public class Database extends SQLiteOpenHelper {
     public static final String ORDER_TOTAL = "TOTAL";
 
 
+
+
+
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;

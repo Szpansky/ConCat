@@ -13,7 +13,7 @@ public abstract class Data implements DataInterface, Serializable {
 
     public Data(Database database) {
         this.currentTable = getCurrentTable();
-        setDatabase(database);
+        this.database = database;
     }
 
     public void setClickedItemId(long clickedItemId) {
@@ -22,10 +22,6 @@ public abstract class Data implements DataInterface, Serializable {
 
     public long getClickedItemId() {
         return clickedItemId;
-    }
-
-    public void setDatabase(Database myDB) {
-        this.database = myDB;
     }
 
     public Database getDatabase() {

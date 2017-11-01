@@ -1,15 +1,12 @@
 package com.apps.szpansky.concat.tools;
 
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -29,42 +26,45 @@ import com.apps.szpansky.concat.R;
 
 // class which extends that fragment need declare method for class eg. newInstance(Data data, String Style) and set that two argument.  which return fragment with those arguments
 
-public abstract class SimpleFragmentWithList extends Fragment {
+public abstract class SimpleFragmentWithList extends BaseFragment {
 
     public Data getDataObject() {
         return data;
     }
 
+    static int index;
+    static int top;
 
     public void refreshFragmentState() {
-        if(listView != null) {
-            int index = 0;
-            if (listView.isShown()) index = listView.getFirstVisiblePosition();
-            View v = listView.getChildAt(0);
-            int top = (v == null) ? 0 : (v.getTop() - listView.getPaddingTop());
+        // if(listView != null) {
+        index = 0;
+        if (listView.isShown()) index = listView.getFirstVisiblePosition();
+        View v = listView.getChildAt(0);
+        top = (v == null) ? 0 : (v.getTop() - listView.getPaddingTop());
 
-            MyCursorAdapter myCursorAdapter = new MyCursorAdapter(getActivity().getBaseContext(), data, getActivity().getFragmentManager(), 0);
-            listView.setAdapter(myCursorAdapter);
-            listView.setOnScrollListener(onScrollListener);
-            if (index != -1) {
-                if (top != 0) {
-                    listView.setSelectionFromTop(index, top);
-                } else {
-                    listView.setSelectionFromTop(index, top + listView.getPaddingTop());
-                }
-            }
-            if (listView.getCount() <= 0) {
-                emptyList.setVisibility(View.VISIBLE);
-                catPointing.setVisibility(View.VISIBLE);
+        MyCursorAdapter myCursorAdapter = new MyCursorAdapter(getActivity().getBaseContext(), getDataObject(), getActivity().getFragmentManager(), 0);
+        listView.setAdapter(myCursorAdapter);
+        listView.setOnScrollListener(onScrollListener);
+        if (index != -1) {
+            if (top != 0) {
+                listView.setSelectionFromTop(index, top);
             } else {
-                emptyList.setVisibility(View.GONE);
-                catPointing.setVisibility(View.GONE);
+                listView.setSelectionFromTop(index, top + listView.getPaddingTop());
             }
         }
+        if (listView.getCount() <= 0) {
+            emptyList.setVisibility(View.VISIBLE);
+            catPointing.setVisibility(View.VISIBLE);
+        } else {
+            emptyList.setVisibility(View.GONE);
+            catPointing.setVisibility(View.GONE);
+        }
+        // }
     }
 
+    protected abstract String selectStyleKey();
 
-    protected abstract void onAddButtonClick();
+    protected abstract void inflateFABView(FloatingActionButton addButton);
 
     protected abstract void onListViewClick(long id);
 
@@ -76,37 +76,17 @@ public abstract class SimpleFragmentWithList extends Fragment {
 
 
     @Override
-    public void onResume() {
-        super.onResume();
-        refreshFragmentState();
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) throws NullPointerException {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) throws NullPointerException {
         setDataFromBundle();
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         getContext().setTheme(SimpleFunctions.setStyle(styleKey, sharedPreferences));
 
-        view = inflater.inflate(R.layout.activity_simple_view, container, false);
+        view = (ViewGroup) inflater.inflate(R.layout.activity_simple_view, container, false);
         view.setBackgroundColor(ContextCompat.getColor(getContext(), SimpleFunctions.setBackgroundColor(styleKey, sharedPreferences)));
 
         setViews();
-        setFABListener();
+        inflateFAB();
         inflateToolBar();
         setListListener();
         refreshFragmentState();
@@ -124,7 +104,7 @@ public abstract class SimpleFragmentWithList extends Fragment {
     private String styleKey;
     private TextView emptyList;
     private ImageView catPointing;
-    private View view;
+    private ViewGroup view;
 
 
     private void setViews() {
@@ -137,13 +117,8 @@ public abstract class SimpleFragmentWithList extends Fragment {
     }
 
 
-    private void setFABListener() {
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onAddButtonClick();
-            }
-        });
+    private void inflateFAB() {
+        inflateFABView(addButton);
     }
 
 
@@ -198,7 +173,7 @@ public abstract class SimpleFragmentWithList extends Fragment {
 
 
     private void setDataFromBundle() {
-        styleKey = getArguments().getString("styleKey");
+        styleKey = selectStyleKey();//getArguments().getString("styleKey");
         data = (Data) getArguments().getSerializable("data");
         if (data == null || styleKey == null)
             throw new NullPointerException("set arguments (data and styleKey) eg. in newInstance(Data data, String styleKey)");
@@ -237,6 +212,7 @@ public abstract class SimpleFragmentWithList extends Fragment {
         };
         onScrollListener.onScroll(listView, listView.getFirstVisiblePosition(), listView.getLastVisiblePosition(), listView.getCount());
     }
+
 }
 
 
