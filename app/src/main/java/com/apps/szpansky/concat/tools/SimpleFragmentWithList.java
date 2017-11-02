@@ -112,6 +112,7 @@ public abstract class SimpleFragmentWithList extends BaseFragment {
         addButton = (FloatingActionButton) view.findViewById(R.id.add);
         emptyList = (TextView) view.findViewById(R.id.empty_textView);
         catPointing = (ImageView) view.findViewById(R.id.cat_pointing);
+        catPointing.setImageDrawable(ContextCompat.getDrawable(getActivity().getBaseContext(), R.drawable.cat_pointing));
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         addButton.setImageDrawable(setFABImage());
     }
