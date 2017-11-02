@@ -33,8 +33,7 @@ public class OpenOrders extends SimpleFragmentWithList {
 
     @Override
     protected String selectStyleKey() {
-        String browsingColor = "list_preference_browsing_colors";
-        return browsingColor;
+        return "list_preference_browsing_colors";
     }
 
 

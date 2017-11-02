@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/default_padding"
-    android:scrollbarStyle="outsideInset">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -28,9 +26,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:background="?attr/colorPrimary"
                 android:padding="@dimen/default_padding"
                 android:text="@string/import_export_DB_title"
                 android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
                 android:textSize="@dimen/default_text_size"
                 android:textStyle="bold" />
 
@@ -38,6 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:padding="@dimen/default_padding"
                 android:text="@string/import_export_DB_information"
                 android:textAlignment="center"
                 android:textSize="@dimen/default_sub_text_size" />
@@ -49,23 +51,31 @@
 
                 <Button
                     android:id="@+id/dialog_ie_button_db_import"
-                    style="@style/Widget.AppCompat.Button.Colored"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/default_padding"
+                    android:layout_marginRight="@dimen/default_padding"
                     android:layout_marginTop="@dimen/default_padding"
                     android:layout_weight="1"
+                    android:background="?attr/colorAccent"
                     android:fontFamily="sans-serif"
-                    android:text="@string/import_db" />
+                    android:text="@string/import_db"
+                    android:textColor="@color/white" />
 
                 <Button
                     android:id="@+id/dialog_ie_button_db_export"
-                    style="@style/Widget.AppCompat.Button.Colored"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_padding"
+                    android:layout_marginStart="@dimen/default_padding"
                     android:layout_marginTop="@dimen/default_padding"
                     android:layout_weight="1"
+                    android:background="?attr/colorAccent"
                     android:fontFamily="sans-serif"
-                    android:text="@string/export_db" />
+                    android:text="@string/export_db"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
@@ -74,10 +84,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_padding"
+                android:background="?attr/colorPrimary"
                 android:padding="@dimen/default_padding"
                 android:text="@string/import_export_folder"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="@dimen/default_text_size"
                 android:textStyle="bold" />
 
@@ -85,6 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:padding="@dimen/default_padding"
                 android:text="@string/import_export_table_info"
                 android:textAlignment="center"
                 android:textSize="@dimen/default_sub_text_size" />
@@ -126,20 +139,28 @@
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/default_padding"
+                    android:layout_marginRight="@dimen/default_padding"
                     android:layout_marginTop="@dimen/default_padding"
                     android:layout_weight="1"
+                    android:background="?attr/colorAccent"
                     android:fontFamily="sans-serif"
-                    android:text="@string/import_db" />
+                    android:text="@string/import_db"
+                    android:textColor="@color/white" />
 
                 <Button
                     android:id="@+id/dialog_ie_button_folder_export"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_padding"
+                    android:layout_marginStart="@dimen/default_padding"
                     android:layout_marginTop="@dimen/default_padding"
                     android:layout_weight="1"
+                    android:background="?attr/colorAccent"
                     android:fontFamily="sans-serif"
-                    android:text="@string/export_db" />
+                    android:text="@string/export_db"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 

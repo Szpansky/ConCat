@@ -1,70 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/default_padding">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center_vertical|center_horizontal|center"
+        android:background="?attr/colorPrimary"
         android:fontFamily="sans-serif"
+        android:foregroundGravity="center_vertical|center_horizontal|center"
+        android:gravity="center_vertical|center_horizontal|center"
+        android:padding="@dimen/default_padding"
         android:text="@string/info_about_order"
+        android:textColor="@color/white"
         android:textSize="@dimen/default_text_size"
         android:textStyle="bold" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center_vertical|center_horizontal|center"
         android:fontFamily="sans-serif"
-        android:padding="@dimen/default_text_margin"
+        android:foregroundGravity="center_vertical|center_horizontal|center"
+        android:gravity="center_vertical|center_horizontal|center"
+        android:padding="@dimen/default_padding"
         android:text="@string/change_status"
         android:textSize="@dimen/default_sub_text_size"
         android:textStyle="bold" />
 
-    <RadioGroup
-        android:id="@+id/radioGroupOrder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|center_horizontal|center"
+        android:foregroundGravity="center_vertical|center_horizontal|center"
+        android:gravity="center_vertical|center_horizontal|center"
+        android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/radioButtonOrderNotPaid"
+        <RadioGroup
+            android:id="@+id/radioGroupOrder"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="@dimen/default_padding"
-            android:text="@string/db_status_not_payed" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/radioButtonOrderPaid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="@dimen/default_padding"
-            android:text="@string/db_status_payed" />
+            <RadioButton
+                android:id="@+id/radioButtonOrderNotPaid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/default_padding"
+                android:text="@string/db_status_not_payed" />
 
-        <RadioButton
-            android:id="@+id/radioButtonOrderReady"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="@dimen/default_padding"
-            android:text="@string/db_status_ready" />
+            <RadioButton
+                android:id="@+id/radioButtonOrderPaid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/default_padding"
+                android:text="@string/db_status_payed" />
 
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/radioButtonOrderReady"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/default_padding"
+                android:text="@string/db_status_ready" />
+
+        </RadioGroup>
+    </LinearLayout>
 
     <Button
         android:id="@+id/buttonOrderSave"
-        style="@style/Widget.AppCompat.Button.Colored"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_padding"
+        android:background="?attr/colorAccent"
         android:fontFamily="sans-serif"
         android:text="@string/save"
+        android:textColor="@color/white"
         android:textSize="@dimen/default_sub_text_size"
         android:textStyle="bold" />
 

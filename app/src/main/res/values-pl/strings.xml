@@ -197,6 +197,8 @@
     <string name="click_to_copy">Kliknij by skopiować</string>
     <string name="error_notify_duplicate">Taki rekord już istnieje !</string>
     <string name="empty_list_add_new">Lista pusta, dodaj nowy</string>
+    <string name="code_amount_name">| Kod | Ilość | Nazwa</string>
+    <string name="x_mark">X</string>
 
 
 </resources>

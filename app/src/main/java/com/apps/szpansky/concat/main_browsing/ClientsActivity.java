@@ -7,9 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.Toast;
@@ -23,7 +23,7 @@ import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleFunctions;
 
 
-public class ClientsActivity extends AppCompatActivity implements DialogInterface.OnDismissListener, PickPerson.ClickedPerson {
+public class ClientsActivity extends FragmentActivity implements DialogInterface.OnDismissListener, PickPerson.ClickedPerson {
 
     private static String browsingColors = "list_preference_browsing_colors";
     private OpenClients clientsFragment;
@@ -32,15 +32,14 @@ public class ClientsActivity extends AppCompatActivity implements DialogInterfac
     final int REQUEST_REFRESH = 2;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        setTheme(SimpleFunctions.setStyle(browsingColors, sharedPreferences));
+        setTheme(SimpleFunctions.getStyleFromSharedPref(browsingColors, sharedPreferences));
 
-        setContentView(R.layout.simple_sliding_pane_layout);
+        setContentView(R.layout.frame_with_navigation_layout);
 
         pickPersonFragment = PickPerson.newInstance(new Person_InPickList(new Database(this)));
         FragmentTransaction manager2 = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_second, pickPersonFragment);
@@ -96,9 +95,15 @@ public class ClientsActivity extends AppCompatActivity implements DialogInterfac
         if (drawerLayout.isDrawerOpen(Gravity.END)) {
             drawerLayout.closeDrawers();
         } else {
+            if (contentChanged) {
                 Intent intent = new Intent();
                 setResult(Activity.RESULT_OK, intent);
                 onNavigateUp();
+            } else {
+                Intent intent = new Intent();
+                setResult(Activity.RESULT_CANCELED, intent);
+                onNavigateUp();
+            }
         }
     }
 
@@ -106,9 +111,8 @@ public class ClientsActivity extends AppCompatActivity implements DialogInterfac
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-
             switch (requestCode) {
-                case (REQUEST_REFRESH):{
+                case (REQUEST_REFRESH): {
                     clientsFragment.refreshFragmentState();
                     contentChanged = true;
                     break;

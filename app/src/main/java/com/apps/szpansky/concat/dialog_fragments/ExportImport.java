@@ -1,6 +1,8 @@
 package com.apps.szpansky.concat.dialog_fragments;
 
+import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -17,7 +19,7 @@ import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.FileManagement;
 
 
-public class ExportImport extends DialogFragment {
+public class ExportImport extends DialogFragment implements DialogInterface.OnDismissListener{
 
     private String tableName = Database.TABLE_ITEMS;    //default exported/imported content
     private String fileName = "Items.txt";
@@ -204,4 +206,12 @@ public class ExportImport extends DialogFragment {
     }
 
 
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        final Activity activity = getActivity();
+        if (activity instanceof DialogInterface.OnDismissListener) {
+            ((DialogInterface.OnDismissListener) activity).onDismiss(dialog);
+        }
+    }
 }

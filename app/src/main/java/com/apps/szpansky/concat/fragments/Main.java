@@ -33,7 +33,6 @@ import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 public class Main extends BaseFragment implements RewardedVideoAdListener {
 
     private View view;
-    private String styleKey = "list_preference_main_colors";
 
     TextView mainCatalogNr;
     TextView mainCatalogMonthsLeft;
@@ -100,27 +99,17 @@ public class Main extends BaseFragment implements RewardedVideoAdListener {
     }
 
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        getContext().setTheme(SimpleFunctions.setStyle(styleKey, sharedPreferences));
-
         view = inflater.inflate(R.layout.content_main, container, false);
-        view.setBackgroundColor(ContextCompat.getColor(getContext(), SimpleFunctions.setBackgroundColor(styleKey, sharedPreferences)));
 
         setViews();
         inflateToolBar();
         refreshFragmentState();
         onButtonCLick();
         setRewardedVideo();
-
+        updateUserInfo();
         return view;
     }
 

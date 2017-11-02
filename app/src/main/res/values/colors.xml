@@ -2,22 +2,22 @@
 <resources>
     <color name="colorPrimaryForOpenAll">#ff00e5ff</color>
     <color name="colorPrimaryDarkForOpenAll">#8800b2cc</color>
-    <color name="colorPrimaryLightForOpenAll">#ffB5F1F1</color>
+    <color name="colorPrimaryForOpenAll_light">#ffB5F1F1</color>
     <color name="colorAccentForOpenAll">#ff4081</color>
 
     <color name="colorPrimaryForPick">#ffffee32</color>
     <color name="colorPrimaryDarkForPick">#88c8bc00</color>
-    <color name="colorPrimaryLightForPick">#ffFFFE9E</color>
+    <color name="colorPrimaryForPick_light">#ffFFFE9E</color>
     <color name="colorAccentForPick">#ffFF4081</color>
 
     <color name="colorPrimaryForBrowsing">#ff00e676</color>
     <color name="colorPrimaryDarkForBrowsing">#8800b248</color>
-    <color name="colorPrimaryLightForBrowsing">#FFD8FF93</color>
+    <color name="colorPrimaryForBrowsing_light">#FFD8FF93</color>
     <color name="colorAccentForBrowsing">#ffFF4081</color>
 
     <color name="colorPrimary">#ff00e5ff</color>
     <color name="colorPrimaryDark">#8800b2cc</color>
-    <color name="colorPrimaryLight">#ffeeeeee</color>
+    <color name="colorPrimary_light">#ffeeeeee</color>
     <color name="colorAccent">#ff4081</color>
 
     <color name="bluePrimary">#03a9f4</color>
@@ -50,7 +50,7 @@
     <color name="greyPrimary_light">#CFD8DC</color>
     <color name="greyAccent">#9E9E9E</color>
 
-    <color name="white">#ffffffff</color>
+    <color name="white">#ffffff</color>
     <color name="black">#ff000000</color>
     <color name="lightBackground">#ffeeeeee</color>
     <color name="background">#ffcccccc</color>

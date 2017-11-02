@@ -50,8 +50,7 @@ public class PickItem extends SimpleFragmentWithList {
 
     @Override
     protected String selectStyleKey() {
-        String openAllColor = "list_preference_open_all_colors";
-        return openAllColor;
+        return "list_preference_open_all_colors";
     }
 
 

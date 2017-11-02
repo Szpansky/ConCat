@@ -25,25 +25,29 @@
 
             <Button
                 android:id="@+id/openCatalogs"
-                style="@style/Widget.AppCompat.Button.Colored"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_margin="@dimen/default_padding"
                 android:layout_weight="1"
+                android:background="?attr/colorAccent"
                 android:fontFamily="sans-serif"
                 android:text="@string/orders"
+                android:textColor="@color/white"
                 android:textSize="@dimen/default_text_size"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/startAd"
-                style="@style/Widget.AppCompat.Button.Colored"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_margin="@dimen/default_padding"
                 android:layout_weight="1"
+                android:background="?attr/colorAccent"
                 android:fontFamily="sans-serif"
                 android:text="@string/daily_reward"
+                android:textColor="@color/white"
                 android:textSize="@dimen/default_text_size"
                 android:textStyle="bold" />
 

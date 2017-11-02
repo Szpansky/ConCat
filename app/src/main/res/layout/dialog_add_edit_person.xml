@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_add_person"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:orientation="vertical">
@@ -30,17 +30,20 @@
 
             <TextView
                 android:id="@+id/textView19"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/default_margin"
+                android:layout_gravity="center_vertical|center_horizontal|center"
                 android:layout_weight="1"
+                android:background="?attr/colorPrimary"
                 android:fontFamily="sans-serif"
+                android:foregroundGravity="center_vertical|center_horizontal|center"
+                android:gravity="center_vertical|center_horizontal|center"
                 android:padding="@dimen/default_padding"
                 android:text="@string/new_client"
                 android:textAllCaps="true"
+                android:textColor="@color/white"
                 android:textSize="@dimen/default_text_size"
-                android:textStyle="bold|italic" />
+                android:textStyle="bold" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"

@@ -1,8 +1,10 @@
 package com.apps.szpansky.concat.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.Toolbar;
@@ -14,10 +16,10 @@ import com.apps.szpansky.concat.main_browsing.ClientsActivity;
 import com.apps.szpansky.concat.simple_data.Client;
 import com.apps.szpansky.concat.tools.Data;
 import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
+import com.apps.szpansky.concat.tools.SimpleFunctions;
 
 
 public class OpenCatalogs extends SimpleFragmentWithList {
-
 
     private final int REQUEST_REFRESH = 2;
 
@@ -32,11 +34,9 @@ public class OpenCatalogs extends SimpleFragmentWithList {
     }
 
 
-
     @Override
     protected String selectStyleKey() {
-        String browsingColor = "list_preference_browsing_colors";
-        return browsingColor;
+        return "list_preference_browsing_colors";
     }
 
 

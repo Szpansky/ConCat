@@ -213,5 +213,7 @@
     <string name="click_to_copy">Click to copy</string>
     <string name="error_notify_duplicate">That record already exist !</string>
     <string name="empty_list_add_new">Empty list, add new</string>
+    <string name="code_amount_name">| Code | Amount | Name</string>
+    <string name="x_mark">X</string>
 
 </resources>

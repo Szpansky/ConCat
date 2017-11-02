@@ -57,7 +57,7 @@ public final class SimpleFunctions {
         }
     }
 
-    public static int setStyle(String styleKey, SharedPreferences sharedPreferences) {
+    public static int getStyleFromSharedPref(String styleKey, SharedPreferences sharedPreferences) {
         switch (sharedPreferences.getString(styleKey, "0")) {
             case ("DefaultTheme"):
                 return R.style.DefaultTheme;
@@ -85,16 +85,16 @@ public final class SimpleFunctions {
     }
 
 
-    public static int setBackgroundColor(String styleKey, SharedPreferences sharedPreferences) {
+    public static int getBackgroundColor(String styleKey, SharedPreferences sharedPreferences) {
         switch (sharedPreferences.getString(styleKey, "0")) {
             case ("DefaultTheme"):
-                return R.color.colorPrimaryLight;
+                return R.color.colorPrimary_light;
             case ("DefaultOpenAllTheme"):
-                return R.color.colorPrimaryForOpenAll;
+                return R.color.colorPrimaryForOpenAll_light;
             case ("DefaultBrowsingTheme"):
-                return R.color.colorPrimaryLightForBrowsing;
+                return R.color.colorPrimaryForBrowsing_light;
             case ("DefaultPickTheme"):
-                return R.color.colorPrimaryLightForPick;
+                return R.color.colorPrimaryForPick_light;
             case ("BlueTheme"):
                 return R.color.bluePrimary_light;
             case ("GreenTheme"):
@@ -108,7 +108,35 @@ public final class SimpleFunctions {
             case ("GrayTheme"):
                 return R.color.greyPrimary_light;
             default:
-                return R.color.colorPrimaryLight;
+                return R.color.colorPrimary_light;
+        }
+    }
+
+
+    public static int getPrimaryColor(String styleKey, SharedPreferences sharedPreferences) {
+        switch (sharedPreferences.getString(styleKey, "0")) {
+            case ("DefaultTheme"):
+                return R.color.colorPrimary;
+            case ("DefaultOpenAllTheme"):
+                return R.color.colorPrimaryForOpenAll;
+            case ("DefaultBrowsingTheme"):
+                return R.color.colorPrimaryForBrowsing;
+            case ("DefaultPickTheme"):
+                return R.color.colorPrimaryForPick;
+            case ("BlueTheme"):
+                return R.color.bluePrimary;
+            case ("GreenTheme"):
+                return R.color.greenPrimary;
+            case ("RedTheme"):
+                return R.color.redPrimary;
+            case ("PurpleTheme"):
+                return R.color.purplePrimary;
+            case ("PinkTheme"):
+                return R.color.pinkPrimary;
+            case ("GrayTheme"):
+                return R.color.greyPrimary;
+            default:
+                return R.color.colorPrimary;
         }
     }
 

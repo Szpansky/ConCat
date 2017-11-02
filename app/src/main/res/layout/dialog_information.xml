@@ -2,8 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="@dimen/default_padding">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,11 +13,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
             android:gravity="center"
             android:padding="@dimen/default_padding"
             android:text="@string/current_order"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
             android:textSize="@dimen/default_text_size"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/current_catalogs_number"
@@ -27,6 +29,7 @@
             android:layout_column="1"
             android:layout_row="0"
             android:gravity="center"
+            android:padding="@dimen/default_padding"
             android:text="@string/error"
             android:textSize="@dimen/default_text_size" />
 
@@ -38,6 +41,7 @@
             android:foregroundGravity="center_vertical|center_horizontal|center"
             android:horizontalSpacing="10dp"
             android:numColumns="auto_fit"
+            android:padding="@dimen/default_padding"
             android:stretchMode="columnWidth"
             android:verticalSpacing="10dp">
 
@@ -166,18 +170,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_margin"
+            android:background="?attr/colorPrimary"
             android:gravity="center"
             android:padding="@dimen/default_padding"
             android:text="@string/general"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
             android:textSize="@dimen/default_text_size"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold" />
 
         <GridLayout
             android:id="@+id/grid_general"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal|center"
-            android:foregroundGravity="center_vertical|center_horizontal|center">
+            android:foregroundGravity="center_vertical|center_horizontal|center"
+            android:padding="@dimen/default_padding">
 
             <TextView
                 android:layout_column="0"
@@ -245,12 +253,14 @@
 
         <Button
             android:id="@+id/dialog_info_backBtn"
-            style="@style/Widget.AppCompat.Button.Colored"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_margin"
+            android:background="?attr/colorAccent"
             android:fontFamily="sans-serif"
-            android:text="@string/back" />
+            android:text="@string/back"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

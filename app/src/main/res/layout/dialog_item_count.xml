@@ -4,6 +4,21 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/textView24"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal|center"
+        android:background="?attr/colorPrimary"
+        android:foregroundGravity="center_vertical|center_horizontal|center"
+        android:gravity="center_vertical|center_horizontal|center"
+        android:padding="@dimen/default_padding"
+        android:text="@string/amount"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/default_text_size"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/textView18"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,11 +38,13 @@
 
         <Button
             android:id="@+id/minus_mark"
-            style="@style/Widget.AppCompat.Button.Colored"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="-" />
+            android:background="?attr/colorAccent"
+            android:text="-"
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/number_of_items"
@@ -46,18 +63,22 @@
 
         <Button
             android:id="@+id/plus_mark"
-            style="@style/Widget.AppCompat.Button.Colored"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="+" />
+            android:background="?attr/colorAccent"
+            android:text="+"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
     <Button
         android:id="@+id/button_ok"
-        style="@style/Widget.AppCompat.Button.Colored"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@android:string/ok" />
+        android:background="?attr/colorAccent"
+        android:text="@android:string/ok"
+        android:textColor="@color/white" />
 </LinearLayout>

@@ -38,8 +38,7 @@ public class OpenClients extends SimpleFragmentWithList {
 
     @Override
     protected String selectStyleKey() {
-        String browsingColor = "list_preference_browsing_colors";
-        return browsingColor;
+        return "list_preference_browsing_colors";
     }
 
 

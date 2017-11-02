@@ -45,7 +45,7 @@ public class PrintDetail_Catalog extends DialogFragment {
         myDb = new Database(getActivity());
         Cursor c = myDb.printCatalog(id);
 
-        String catalogInfo = " | " + getResources().getString(R.string.code) + " | " + getResources().getString(R.string.amount) + " | " + getResources().getString(R.string.item_name) + "\n\n";
+        String catalogInfo = "";
 
         for (int i = 0; i < c.getCount(); i++) {
             for (int x = 0; x < c.getColumnCount(); x++) {

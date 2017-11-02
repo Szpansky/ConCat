@@ -13,11 +13,10 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerAdapter;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -27,7 +26,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.GridLayout;
-import android.widget.RelativeLayout;
 
 import com.apps.szpansky.concat.dialog_fragments.AddEdit_Catalog;
 import com.apps.szpansky.concat.dialog_fragments.AddEdit_Item;
@@ -49,14 +47,14 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 
-public class MainActivity extends AppCompatActivity implements DialogInterface.OnDismissListener {
+public class MainActivity extends FragmentActivity implements DialogInterface.OnDismissListener {
 
     private final int REQUEST_RECREATE = 1;
     private final int REQUEST_REFRESH = 2;
     private boolean FLOATING_MENU_IS_OPEN = false;
 
     private ViewPager pager;
-    private MyPagerAdapter myPagerAdapter;
+    public MyPagerAdapter myPagerAdapter;
     private static String mainColor = "list_preference_main_colors";
     private NavigationView navigationView;
     private View navViewHeader;
@@ -81,7 +79,8 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        setTheme(SimpleFunctions.setStyle(mainColor, sharedPreferences));
+        setTheme(SimpleFunctions.getStyleFromSharedPref(mainColor, sharedPreferences));
+
         super.onCreate(savedInstanceState);
 
         main = Main.newInstance();
@@ -184,16 +183,34 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
                         information.show(getFragmentManager().beginTransaction(), "InformationCurrentCatalog");
                         break;
                     case (R.id.menuOrders):
-                        drawerLayout.closeDrawer(Gravity.LEFT, false);
-                        pager.setCurrentItem(1, true);
+                        drawerLayout.closeDrawer(Gravity.LEFT, true);
+                        final Handler handler1 = new Handler();
+                        handler1.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                pager.setCurrentItem(1, true);
+                            }
+                        }, 300);
                         break;
                     case (R.id.menuClients):
-                        drawerLayout.closeDrawer(Gravity.LEFT, false);
-                        pager.setCurrentItem(2, true);
+                        drawerLayout.closeDrawer(Gravity.LEFT, true);
+                        final Handler handler2 = new Handler();
+                        handler2.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                pager.setCurrentItem(2, true);
+                            }
+                        }, 300);
                         break;
                     case (R.id.menuItems):
-                        drawerLayout.closeDrawer(Gravity.LEFT, false);
-                        pager.setCurrentItem(3, true);
+                        drawerLayout.closeDrawer(Gravity.LEFT, true);
+                        final Handler handler3 = new Handler();
+                        handler3.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                pager.setCurrentItem(3, true);
+                            }
+                        }, 300);
                         break;
                     case (R.id.showTools):
                         Menu menu = navigationView.getMenu();
@@ -297,7 +314,7 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
                     public void run() {
                         pager.setCurrentItem(1, true);
                     }
-                }, 250);
+                }, 300);
                 AddEdit_Catalog addEditCatalog = AddEdit_Catalog.newInstance();
                 addEditCatalog.show(getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
             }
@@ -312,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
                     public void run() {
                         pager.setCurrentItem(2, true);
                     }
-                }, 250);
+                }, 300);
                 AddEdit_Person addEditPerson = AddEdit_Person.newInstance();
                 addEditPerson.show(getFragmentManager().beginTransaction(), "DialogAddEditPerson");
             }
@@ -327,7 +344,7 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
                     public void run() {
                         pager.setCurrentItem(3, true);
                     }
-                }, 250);
+                }, 300);
                 AddEdit_Item addEditItem = AddEdit_Item.newInstance();
                 addEditItem.show(getFragmentManager().beginTransaction(), "DialogAddEditItem");
             }

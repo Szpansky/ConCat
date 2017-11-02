@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -78,12 +79,10 @@ public abstract class SimpleFragmentWithList extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) throws NullPointerException {
         setDataFromBundle();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        getContext().setTheme(SimpleFunctions.setStyle(styleKey, sharedPreferences));
-
-        view = (ViewGroup) inflater.inflate(R.layout.activity_simple_view, container, false);
-        view.setBackgroundColor(ContextCompat.getColor(getContext(), SimpleFunctions.setBackgroundColor(styleKey, sharedPreferences)));
+        view = (ViewGroup) inflater.inflate(R.layout.simple_view, container, false);
+        view.setBackgroundColor(ContextCompat.getColor(getContext(), SimpleFunctions.getBackgroundColor(styleKey, sharedPreferences)));
 
         setViews();
         inflateFAB();
@@ -105,6 +104,7 @@ public abstract class SimpleFragmentWithList extends BaseFragment {
     private TextView emptyList;
     private ImageView catPointing;
     private ViewGroup view;
+    private SharedPreferences sharedPreferences;
 
 
     private void setViews() {
@@ -150,6 +150,8 @@ public abstract class SimpleFragmentWithList extends BaseFragment {
         searchView.setQueryHint(getString(R.string.search_hint));
         searchView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
 
+        toolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), SimpleFunctions.getPrimaryColor(selectStyleKey(),sharedPreferences),null));
+
         inflateNewViewInToolBar(toolbar);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -173,10 +175,10 @@ public abstract class SimpleFragmentWithList extends BaseFragment {
 
 
     private void setDataFromBundle() {
-        styleKey = selectStyleKey();//getArguments().getString("styleKey");
+        styleKey = selectStyleKey();
         data = (Data) getArguments().getSerializable("data");
         if (data == null || styleKey == null)
-            throw new NullPointerException("set arguments (data and styleKey) eg. in newInstance(Data data, String styleKey)");
+            throw new NullPointerException("set arguments (data and styleKey). Data in newInstance(Data data), for styleKey implement method selectStyleKey");
     }
 
 

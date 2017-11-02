@@ -1,32 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/default_padding">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/linear1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
 
         <TextView
-            android:id="@+id/information"
+            android:id="@+id/textView34"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/error" />
+            android:layout_gravity="center"
+            android:background="?attr/colorPrimary"
+            android:gravity="center"
+            android:padding="@dimen/default_padding"
+            android:text="@string/current_order"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/default_text_size"
+            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/copy_button"
+        <TextView
+            android:id="@+id/textView36"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:text="@string/click_to_copy"
-            android:textAllCaps="false" />
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="@dimen/default_padding"
+            android:text="@string/code_amount_name"
+            android:textAllCaps="true"
+            android:textSize="@dimen/default_sub_text_size"
+            android:textStyle="bold" />
 
 
     </LinearLayout>
 
+    <ScrollView
+        android:id="@+id/scrol1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/copy_button"
+        android:layout_below="@+id/linear1">
 
-</ScrollView>
+        <LinearLayout
+            android:id="@+id/linear2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/information"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/default_padding"
+                android:text="@string/error" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/copy_button"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorAccent"
+        android:fontFamily="sans-serif"
+        android:text="@string/click_to_copy"
+        android:textColor="@color/white"
+        android:textSize="@dimen/default_sub_text_size"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>

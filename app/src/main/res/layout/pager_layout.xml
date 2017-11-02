@@ -172,14 +172,16 @@
 
             <Button
                 android:id="@+id/closeAds"
-                style="@android:style/Widget.Button"
-                android:layout_width="wrap_content"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
 
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignTop="@+id/adView"
                 android:layout_toEndOf="@+id/adView"
                 android:layout_toRightOf="@+id/adView"
-                android:text="X" />
+                android:background="?attr/colorPrimaryDark"
+                android:text="@string/x_mark"
+                android:textColor="@color/white" />
 
             <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/adView"

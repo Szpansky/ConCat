@@ -7,9 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.Toast;
@@ -23,7 +23,7 @@ import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleFunctions;
 
 
-public class OrdersActivity extends AppCompatActivity implements DialogInterface.OnDismissListener, PickItem.ClickedItem {
+public class OrdersActivity extends FragmentActivity implements DialogInterface.OnDismissListener, PickItem.ClickedItem {
 
     private static String browsingColors = "list_preference_browsing_colors";
     private OpenOrders ordersFragment;
@@ -36,9 +36,9 @@ public class OrdersActivity extends AppCompatActivity implements DialogInterface
         super.onCreate(savedInstanceState);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        setTheme(SimpleFunctions.setStyle(browsingColors, sharedPreferences));
+        setTheme(SimpleFunctions.getStyleFromSharedPref(browsingColors, sharedPreferences));
 
-        setContentView(R.layout.simple_sliding_pane_layout);
+        setContentView(R.layout.frame_with_navigation_layout);
 
         pickItemFragment = PickItem.newInstance(new Item_InPickList(new Database(this)));
         FragmentTransaction manager2 = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_second, pickItemFragment);
