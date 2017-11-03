@@ -34,7 +34,7 @@ public class SelectCount_Item extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        final View view = (ViewGroup) inflater.inflate(R.layout.dialog_item_count, container, false);
+        final View view = inflater.inflate(R.layout.dialog_item_count, container, false);
 
         final Order order = (Order) getArguments().getSerializable("order");
         final String[] getCurrentData = order.getClickedItemData();

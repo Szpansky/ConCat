@@ -65,7 +65,7 @@ public class AddEdit_Item extends DialogFragment {
 
         isEdit = getArguments().getBoolean("isEdit", false);
 
-        final View view = (ViewGroup) inflater.inflate(R.layout.dialog_add_edit_item, container, false);
+        final View view = inflater.inflate(R.layout.dialog_add_edit_item, container, false);
 
         nr = view.findViewById(R.id.add_edit_itemNr);
         name = view.findViewById(R.id.add_edit_itemName);

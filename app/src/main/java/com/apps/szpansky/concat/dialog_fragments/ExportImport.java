@@ -42,7 +42,7 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        view = (ViewGroup) inflater.inflate(R.layout.dialog_export_import, container, false);
+        view = inflater.inflate(R.layout.dialog_export_import, container, false);
 
         appName = getActivity().getBaseContext().getResources().getString(R.string.app_name);
         loading = Loading.newInstance();

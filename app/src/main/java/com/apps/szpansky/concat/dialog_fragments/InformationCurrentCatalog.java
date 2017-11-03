@@ -29,7 +29,7 @@ public class InformationCurrentCatalog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        final View view = (ViewGroup) inflater.inflate(R.layout.dialog_information, container, false);
+        final View view = inflater.inflate(R.layout.dialog_information, container, false);
 
         myDB = new Database(getActivity());
 

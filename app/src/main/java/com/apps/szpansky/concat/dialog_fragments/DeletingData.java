@@ -30,7 +30,7 @@ public class DeletingData extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        final View view = (ViewGroup) inflater.inflate(R.layout.dialog_deleting, container, false);
+        final View view = inflater.inflate(R.layout.dialog_deleting, container, false);
 
         final Data data = (Data) getArguments().getSerializable("data");
         Button buttonYes = view.findViewById(R.id.dialog_button_yes);

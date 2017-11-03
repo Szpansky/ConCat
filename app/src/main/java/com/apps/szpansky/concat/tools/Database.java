@@ -128,10 +128,7 @@ public class Database extends SQLiteOpenHelper {
         }
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.insert(table, null, contentValues);
-        if (result == -1)
-            return false;
-        else
-            return true;
+        return result != -1;
     }
 
 
@@ -142,10 +139,7 @@ public class Database extends SQLiteOpenHelper {
         }
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.update(table, newValues, "_id = " + id, null);
-        if (result == 1)
-            return true;
-        else
-            return false;
+        return result == 1;
     }
 
 
@@ -169,10 +163,7 @@ public class Database extends SQLiteOpenHelper {
 
         db = this.getWritableDatabase();
         long result = db.insert(TABLE_CLIENTS, null, contentValues);
-        if (result == -1)
-            return false;
-        else
-            return true;
+        return result != -1;
     }
 
 
@@ -209,10 +200,7 @@ public class Database extends SQLiteOpenHelper {
 
         db = this.getWritableDatabase();
         long result = db.insert(TABLE_ORDERS, null, contentValues);
-        if (result == -1)
-            return false;
-        else
-            return true;
+        return result != -1;
     }
 
 
@@ -237,10 +225,7 @@ public class Database extends SQLiteOpenHelper {
         newValues.put(ORDER_TOTAL, total);
         db = this.getWritableDatabase();
         long result = db.update(TABLE_ORDERS, newValues, where, null);
-        if (result == 1)
-            return true;
-        else
-            return false;
+        return result == 1;
     }
 
 
@@ -489,10 +474,7 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String where = fromWhere + " = " + toWhere;
         long result = db.delete(TABLE_NAME, where, null);
-        if (result == -1)
-            return false;
-        else
-            return true;
+        return result != -1;
     }
 
 
@@ -514,11 +496,7 @@ public class Database extends SQLiteOpenHelper {
             SQLiteDatabase db = this.getWritableDatabase();
             long result;
             result = db.update(tableName, newValues, where, null);
-            if (result == 1) {
-                return true;
-            } else {
-                return false;
-            }
+            return result == 1;
         } catch (SQLException se) {
             return false;
         }
@@ -529,11 +507,7 @@ public class Database extends SQLiteOpenHelper {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
             long result = db.insert(tableName, null, newValues);
-            if (result == -1) {
-                return false;
-            } else {
-                return true;
-            }
+            return result != -1;
         } catch (SQLException se) {
             return false;
         }

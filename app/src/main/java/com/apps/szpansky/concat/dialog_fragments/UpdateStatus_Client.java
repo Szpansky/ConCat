@@ -37,7 +37,7 @@ public class UpdateStatus_Client extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         client = (Client) getArguments().getSerializable("client");
 
-        final View view = (ViewGroup) inflater.inflate(R.layout.dialog_on_client_click, container, false);
+        final View view = inflater.inflate(R.layout.dialog_on_client_click, container, false);
 
         Button saveCatalog = view.findViewById(R.id.buttonOrderSave);
         saveCatalog.setOnClickListener(new View.OnClickListener() {

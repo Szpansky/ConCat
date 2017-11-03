@@ -36,7 +36,7 @@ public class PrintDetail_Catalog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        final View view = (ViewGroup) inflater.inflate(R.layout.dialog_print_catalog, container, false);
+        final View view = inflater.inflate(R.layout.dialog_print_catalog, container, false);
 
         TextView information = view.findViewById(R.id.information);
         Button copy = view.findViewById(R.id.copy_button);

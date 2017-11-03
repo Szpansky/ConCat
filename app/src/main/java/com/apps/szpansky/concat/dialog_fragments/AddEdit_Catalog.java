@@ -62,7 +62,7 @@ public class AddEdit_Catalog extends DialogFragment implements DialogInterface.O
 
         isEdit = getArguments().getBoolean("isEdit");
 
-        final View view = (ViewGroup) inflater.inflate(R.layout.dialog_add_edit_catalog, container, false);
+        final View view = inflater.inflate(R.layout.dialog_add_edit_catalog, container, false);
 
         catalogNumber = view.findViewById(R.id.add_edit_catalogNumber);
         catalogDateStart = view.findViewById(R.id.add_edit_catalogDateStart);
