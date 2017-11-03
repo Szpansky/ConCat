@@ -69,9 +69,11 @@ public class OpenClients extends SimpleFragmentWithList {
     @Override
     protected void onListViewLongClick(long id) {
         getDataObject().setClickedItemId(id);
-
         UpdateStatus_Client updateStatusClient = UpdateStatus_Client.newInstance((Client) getDataObject());
-        getActivity().getFragmentManager().beginTransaction().add(updateStatusClient, "updateStatusClient").commit();
+
+        if (getActivity().getSupportFragmentManager().findFragmentByTag("updateStatusClient") == null) {
+            getActivity().getSupportFragmentManager().beginTransaction().add(updateStatusClient, "updateStatusClient").commit();
+        }
     }
 
 

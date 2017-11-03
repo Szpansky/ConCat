@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 
 import com.apps.szpansky.concat.R;
+import com.apps.szpansky.concat.dialog_fragments.AddEdit_Item;
 import com.apps.szpansky.concat.dialog_fragments.SelectCount_Item;
 import com.apps.szpansky.concat.simple_data.Order;
 import com.apps.szpansky.concat.tools.Data;
@@ -52,17 +53,21 @@ public class OpenOrders extends SimpleFragmentWithList {
     @Override
     protected void onListViewClick(long id) {
         getDataObject().setClickedItemId(id);
-
-        SelectCount_Item selectCount_item = SelectCount_Item.newInstance((Order) getDataObject());
-        getActivity().getFragmentManager().beginTransaction().add(selectCount_item, "SelectCount_Item").commit();
+        showDialog();
     }
 
     @Override
     protected void onListViewLongClick(long id) {
         getDataObject().setClickedItemId(id);
+        showDialog();
+    }
 
+
+    private void showDialog() {
         SelectCount_Item selectCount_item = SelectCount_Item.newInstance((Order) getDataObject());
-        getActivity().getFragmentManager().beginTransaction().add(selectCount_item, "SelectCount_Item").commit();
+        if (getActivity().getSupportFragmentManager().findFragmentByTag("SelectCount_Item") == null) {
+            getActivity().getSupportFragmentManager().beginTransaction().add(selectCount_item, "SelectCount_Item").commit();
+        }
     }
 
 

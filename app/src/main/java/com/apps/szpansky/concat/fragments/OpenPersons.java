@@ -9,6 +9,8 @@ import android.view.View;
 
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.dialog_fragments.AddEdit_Person;
+import com.apps.szpansky.concat.dialog_fragments.UpdateStatus_Client;
+import com.apps.szpansky.concat.simple_data.Client;
 import com.apps.szpansky.concat.tools.Data;
 import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
 
@@ -67,7 +69,9 @@ public class OpenPersons extends SimpleFragmentWithList {
 
     private void showDialog(long id) {
         AddEdit_Person addEditPerson = AddEdit_Person.newInstance(id);
-        getActivity().getFragmentManager().beginTransaction().add(addEditPerson, "DialogAddEditPerson").commit();
+        if (getActivity().getSupportFragmentManager().findFragmentByTag("DialogAddEditPerson") == null) {
+            getActivity().getSupportFragmentManager().beginTransaction().add(addEditPerson, "DialogAddEditPerson").commit();
+        }
     }
 
 

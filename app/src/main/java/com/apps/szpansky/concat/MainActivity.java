@@ -75,7 +75,6 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
     Button closeAdView;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -99,7 +98,7 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
         onFabMenuItemClick();
     }
 
-    private void setAd(){
+    private void setAd() {
         adView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
@@ -128,10 +127,10 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
 
     @Override
     public void onDismiss(DialogInterface dialog) {
-        if(main.isVisible()) main.refreshFragmentState();
-        if(openCatalogs.isVisible()) openCatalogs.refreshFragmentState();
-        if(openPersons.isVisible()) openPersons.refreshFragmentState();
-        if(openItems.isVisible()) openItems.refreshFragmentState();
+        if (main.isVisible()) main.refreshFragmentState();
+        if (openCatalogs.isVisible()) openCatalogs.refreshFragmentState();
+        if (openPersons.isVisible()) openPersons.refreshFragmentState();
+        if (openItems.isVisible()) openItems.refreshFragmentState();
     }
 
 
@@ -177,11 +176,11 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
                 switch (item.getItemId()) {
                     case (R.id.menuLogin):
                         Login login = Login.newInstance();
-                        getFragmentManager().beginTransaction().add(login, "Login").commit();
+                        getSupportFragmentManager().beginTransaction().add(login, "Login").commit();
                         break;
                     case (R.id.menuOrderInfo):
                         InformationCurrentCatalog information = InformationCurrentCatalog.newInstance();
-                        getFragmentManager().beginTransaction().add(information, "InformationCurrentCatalog").commit();
+                        getSupportFragmentManager().beginTransaction().add(information, "InformationCurrentCatalog").commit();
                         break;
                     case (R.id.menuOrders):
                         drawerLayout.closeDrawer(Gravity.START, true);
@@ -225,7 +224,7 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
                         break;
                     case (R.id.menuExportImport):
                         ExportImport exportImport = ExportImport.newInstance();
-                        getFragmentManager().beginTransaction().add(exportImport, "Dialog_Exportimport").commit();
+                        getSupportFragmentManager().beginTransaction().add(exportImport, "Dialog_Exportimport").commit();
                         break;
                     case (R.id.menuSetting):
                         Intent Intent_Open_Settings = new Intent(MainActivity.this, SettingsActivity.class);
@@ -262,7 +261,7 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
     }
 
 
-    private void showHideFABMenu(){
+    private void showHideFABMenu() {
         final Animation fabClose, fabOpen, fabRotate, fabRotateBack;
         fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open);
         fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close);
@@ -315,11 +314,14 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
                     @Override
                     public void run() {
                         pager.setCurrentItem(1, true);
-                        showHideFABMenu();
                     }
                 }, 300);
                 AddEdit_Catalog addEditCatalog = AddEdit_Catalog.newInstance();
-                getFragmentManager().beginTransaction().add(addEditCatalog, "DialogAddEditCatalog").commit();
+
+                if (getSupportFragmentManager().findFragmentByTag("DialogAddEditCatalog") == null) {
+                    getSupportFragmentManager().beginTransaction().add(addEditCatalog, "DialogAddEditCatalog").commit();
+                    showHideFABMenu();
+                }
             }
         });
 
@@ -331,11 +333,14 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
                     @Override
                     public void run() {
                         pager.setCurrentItem(2, true);
-                        showHideFABMenu();
                     }
                 }, 300);
                 AddEdit_Person addEditPerson = AddEdit_Person.newInstance();
-                getFragmentManager().beginTransaction().add(addEditPerson, "DialogAddEditPerson").commit();
+
+                if (getSupportFragmentManager().findFragmentByTag("DialogAddEditPerson") == null) {
+                    getSupportFragmentManager().beginTransaction().add(addEditPerson, "DialogAddEditPerson").commit();
+                    showHideFABMenu();
+                }
             }
         });
 
@@ -347,17 +352,20 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
                     @Override
                     public void run() {
                         pager.setCurrentItem(3, true);
-                        showHideFABMenu();
                     }
                 }, 300);
                 AddEdit_Item addEditItem = AddEdit_Item.newInstance();
-                getFragmentManager().beginTransaction().add(addEditItem, "DialogAddEditItem").commit();
+
+                if (getSupportFragmentManager().findFragmentByTag("DialogAddEditItem") == null) {
+                    getSupportFragmentManager().beginTransaction().add(addEditItem, "DialogAddEditItem").commit();
+                    showHideFABMenu();
+                }
             }
         });
     }
 
 
-    public void setPage(int pos){
+    public void setPage(int pos) {
         pager.setCurrentItem(pos);
     }
 }

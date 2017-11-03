@@ -60,7 +60,10 @@ public class PickPerson extends SimpleFragmentWithList {
             @Override
             public void onClick(View v) {
                 AddEdit_Person addEditPerson = AddEdit_Person.newInstance();
-                getActivity().getFragmentManager().beginTransaction().add(addEditPerson, "DialogAddEditPerson").commit();
+
+                if (getActivity().getSupportFragmentManager().findFragmentByTag("DialogAddEditPerson") == null) {
+                    getActivity().getSupportFragmentManager().beginTransaction().add(addEditPerson, "DialogAddEditPerson").commit();
+                }
             }
         });
     }
@@ -77,7 +80,10 @@ public class PickPerson extends SimpleFragmentWithList {
     protected void onListViewLongClick(long id) {
         getDataObject().setClickedItemId(id);
         AddEdit_Person addEditPerson = AddEdit_Person.newInstance(id);
-        getActivity().getFragmentManager().beginTransaction().add(addEditPerson, "DialogAddEditPerson").commit();
+
+        if (getActivity().getSupportFragmentManager().findFragmentByTag("DialogAddEditPerson") == null) {
+            getActivity().getSupportFragmentManager().beginTransaction().add(addEditPerson, "DialogAddEditPerson").commit();
+        }
     }
 
 

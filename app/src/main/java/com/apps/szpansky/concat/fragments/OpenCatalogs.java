@@ -57,7 +57,10 @@ public class OpenCatalogs extends SimpleFragmentWithList {
     protected void onListViewLongClick(long id) {
         getDataObject().setClickedItemId(id);
         AddEdit_Catalog addEditCatalog = AddEdit_Catalog.newInstance(id);
-        getActivity().getFragmentManager().beginTransaction().add(addEditCatalog, "DialogAddEditCatalog").commit();
+
+        if (getActivity().getSupportFragmentManager().findFragmentByTag("DialogAddEditCatalog") == null) {
+            getActivity().getSupportFragmentManager().beginTransaction().add(addEditCatalog, "DialogAddEditCatalog").commit();
+        }
     }
 
 

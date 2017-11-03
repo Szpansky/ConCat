@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.dialog_fragments.AddEdit_Item;
+import com.apps.szpansky.concat.dialog_fragments.AddEdit_Person;
 import com.apps.szpansky.concat.tools.Data;
 import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
 
@@ -41,17 +42,22 @@ public class OpenItems extends SimpleFragmentWithList {
     @Override
     protected void onListViewClick(long id) {
         getDataObject().setClickedItemId(id);
-        AddEdit_Item addEditItem = AddEdit_Item.newInstance(id);
-        getActivity().getFragmentManager().beginTransaction().add(addEditItem, "DialogAddEditItem").commit();
-
+        showDialog(id);
     }
 
 
     @Override
     protected void onListViewLongClick(long id) {
         getDataObject().setClickedItemId(id);
+        showDialog(id);
+    }
+
+
+    private void showDialog(long id) {
         AddEdit_Item addEditItem = AddEdit_Item.newInstance(id);
-        getActivity().getFragmentManager().beginTransaction().add(addEditItem, "DialogAddEditItem").commit();
+        if (getActivity().getSupportFragmentManager().findFragmentByTag("DialogAddEditItem") == null) {
+            getActivity().getSupportFragmentManager().beginTransaction().add(addEditItem, "DialogAddEditItem").commit();
+        }
     }
 
 

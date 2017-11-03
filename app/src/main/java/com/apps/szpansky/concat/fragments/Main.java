@@ -1,12 +1,18 @@
 package com.apps.szpansky.concat.fragments;
 
+import android.app.Activity;
+import android.support.v4.app.FragmentManager;
+
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.Toolbar;
@@ -44,11 +50,11 @@ public class Main extends BaseFragment implements RewardedVideoAdListener {
     private RewardedVideoAd mAd;
     private Button openCatalogs;
     private Button startAds;
-    private Loading loading = Loading.newInstance();
     private NavigationView navigationView;
     private View navViewHeader;
     Database myDB;
 
+    FragmentManager fragmentManager;
 
     public static Main newInstance() {
         return new Main();
@@ -100,10 +106,17 @@ public class Main extends BaseFragment implements RewardedVideoAdListener {
     }
 
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        fragmentManager = getActivity().getSupportFragmentManager();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.content_main, container, false);
+
 
         setViews();
         inflateToolBar();
@@ -147,6 +160,8 @@ public class Main extends BaseFragment implements RewardedVideoAdListener {
 
 
     private void onButtonCLick() {
+        final Loading loading = Loading.newInstance();
+
         openCatalogs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ((MainActivity) getActivity()).setPage(1);
@@ -156,8 +171,16 @@ public class Main extends BaseFragment implements RewardedVideoAdListener {
         startAds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAd.loadAd(getResources().getString(R.string.ads_reward_main_id), new AdRequest.Builder().build());
-                getActivity().getFragmentManager().beginTransaction().add(loading, "Loading").commit();
+                if (fragmentManager.findFragmentByTag("Loading") == null) {
+                    fragmentManager.beginTransaction().add(loading, "Loading").commit();
+                }
+                final Handler handler2 = new Handler();
+                handler2.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAd.loadAd(getResources().getString(R.string.ads_reward_main_id), new AdRequest.Builder().build());
+                    }
+                }, 300);
             }
         });
     }
@@ -197,7 +220,8 @@ public class Main extends BaseFragment implements RewardedVideoAdListener {
 
     @Override
     public void onRewardedVideoAdOpened() {
-        if (loading.isVisible()) loading.dismiss();
+        Loading loading = (Loading) fragmentManager.findFragmentByTag("Loading");
+        if (loading != null && loading.isVisible()) loading.dismiss();
     }
 
     @Override
@@ -206,7 +230,8 @@ public class Main extends BaseFragment implements RewardedVideoAdListener {
 
     @Override
     public void onRewardedVideoAdClosed() {
-        if (loading.isVisible()) loading.dismiss();
+        Loading loading = (Loading) fragmentManager.findFragmentByTag("Loading");
+        if (loading != null && loading.isVisible()) loading.dismiss();
     }
 
     @Override
@@ -218,13 +243,18 @@ public class Main extends BaseFragment implements RewardedVideoAdListener {
 
     @Override
     public void onRewardedVideoAdLeftApplication() {
-        if (loading.isVisible()) loading.dismiss();
+        Loading loading = (Loading) fragmentManager.findFragmentByTag("Loading");
+        if (loading != null && loading.isVisible()) loading.dismiss();
     }
 
     @Override
     public void onRewardedVideoAdFailedToLoad(int i) {
+
+        Loading loading = (Loading) fragmentManager.findFragmentByTag("Loading");
+        if (loading != null && loading.isVisible()) loading.dismiss();
+
+
         Snackbar snackbarInfo = Snackbar.make(view, R.string.failed_to_load_ad, Snackbar.LENGTH_SHORT);
         snackbarInfo.show();
-        if (loading.isVisible()) loading.dismiss();
     }
 }

@@ -60,7 +60,10 @@ public class PickItem extends SimpleFragmentWithList {
         @Override
         public void onClick(View v) {
             AddEdit_Item addEdit_item = AddEdit_Item.newInstance();
-            getActivity().getFragmentManager().beginTransaction().add(addEdit_item, "DialogAddEditItem").commit();
+
+            if (getActivity().getSupportFragmentManager().findFragmentByTag("DialogAddEditItem") == null) {
+                getActivity().getSupportFragmentManager().beginTransaction().add(addEdit_item, "DialogAddEditItem").commit();
+            }
         }
     });
     }
@@ -77,7 +80,10 @@ public class PickItem extends SimpleFragmentWithList {
     protected void onListViewLongClick(long id) {
         getDataObject().setClickedItemId(id);
         AddEdit_Item addEdit_item = AddEdit_Item.newInstance(id);
-        getActivity().getFragmentManager().beginTransaction().add(addEdit_item, "DialogAddEditItem").commit();
+
+        if (getActivity().getSupportFragmentManager().findFragmentByTag("DialogAddEditItem") == null) {
+            getActivity().getSupportFragmentManager().beginTransaction().add(addEdit_item, "DialogAddEditItem").commit();
+        }
     }
 
 

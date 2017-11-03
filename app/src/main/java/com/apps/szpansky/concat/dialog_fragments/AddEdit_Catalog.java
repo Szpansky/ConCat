@@ -3,7 +3,7 @@ package com.apps.szpansky.concat.dialog_fragments;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 
-import android.app.DialogFragment;
+import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

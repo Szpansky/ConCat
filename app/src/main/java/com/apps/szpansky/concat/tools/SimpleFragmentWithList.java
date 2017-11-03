@@ -43,7 +43,7 @@ public abstract class SimpleFragmentWithList extends BaseFragment {
         View v = listView.getChildAt(0);
         top = (v == null) ? 0 : (v.getTop() - listView.getPaddingTop());
 
-        MyCursorAdapter myCursorAdapter = new MyCursorAdapter(getActivity().getBaseContext(), getDataObject(), getActivity().getFragmentManager(), 0);
+        MyCursorAdapter myCursorAdapter = new MyCursorAdapter(getActivity().getBaseContext(), getDataObject(), getActivity().getSupportFragmentManager(), 0);
         listView.setAdapter(myCursorAdapter);
         listView.setOnScrollListener(onScrollListener);
         if (index != -1) {

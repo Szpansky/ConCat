@@ -1,8 +1,7 @@
 package com.apps.szpansky.concat.dialog_fragments;
 
 import android.app.Activity;
-import android.app.DialogFragment;
-import android.app.FragmentManager;
+import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,7 +28,6 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
     final boolean EXPORT = true;
     final boolean IMPORT = false;
     String appName;
-    Loading loading;
 
 
     public static ExportImport newInstance() {
@@ -45,7 +43,7 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
         view = inflater.inflate(R.layout.dialog_export_import, container, false);
 
         appName = getActivity().getBaseContext().getResources().getString(R.string.app_name);
-        loading = Loading.newInstance();
+
         myDB = new Database(getActivity());
         Button importDBButton = view.findViewById(R.id.dialog_ie_button_db_import);
         Button exportDBButton = view.findViewById(R.id.dialog_ie_button_db_export);
@@ -101,8 +99,16 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
 
 
     private class AsyncImportDB extends AsyncTask<Void, Void, Void> {
+        Loading loading = Loading.newInstance();
+
         @Override
         protected Void doInBackground(Void... params) {
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             if (FileManagement.importExportDB(IMPORT, getActivity().getPackageName(), appName)) {
                 Snackbar snackbar = Snackbar.make(view, R.string.successfully_notify, Snackbar.LENGTH_SHORT);
                 snackbar.show();
@@ -110,18 +116,14 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
                 Snackbar snackbar = Snackbar.make(view, R.string.backup_error, Snackbar.LENGTH_SHORT);
                 snackbar.show();
             }
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             return null;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            getFragmentManager().beginTransaction().add(loading, "Loading").commit();
+            if(!loading.isAdded())
+            getActivity().getSupportFragmentManager().beginTransaction().add(loading, "Loading").commit();
         }
 
         @Override
@@ -133,8 +135,16 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
 
 
     private class AsyncExportDB extends AsyncTask<Void, Void, Void> {
+        Loading loading = Loading.newInstance();
+
         @Override
         protected Void doInBackground(Void... params) {
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             if (FileManagement.importExportDB(EXPORT, getActivity().getPackageName(), appName)) {
                 Snackbar snackbar = Snackbar.make(view, R.string.successfully_notify, Snackbar.LENGTH_SHORT);
                 snackbar.show();
@@ -142,18 +152,14 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
                 Snackbar snackbar = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
                 snackbar.show();
             }
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             return null;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            getFragmentManager().beginTransaction().add(loading, "Loading").commit();
+            if(!loading.isAdded())
+                getActivity().getSupportFragmentManager().beginTransaction().add(loading, "Loading").commit();
         }
 
         @Override
@@ -165,8 +171,16 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
 
 
     private class AsyncImportTXT extends AsyncTask<Void, Void, Void> {
+        Loading loading = Loading.newInstance();
+
         @Override
         protected Void doInBackground(Void... params) {
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             if (FileManagement.importTXT(fileName, tableName, appName, myDB)) {
                 Snackbar snackbarInfo = Snackbar.make(view, getResources().getString(R.string.updated) + FileManagement.getUpdated() + getResources().getString(R.string.created) + FileManagement.getCreated(), Snackbar.LENGTH_SHORT);
                 snackbarInfo.show();
@@ -174,18 +188,14 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
                 Snackbar snackbarInfo = Snackbar.make(view, R.string.file_does_not_exists, Snackbar.LENGTH_SHORT);
                 snackbarInfo.show();
             }
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             return null;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            getFragmentManager().beginTransaction().add(loading, "Loading").commit();
+            if(!loading.isAdded())
+                getActivity().getSupportFragmentManager().beginTransaction().add(loading, "Loading").commit();
         }
 
         @Override
@@ -197,8 +207,17 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
 
 
     private class AsyncExportTXT extends AsyncTask<Void, Void, Void> {
+        Loading loading = Loading.newInstance();
+        //Loading loading = (Loading) getActivity().getSupportFragmentManager().findFragmentByTag("Loading");
+
         @Override
         protected Void doInBackground(Void... params) {
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             if (FileManagement.generateTXT(fileName, tableName, appName, myDB)) {
                 Snackbar snackbar = Snackbar.make(view, R.string.successfully_notify, Snackbar.LENGTH_SHORT);
                 snackbar.show();
@@ -206,18 +225,14 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
                 Snackbar snackbar = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
                 snackbar.show();
             }
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             return null;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            getFragmentManager().beginTransaction().add(loading, "Loading").commit();
+            if(!loading.isAdded())
+                getActivity().getSupportFragmentManager().beginTransaction().add(loading, "Loading").commit();
         }
 
         @Override

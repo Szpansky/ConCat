@@ -1,6 +1,6 @@
 package com.apps.szpansky.concat.dialog_fragments;
 
-import android.app.DialogFragment;
+import android.support.v4.app.DialogFragment;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
