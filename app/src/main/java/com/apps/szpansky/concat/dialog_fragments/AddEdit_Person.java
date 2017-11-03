@@ -65,14 +65,14 @@ public class AddEdit_Person extends DialogFragment {
 
         isEdit = getArguments().getBoolean("isEdit");
 
-        final View view = inflater.inflate(R.layout.dialog_add_edit_person, null);
+        final View view = (ViewGroup) inflater.inflate(R.layout.dialog_add_edit_person, container, false);
 
-        name = (EditText) view.findViewById(R.id.add_edit_personName);
-        surname = (EditText) view.findViewById(R.id.add_edit_personSurname);
-        address = (EditText) view.findViewById(R.id.add_edit_personAddress);
-        phone = (EditText) view.findViewById(R.id.add_edit_personPhone);
-        add = (FloatingActionButton) view.findViewById(R.id.add_edit_person_fab);
-        openContacts = (FloatingActionButton) view.findViewById(R.id.openContacts);
+        name = view.findViewById(R.id.add_edit_personName);
+        surname = view.findViewById(R.id.add_edit_personSurname);
+        address = view.findViewById(R.id.add_edit_personAddress);
+        phone = view.findViewById(R.id.add_edit_personPhone);
+        add = view.findViewById(R.id.add_edit_person_fab);
+        openContacts = view.findViewById(R.id.openContacts);
 
         if (isEdit) {
             loadPreviousData();

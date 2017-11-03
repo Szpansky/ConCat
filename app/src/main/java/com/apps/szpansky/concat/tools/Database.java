@@ -9,12 +9,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.apps.szpansky.concat.R;
 
-import java.util.Calendar;
-
 
 public class Database extends SQLiteOpenHelper {
 
-    static Context context;
+    Context context;
 
     public static final String DATABASE_NAME = "ConCat.db";
     public static final int DATABASE_VERSION = 4;
@@ -158,7 +156,11 @@ public class Database extends SQLiteOpenHelper {
                         " FROM " + TABLE_CLIENTS +
                         " WHERE " + CLIENT_CATALOG_ID + " = " + catalogId + " AND " + CLIENT_PERSON_ID + "=" + personId
                 , null);
-        if (c.getCount() != 0) return false;     //if exist, quit from adding the same data
+        if (c.getCount() != 0){
+            c.close();
+            return false;     //if exist, quit from adding the same data
+        }
+        c.close();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(CLIENT_CATALOG_ID, catalogId);
@@ -197,6 +199,8 @@ public class Database extends SQLiteOpenHelper {
         int amount = Integer.parseInt(amountSTR);
         double total = price * amount;
 
+        c.close();
+
         ContentValues contentValues = new ContentValues();
         contentValues.put(ORDER_CLIENT_ID, clientId);
         contentValues.put(ORDER_ITEM_ID, itemId);
@@ -225,6 +229,8 @@ public class Database extends SQLiteOpenHelper {
         double price = c.getDouble(0);
         int count = Integer.parseInt(countSTR);
         double total = price * count;
+
+        c.close();
 
         ContentValues newValues = new ContentValues();
         newValues.put(ORDER_AMOUNT, count);
@@ -471,7 +477,11 @@ public class Database extends SQLiteOpenHelper {
 
         if (c.getCount() == 0) return -1;
         c.moveToFirst();
-        return c.getLong(0);
+        long returnLong = c.getLong(0);
+
+        c.close();
+
+        return returnLong;
     }
 
 

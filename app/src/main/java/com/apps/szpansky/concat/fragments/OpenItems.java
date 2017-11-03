@@ -42,7 +42,8 @@ public class OpenItems extends SimpleFragmentWithList {
     protected void onListViewClick(long id) {
         getDataObject().setClickedItemId(id);
         AddEdit_Item addEditItem = AddEdit_Item.newInstance(id);
-        addEditItem.show(getActivity().getFragmentManager().beginTransaction(), "DialogAddEditItem");
+        getActivity().getFragmentManager().beginTransaction().add(addEditItem, "DialogAddEditItem").commit();
+
     }
 
 
@@ -50,7 +51,7 @@ public class OpenItems extends SimpleFragmentWithList {
     protected void onListViewLongClick(long id) {
         getDataObject().setClickedItemId(id);
         AddEdit_Item addEditItem = AddEdit_Item.newInstance(id);
-        addEditItem.show(getActivity().getFragmentManager().beginTransaction(), "DialogAddEditItem");
+        getActivity().getFragmentManager().beginTransaction().add(addEditItem, "DialogAddEditItem").commit();
     }
 
 

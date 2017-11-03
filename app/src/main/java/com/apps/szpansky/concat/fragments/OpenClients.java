@@ -47,7 +47,7 @@ public class OpenClients extends SimpleFragmentWithList {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DrawerLayout drawerLayout = (DrawerLayout) getActivity().getWindow().findViewById(R.id.drawerLayout);
+                DrawerLayout drawerLayout = getActivity().getWindow().findViewById(R.id.drawerLayout);
                 drawerLayout.openDrawer(Gravity.END, true);
             }
         });
@@ -71,7 +71,7 @@ public class OpenClients extends SimpleFragmentWithList {
         getDataObject().setClickedItemId(id);
 
         UpdateStatus_Client updateStatusClient = UpdateStatus_Client.newInstance((Client) getDataObject());
-        updateStatusClient.show(getActivity().getFragmentManager().beginTransaction(), "Login");
+        getActivity().getFragmentManager().beginTransaction().add(updateStatusClient, "updateStatusClient").commit();
     }
 
 

@@ -73,7 +73,7 @@ public class OrdersActivity extends FragmentActivity implements DialogInterface.
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+                    DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
                     drawerLayout.closeDrawers();
                 }
             }, 250);
@@ -89,7 +89,7 @@ public class OrdersActivity extends FragmentActivity implements DialogInterface.
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
 
         if (drawerLayout.isDrawerOpen(Gravity.END)) {
             drawerLayout.closeDrawers();

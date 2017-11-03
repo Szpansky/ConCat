@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -118,16 +119,16 @@ public class Main extends BaseFragment implements RewardedVideoAdListener {
 
 
     private void setViews() {
-        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        toolbar = view.findViewById(R.id.toolbar);
         infoView = view.findViewById(R.id.main_layout_info);
-        mainCatalogNr = (TextView) infoView.findViewById(R.id.main_order_number);
-        mainCatalogMonthsLeft = (TextView) infoView.findViewById(R.id.main_order_months_left);
-        mainCatalogDaysLeft = (TextView) infoView.findViewById(R.id.main_order_days_left);
-        mainCatalogPrice = (TextView) infoView.findViewById(R.id.main_order_price);
-        mainCatalogNotPayed = (TextView) infoView.findViewById(R.id.main_order_client_count);
-        openCatalogs = (Button) view.findViewById(R.id.openCatalogs);
-        startAds = (Button) view.findViewById(R.id.startAd);
-        navigationView = (NavigationView) getActivity().findViewById(R.id.navView);
+        mainCatalogNr = infoView.findViewById(R.id.main_order_number);
+        mainCatalogMonthsLeft = infoView.findViewById(R.id.main_order_months_left);
+        mainCatalogDaysLeft = infoView.findViewById(R.id.main_order_days_left);
+        mainCatalogPrice = infoView.findViewById(R.id.main_order_price);
+        mainCatalogNotPayed = infoView.findViewById(R.id.main_order_client_count);
+        openCatalogs = view.findViewById(R.id.openCatalogs);
+        startAds = view.findViewById(R.id.startAd);
+        navigationView = getActivity().findViewById(R.id.navView);
         navViewHeader = navigationView.getHeaderView(0);
     }
 
@@ -156,7 +157,7 @@ public class Main extends BaseFragment implements RewardedVideoAdListener {
             @Override
             public void onClick(View v) {
                 mAd.loadAd(getResources().getString(R.string.ads_reward_main_id), new AdRequest.Builder().build());
-                loading.show(getActivity().getFragmentManager().beginTransaction(), "Loading");
+                getActivity().getFragmentManager().beginTransaction().add(loading, "Loading").commit();
             }
         });
     }
@@ -170,10 +171,12 @@ public class Main extends BaseFragment implements RewardedVideoAdListener {
 
     private void updateUserInfo() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        TextView loggedAs = (TextView) navViewHeader.findViewById(R.id.navi_loggedAs);
+        TextView loggedAs = navViewHeader.findViewById(R.id.navi_loggedAs);
         loggedAs.setText(sharedPreferences.getString("pref_edit_text_loggedAs", getResources().getString(R.string.pref_def_logged_as)));
-        TextView rewardPoints = (TextView) navViewHeader.findViewById(R.id.navi_rewardAmount);
+        TextView rewardPoints = navViewHeader.findViewById(R.id.navi_rewardAmount);
         rewardPoints.setText(sharedPreferences.getString("pref_edit_text_rewardAmount", "0"));
+        ImageView imageView = navViewHeader.findViewById(R.id.avatar);
+        imageView.setImageDrawable(ContextCompat.getDrawable(getActivity().getBaseContext(), R.drawable.cat_pointing));
     }
 
 
@@ -191,27 +194,33 @@ public class Main extends BaseFragment implements RewardedVideoAdListener {
     public void onRewardedVideoAdLoaded() {
         mAd.show();
     }
+
     @Override
     public void onRewardedVideoAdOpened() {
         if (loading.isVisible()) loading.dismiss();
     }
+
     @Override
     public void onRewardedVideoStarted() {
     }
+
     @Override
     public void onRewardedVideoAdClosed() {
         if (loading.isVisible()) loading.dismiss();
     }
+
     @Override
     public void onRewarded(RewardItem rewardItem) {
         Toast.makeText(getActivity(), "Added points: " + rewardItem.getAmount(), Toast.LENGTH_SHORT).show();
         addPoints(rewardItem.getAmount());
         updateUserInfo();
     }
+
     @Override
     public void onRewardedVideoAdLeftApplication() {
         if (loading.isVisible()) loading.dismiss();
     }
+
     @Override
     public void onRewardedVideoAdFailedToLoad(int i) {
         Snackbar snackbarInfo = Snackbar.make(view, R.string.failed_to_load_ad, Snackbar.LENGTH_SHORT);

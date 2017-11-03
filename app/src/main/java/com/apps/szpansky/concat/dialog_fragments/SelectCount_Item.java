@@ -34,15 +34,15 @@ public class SelectCount_Item extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.dialog_item_count, null);
+        final View view = (ViewGroup) inflater.inflate(R.layout.dialog_item_count, container, false);
 
         final Order order = (Order) getArguments().getSerializable("order");
         final String[] getCurrentData = order.getClickedItemData();
 
-        Button plusMark = (Button) view.findViewById(R.id.plus_mark);
-        Button minusMark = (Button) view.findViewById(R.id.minus_mark);
-        Button okButton = (Button) view.findViewById(R.id.button_ok);
-        final TextView textCount = (TextView) view.findViewById(R.id.number_of_items);
+        Button plusMark = view.findViewById(R.id.plus_mark);
+        Button minusMark = view.findViewById(R.id.minus_mark);
+        Button okButton = view.findViewById(R.id.button_ok);
+        final TextView textCount = view.findViewById(R.id.number_of_items);
         textCount.setText(getCurrentData[3]);
         count = Integer.parseInt(getCurrentData[3]);
 
@@ -53,7 +53,8 @@ public class SelectCount_Item extends DialogFragment {
                 String itemCount = textCount.getText().toString();
                 if (itemCount.equals("")) count = 0;
                 else count = Integer.parseInt(itemCount) + 1;
-                textCount.setText(count.toString());
+                itemCount = count.toString();
+                textCount.setText(itemCount);
             }
         });
 
@@ -63,7 +64,8 @@ public class SelectCount_Item extends DialogFragment {
                 String itemCount = textCount.getText().toString();
                 if (itemCount.equals("")) count = 0;
                 else count = Integer.parseInt(itemCount) - 1;
-                textCount.setText(count.toString());
+                itemCount = count.toString();
+                textCount.setText(itemCount);
             }
         });
 

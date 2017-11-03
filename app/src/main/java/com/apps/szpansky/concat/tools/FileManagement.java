@@ -118,8 +118,8 @@ public final class FileManagement {
                     }
 
                 } else {
-                    if (columnsName[columnCount - 1].contains(myDB.ITEM_UPDATE_DATE)) {
-                        where_query = columnsName[0] + " = " + copiedCells[0] + " AND " + myDB.ITEM_UPDATE_DATE + " <  '" + copiedCells[columnCount - 1] + "'";
+                    if (columnsName[columnCount - 1].contains(Database.ITEM_UPDATE_DATE)) {
+                        where_query = columnsName[0] + " = " + copiedCells[0] + " AND " + Database.ITEM_UPDATE_DATE + " <  '" + copiedCells[columnCount - 1] + "'";
                         cursor.close();
                         cursor = myDB.getRows(tableName, where_query);
                     }

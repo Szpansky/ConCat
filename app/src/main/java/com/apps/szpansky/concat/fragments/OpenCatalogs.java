@@ -1,10 +1,8 @@
 package com.apps.szpansky.concat.fragments;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.Toolbar;
@@ -16,7 +14,6 @@ import com.apps.szpansky.concat.main_browsing.ClientsActivity;
 import com.apps.szpansky.concat.simple_data.Client;
 import com.apps.szpansky.concat.tools.Data;
 import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
-import com.apps.szpansky.concat.tools.SimpleFunctions;
 
 
 public class OpenCatalogs extends SimpleFragmentWithList {
@@ -60,7 +57,7 @@ public class OpenCatalogs extends SimpleFragmentWithList {
     protected void onListViewLongClick(long id) {
         getDataObject().setClickedItemId(id);
         AddEdit_Catalog addEditCatalog = AddEdit_Catalog.newInstance(id);
-        addEditCatalog.show(getActivity().getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
+        getActivity().getFragmentManager().beginTransaction().add(addEditCatalog, "DialogAddEditCatalog").commit();
     }
 
 

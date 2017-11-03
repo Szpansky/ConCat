@@ -208,7 +208,6 @@
         android:background="@color/lightBackground"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/navigation_header"
-        app:itemBackground="@drawable/simple_selector"
         app:menu="@menu/menu" />
 
 </android.support.v4.widget.DrawerLayout>

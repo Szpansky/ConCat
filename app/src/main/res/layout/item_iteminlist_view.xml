@@ -13,9 +13,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_weight="1"
-        android:background="@android:drawable/ic_menu_delete"
-        android:backgroundTint="@color/redPrimary_dark" />
+        android:background="@android:drawable/ic_menu_delete" />
 
     <TextView
         android:id="@+id/item_itemName"

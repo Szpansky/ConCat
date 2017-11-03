@@ -27,7 +27,7 @@ public class MyCursorAdapter extends SimpleCursorAdapter {
 
     @Override
     public void bindView(final View view, final Context context, final Cursor cursor) {
-        final Button delete = (Button) view.findViewById(R.id.listItem_delete_button);
+        final Button delete = view.findViewById(R.id.listItem_delete_button);
         delete.setTag(cursor.getString(cursor.getColumnIndex("_id")));
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,19 +35,19 @@ public class MyCursorAdapter extends SimpleCursorAdapter {
                 final long id = Long.parseLong(delete.getTag().toString());
                 data.setClickedItemId(id);
                 DeletingData deletingData = DeletingData.newInstance(data);
-                deletingData.show(fragmentManager.beginTransaction(), "InformationCurrentCatalog");
+                fragmentManager.beginTransaction().add(deletingData, "DeletingDialog").commit();
             }
         });
 
         try {
-            Button print = (Button) view.findViewById(R.id.printCatalogOrder);  // only catalog got print button
+            Button print = view.findViewById(R.id.printCatalogOrder);  // only catalog got print button
             print.setTag(cursor.getString(cursor.getColumnIndex("_id")));
             print.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     final long id = Long.parseLong(delete.getTag().toString());
                     PrintDetail_Catalog printCatalog = PrintDetail_Catalog.newInstance(id);
-                    printCatalog.show(fragmentManager.beginTransaction(), "InformationCurrentCatalog");
+                    fragmentManager.beginTransaction().add(printCatalog, "InformationCurrentCatalog").commit();
                 }
             });
         } catch (NullPointerException e) {

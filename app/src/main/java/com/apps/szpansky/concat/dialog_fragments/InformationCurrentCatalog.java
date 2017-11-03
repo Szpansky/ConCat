@@ -29,7 +29,7 @@ public class InformationCurrentCatalog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_information, null);
+        final View view = (ViewGroup) inflater.inflate(R.layout.dialog_information, container, false);
 
         myDB = new Database(getActivity());
 
@@ -37,21 +37,21 @@ public class InformationCurrentCatalog extends DialogFragment {
 
 
         TextView[] textViews = new TextView[12];
-        textViews[0] = (TextView) view.findViewById(R.id.current_catalogs_number);
-        textViews[1] = (TextView) view.findViewById(R.id.current_clients_amount);
-        textViews[2] = (TextView) view.findViewById(R.id.current_ordered_item_amount);
-        textViews[3] = (TextView) view.findViewById(R.id.current_pcs_ordered);
-        textViews[4] = (TextView) view.findViewById(R.id.current_not_payed_amount);
-        textViews[5] = (TextView) view.findViewById(R.id.current_payed_amount);
-        textViews[6] = (TextView) view.findViewById(R.id.current_ready_amount);
-        textViews[7] = (TextView) view.findViewById(R.id.current_total);
+        textViews[0] = view.findViewById(R.id.current_catalogs_number);
+        textViews[1] = view.findViewById(R.id.current_clients_amount);
+        textViews[2] = view.findViewById(R.id.current_ordered_item_amount);
+        textViews[3] = view.findViewById(R.id.current_pcs_ordered);
+        textViews[4] = view.findViewById(R.id.current_not_payed_amount);
+        textViews[5] = view.findViewById(R.id.current_payed_amount);
+        textViews[6] = view.findViewById(R.id.current_ready_amount);
+        textViews[7] = view.findViewById(R.id.current_total);
 
-        textViews[8] = (TextView) view.findViewById(R.id.all_catalogs_amount);
-        textViews[9] = (TextView) view.findViewById(R.id.all_clients_amount);
-        textViews[10] = (TextView) view.findViewById(R.id.all_items_amount);
-        textViews[11] = (TextView) view.findViewById(R.id.all_total);
+        textViews[8] = view.findViewById(R.id.all_catalogs_amount);
+        textViews[9] = view.findViewById(R.id.all_clients_amount);
+        textViews[10] = view.findViewById(R.id.all_items_amount);
+        textViews[11] = view.findViewById(R.id.all_total);
 
-        Button backButton = (Button) view.findViewById(R.id.dialog_info_backBtn);
+        Button backButton = view.findViewById(R.id.dialog_info_backBtn);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

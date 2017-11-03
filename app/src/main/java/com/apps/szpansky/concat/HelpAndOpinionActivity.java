@@ -2,6 +2,7 @@ package com.apps.szpansky.concat;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -30,7 +31,7 @@ public class HelpAndOpinionActivity extends AppCompatActivity {
 
 
     private void onDonateDevClick() {
-        devDonate = (Button) findViewById(R.id.donateDev);
+        devDonate = findViewById(R.id.donateDev);
         devDonate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,7 +43,7 @@ public class HelpAndOpinionActivity extends AppCompatActivity {
 
 
     private void onDevContactClick(){
-        devContact = (Button) findViewById(R.id.sendMailToDev);
+        devContact = findViewById(R.id.sendMailToDev);
         devContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +61,7 @@ public class HelpAndOpinionActivity extends AppCompatActivity {
 
 
     private void onMarketRateClick(){
-        marketRate = (Button) findViewById(R.id.rateOnMarket);
+        marketRate = findViewById(R.id.rateOnMarket);
         marketRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,9 +74,15 @@ public class HelpAndOpinionActivity extends AppCompatActivity {
 
 
     private void setToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.help_opinion);
+        toolbar.setNavigationIcon(ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_arrow_back_black_24dp, null));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onNavigateUp();
+            }
+        });
     }
 
 

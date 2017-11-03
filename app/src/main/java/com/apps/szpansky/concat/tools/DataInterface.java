@@ -3,9 +3,6 @@ package com.apps.szpansky.concat.tools;
 
 import android.database.Cursor;
 
-/**
- * Created by Marcin on 2017-06-09.
- */
 
 public interface DataInterface {
 

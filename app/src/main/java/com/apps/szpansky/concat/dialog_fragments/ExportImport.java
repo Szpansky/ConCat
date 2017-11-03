@@ -2,6 +2,7 @@ package com.apps.szpansky.concat.dialog_fragments;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,7 +20,7 @@ import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.FileManagement;
 
 
-public class ExportImport extends DialogFragment implements DialogInterface.OnDismissListener{
+public class ExportImport extends DialogFragment implements DialogInterface.OnDismissListener {
 
     private String tableName = Database.TABLE_ITEMS;    //default exported/imported content
     private String fileName = "Items.txt";
@@ -41,15 +42,16 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.dialog_export_import, null);
+        view = (ViewGroup) inflater.inflate(R.layout.dialog_export_import, container, false);
+
         appName = getActivity().getBaseContext().getResources().getString(R.string.app_name);
         loading = Loading.newInstance();
         myDB = new Database(getActivity());
-        Button importDBButton = (Button) view.findViewById(R.id.dialog_ie_button_db_import);
-        Button exportDBButton = (Button) view.findViewById(R.id.dialog_ie_button_db_export);
-        final RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.dialog_ie_radio_group);
-        Button importTableButton = (Button) view.findViewById(R.id.dialog_ie_button_folder_import);
-        Button exportTableButton = (Button) view.findViewById(R.id.dialog_ie_button_folder_export);
+        Button importDBButton = view.findViewById(R.id.dialog_ie_button_db_import);
+        Button exportDBButton = view.findViewById(R.id.dialog_ie_button_db_export);
+        final RadioGroup radioGroup = view.findViewById(R.id.dialog_ie_radio_group);
+        Button importTableButton = view.findViewById(R.id.dialog_ie_button_folder_import);
+        Button exportTableButton = view.findViewById(R.id.dialog_ie_button_folder_export);
 
         importDBButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,19 +110,24 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
                 Snackbar snackbar = Snackbar.make(view, R.string.backup_error, Snackbar.LENGTH_SHORT);
                 snackbar.show();
             }
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return null;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            loading.show(getFragmentManager().beginTransaction(), "Loading");
+            getFragmentManager().beginTransaction().add(loading, "Loading").commit();
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if(loading.isVisible())loading.dismiss();
+            if (loading.isVisible()) loading.dismiss();
         }
     }
 
@@ -135,19 +142,24 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
                 Snackbar snackbar = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
                 snackbar.show();
             }
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return null;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            loading.show(getFragmentManager().beginTransaction(), "Loading");
+            getFragmentManager().beginTransaction().add(loading, "Loading").commit();
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if(loading.isVisible())loading.dismiss();
+            if (loading.isVisible()) loading.dismiss();
         }
     }
 
@@ -162,19 +174,24 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
                 Snackbar snackbarInfo = Snackbar.make(view, R.string.file_does_not_exists, Snackbar.LENGTH_SHORT);
                 snackbarInfo.show();
             }
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return null;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            loading.show(getFragmentManager().beginTransaction(), "Loading");
+            getFragmentManager().beginTransaction().add(loading, "Loading").commit();
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if(loading.isVisible())loading.dismiss();
+            if (loading.isVisible()) loading.dismiss();
         }
     }
 
@@ -189,19 +206,24 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
                 Snackbar snackbar = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
                 snackbar.show();
             }
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return null;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            loading.show(getFragmentManager().beginTransaction(), "Loading");
+            getFragmentManager().beginTransaction().add(loading, "Loading").commit();
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if(loading.isVisible())loading.dismiss();
+            if (loading.isVisible()) loading.dismiss();
         }
     }
 

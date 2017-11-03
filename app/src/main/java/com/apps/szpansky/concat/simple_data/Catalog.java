@@ -57,8 +57,7 @@ public class Catalog extends Data {
         boolean flag = true;
         do {
             clientId = getDatabase().getLong(TABLE_CLIENTS, CLIENT_ID, CLIENT_CATALOG_ID, catalogId);
-            if (clientId != -1) ;
-            {
+            if (clientId != -1) {
                 if (!getDatabase().delete(TABLE_ORDERS, ORDER_CLIENT_ID, clientId)) flag = false;
                 if (!getDatabase().delete(TABLE_CLIENTS, CLIENT_ID, clientId)) flag = false;
             }

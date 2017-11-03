@@ -96,14 +96,15 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
         setPager();
         onFloatingButtonClick();
         onNavigationItemClick();
+        onFabMenuItemClick();
     }
 
     private void setAd(){
-        adView = (AdView) findViewById(R.id.adView);
+        adView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
         final View view = findViewById(R.id.AdViewLayout);
-        closeAdView = (Button) findViewById(R.id.closeAds);
+        closeAdView = findViewById(R.id.closeAds);
         closeAdView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +115,7 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
 
 
     private void setPager() {
-        pager = (ViewPager) findViewById(R.id.pager);
+        pager = findViewById(R.id.pager);
         PagerTitleStrip pagerTitleStrip = new PagerTitleStrip(this);
         pagerTitleStrip.findViewById(R.id.pager_title_strip);
         pagerTitleStrip.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
@@ -137,14 +138,14 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
     @Override
     public void openOptionsMenu() {
         super.openOptionsMenu();
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         drawerLayout.openDrawer(Gravity.START);
     }
 
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         if (drawerLayout.isDrawerOpen(Gravity.START)) {
             drawerLayout.closeDrawers();
         } else {
@@ -162,8 +163,8 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
 
 
     private void setDrawer() {
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        navigationView = (NavigationView) findViewById(R.id.navView);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        navigationView = findViewById(R.id.navView);
         navViewHeader = navigationView.getHeaderView(0);
     }
 
@@ -176,14 +177,14 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
                 switch (item.getItemId()) {
                     case (R.id.menuLogin):
                         Login login = Login.newInstance();
-                        login.show(getFragmentManager().beginTransaction(), "Login");
+                        getFragmentManager().beginTransaction().add(login, "Login").commit();
                         break;
                     case (R.id.menuOrderInfo):
                         InformationCurrentCatalog information = InformationCurrentCatalog.newInstance();
-                        information.show(getFragmentManager().beginTransaction(), "InformationCurrentCatalog");
+                        getFragmentManager().beginTransaction().add(information, "InformationCurrentCatalog").commit();
                         break;
                     case (R.id.menuOrders):
-                        drawerLayout.closeDrawer(Gravity.LEFT, true);
+                        drawerLayout.closeDrawer(Gravity.START, true);
                         final Handler handler1 = new Handler();
                         handler1.postDelayed(new Runnable() {
                             @Override
@@ -193,7 +194,7 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
                         }, 300);
                         break;
                     case (R.id.menuClients):
-                        drawerLayout.closeDrawer(Gravity.LEFT, true);
+                        drawerLayout.closeDrawer(Gravity.START, true);
                         final Handler handler2 = new Handler();
                         handler2.postDelayed(new Runnable() {
                             @Override
@@ -203,7 +204,7 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
                         }, 300);
                         break;
                     case (R.id.menuItems):
-                        drawerLayout.closeDrawer(Gravity.LEFT, true);
+                        drawerLayout.closeDrawer(Gravity.START, true);
                         final Handler handler3 = new Handler();
                         handler3.postDelayed(new Runnable() {
                             @Override
@@ -224,7 +225,7 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
                         break;
                     case (R.id.menuExportImport):
                         ExportImport exportImport = ExportImport.newInstance();
-                        exportImport.show(getFragmentManager().beginTransaction(), "Dialog_Exportimport");
+                        getFragmentManager().beginTransaction().add(exportImport, "Dialog_Exportimport").commit();
                         break;
                     case (R.id.menuSetting):
                         Intent Intent_Open_Settings = new Intent(MainActivity.this, SettingsActivity.class);
@@ -258,52 +259,53 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
         if (resultCode == Activity.RESULT_CANCELED) {
 
         }
-
     }
 
 
-    private void onFloatingButtonClick() {
-        fabMain = (FloatingActionButton) findViewById(R.id.fabMain);
-        subFloatingMenu = (GridLayout) findViewById(R.id.subFloatingMenu);
-
+    private void showHideFABMenu(){
         final Animation fabClose, fabOpen, fabRotate, fabRotateBack;
         fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open);
         fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close);
         fabRotate = AnimationUtils.loadAnimation(this, R.anim.fab_rotate);
         fabRotateBack = AnimationUtils.loadAnimation(this, R.anim.fab_rotate_back);
 
+        if (FLOATING_MENU_IS_OPEN) {
+            subFloatingMenu.startAnimation(fabClose);
+            fabMain.startAnimation(fabRotateBack);
+            fabNewCatalog.setClickable(false);
+            fabNewPerson.setClickable(false);
+            fabNewItem.setClickable(false);
+            FLOATING_MENU_IS_OPEN = false;
+            subFloatingMenu.setVisibility(View.GONE);
+        } else {
+            subFloatingMenu.startAnimation(fabOpen);
+            fabMain.startAnimation(fabRotate);
+            fabNewCatalog.setClickable(true);
+            fabNewPerson.setClickable(true);
+            fabNewItem.setClickable(true);
+            FLOATING_MENU_IS_OPEN = true;
+            subFloatingMenu.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+    private void onFloatingButtonClick() {
+        fabMain = findViewById(R.id.fabMain);
+        subFloatingMenu = findViewById(R.id.subFloatingMenu);
         fabMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (FLOATING_MENU_IS_OPEN) {
-                    subFloatingMenu.startAnimation(fabClose);
-                    fabMain.startAnimation(fabRotateBack);
-                    fabNewCatalog.setClickable(false);
-                    fabNewPerson.setClickable(false);
-                    fabNewItem.setClickable(false);
-                    FLOATING_MENU_IS_OPEN = false;
-                    subFloatingMenu.setVisibility(View.GONE);
-                } else {
-                    subFloatingMenu.startAnimation(fabOpen);
-                    fabMain.startAnimation(fabRotate);
-                    fabNewCatalog.setClickable(true);
-                    fabNewPerson.setClickable(true);
-                    fabNewItem.setClickable(true);
-                    FLOATING_MENU_IS_OPEN = true;
-                    subFloatingMenu.setVisibility(View.VISIBLE);
-                }
+                showHideFABMenu();
             }
-
         });
-        onFabMenuItemClick();
     }
 
 
     public void onFabMenuItemClick() {
         //handler is set for smooth data content chages
-        fabNewCatalog = (FloatingActionButton) findViewById(R.id.fabAddCatalog);
-        fabNewPerson = (FloatingActionButton) findViewById(R.id.fabAddPerson);
-        fabNewItem = (FloatingActionButton) findViewById(R.id.fabAddItem);
+        fabNewCatalog = findViewById(R.id.fabAddCatalog);
+        fabNewPerson = findViewById(R.id.fabAddPerson);
+        fabNewItem = findViewById(R.id.fabAddItem);
 
         fabNewCatalog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -313,10 +315,11 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
                     @Override
                     public void run() {
                         pager.setCurrentItem(1, true);
+                        showHideFABMenu();
                     }
                 }, 300);
                 AddEdit_Catalog addEditCatalog = AddEdit_Catalog.newInstance();
-                addEditCatalog.show(getFragmentManager().beginTransaction(), "DialogAddEditCatalog");
+                getFragmentManager().beginTransaction().add(addEditCatalog, "DialogAddEditCatalog").commit();
             }
         });
 
@@ -328,10 +331,11 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
                     @Override
                     public void run() {
                         pager.setCurrentItem(2, true);
+                        showHideFABMenu();
                     }
                 }, 300);
                 AddEdit_Person addEditPerson = AddEdit_Person.newInstance();
-                addEditPerson.show(getFragmentManager().beginTransaction(), "DialogAddEditPerson");
+                getFragmentManager().beginTransaction().add(addEditPerson, "DialogAddEditPerson").commit();
             }
         });
 
@@ -343,10 +347,11 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
                     @Override
                     public void run() {
                         pager.setCurrentItem(3, true);
+                        showHideFABMenu();
                     }
                 }, 300);
                 AddEdit_Item addEditItem = AddEdit_Item.newInstance();
-                addEditItem.show(getFragmentManager().beginTransaction(), "DialogAddEditItem");
+                getFragmentManager().beginTransaction().add(addEditItem, "DialogAddEditItem").commit();
             }
         });
     }

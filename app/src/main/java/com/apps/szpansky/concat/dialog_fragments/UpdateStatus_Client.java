@@ -37,14 +37,14 @@ public class UpdateStatus_Client extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         client = (Client) getArguments().getSerializable("client");
 
-        final View view = inflater.inflate(R.layout.dialog_on_client_click, null);
+        final View view = (ViewGroup) inflater.inflate(R.layout.dialog_on_client_click, container, false);
 
-        Button saveCatalog = (Button) view.findViewById(R.id.buttonOrderSave);
+        Button saveCatalog = view.findViewById(R.id.buttonOrderSave);
         saveCatalog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String status;
-                RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.radioGroupOrder);
+                RadioGroup radioGroup = view.findViewById(R.id.radioGroupOrder);
                 switch (radioGroup.getCheckedRadioButtonId()) {
                     case (R.id.radioButtonOrderNotPaid):
                         status = getString(R.string.db_status_not_payed);

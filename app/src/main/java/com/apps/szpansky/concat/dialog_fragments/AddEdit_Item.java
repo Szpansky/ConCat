@@ -34,27 +34,27 @@ public class AddEdit_Item extends DialogFragment {
 
 
     public static AddEdit_Item newInstance(long myIndex) {
-        AddEdit_Item _addEditItem = new AddEdit_Item();
+        AddEdit_Item addEdit_item = new AddEdit_Item();
 
         //passing args
         Bundle args = new Bundle();
         args.putLong("myIndex", myIndex);
         args.putBoolean("isEdit", true);
-        _addEditItem.setArguments(args);
-        _addEditItem.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
-        return _addEditItem;
+        addEdit_item.setArguments(args);
+        addEdit_item.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+        return addEdit_item;
     }
 
 
     public static AddEdit_Item newInstance() {
-        AddEdit_Item _addEditItem = new AddEdit_Item();
+        AddEdit_Item addEdit_item = new AddEdit_Item();
 
         Bundle args = new Bundle();
         args.putBoolean("isEdit", false);
-        _addEditItem.setArguments(args);
-        _addEditItem.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+        addEdit_item.setArguments(args);
+        addEdit_item.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
 
-        return _addEditItem;
+        return addEdit_item;
     }
 
 
@@ -65,24 +65,23 @@ public class AddEdit_Item extends DialogFragment {
 
         isEdit = getArguments().getBoolean("isEdit", false);
 
-        final View view = inflater.inflate(R.layout.dialog_add_edit_item, null);
+        final View view = (ViewGroup) inflater.inflate(R.layout.dialog_add_edit_item, container, false);
 
+        nr = view.findViewById(R.id.add_edit_itemNr);
+        name = view.findViewById(R.id.add_edit_itemName);
+        price = view.findViewById(R.id.add_edit_itemPrice);
 
-        nr = (EditText) view.findViewById(R.id.add_edit_itemNr);
-        name = (EditText) view.findViewById(R.id.add_edit_itemName);
-        price = (EditText) view.findViewById(R.id.add_edit_itemPrice);
+        dis_all[0] = view.findViewById(R.id.check_5);
+        dis_all[1] = view.findViewById(R.id.check_10);
+        dis_all[2] = view.findViewById(R.id.check_15);
+        dis_all[3] = view.findViewById(R.id.check_20);
+        dis_all[4] = view.findViewById(R.id.check_25);
+        dis_all[5] = view.findViewById(R.id.check_30);
+        dis_all[6] = view.findViewById(R.id.check_35);
+        dis_all[7] = view.findViewById(R.id.check_40);
+        dis_all[8] = view.findViewById(R.id.check_100);
 
-        dis_all[0] = (CheckBox) view.findViewById(R.id.check_5);
-        dis_all[1] = (CheckBox) view.findViewById(R.id.check_10);
-        dis_all[2] = (CheckBox) view.findViewById(R.id.check_15);
-        dis_all[3] = (CheckBox) view.findViewById(R.id.check_20);
-        dis_all[4] = (CheckBox) view.findViewById(R.id.check_25);
-        dis_all[5] = (CheckBox) view.findViewById(R.id.check_30);
-        dis_all[6] = (CheckBox) view.findViewById(R.id.check_35);
-        dis_all[7] = (CheckBox) view.findViewById(R.id.check_40);
-        dis_all[8] = (CheckBox) view.findViewById(R.id.check_100);
-
-        add = (FloatingActionButton) view.findViewById(R.id.add_edit_item_fab);
+        add = view.findViewById(R.id.add_edit_item_fab);
 
         //-1 the default nr when user dont enter any value to pass in args
         if (isEdit) {

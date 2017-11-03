@@ -3,7 +3,6 @@ package com.apps.szpansky.concat.fragments;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -68,7 +67,7 @@ public class OpenPersons extends SimpleFragmentWithList {
 
     private void showDialog(long id) {
         AddEdit_Person addEditPerson = AddEdit_Person.newInstance(id);
-        addEditPerson.show(getActivity().getFragmentManager().beginTransaction(), "DialogAddEditPerson");
+        getActivity().getFragmentManager().beginTransaction().add(addEditPerson, "DialogAddEditPerson").commit();
     }
 
 

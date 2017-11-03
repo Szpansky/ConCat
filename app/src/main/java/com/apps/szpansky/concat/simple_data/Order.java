@@ -93,8 +93,7 @@ public class Order extends Data {
         int personId = c.getInt(2);
         where = PERSON_ID + " = " + personId;
         c = getDatabase().getRows(TABLE_PERSONS, where);
-        String title = c.getString(1) + " " + c.getString(2);
-        return title;
+        return c.getString(1) + " " + c.getString(2);
     }
 
 

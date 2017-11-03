@@ -26,11 +26,12 @@ public class Login extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.dialog_login, null);
+        final View view = (ViewGroup) inflater.inflate(R.layout.dialog_login, container, false);
 
-        final EditText emailEditText = (EditText) view.findViewById(R.id.dialog_login_email);
-        final EditText passwordEditText = (EditText) view.findViewById(R.id.dialog_login_password);
-        Button loginButton = (Button) view.findViewById(R.id.dialog_login_loginBtn);
+
+        final EditText emailEditText = view.findViewById(R.id.dialog_login_email);
+        final EditText passwordEditText = view.findViewById(R.id.dialog_login_password);
+        Button loginButton = view.findViewById(R.id.dialog_login_loginBtn);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

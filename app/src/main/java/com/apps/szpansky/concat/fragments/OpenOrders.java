@@ -42,7 +42,7 @@ public class OpenOrders extends SimpleFragmentWithList {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DrawerLayout drawerLayout = (DrawerLayout) getActivity().getWindow().findViewById(R.id.drawerLayout);
+                DrawerLayout drawerLayout = getActivity().getWindow().findViewById(R.id.drawerLayout);
                 drawerLayout.openDrawer(Gravity.END, true);
             }
         });
@@ -54,7 +54,7 @@ public class OpenOrders extends SimpleFragmentWithList {
         getDataObject().setClickedItemId(id);
 
         SelectCount_Item selectCount_item = SelectCount_Item.newInstance((Order) getDataObject());
-        selectCount_item.show(getActivity().getFragmentManager().beginTransaction(), "SelectCount_Item");
+        getActivity().getFragmentManager().beginTransaction().add(selectCount_item, "SelectCount_Item").commit();
     }
 
     @Override
@@ -62,7 +62,7 @@ public class OpenOrders extends SimpleFragmentWithList {
         getDataObject().setClickedItemId(id);
 
         SelectCount_Item selectCount_item = SelectCount_Item.newInstance((Order) getDataObject());
-        selectCount_item.show(getActivity().getFragmentManager().beginTransaction(), "SelectCount_Item");
+        getActivity().getFragmentManager().beginTransaction().add(selectCount_item, "SelectCount_Item").commit();
     }
 
 

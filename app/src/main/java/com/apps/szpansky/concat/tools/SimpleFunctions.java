@@ -150,8 +150,7 @@ public final class SimpleFunctions {
         day = fillWithZeros(day, 2);
         String month = month_x.toString();
         month = fillWithZeros(month, 2);
-        String thisDate = year_x + "-" + month + "-" + day;
-        return thisDate;
+        return year_x + "-" + month + "-" + day;
     }
 }
 

@@ -4,16 +4,15 @@
     android:id="@+id/activity_add_person"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
     android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/linearLayout16"
         android:layout_width="0px"
         android:layout_height="0px"
-        android:layout_weight="1"
         android:focusable="true"
-        android:focusableInTouchMode="true" />
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal" />
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -148,6 +147,7 @@
                     android:layout_alignTop="@+id/add_edit_person_fab"
                     android:layout_marginBottom="@dimen/default_margin"
                     android:layout_marginLeft="@dimen/default_margin"
+                    android:layout_marginStart="@dimen/default_padding"
                     android:clickable="true"
                     app:fabSize="normal"
                     app:srcCompat="@mipmap/ic_account_box_white_24dp" />
@@ -162,6 +162,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginBottom="@dimen/default_margin"
                     android:layout_marginRight="@dimen/default_margin"
+                    android:layout_marginEnd="@dimen/default_padding"
                     android:clickable="true"
                     app:fabSize="normal"
                     app:srcCompat="@mipmap/ic_done_white_24dp" />

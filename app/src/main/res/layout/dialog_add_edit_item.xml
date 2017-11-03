@@ -9,10 +9,12 @@
 
 
     <LinearLayout
+        android:id="@+id/noAim"
         android:layout_width="0px"
         android:layout_height="0px"
         android:focusable="true"
-        android:focusableInTouchMode="true" />
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -239,9 +241,6 @@
                 android:id="@+id/add_edit_item_fab"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_gravity="bottom|end"
                 android:layout_marginBottom="@dimen/default_margin"
                 android:layout_marginEnd="@dimen/default_margin"

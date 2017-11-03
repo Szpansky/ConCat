@@ -66,8 +66,10 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:paddingEnd="@dimen/default_margin"
+        android:paddingLeft="@dimen/default_padding"
         android:paddingRight="@dimen/default_margin"
-        android:visibility="gone"
+        android:paddingStart="@dimen/default_padding"
+        android:visibility="visible"
         app:srcCompat="@drawable/cat_pointing" />
 
 

@@ -5,10 +5,7 @@ import android.app.DatePickerDialog;
 
 import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 
@@ -58,19 +55,19 @@ public class AddEdit_Catalog extends DialogFragment implements DialogInterface.O
     }
 
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         catalog = new Catalog(new Database(getActivity()));
 
         isEdit = getArguments().getBoolean("isEdit");
 
-        final View view = inflater.inflate(R.layout.dialog_add_edit_catalog, null);
+        final View view = (ViewGroup) inflater.inflate(R.layout.dialog_add_edit_catalog, container, false);
 
-        catalogNumber = (EditText) view.findViewById(R.id.add_edit_catalogNumber);
-        catalogDateStart = (EditText) view.findViewById(R.id.add_edit_catalogDateStart);
-        catalogDateEnd = (EditText) view.findViewById(R.id.add_edit_catalogDateEnd);
-        add = (FloatingActionButton) view.findViewById(R.id.add_edit_catalog_fab);
+        catalogNumber = view.findViewById(R.id.add_edit_catalogNumber);
+        catalogDateStart = view.findViewById(R.id.add_edit_catalogDateStart);
+        catalogDateEnd = view.findViewById(R.id.add_edit_catalogDateEnd);
+        add = view.findViewById(R.id.add_edit_catalog_fab);
 
         final String[] currentDate = SimpleFunctions.getCurrentDate().split("-");
 
