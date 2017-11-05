@@ -37,11 +37,12 @@ public abstract class SimpleFragmentWithList extends BaseFragment {
     static int top;
 
     public void refreshFragmentState() {
-        // if(listView != null) {
-        index = 0;
-        if (listView.isShown()) index = listView.getFirstVisiblePosition();
+        if(listView != null) {
+            index = 0;
+        if (listView.isShown())
+            index = listView.getFirstVisiblePosition();
         View v = listView.getChildAt(0);
-        top = (v == null) ? 0 : (v.getTop() - listView.getPaddingTop());
+            top = (v == null) ? 0 : (v.getTop() - listView.getPaddingTop());
 
         MyCursorAdapter myCursorAdapter = new MyCursorAdapter(getActivity().getBaseContext(), getDataObject(), getActivity().getSupportFragmentManager(), 0);
         listView.setAdapter(myCursorAdapter);
@@ -60,7 +61,7 @@ public abstract class SimpleFragmentWithList extends BaseFragment {
             emptyList.setVisibility(View.GONE);
             catPointing.setVisibility(View.GONE);
         }
-        // }
+         }
     }
 
     protected abstract String selectStyleKey();
@@ -88,8 +89,9 @@ public abstract class SimpleFragmentWithList extends BaseFragment {
         inflateFAB();
         inflateToolBar();
         setListListener();
-        refreshFragmentState();
+
         onScrolling();
+        refreshFragmentState();
         return view;
     }
 
@@ -154,6 +156,10 @@ public abstract class SimpleFragmentWithList extends BaseFragment {
         toolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), SimpleFunctions.getPrimaryColor(selectStyleKey(),sharedPreferences),null));
 
         inflateNewViewInToolBar(toolbar);
+
+        if(!data.filter.isEmpty()){
+            searchView.requestFocus();
+        }
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

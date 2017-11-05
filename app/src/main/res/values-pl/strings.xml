@@ -199,6 +199,9 @@
     <string name="empty_list_add_new">Lista pusta, dodaj nowy</string>
     <string name="code_amount_name">| Kod | Ilość | Nazwa</string>
     <string name="x_mark">X</string>
+    <string name="permissions_contact_info">By pobrać dane z kontaktów wymagane jest pozwolenie na odczyt kontaktów</string>
+    <string name="permissions_data_info">Wymagane pozwolenie na odczyt i zapis z pamięci by móc kontynuować</string>
+    <string name="permission_denied">Odmowa dostępu, brak pozwoleń</string>
 
 
 </resources>

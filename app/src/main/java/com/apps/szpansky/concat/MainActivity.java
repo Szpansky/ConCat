@@ -40,6 +40,7 @@ import com.apps.szpansky.concat.fragments.OpenPersons;
 import com.apps.szpansky.concat.simple_data.Catalog;
 import com.apps.szpansky.concat.simple_data.Item;
 import com.apps.szpansky.concat.simple_data.Person;
+import com.apps.szpansky.concat.tools.BaseFragment;
 import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.MyPagerAdapter;
 import com.apps.szpansky.concat.tools.SimpleFunctions;
@@ -127,10 +128,9 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
 
     @Override
     public void onDismiss(DialogInterface dialog) {
-        if (main.isVisible()) main.refreshFragmentState();
-        if (openCatalogs.isVisible()) openCatalogs.refreshFragmentState();
-        if (openPersons.isVisible()) openPersons.refreshFragmentState();
-        if (openItems.isVisible()) openItems.refreshFragmentState();
+        BaseFragment fragment = (BaseFragment) myPagerAdapter.getItem(pager.getCurrentItem());
+        if(fragment.isVisible()) fragment.refreshFragmentState();
+        //myPagerAdapter.notifyDataSetChanged();
     }
 
 
@@ -243,6 +243,7 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case (REQUEST_RECREATE): {

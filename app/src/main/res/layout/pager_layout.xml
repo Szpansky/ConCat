@@ -148,7 +148,7 @@
                 android:layout_row="4"
                 android:background="@android:drawable/editbox_background"
                 android:padding="@dimen/default_text_margin"
-                android:text="@string/string_new" />
+                android:text="@android:string/cancel" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fabMainDeactivate"

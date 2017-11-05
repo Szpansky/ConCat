@@ -33,18 +33,18 @@ public class OrdersActivity extends FragmentActivity implements DialogInterface.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme(SimpleFunctions.getStyleFromSharedPref(browsingColors, sharedPreferences));
 
+        super.onCreate(savedInstanceState);
+
         setContentView(R.layout.frame_with_navigation_layout);
 
-        pickItemFragment = PickItem.newInstance(new Item_InPickList(new Database(this)));
+        pickItemFragment = PickItem.newInstance(new Item_InPickList(new Database(getBaseContext())));
         FragmentTransaction manager2 = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_second, pickItemFragment);
         manager2.commit();
 
-        ordersFragment = OpenOrders.newInstance(new Order(new Database(this)));
+        ordersFragment = OpenOrders.newInstance(new Order(new Database(getBaseContext())));
         FragmentTransaction manager = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_first, ordersFragment);
         manager.commit();
     }

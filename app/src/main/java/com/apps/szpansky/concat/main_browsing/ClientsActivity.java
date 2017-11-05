@@ -34,10 +34,10 @@ public class ClientsActivity extends FragmentActivity implements DialogInterface
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         setTheme(SimpleFunctions.getStyleFromSharedPref(browsingColors, sharedPreferences));
+
+        super.onCreate(savedInstanceState);
 
         setContentView(R.layout.frame_with_navigation_layout);
 
@@ -110,6 +110,7 @@ public class ClientsActivity extends FragmentActivity implements DialogInterface
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case (REQUEST_REFRESH): {

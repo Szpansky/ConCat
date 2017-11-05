@@ -215,5 +215,8 @@
     <string name="empty_list_add_new">Empty list, add new</string>
     <string name="code_amount_name">| Code | Amount | Name</string>
     <string name="x_mark">X</string>
+    <string name="permissions_contact_info">Contacts permissions is needed to enter data from contact</string>
+    <string name="permissions_data_info">External Data Read/Write permissions is needed to Import/Export data</string>
+    <string name="permission_denied">Permission denied</string>
 
 </resources>

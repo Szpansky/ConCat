@@ -1,6 +1,9 @@
 package com.apps.szpansky.concat.dialog_fragments;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,6 +30,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class AddEdit_Person extends DialogFragment {
 
+    private static final int MY_REQUEST_CONTACTS = 13;
     boolean isEdit;
     EditText name, surname, address, phone;
     FloatingActionButton add, openContacts;
@@ -138,9 +142,31 @@ public class AddEdit_Person extends DialogFragment {
         openContacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent contactPickIntent = new Intent(Intent.ACTION_PICK,
-                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-                startActivityForResult(contactPickIntent, RESULT_PICK_CONTACT);
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if(getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED){
+                        Intent contactPickIntent = new Intent(Intent.ACTION_PICK,
+                                ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                        startActivityForResult(contactPickIntent, RESULT_PICK_CONTACT);
+                    }else {
+
+                        if(shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS)){
+                            Toast.makeText(getActivity(),R.string.permissions_contact_info,
+                                    Toast.LENGTH_LONG).show();
+                        }
+
+                        requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},MY_REQUEST_CONTACTS);
+
+                    }
+                }else {
+                    //normal permissions
+                    Intent contactPickIntent = new Intent(Intent.ACTION_PICK,
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                    startActivityForResult(contactPickIntent, RESULT_PICK_CONTACT);
+
+                }
+
             }
         });
 
@@ -169,6 +195,7 @@ public class AddEdit_Person extends DialogFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case RESULT_PICK_CONTACT:
@@ -208,6 +235,36 @@ public class AddEdit_Person extends DialogFragment {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_REQUEST_CONTACTS: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+
+                    Intent contactPickIntent = new Intent(Intent.ACTION_PICK,
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                    startActivityForResult(contactPickIntent, RESULT_PICK_CONTACT);
+
+                } else {
+
+                  Toast.makeText(getActivity(),R.string.permission_denied,
+                          Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
         }
     }
 

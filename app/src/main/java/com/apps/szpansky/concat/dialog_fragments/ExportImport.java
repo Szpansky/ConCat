@@ -1,6 +1,11 @@
 package com.apps.szpansky.concat.dialog_fragments;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.provider.ContactsContract;
 import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
@@ -13,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.tools.Database;
@@ -21,6 +27,8 @@ import com.apps.szpansky.concat.tools.FileManagement;
 
 public class ExportImport extends DialogFragment implements DialogInterface.OnDismissListener {
 
+    private static final int MY_READ_EXTERNAL_STORAGE = 69;
+    private static final int MY_WRITE_EXTERNAL_STORAGE = 96;
     private String tableName = Database.TABLE_ITEMS;    //default exported/imported content
     private String fileName = "Items.txt";
     private Database myDB;
@@ -28,6 +36,7 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
     final boolean EXPORT = true;
     final boolean IMPORT = false;
     String appName;
+    private String clickedButton;
 
 
     public static ExportImport newInstance() {
@@ -36,6 +45,7 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
 
         return exportImport;
     }
+
 
     @Nullable
     @Override
@@ -54,28 +64,84 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
         importDBButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AsyncImportDB().execute();
+                clickedButton = "ImportDB";
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if(getActivity().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                        new MyAsyncTask("ImportDB").execute();
+                    }else {
+                        if(shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)){
+                            Toast.makeText(getActivity(),R.string.permissions_data_info,
+                                    Toast.LENGTH_LONG).show();
+                        }
+                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},MY_READ_EXTERNAL_STORAGE);
+                    }
+                }else {
+                    //normal permissions
+                    new MyAsyncTask("ImportDB").execute();
+                }
             }
         });
 
         exportDBButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AsyncExportDB().execute();
+                clickedButton = "ExportDB";
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if(getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                        new MyAsyncTask("ExportDB").execute();
+                    }else {
+                        if(shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+                            Toast.makeText(getActivity(),R.string.permissions_data_info,
+                                    Toast.LENGTH_LONG).show();
+                        }
+                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},MY_WRITE_EXTERNAL_STORAGE);
+                    }
+                }else {
+                    //normal permissions
+                    new MyAsyncTask("ExportDB").execute();
+                }
             }
         });
 
         importTableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AsyncImportTXT().execute();
+                clickedButton = "ImportTXT";
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if(getActivity().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                        new MyAsyncTask("ImportTXT").execute();
+                    }else {
+                        if(shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)){
+                            Toast.makeText(getActivity(),R.string.permissions_data_info,
+                                    Toast.LENGTH_LONG).show();
+                        }
+                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},MY_READ_EXTERNAL_STORAGE);
+                    }
+                }else {
+                    //normal permissions
+                    new MyAsyncTask("ImportTXT").execute();
+                }
             }
         });
 
         exportTableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AsyncExportTXT().execute();
+                clickedButton = "ExportTXT";
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if(getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                        new MyAsyncTask("ExportTXT").execute();
+                    }else {
+                        if(shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+                            Toast.makeText(getActivity(),R.string.permissions_data_info,
+                                    Toast.LENGTH_LONG).show();
+                        }
+                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},MY_WRITE_EXTERNAL_STORAGE);
+                    }
+                }else {
+                    //normal permissions
+                    new MyAsyncTask("ExportTXT").execute();
+                }
             }
         });
 
@@ -98,44 +164,55 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
     }
 
 
-    private class AsyncImportDB extends AsyncTask<Void, Void, Void> {
-        Loading loading = Loading.newInstance();
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            if (FileManagement.importExportDB(IMPORT, getActivity().getPackageName(), appName)) {
-                Snackbar snackbar = Snackbar.make(view, R.string.successfully_notify, Snackbar.LENGTH_SHORT);
-                snackbar.show();
-            } else {
-                Snackbar snackbar = Snackbar.make(view, R.string.backup_error, Snackbar.LENGTH_SHORT);
-                snackbar.show();
-            }
-            return null;
+    private void ImportDB() {
+        if (FileManagement.importExportDB(IMPORT, getActivity().getPackageName(), appName)) {
+            Snackbar snackbar = Snackbar.make(view, R.string.successfully_notify, Snackbar.LENGTH_SHORT);
+            snackbar.show();
+        } else {
+            Snackbar snackbar = Snackbar.make(view, R.string.backup_error, Snackbar.LENGTH_SHORT);
+            snackbar.show();
         }
+    }
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            if(!loading.isAdded())
-            getActivity().getSupportFragmentManager().beginTransaction().add(loading, "Loading").commit();
+    private void ExportDB() {
+        if (FileManagement.importExportDB(EXPORT, getActivity().getPackageName(), appName)) {
+            Snackbar snackbar = Snackbar.make(view, R.string.successfully_notify, Snackbar.LENGTH_SHORT);
+            snackbar.show();
+        } else {
+            Snackbar snackbar = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
+            snackbar.show();
         }
+    }
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            if (loading.isVisible()) loading.dismiss();
+    private void ImportTXT() {
+        if (FileManagement.importTXT(fileName, tableName, appName, myDB)) {
+            Snackbar snackbarInfo = Snackbar.make(view, getResources().getString(R.string.updated) + FileManagement.getUpdated() + getResources().getString(R.string.created) + FileManagement.getCreated(), Snackbar.LENGTH_SHORT);
+            snackbarInfo.show();
+        } else {
+            Snackbar snackbarInfo = Snackbar.make(view, R.string.file_does_not_exists, Snackbar.LENGTH_SHORT);
+            snackbarInfo.show();
+        }
+    }
+
+    private void ExportTXT() {
+        if (FileManagement.generateTXT(fileName, tableName, appName, myDB)) {
+            Snackbar snackbar = Snackbar.make(view, R.string.successfully_notify, Snackbar.LENGTH_SHORT);
+            snackbar.show();
+        } else {
+            Snackbar snackbar = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
+            snackbar.show();
         }
     }
 
 
-    private class AsyncExportDB extends AsyncTask<Void, Void, Void> {
+    private class MyAsyncTask extends AsyncTask<Void, Void, Void> {
         Loading loading = Loading.newInstance();
+
+        String task;
+
+        public MyAsyncTask(String task) {
+            this.task = task;
+        }
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -145,93 +222,32 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
                 e.printStackTrace();
             }
 
-            if (FileManagement.importExportDB(EXPORT, getActivity().getPackageName(), appName)) {
-                Snackbar snackbar = Snackbar.make(view, R.string.successfully_notify, Snackbar.LENGTH_SHORT);
-                snackbar.show();
-            } else {
-                Snackbar snackbar = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
-                snackbar.show();
+            switch (task) {
+                case "ImportDB": {
+                    ImportDB();
+                    break;
+                }
+                case "ExportDB": {
+                    ExportDB();
+                    break;
+                }
+                case "ImportTXT": {
+                    ImportTXT();
+                    break;
+                }
+                case "ExportTXT": {
+                    ExportTXT();
+                    break;
+                }
             }
+
             return null;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            if(!loading.isAdded())
-                getActivity().getSupportFragmentManager().beginTransaction().add(loading, "Loading").commit();
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            if (loading.isVisible()) loading.dismiss();
-        }
-    }
-
-
-    private class AsyncImportTXT extends AsyncTask<Void, Void, Void> {
-        Loading loading = Loading.newInstance();
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            if (FileManagement.importTXT(fileName, tableName, appName, myDB)) {
-                Snackbar snackbarInfo = Snackbar.make(view, getResources().getString(R.string.updated) + FileManagement.getUpdated() + getResources().getString(R.string.created) + FileManagement.getCreated(), Snackbar.LENGTH_SHORT);
-                snackbarInfo.show();
-            } else {
-                Snackbar snackbarInfo = Snackbar.make(view, R.string.file_does_not_exists, Snackbar.LENGTH_SHORT);
-                snackbarInfo.show();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            if(!loading.isAdded())
-                getActivity().getSupportFragmentManager().beginTransaction().add(loading, "Loading").commit();
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            if (loading.isVisible()) loading.dismiss();
-        }
-    }
-
-
-    private class AsyncExportTXT extends AsyncTask<Void, Void, Void> {
-        Loading loading = Loading.newInstance();
-        //Loading loading = (Loading) getActivity().getSupportFragmentManager().findFragmentByTag("Loading");
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            if (FileManagement.generateTXT(fileName, tableName, appName, myDB)) {
-                Snackbar snackbar = Snackbar.make(view, R.string.successfully_notify, Snackbar.LENGTH_SHORT);
-                snackbar.show();
-            } else {
-                Snackbar snackbar = Snackbar.make(view, R.string.error_notify, Snackbar.LENGTH_SHORT);
-                snackbar.show();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            if(!loading.isAdded())
+            if (!loading.isAdded())
                 getActivity().getSupportFragmentManager().beginTransaction().add(loading, "Loading").commit();
         }
 
@@ -251,4 +267,59 @@ public class ExportImport extends DialogFragment implements DialogInterface.OnDi
             ((DialogInterface.OnDismissListener) activity).onDismiss(dialog);
         }
     }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_READ_EXTERNAL_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    switch (clickedButton){
+                        case "ImportDB":{
+                            new MyAsyncTask("ImportDB").execute();
+                            break;
+                        }
+                        case "ImportTXT":{
+                            new MyAsyncTask("ImportTXT").execute();
+                            break;
+                        }
+                    }
+
+                } else {
+
+                    Toast.makeText(getActivity(),R.string.permission_denied,
+                            Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+                case MY_WRITE_EXTERNAL_STORAGE: {
+                    // If request is cancelled, the result arrays are empty.
+                    if (grantResults.length > 0
+                            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                        switch (clickedButton){
+                            case "ExportDB":{
+                                new MyAsyncTask("ExportDB").execute();
+                                break;
+                            }
+                            case "ExportTXT":{
+                                new MyAsyncTask("ExportTXT").execute();
+                                break;
+                            }
+                        }
+
+                    } else {
+                        Toast.makeText(getActivity(),R.string.permission_denied,
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    return;
+                }
+        }
+    }
+
 }
