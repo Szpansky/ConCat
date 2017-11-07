@@ -93,6 +93,6 @@
         android:layout_marginLeft="@dimen/default_text_margin"
         android:layout_marginStart="@dimen/default_text_margin"
         android:background="@android:drawable/gallery_thumb"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+        app:srcCompat="@drawable/cat_pointing" />
 
 </RelativeLayout>

@@ -208,63 +208,35 @@ public class AddEdit_Person extends DialogFragment {
     }
 
 
-    public void contactPicked(Intent data) {
+    public void contactPicked(Intent contactIntent) {
         Cursor cursor = null;
         try {
             String dialerNo = null;
             String dialerName = null;
-            Uri uri = data.getData();
-            cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
-            cursor.moveToFirst();
-            int phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
-            int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
-            dialerNo = cursor.getString(phoneIndex);
-            dialerName = cursor.getString(nameIndex);
+            Uri uri = contactIntent.getData();
+            if(uri != null) cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+            if (cursor != null) {
+                cursor.moveToFirst();
 
-            cursor.close();
-            String[] contactData = dialerName.split(" ");
+                int phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+                int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+                dialerNo = cursor.getString(phoneIndex);
+                dialerName = cursor.getString(nameIndex);
 
-            if (contactData.length == 1) {
-                name.setText(contactData[0]);
-            } else if (contactData.length > 1) {
-                name.setText(contactData[0]);
-                surname.setText(contactData[1]);
+                cursor.close();
+                String[] contactData = dialerName.split(" ");
+
+                if (contactData.length == 1) {
+                    name.setText(contactData[0]);
+                } else if (contactData.length > 1) {
+                    name.setText(contactData[0]);
+                    surname.setText(contactData[1]);
+                }
+
+                phone.setText(dialerNo);
             }
-
-            phone.setText(dialerNo);
-
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_REQUEST_CONTACTS: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-
-                    Intent contactPickIntent = new Intent(Intent.ACTION_PICK,
-                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-                    startActivityForResult(contactPickIntent, RESULT_PICK_CONTACT);
-
-                } else {
-
-                  Toast.makeText(getActivity(),R.string.permission_denied,
-                          Toast.LENGTH_SHORT).show();
-                }
-                return;
-            }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
         }
     }
 
