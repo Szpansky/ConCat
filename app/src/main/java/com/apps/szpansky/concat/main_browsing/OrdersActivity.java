@@ -40,11 +40,11 @@ public class OrdersActivity extends FragmentActivity implements DialogInterface.
 
         setContentView(R.layout.frame_with_navigation_layout);
 
-        pickItemFragment = PickItem.newInstance(new Item_InPickList(new Database(getBaseContext())));
+        pickItemFragment = PickItem.newInstance();
         FragmentTransaction manager2 = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_second, pickItemFragment);
         manager2.commit();
 
-        ordersFragment = OpenOrders.newInstance(new Order(new Database(getBaseContext())));
+        ordersFragment = OpenOrders.newInstance();
         FragmentTransaction manager = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_first, ordersFragment);
         manager.commit();
     }

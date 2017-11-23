@@ -11,7 +11,9 @@ import android.view.View;
 
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.dialog_fragments.AddEdit_Item;
+import com.apps.szpansky.concat.simple_data.Item_InPickList;
 import com.apps.szpansky.concat.tools.Data;
+import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
 
 
@@ -25,26 +27,22 @@ public class PickItem extends SimpleFragmentWithList {
     }
 
 
+    public static PickItem newInstance() {
+        PickItem pickItem = new PickItem();
+        return pickItem;
+    }
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         clickedPerson = (ClickedItem) context;
     }
 
+
     @Override
     protected void inflateNewViewInToolBar(Toolbar toolbar) {
         toolbar.setTitle(R.string.pick_item);
-    }
-
-
-    public static PickItem newInstance(Data data) {
-        PickItem pickItem = new PickItem();
-
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("data", data);
-
-        pickItem.setArguments(bundle);
-        return pickItem;
     }
 
 
@@ -93,4 +91,8 @@ public class PickItem extends SimpleFragmentWithList {
     }
 
 
+    @Override
+    protected Data setDataObject() {
+        return new Item_InPickList(new Database(getActivity().getBaseContext()));
+    }
 }

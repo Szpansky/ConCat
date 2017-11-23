@@ -76,10 +76,12 @@ public abstract class SimpleFragmentWithList extends BaseFragment {
 
     protected abstract Drawable setFABImage();
 
+    protected abstract Data setDataObject();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) throws NullPointerException {
-        setDataFromBundle();
+        setDataAndStyle();
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
 
         view = (ViewGroup) inflater.inflate(R.layout.simple_view, container, false);
@@ -181,11 +183,11 @@ public abstract class SimpleFragmentWithList extends BaseFragment {
     }
 
 
-    private void setDataFromBundle() {
+    private void setDataAndStyle() {
         styleKey = selectStyleKey();
-        data = (Data) getArguments().getSerializable("data");
+        data = setDataObject();
         if (data == null || styleKey == null)
-            throw new NullPointerException("set arguments (data and styleKey). Data in newInstance(Data data), for styleKey implement method selectStyleKey");
+            throw new NullPointerException("set Data and style, for styleKey and Data implement method selectStyleKey and setDataObject");
     }
 
 

@@ -4,15 +4,32 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.apps.szpansky.concat.fragments.Main;
+import com.apps.szpansky.concat.fragments.OpenCatalogs;
+import com.apps.szpansky.concat.fragments.OpenItems;
+import com.apps.szpansky.concat.fragments.OpenPersons;
+
 public class MyPagerAdapter extends FragmentStatePagerAdapter {
 
     Fragment[] fragments;
     String[] titles;
 
-    public MyPagerAdapter(FragmentManager fm, Fragment[] fragments, String[] titles) {
+    private Main main;
+    private OpenCatalogs openCatalogs;
+    private OpenPersons openPersons;
+    private OpenItems openItems;
+
+    public MyPagerAdapter(FragmentManager fm, String[] titles) {
         super(fm);
-        this.fragments = fragments;
+
+        main = Main.newInstance();
+        openCatalogs = OpenCatalogs.newInstance();
+        openPersons = OpenPersons.newInstance();
+        openItems = OpenItems.newInstance();
+        fragments = new Fragment[]{main, openCatalogs, openPersons, openItems};
+
         this.titles = titles;
+
     }
 
     @Override

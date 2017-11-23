@@ -11,19 +11,16 @@ import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.dialog_fragments.AddEdit_Person;
 import com.apps.szpansky.concat.dialog_fragments.UpdateStatus_Client;
 import com.apps.szpansky.concat.simple_data.Client;
+import com.apps.szpansky.concat.simple_data.Person;
 import com.apps.szpansky.concat.tools.Data;
+import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
 
 
 public class OpenPersons extends SimpleFragmentWithList {
 
-    public static OpenPersons newInstance(Data data) {
+    public static OpenPersons newInstance() {
         OpenPersons openPersons = new OpenPersons();
-
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("data", data);
-
-        openPersons.setArguments(bundle);
         return openPersons;
     }
 
@@ -80,4 +77,9 @@ public class OpenPersons extends SimpleFragmentWithList {
         return (ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_fiber_new_white_24dp, null));
     }
 
+
+    @Override
+    protected Data setDataObject() {
+        return new Person(new Database(getActivity().getBaseContext()));
+    }
 }

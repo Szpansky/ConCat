@@ -11,7 +11,9 @@ import android.view.View;
 
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.dialog_fragments.AddEdit_Person;
+import com.apps.szpansky.concat.simple_data.Person_InPickList;
 import com.apps.szpansky.concat.tools.Data;
+import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
 
 
@@ -21,6 +23,12 @@ public class PickPerson extends SimpleFragmentWithList {
 
     public interface ClickedPerson {
         void onPersonPick(Long id);
+    }
+
+
+    public static PickPerson newInstance() {
+        PickPerson pickPerson = new PickPerson();
+        return pickPerson;
     }
 
 
@@ -34,17 +42,6 @@ public class PickPerson extends SimpleFragmentWithList {
     protected void inflateNewViewInToolBar(Toolbar toolbar) {
         toolbar.setTitle(R.string.pick_person);
 
-    }
-
-
-    public static PickPerson newInstance(Data data) {
-        PickPerson pickPerson = new PickPerson();
-
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("data", data);
-
-        pickPerson.setArguments(bundle);
-        return pickPerson;
     }
 
 
@@ -90,5 +87,11 @@ public class PickPerson extends SimpleFragmentWithList {
     @Override
     protected Drawable setFABImage() {
         return (ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_fiber_new_white_24dp, null));
+    }
+
+
+    @Override
+    protected Data setDataObject() {
+        return new Person_InPickList(new Database(getActivity().getBaseContext()));
     }
 }

@@ -11,8 +11,10 @@ import android.view.View;
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.dialog_fragments.AddEdit_Catalog;
 import com.apps.szpansky.concat.main_browsing.ClientsActivity;
+import com.apps.szpansky.concat.simple_data.Catalog;
 import com.apps.szpansky.concat.simple_data.Client;
 import com.apps.szpansky.concat.tools.Data;
+import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
 
 
@@ -20,13 +22,8 @@ public class OpenCatalogs extends SimpleFragmentWithList {
 
     private final int REQUEST_REFRESH = 2;
 
-    public static OpenCatalogs newInstance(Data data) {
+    public static OpenCatalogs newInstance() {
         OpenCatalogs openCatalogs = new OpenCatalogs();
-
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("data", data);
-
-        openCatalogs.setArguments(bundle);
         return openCatalogs;
     }
 
@@ -80,5 +77,10 @@ public class OpenCatalogs extends SimpleFragmentWithList {
     @Override
     protected Drawable setFABImage() {
         return (ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_fiber_new_white_24dp, null));
+    }
+
+    @Override
+    protected Data setDataObject() {
+        return new Catalog(new Database(getActivity().getBaseContext()));
     }
 }

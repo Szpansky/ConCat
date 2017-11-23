@@ -41,11 +41,11 @@ public class ClientsActivity extends FragmentActivity implements DialogInterface
 
         setContentView(R.layout.frame_with_navigation_layout);
 
-        pickPersonFragment = PickPerson.newInstance(new Person_InPickList(new Database(this)));
+        pickPersonFragment = PickPerson.newInstance();
         FragmentTransaction manager2 = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_second, pickPersonFragment);
         manager2.commit();
 
-        clientsFragment = OpenClients.newInstance(new Client(new Database(this)));
+        clientsFragment = OpenClients.newInstance();
         FragmentTransaction manager = getSupportFragmentManager().beginTransaction().replace(R.id.fragment_first, clientsFragment);
         manager.commit();
     }

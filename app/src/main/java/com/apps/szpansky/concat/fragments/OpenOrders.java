@@ -15,19 +15,15 @@ import com.apps.szpansky.concat.dialog_fragments.AddEdit_Item;
 import com.apps.szpansky.concat.dialog_fragments.SelectCount_Item;
 import com.apps.szpansky.concat.simple_data.Order;
 import com.apps.szpansky.concat.tools.Data;
+import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
 
 
 public class OpenOrders extends SimpleFragmentWithList {
 
 
-    public static OpenOrders newInstance(Data data) {
+    public static OpenOrders newInstance() {
         OpenOrders openOrders = new OpenOrders();
-
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("data", data);
-
-        openOrders.setArguments(bundle);
         return openOrders;
     }
 
@@ -88,5 +84,8 @@ public class OpenOrders extends SimpleFragmentWithList {
         return (ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_playlist_add_white_24dp, null));
     }
 
-
+    @Override
+    protected Data setDataObject() {
+        return new Order(new Database(getActivity().getBaseContext()));
+    }
 }

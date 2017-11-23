@@ -10,19 +10,16 @@ import android.view.View;
 import com.apps.szpansky.concat.R;
 import com.apps.szpansky.concat.dialog_fragments.AddEdit_Item;
 import com.apps.szpansky.concat.dialog_fragments.AddEdit_Person;
+import com.apps.szpansky.concat.simple_data.Item;
 import com.apps.szpansky.concat.tools.Data;
+import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
 
 public class OpenItems extends SimpleFragmentWithList {
 
 
-    public static OpenItems newInstance(Data data) {
+    public static OpenItems newInstance() {
         OpenItems openItems = new OpenItems();
-
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("data", data);
-
-        openItems.setArguments(bundle);
         return openItems;
     }
 
@@ -79,5 +76,8 @@ public class OpenItems extends SimpleFragmentWithList {
         return (ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_fiber_new_white_24dp, null));
     }
 
-
+    @Override
+    protected Data setDataObject() {
+        return new Item(new Database(getActivity().getBaseContext()));
+    }
 }

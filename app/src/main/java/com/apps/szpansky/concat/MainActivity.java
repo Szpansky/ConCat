@@ -64,13 +64,7 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
     private FloatingActionButton fabMain, fabNewCatalog, fabNewPerson, fabNewItem;
     private GridLayout subFloatingMenu;
 
-    private Main main;
-    private OpenCatalogs openCatalogs;
-    private OpenPersons openPersons;
-    private OpenItems openItems;
-
     String[] titles;
-    Fragment[] fragments;
 
     AdView adView;
     Button closeAdView;
@@ -82,12 +76,6 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
         setTheme(SimpleFunctions.getStyleFromSharedPref(mainColor, sharedPreferences));
 
         super.onCreate(savedInstanceState);
-
-        main = Main.newInstance();
-        openCatalogs = OpenCatalogs.newInstance(new Catalog(new Database(getBaseContext())));
-        openPersons = OpenPersons.newInstance(new Person(new Database(getBaseContext())));
-        openItems = OpenItems.newInstance(new Item(new Database(getBaseContext())));
-        fragments = new Fragment[]{main, openCatalogs, openPersons, openItems};
 
         setContentView(R.layout.pager_layout);
 
@@ -120,8 +108,8 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
         pagerTitleStrip.findViewById(R.id.pager_title_strip);
         pagerTitleStrip.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
         //pager.setPageTransformer(true, new ZoomOutPageTransformer());
-        titles = new String[]{getString(R.string.main), getString(R.string.orders), getString(R.string.persons), getString(R.string.items)};
-        myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), fragments, titles);
+        titles = new String[]{getString(R.string.main), getString(R.string.orders), getString(R.string.persons), getString(R.string.items)};    //its here to avoid hardcoding
+        myPagerAdapter = new MyPagerAdapter(getSupportFragmentManager(), titles);
         pager.setAdapter(myPagerAdapter);
     }
 
@@ -368,5 +356,12 @@ public class MainActivity extends FragmentActivity implements DialogInterface.On
 
     public void setPage(int pos) {
         pager.setCurrentItem(pos);
+    }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        //myPagerAdapter.notifyDataSetChanged();
     }
 }

@@ -17,6 +17,7 @@ import com.apps.szpansky.concat.dialog_fragments.UpdateStatus_Client;
 import com.apps.szpansky.concat.simple_data.Client;
 import com.apps.szpansky.concat.simple_data.Order;
 import com.apps.szpansky.concat.tools.Data;
+import com.apps.szpansky.concat.tools.Database;
 import com.apps.szpansky.concat.tools.SimpleFragmentWithList;
 
 
@@ -25,13 +26,8 @@ public class OpenClients extends SimpleFragmentWithList {
 
     private final int REQUEST_REFRESH = 2;
 
-    public static OpenClients newInstance(Data data) {
+    public static OpenClients newInstance() {
         OpenClients openClients = new OpenClients();
-
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("data", data);
-
-        openClients.setArguments(bundle);
         return openClients;
     }
 
@@ -94,4 +90,8 @@ public class OpenClients extends SimpleFragmentWithList {
         return (ResourcesCompat.getDrawable(getResources(), R.mipmap.ic_playlist_add_white_24dp, null));
     }
 
+    @Override
+    protected Data setDataObject() {
+        return new Client(new Database(getActivity().getBaseContext()));
+    }
 }
