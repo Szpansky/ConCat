@@ -32,7 +32,7 @@ public class OpenItems extends SimpleFragmentWithList {
 
     @Override
     protected void inflateFABView(FloatingActionButton addButton) {
-    addButton.hide();
+        addButton.setVisibility(View.INVISIBLE);
     }
 
 

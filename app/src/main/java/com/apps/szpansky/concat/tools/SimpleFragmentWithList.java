@@ -37,31 +37,31 @@ public abstract class SimpleFragmentWithList extends BaseFragment {
     static int top;
 
     public void refreshFragmentState() {
-        if(listView != null) {
+        if (listView != null) {
             index = 0;
-        if (listView.isShown())
-            index = listView.getFirstVisiblePosition();
-        View v = listView.getChildAt(0);
+            if (listView.isShown())
+                index = listView.getFirstVisiblePosition();
+            View v = listView.getChildAt(0);
             top = (v == null) ? 0 : (v.getTop() - listView.getPaddingTop());
 
-        MyCursorAdapter myCursorAdapter = new MyCursorAdapter(getActivity().getBaseContext(), getDataObject(), getActivity().getSupportFragmentManager(), 0);
-        listView.setAdapter(myCursorAdapter);
-        listView.setOnScrollListener(onScrollListener);
-        if (index != -1) {
-            if (top != 0) {
-                listView.setSelectionFromTop(index, top);
+            MyCursorAdapter myCursorAdapter = new MyCursorAdapter(getActivity().getBaseContext(), getDataObject(), getActivity().getSupportFragmentManager(), 0);
+            listView.setAdapter(myCursorAdapter);
+            listView.setOnScrollListener(onScrollListener);
+            if (index != -1) {
+                if (top != 0) {
+                    listView.setSelectionFromTop(index, top);
+                } else {
+                    listView.setSelectionFromTop(index, top + listView.getPaddingTop());
+                }
+            }
+            if (listView.getCount() <= 0) {
+                emptyList.setVisibility(View.VISIBLE);
+                catPointing.setVisibility(View.VISIBLE);
             } else {
-                listView.setSelectionFromTop(index, top + listView.getPaddingTop());
+                emptyList.setVisibility(View.GONE);
+                catPointing.setVisibility(View.GONE);
             }
         }
-        if (listView.getCount() <= 0) {
-            emptyList.setVisibility(View.VISIBLE);
-            catPointing.setVisibility(View.VISIBLE);
-        } else {
-            emptyList.setVisibility(View.GONE);
-            catPointing.setVisibility(View.GONE);
-        }
-         }
     }
 
     protected abstract String selectStyleKey();
@@ -155,11 +155,11 @@ public abstract class SimpleFragmentWithList extends BaseFragment {
         searchView.setQueryHint(getString(R.string.search_hint));
         searchView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
 
-        toolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), SimpleFunctions.getPrimaryColor(selectStyleKey(),sharedPreferences),null));
+        toolbar.setBackgroundColor(ResourcesCompat.getColor(getResources(), SimpleFunctions.getPrimaryColor(selectStyleKey(), sharedPreferences), null));
 
         inflateNewViewInToolBar(toolbar);
 
-        if(!data.filter.isEmpty()){
+        if (!data.filter.isEmpty()) {
             searchView.requestFocus();
         }
 
@@ -204,14 +204,14 @@ public abstract class SimpleFragmentWithList extends BaseFragment {
                 if (previousItem != firstVisibleItem) {
                     if (previousItem < firstVisibleItem) {
                         if (flag) {
-                            addButton.hide();
+                            if (addButton.getVisibility() != View.INVISIBLE) addButton.hide();
                             toolbar.animate().translationY(-toolbar.getBottom()).setInterpolator(new AccelerateInterpolator()).start();
                             toolbar.setActivated(false);
                             flag = false;
                         }
                     } else {
                         if (!flag) {
-                            addButton.show();
+                            if (addButton.getVisibility() != View.INVISIBLE) addButton.show();
                             toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).start();
                             toolbar.setActivated(true);
                             flag = true;
